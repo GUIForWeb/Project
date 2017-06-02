@@ -1,0 +1,48 @@
+<script>
+	/*
+	$(function(){
+		
+		
+	});
+	*/
+	
+	$(window).resize(function(){location.reload();});
+	var system = [];
+	var gui = new GUI("gui");
+	var func = new Function();
+	
+	iconDataList = func.javaListToJSMap(iconDataList);
+	windowList = func.javaListToJSMap(windowList);
+	barList = func.javaListToJSMap(barList);
+	windowInBarList = func.javaListToJSMap(windowInBarList);
+	gui.zIdx = zIdx;
+	gui.winNum = winNum;
+	
+	gui.setContextPath(contextPath);
+	gui.setTaskbarValues(taskbarValueArray);
+	gui.setIconTdValues(iconTdValueArray);
+	
+	gui.setIconTableValues(iconTableValueArray);
+	gui.setIconDataList(iconDataList);
+	gui.winDefaultValueArray = winDefaultValueArray;
+	gui.start();
+	gui.restoreWindows(windowList,barList,windowInBarList);
+	gui.restoreForms(forms);
+	function getData(data){
+		if(data.status == "success"){
+			var status= $("#backgroundForm\\:output0").html();
+			var param = $("#backgroundForm\\:output1").html();
+			var winNum = $("#backgroundForm\\:output2").html();
+			gui.winNum = parseInt(winNum);
+		}
+	}
+	
+	$(document).ready(function() {
+		$(window).keydown(function(event){
+			if(event.keyCode == 13) {
+				event.preventDefault();
+				return false;
+			}
+		});
+	});
+</script>

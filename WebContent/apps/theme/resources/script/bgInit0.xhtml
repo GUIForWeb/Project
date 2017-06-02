@@ -1,0 +1,10 @@
+<script id="fbInit0">
+	if(system === undefined)
+		var system = [];
+	if(system["backgroundTheme"] === undefined){
+		system["backgroundTheme"] = new Background();
+	}
+	if(typeof gui != "undefined")
+		system["backgroundTheme"].gui = gui;
+	system["backgroundTheme"].start();
+</script>

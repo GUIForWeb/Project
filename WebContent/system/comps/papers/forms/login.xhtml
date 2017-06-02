@@ -1,0 +1,19 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://xmlns.jcp.org/jsf/html" 
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<h:form id="infoForm" class="infoForm">
+		<h:panelGrid columns="2" class="infoForm">
+			<h:column>Login</h:column><h:column></h:column>
+			<h:column>E-mail</h:column><h:column><h:inputText value="#{p.email}" /></h:column>
+			<h:column></h:column><h:column><h:outputText class="errMsg" value="#{msg.email}"/></h:column>
+			<h:column>Password</h:column><h:column><h:inputSecret value="#{p.password}" /></h:column>
+			<h:column></h:column><h:column><h:outputText class="errMsg" value="#{msg.password}"/></h:column>
+			<h:column><h:outputText class="errMsg" value="#{msg.etc}"/></h:column><h:column><h:commandButton value="Submit" action="#{login.login}" /></h:column>
+		</h:panelGrid>
+		
+	</h:form>
+</ui:composition>
+
+		

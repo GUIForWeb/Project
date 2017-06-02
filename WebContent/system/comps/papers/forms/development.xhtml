@@ -1,0 +1,17 @@
+<ui:composition	
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" 
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<h:form id="window">
+		<h:inputHidden value="window.tmp" />
+		<h:commandButton id="wSubmit" style="display:none" action="#{window.listen()}">
+			<f:ajax execute="@form" render="@none"/>
+		</h:commandButton>
+	</h:form>
+	<script>
+		
+	</script>
+</ui:composition>
+
+		

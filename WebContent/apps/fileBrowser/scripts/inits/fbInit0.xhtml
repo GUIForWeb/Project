@@ -1,0 +1,14 @@
+<script id="fbInit0">
+	var fileItemList = "#{fileItemList}";
+	if(system === undefined)
+		var system = [];
+	if(system["fileBrowser"] === undefined){
+		system["fileBrowser"] = [];
+		system["fileBrowser"]["default"] = new FileBrowser();
+	}
+	system["fileBrowser"]["#{fbNum}"] = new FileBrowser(#{fbNum});
+	if(typeof gui != "undefined")
+		system["fileBrowser"]["#{fbNum}"].gui = gui;
+	
+	
+</script>

@@ -1,0 +1,18 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://xmlns.jcp.org/jsf/html" 
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<h:form id="backgroundThemeForm0">
+		<h:outputLabel value="Theme" /><br/>
+		<h:outputLabel class="backgroundTheme" value="Background" />
+		<h:outputLabel class="backgroundTheme" value="#{fileName}" />
+		<h:commandButton value="Change" type="button" onclick="system['backgroundTheme'].click.changeBt()" >
+		</h:commandButton>
+		<h:commandButton value="Empty" type="button" onclick="system['backgroundTheme'].click.emptyBt()" >
+		</h:commandButton>
+		<h:commandButton id="submit" style="display:none" action="#{backgroundTheme.listen()}">
+			<f:ajax execute="backgroundThemeForm0" />
+		</h:commandButton>
+	</h:form>
+</ui:composition>

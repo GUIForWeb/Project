@@ -1,0 +1,47 @@
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"  
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<script>
+		var iconTdValueArray = [];
+		iconTdValueArray["iconTdWidth"] = #{guiSetting.iconWidth};
+		iconTdValueArray["iconTdHeight"] = #{guiSetting.iconHeight};
+		iconTdValueArray["iconTdBorderWidth"] = #{guiSetting.iconBorderWidth};
+		iconTdValueArray["iconTdBorderHeight"] = #{guiSetting.iconBorderHeight};
+		iconTdValueArray["iconTdBorderColor"] = "#{guiSetting.iconBorderColor}";
+		
+		iconTableValueArray = [];
+		iconTableValueArray["iconTablePaddingLeft"] = #{guiSetting.iconTableLeft};
+		iconTableValueArray["iconTablePaddingTop"] = #{guiSetting.iconTableTop};
+		var tableRowNum = 0;
+		var tableColNum = 0;
+		var contextPath = '#{contextPath}';
+		var iconDataList = '#{iconList}';
+		//var winBBorderColor = '#{guiSetting.id}';
+		
+		var taskbarValueArray = [];
+		taskbarValueArray["taskbarMode"] = "horizontal";
+		taskbarValueArray["taskbarWidth"] = -1;
+		taskbarValueArray["taskbarHeight"] = 35;
+		
+		var winDefaultValueArray = [];
+		winDefaultValueArray["bBorderWidth"] = #{guiSetting.winBBorderWidth};
+		winDefaultValueArray["oDefaultLeft"] = #{guiSetting.winODefaultLeft};
+		winDefaultValueArray["oDefaultTop"] = #{guiSetting.winODefaultTop};  
+		winDefaultValueArray["oDefaultWidth"] = #{guiSetting.winODefaultWidth};
+		winDefaultValueArray["oDefaultHeight"] = #{guiSetting.winODefaultHeight};
+		winDefaultValueArray["oBorderWidth"] = #{guiSetting.winOBorderWidth};
+		winDefaultValueArray["hHeight"] = #{guiSetting.winHHeight};
+		winDefaultValueArray["bWidth"] = #{guiSetting.winBWidth};
+		winDefaultValueArray["bHeight"] = #{guiSetting.winBHeight};
+		winDefaultValueArray["bTop"] = #{guiSetting.winBTop};
+		winDefaultValueArray["minWidth"] = #{guiSetting.winMinWidth};
+		winDefaultValueArray["minHeight"] = #{guiSetting.winMinHeight};
+		var windowList = "#{sessionScope.windowList}";
+		var barList = "#{sessionScope.barList}";
+		var windowInBarList = "#{sessionScope.windowInBarList}";
+		var forms = "#{sessionScope.forms}";
+		var zIdx = #{zIdx};
+		var winNum = #{winNum}
+	</script>
+</ui:composition>
+		

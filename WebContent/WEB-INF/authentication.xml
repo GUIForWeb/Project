@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE authentication SYSTEM "authentication.dtd">
+<authentication>
+	<auth>
+		<category name="confirm">password</category>
+	</auth>
+	<exception>
+		<excp name="email">admin</excp>
+		<excp name="nickname">root</excp>
+		<excp name="password">root</excp>
+		<excp name="confirm">root</excp>
+	</exception>
+	<database-error-code>
+		<error-code number="-1">nickname</error-code>
+		<error-code number="-2">email</error-code>
+		<error-code number="-3">password</error-code>
+	</database-error-code>
+</authentication>
+

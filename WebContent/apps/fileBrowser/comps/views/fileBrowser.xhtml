@@ -1,0 +1,29 @@
+<ui:composition template="/apps/fileBrowser/comps/frames/frame.xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<f:metadata>
+		<f:viewAction
+			action="#{fileBrowser.start()}"/>
+	</f:metadata>
+	<ui:define name="css">
+    	<ui:include src="/apps/fileBrowser/scripts/css/fileBrowser.xhtml" />
+    </ui:define>
+    <ui:define name="title">
+        File Browser
+    </ui:define>
+    <ui:define name="header">
+    </ui:define>
+	<ui:define name="section">
+        <ui:include src="/apps/fileBrowser/comps/papers/docs/fbTable.xhtml" />
+        <ui:fragment rendered="#{not wMode}">
+        	<ui:include src="/apps/fileBrowser/comps/papers/forms/fbForm.xhtml" />
+        </ui:fragment>
+    </ui:define>
+    <ui:define name="footer">
+	    <input type="hidden" class="form" value="/apps/fileBrowser/comps/papers/forms/fbForm.jsf"/>
+        <input type="hidden" class="xWin" value="/apps/fileBrowser/scripts/events/fbXWin.js"/>
+    </ui:define>
+    <ui:define name="script">
+		<ui:include src="/apps/fileBrowser/scripts/inits/bootloader.xhtml" />
+	</ui:define>
+</ui:composition>

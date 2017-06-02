@@ -1,0 +1,43 @@
+	<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:form id="umForm">
+		<h:dataTable value="#{userManager.userArray}" var="u"
+					styleClass="user-table"
+	    			headerClass="user-table-header"
+	    			rowClasses="user-table-odd-row,user-table-even-row"
+	    			columnClasses="user-table-column0,user-table-column1,user-table-column2,user-table-column3,user-table-column4">
+			<h:column>
+				<f:facet name="header">Email</f:facet>
+				#{u.email}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Nickname</f:facet>
+				#{u.nickname}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Role</f:facet>
+				#{u.role}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Activation</f:facet>
+				#{u.activation}
+			</h:column>
+			<h:column>
+				<h:commandButton action="#{userManager.delete}" value="Delete" >
+					<f:setPropertyActionListener target="#{userManager.id}" value="#{u.id}" />
+					<f:ajax render="@form" update="@form"/>
+				</h:commandButton>
+				<h:commandButton action="#{userManager.activate}" value="Activate" >
+					<f:setPropertyActionListener target="#{userManager.id}" value="#{u.id}" />
+					<f:ajax render="@form" update="@form"/>
+				</h:commandButton>
+				<h:commandButton action="#{userManager.deactivate}" value="Deactivate" >
+					<f:setPropertyActionListener target="#{userManager.id}" value="#{u.id}" />
+					<f:ajax render="@form" update="@form"/>
+				</h:commandButton>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+</html>

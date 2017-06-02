@@ -1,0 +1,20 @@
+<!ELEMENT authentication ((auth|exception|database-error-code)+)>
+<!ELEMENT auth ((category)+)>
+<!ELEMENT exception ((excp)+)>
+<!ELEMENT database-error-code ((error-code)+)>
+<!ELEMENT category (#PCDATA)>
+<!ATTLIST category name CDATA #REQUIRED>
+<!ELEMENT excp (#PCDATA)>
+<!ATTLIST excp name CDATA #REQUIRED>
+<!ELEMENT error-code (#PCDATA)>
+<!ATTLIST error-code number CDATA #REQUIRED>
+
+
+
+
+
+
+
+
+
+

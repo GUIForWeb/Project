@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true" path="/">
+	<Resource name="BeanManager" auth="Container"
+		type="javax.enterprise.inject.spi.BeanManager" factory="org.jboss.weld.resources.ManagerObjectFactory">
+	</Resource>
+	<!--
+	<JarScanner>
+		<JarScanFilter defaultPluggabilityScan="false"
+			pluggabilityScan="${tomcat.util.scan.StandardJarScanFilter.jarsToScan}, javax.faces-*.jar"
+			tldSkip="${tomcat.util.scan.StandardJarScanFilter.jarsToSkip}, javax.faces-*.jar" />
+	</JarScanner>
+	
+	 <Resources> <PreResources base="/opt/tomcat/webapps/WebGUI/system/classes" 
+		className="org.apache.catalina.webresources.DirResourceSet" webAppMount="/WEB-INF/classes" 
+		/> </Resources> -->
+</Context>
