@@ -1,6 +1,7 @@
 package apps.theme.controllers;
 
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import apps.Application;
@@ -13,6 +14,7 @@ import system.daos.OSSettingDAOMySQL;
 import system.models.GUISetting;
 
 @Named
+@RequestScoped
 public class IconTheme extends Application{
 	private String themeName;
 	private double iconWidth;
@@ -33,6 +35,7 @@ public class IconTheme extends Application{
 	}
 	public void start() {
 		this.redirect();
+		System.out.println(this.guiSetting);
 		this.themeName = this.guiSetting.getThemeName();
 		this.iconWidth = this.guiSetting.getIconWidth();
 		this.iconHeight = this.guiSetting.getIconHeight();

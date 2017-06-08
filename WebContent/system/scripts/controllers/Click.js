@@ -83,16 +83,16 @@
 			var iconObj = new Icon();
 			if(tag.innerHTML == "Icon"){
 				iconObj.name = "Icon Theme";
-				iconObj.contentURL = "/app/theme/view/iconTheme.jsf";
+				iconObj.contentURL = "/apps/theme/comps/views/iconTheme.jsf";
 				
 			}
 			else if(tag.innerHTML == "Window"){
 				iconObj.name = "Window Theme";
-				iconObj.contentURL = "/app/theme/view/windowTheme.jsf";
+				iconObj.contentURL = "/apps/theme/comps/views/windowTheme.jsf";
 			}
 			else if(tag.innerHTML == "Background"){
 				iconObj.name = "Background Theme";
-				iconObj.contentURL = "/app/theme/view/backgroundTheme.jsf";
+				iconObj.contentURL = "/apps/theme/comps/views/backgroundTheme.jsf";
 			}
 			var menuText = "";
 			var winObj = this.wme.newWindow(iconObj);

@@ -23,7 +23,6 @@ public class Login extends Controller {
 	    		Authentication.PROCEDURE	
 			});
 		this.auth.getProcedureMap().put("UserDAOMySQL", "login");
-		System.out.println(this.context.getRealPath("/system/classes"));
 	}
 	public String login(){
 		this.auth.start();

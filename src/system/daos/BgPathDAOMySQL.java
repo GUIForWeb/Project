@@ -39,7 +39,7 @@ public class BgPathDAOMySQL implements BgPathDAO{
 	}
 	@Override
 	public void update() {
-		String query = "call comp3078.bg_path_p(?,?)";
+		String query = "call WebGUI.bg_path_p(?,?)";
 		String[] info = new String[2];
 		info[0] = String.valueOf(this.guisInOS.getGuiId());
 		info[1] = this.bgPath.getBgPath();
@@ -55,7 +55,6 @@ public class BgPathDAOMySQL implements BgPathDAO{
 		this.bgPath = new BgPath();
 		this.db.connect();
 		this.rset = this.db.select(query, info);
-		System.out.println(this.rset);
 		try {
 			while(this.rset.next()){
 				this.bgPath.setId(this.rset.getInt("id"));

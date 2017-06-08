@@ -36,6 +36,7 @@ public class GUISettingDAOMySQL implements GUISettingDAO{
 		info[6] = String.valueOf(this.guiSetting.getId());
 		this.db.connect();
 		this.db.update(query, info);
+		this.db.close();
 	}
 	public void updateWindow() {
 		String query = "UPDATE guisetting_t SET theme_name = ?, win_b_border_width = ?, win_b_border_color = ?, win_b_bg_color = ?, win_b_width = ?, win_b_height = ?, win_b_top = ?, win_o_bg_color = ?, win_o_border_width = ?, win_h_bg_color = ?, win_h_height = ?, win_min_width = ?, win_min_height = ? WHERE id = ?";
@@ -56,6 +57,7 @@ public class GUISettingDAOMySQL implements GUISettingDAO{
 		info[13] = String.valueOf(this.guiSetting.getId());
 		this.db.connect();
 		this.db.update(query, info);
+		this.db.close();
 	}
 	public void load(){
 		String query = "SELECT * FROM guisetting_t WHERE id = ?";

@@ -1,4 +1,4 @@
-<ui:composition template="/apps/theme/frame/frame.xhtml"
+<ui:composition template="/apps/theme/comps/frames/frame.xhtml"
    	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core">
 	<f:metadata>
@@ -6,7 +6,7 @@
 			action="#{iconTheme.start()}"/>
 	</f:metadata>
 	<ui:define name="css">
-		<ui:include src="/apps/theme/resources/css/iconTheme.xhtml" />
+		<ui:include src="/apps/theme/scripts/css/iconTheme.xhtml" />
     </ui:define>
     <ui:define name="title">
         Icon Theme
@@ -15,10 +15,10 @@
        
     </ui:define>
 	<ui:define name="section">
-        <ui:include src="/apps/theme/form/iconThemeForm.xhtml" />
+        <ui:include src="/apps/theme/comps/papers/forms/iconThemeForm.xhtml" />
     </ui:define>
     <ui:define name="footer">
-        <input type="hidden" class="xWin" value="/app/theme/resources/js/icon/function/iconThemeXWin.js"/>
+        <input type="hidden" class="xWin" value="/apps/theme/scripts/js/icon/function/iconThemeXWin.js"/>
     </ui:define>
     <ui:define name="script">
     </ui:define>

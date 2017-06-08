@@ -26,15 +26,18 @@ function ContextMenuView(contextMenuModel){
 			var themeUlTag = $("<ul></ul>");
 			var window = $("<li>Window</li>");
 			var background = $("<li>Background</li>");
+			var icon = $("<li>Icon</li>");
 			theme.attr("onmouseover","gui.mouseover.li(this)");
 			theme.attr("onmouseout","gui.mouseout.li(this)");
 			window.attr("onclick","gui.click.theme(this)");
 			background.attr("onclick","gui.click.theme(this)");
+			icon.attr("onclick","gui.click.theme(this)");
 			tmpTag.append(ulTag);
 			ulTag.append(theme);
 			theme.append(themeUlTag);
 			themeUlTag.append(window);
 			themeUlTag.append(background);
+			themeUlTag.append(icon);
 			tmpTag.addClass(this.contentLayerTagClass);
 			this.contentTag = tmpTag;
 		}

@@ -1,6 +1,7 @@
 package apps.theme.controllers;
 import java.io.IOException;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import apps.Application;
@@ -12,6 +13,7 @@ import system.models.GUIsInOS;
 import system.models.OSSetting;
 
 @Named
+@RequestScoped
 public class BackgroundTheme extends Application{
 	public BackgroundTheme() {
 		
@@ -37,7 +39,7 @@ public class BackgroundTheme extends Application{
 		bgPathDAO.update();
 		
 		try {
-			this.externalContext.redirect(this.contextPath+"/view/background.jsf");
+			this.externalContext.redirect(this.contextPath+"/system/comps/views/background.jsf");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -2,6 +2,7 @@ package apps.theme.controllers;
 
 
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import apps.Application;
@@ -16,6 +17,7 @@ import system.models.GUIsInOS;
 import system.models.OSSetting;
 
 @Named
+@RequestScoped
 public class WindowTheme extends Application{
 	private GUISettingDAO guiSettingDAO;
 	private GUISetting guiSetting;

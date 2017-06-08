@@ -224,12 +224,8 @@ public class FileBrowser extends Application {
 
 	private void newFolder() {
 		String[] info = this.param.split("&");
-		System.out.println(this.param);
 		Browser tmpBrowser = this.browser(info[0]);
-		System.out.println(info[0]);
 		String name = "New Folder";
-		System.out.println(tmpBrowser);
-		System.out.println(tmpBrowser.getFilePath());
 		File newFolder = new File(tmpBrowser.getFilePath() + "/" + name);
 		if (!newFolder.exists()) {
 			if (newFolder.mkdirs())

@@ -1,0 +1,31 @@
+<ui:composition template="/apps/portfolio/comps/frames/frame.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://xmlns.jcp.org/jsf/html" 
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<f:metadata>
+		<f:viewAction
+			/>
+	</f:metadata>
+	<ui:define name="css">
+		<ui:include src="/apps/portfolio/scripts/css/portfolio.xhtml" />
+    </ui:define>
+    <ui:define name="title">
+        User Manager
+    </ui:define>
+    <ui:define name="header">
+        
+    </ui:define>
+	<ui:define name="section">
+		<div class="portfolio">
+	        <ui:include src="/apps/portfolio/comps/papers/docs/bi.xhtml" />
+	        <ui:include src="/apps/portfolio/comps/papers/docs/resume.xhtml" />
+	        <ui:include src="/apps/portfolio/comps/papers/docs/coverLetter.xhtml" />
+	        <ui:include src="/apps/portfolio/comps/papers/docs/philosophy.xhtml" />
+	        <ui:include src="/apps/portfolio/comps/papers/docs/certificate.xhtml" />
+	        <ui:include src="/apps/portfolio/comps/papers/docs/ar.xhtml" />
+	    </div>
+    </ui:define>
+    <ui:define name="script">
+    </ui:define>
+</ui:composition>

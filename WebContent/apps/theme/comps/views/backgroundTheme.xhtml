@@ -1,24 +1,25 @@
-<ui:composition template="/apps/theme/frame/frame.xhtml"
+<ui:composition template="/apps/theme/comps/frames/frame.xhtml"
     xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:h="http://xmlns.jcp.org/jsf/html" 
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core">
 	<f:metadata>
 		<f:viewAction
-			action="#{windowTheme.start()}" />
+			action="#{backgroundTheme.start()}" />
 	</f:metadata>
 	<ui:define name="css">
-		<ui:include src="/apps/theme/resources/css/windowTheme.xhtml" />
+		<ui:include src="/apps/theme/scripts/css/backgroundTheme.xhtml" />
     </ui:define>
     <ui:define name="title">
-        Window Theme
+        Background Theme
     </ui:define>
     <ui:define name="header">
        
     </ui:define>
 	<ui:define name="section">
-        <ui:include src="/apps/theme/form/windowThemeForm.xhtml" />
+        <ui:include src="/apps/theme/comps/papers/forms/backgroundThemeForm.xhtml" />
     </ui:define>
     <ui:define name="script">
+		<ui:include src="/apps/theme/scripts/bgTheme/inits/bootloader.xhtml" />
     </ui:define>
 </ui:composition>

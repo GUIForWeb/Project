@@ -4,7 +4,7 @@
 			if(this.__proto__.change != true){
 				event.stopPropagation();
 				var iconObj = this.gui.iconArray["File Browser"];
-				iconObj.option = "/app/theme/resources/js/background/function/bgFileBrowser.js";
+				iconObj.option = "/apps/theme/scripts/bgTheme/functions/bgFileBrowser.js";
 				var winObj = this.gui.wme.newWindow(iconObj);
 				var barObj = this.gui.bme.newBar(iconObj);
 				this.gui.wpe.newPositioning(winObj);
