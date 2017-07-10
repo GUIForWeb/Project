@@ -1,9 +1,11 @@
 	function Click(){
 		this.head = function(tag){
 			event.stopPropagation();
-			var winObj = this.reenum.window(tag.parentNode.parentNode);
+			var winObj = this.ee.window(tag.parentNode.parentNode);
+			/*
 			if(winObj !== undefined)
 				this.windowListener.call("changeWinVal",winObj);
+			*/
 		}
 		this.content = function(tag){
 			event.stopPropagation();
@@ -34,7 +36,6 @@
 			this.wpe.disappearPositioning(winObj);
 			var barObj = this.bme.disappear(winObj);
 			this.barListener.call("x",barObj);
-			console.log(this.windowArray);
 		}
 		this.fButton = function(tag){
 			tag = tag.parentNode.parentNode;

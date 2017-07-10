@@ -3,6 +3,7 @@
 		this.oWidth = 400;
 		this.oHeight = 400;
 		*/
+		this.nodeArray = {};
 		this.winNum = 0;
 		this.barArray = [];
 		this.iconArray = [];
@@ -22,6 +23,15 @@
 		this.barTagIdRule = new Bar().tagIdRule;
 		this.winTagIdRule = new Window().tagIdRule;
 		this.start = function(){
+			this.nodeArray["win"] = new WinNode();
+			this.nodeArray["bar"] = new BarNode();
+			this.wm = new WinManager();
+			this.wm.__proto__ = this; 
+			this.bm = new BarManager();
+			this.bm.__proto__ = this;
+			this.ee = new EnumEngine();
+			this.ee.__proto__ = this;
+			
 			this.controller = new Controller();
 			this.controller.__proto__ = this;
 			this.wse = new WindowSizingEngine();

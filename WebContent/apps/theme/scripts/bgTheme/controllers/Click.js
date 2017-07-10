@@ -1,5 +1,4 @@
 	function Click(){
-		console.log("click");
 		this.changeBt = function(){
 			if(this.__proto__.change != true){
 				event.stopPropagation();

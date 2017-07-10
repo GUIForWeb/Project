@@ -23,6 +23,7 @@ import system.models.BgPath;
 import system.models.GUISetting;
 import system.models.GUIsInOS;
 import system.models.OSSetting;
+import system.models.User;
 import system.models.Window;
 
 @Named
@@ -34,11 +35,11 @@ public class Background extends Controller {
 	public Background(){
 		this.viewArray[IN] = "background";
 		this.viewArray[OUT] = "login";
-		//this.user = new User();
-		//this.user.setId(1);
-		//this.user.setEmail("admin");
-		//this.user.setRole("admin");
-		//this.session.setAttribute("User",this.user);
+		this.user = new User();
+		this.user.setId(1);
+		this.user.setEmail("admin");
+		this.user.setRole("admin");
+		this.session.setAttribute("User",this.user);
 		this.zIdx = 0;
 		this.bgImg = "";
 	}

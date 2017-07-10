@@ -34,6 +34,13 @@
 		this.swLeft =  0;
 		this.nTop = 0;
 		this.wLeft = 0;
+		this.setZIndex = function(zIndex){
+			this.outerTag[0].style.zIndex = zIndex;
+			this.zIndex = zIndex;
+			console.log("outer");
+			console.log(zIndex);
+			console.log(this.outerTag[0]);
+		}
 		this.windowLayer = function(){
 			this.headTag.append(this.hButtonTag);
 			this.headTag.append(this.fButtonTag);

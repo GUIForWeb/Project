@@ -2,6 +2,7 @@ package apps.userManager.controllers;
 import java.io.File;
 import java.io.IOException;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import apps.Application;
@@ -10,6 +11,7 @@ import system.daos.UserDAOMySQL;
 import system.models.User;
 
 @Named
+@RequestScoped
 public class UserManager extends Application{
 	private int id;
 	private UserDAO userDao;
