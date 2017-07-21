@@ -1,12 +1,12 @@
 	function TaskbarView(BarModel){
 		this.__proto__ = BarModel;
 		this.outerLayerTagClass = "taskbarOuterLayer";
-		this.logoutOuterTagClass = "logoutOuterLayer";
+		this.logoutouterTagClass = "logoutOuterLayer";
 		this.oBorderWidth = 5;
 		this.taskbarLayer = function(){
-			this.logoutOuterTag.append(this.logoutTag);
-			this.outerTag.append(this.logoutOuterTag);
-			this.taskbarTag = this.outerTag;
+			this.logoutouterTagArray.append(this.logoutTagArray);
+			this.outerTagArray.append(this.logoutouterTagArray);
+			this.taskbarTagArray = this.outerTagArray;
 		}
 		this.outerLayer = function(){
 			var tmpTag = $("<div></div>");
@@ -20,13 +20,13 @@
 				left:this.oLeft,
 				top:this.oTop
 			});
-			this.outerTag = tmpTag;
+			this.outerTagArray = tmpTag;
 		}
 		this.logoutLayer = function(){
 			var tmpTag = $("<div>&odash;</div>");
 			tmpTag.css("flex","1");
 			tmpTag.attr("onclick","location.href='"+this.contextPath+"/system/comps/views/logout.jsf'");			
-			this.logoutTag = tmpTag;
+			this.logoutTagArray = tmpTag;
 		}
 		this.logoutOuterLayer = function(){
 			
@@ -44,7 +44,7 @@
 				left:this.oWidth - (this.oHeight - 2),
 				top:2
 			});
-			this.logoutOuterTag = tmpTag;
+			this.logoutouterTagArray = tmpTag;
 		}
 		this.setTaskbarValues = function(taskbarValueArray){
 			this.taskbarMode = taskbarValueArray["taskbarMode"];

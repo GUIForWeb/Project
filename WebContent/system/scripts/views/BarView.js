@@ -10,8 +10,8 @@
 		this.nWidth = this.oWidth - this.oBorderWidth;
 		this.nHeight = this.oHeight - this.oBorderWidth;
 		this.barLayer = function(){
-			this.outerTag.append(this.nameTag);
-			this.barTag = this.outerTag;
+			this.outerTagArray.append(this.nameTagArray);
+			this.barTagArray = this.outerTagArray;
 		}
 		this.outerLayer = function(){
 			var tmpTag = $("<div></div>");
@@ -24,7 +24,7 @@
 				left:this.oLeft,
 				top:this.oTop
 			});
-			this.outerTag = tmpTag;
+			this.outerTagArray = tmpTag;
 		}
 		this.nameLayer = function(){
 			var tmpTag = $("<div></div>");
@@ -39,11 +39,15 @@
 				top:this.nTop
 			});
 			tmpTag.attr("onclick",this.guiName+".click.bar(this)");
-			this.nameTag = tmpTag;
+			this.nameTagArray = tmpTag;
 		}
 		this.getView = function(){
 			this.nameLayer();
 			this.outerLayer();
 			this.barLayer();
+		}
+		this.setOLeft = function(value){
+			this.oLeft = value;
+			this.outerTagArray.css("left",value);
 		}
 	}

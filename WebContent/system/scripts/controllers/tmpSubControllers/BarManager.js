@@ -1,13 +1,19 @@
 	function BarManager(){
 		this.newBar = function(iconObj){
 			var barNode = this.nodeArray["bar"];
+			this.nodeArray["bar"].count += 1;
+			var count = this.nodeArray["bar"].count;
 			while(barNode.next instanceof BarNode){
 				barNode = barNode.next;
-				console.log("Yo2");
 			}
 			barNode.next = new BarNode();
+			barNode.next.prev = barNode;
 			barNode = barNode.next;
 			barNode.bar = new Bar();
+			barNode.bar.name = iconObj.name;
+			barNode.bar.taskbarTagArray = this.taskbarTagArray
+			barNode.bar.init(count);
+			barNode.bar.appendBar();
 			return barNode; 
 			/*
 			var barLen = this.barLen();
@@ -24,20 +30,21 @@
 			return barObj;
 			*/
 		}
-		this.restoreBar = function(barMap){
-			var barLen = this.barLen();
-			var restoredBar  = new Bar();
-			restoredBar.guiName = this.guiName;
-			restoredBar.bgTag = this.bgTag;
-			restoredBar.taskbarTag = this.taskbarTag;
-			restoredBar.view.taskbarOHeight = this.taskbar.view.oHeight;
-			restoredBar.init(barLen);
-			restoredBar.restoreModel(barMap);
-			restoredBar.appendBar();
-			this.barArray[barLen] = restoredBar;
-		}
-		
-		this.disappear = function(winObj){
+		this.disappear = function(barNode){
+			this.nodeArray["bar"].count -= 1;
+			barNode.bar.tag.remove();
+			if(barNode.next instanceof BarNode){
+				barNode.prev.next = barNode.next;
+				barNode.next.prev = barNode.prev;
+			}
+			else
+				barNode.prev.next = null;
+			while(barNode.next instanceof BarNode){
+				barNode = barNode.next
+				var oLeft = barNode.bar.view.oLeft;
+				barNode.bar.view.setOLeft(oLeft - 100);
+			}
+			/*
 			var bNumId = winObj.bNumId;
 			var barObj = this.barArray[bNumId];
 			var barLen = this.barLen();
@@ -56,7 +63,22 @@
 			if(this.windowInBarArray[barLen-1] !== null)
 				delete this.windowInBarArray[barLen-1]
 			return barObj
+			*/
 		}
+		this.restoreBar = function(barMap){
+			var barLen = this.barLen();
+			var restoredBar  = new Bar();
+			restoredBar.guiName = this.guiName;
+			restoredBar.bgTag = this.bgTag;
+			restoredBar.taskbarTag = this.taskbarTag;
+			restoredBar.view.taskbarOHeight = this.taskbar.view.oHeight;
+			restoredBar.init(barLen);
+			restoredBar.restoreModel(barMap);
+			restoredBar.appendBar();
+			this.barArray[barLen] = restoredBar;
+		}
+		
+		
 		this.appear = function(){
 			var winLen = this.windowArray.length;
 			var barLen = this.barLen();

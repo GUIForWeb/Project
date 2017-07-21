@@ -35,29 +35,26 @@
 		this.nTop = 0;
 		this.wLeft = 0;
 		this.setZIndex = function(zIndex){
-			this.outerTag[0].style.zIndex = zIndex;
+			this.outerTagArray[0].style.zIndex = zIndex;
 			this.zIndex = zIndex;
-			console.log("outer");
-			console.log(zIndex);
-			console.log(this.outerTag[0]);
 		}
 		this.windowLayer = function(){
-			this.headTag.append(this.hButtonTag);
-			this.headTag.append(this.fButtonTag);
-			this.headTag.append(this.xButtonTag);
-			this.headTag.append(this.movementHandleTag);
-			//this.outerTag.append(this.movementHandleTag);
-			this.outerTag.append(this.contentTag);
-			this.outerTag.append(this.headTag);
-			this.outerTag.append(this.northTag);
-			this.outerTag.append(this.eastTag);
-			this.outerTag.append(this.southTag);
-			this.outerTag.append(this.westTag);
-			this.outerTag.append(this.northWestTag);
-			this.outerTag.append(this.northEastTag);
-			this.outerTag.append(this.southWestTag);
-			this.outerTag.append(this.southEastTag);
-			this.windowTag = this.outerTag;
+			this.headTagArray.append(this.hButtonTagArray);
+			this.headTagArray.append(this.fButtonTagArray);
+			this.headTagArray.append(this.xButtonTagArray);
+			this.headTagArray.append(this.movementHandleTagArray);
+			//this.outerTagArray.append(this.movementHandleTagArray);
+			this.outerTagArray.append(this.contentTagArray);
+			this.outerTagArray.append(this.headTagArray);
+			this.outerTagArray.append(this.northTagArray);
+			this.outerTagArray.append(this.eastTagArray);
+			this.outerTagArray.append(this.southTagArray);
+			this.outerTagArray.append(this.westTagArray);
+			this.outerTagArray.append(this.northWestTagArray);
+			this.outerTagArray.append(this.northEastTagArray);
+			this.outerTagArray.append(this.southWestTagArray);
+			this.outerTagArray.append(this.southEastTagArray);
+			this.windowTagArray = this.outerTagArray;
 		}
 		this.outerLayer = function(){
 			//"<div id='" + this.ids["o"] + "' tabindex='0' style='z-index:1; outline:1px solid transparent; position:absolute; left:" + this.oLeft + "px; top:" + this.oTop + "px; width:" + this.oWidth + "px; height:" + this.oHeight + "px; background-color:" + this.oBgC + ";' onfocus='" + this.ids["id"] + ".incZIndex();'>";
@@ -74,7 +71,7 @@
 				left:this.oLeft,
 				top:this.oTop
 			});
-			this.outerTag = tmpTag;
+			this.outerTagArray = tmpTag;
 		}
 		this.headLayer = function(){
 			var tmpTag = $("<div></div>");
@@ -89,7 +86,7 @@
 				left:this.hLeft,
 				top:this.hTop
 			});
-			this.headTag = tmpTag;
+			this.headTagArray = tmpTag;
 		}
 		
 		this.contentLayer = function(){
@@ -107,7 +104,7 @@
 				top:this.cTop
 			});
 			tmpTag.attr("onclick",this.guiName+".click.content(this)");
-			this.contentTag = tmpTag;
+			this.contentTagArray = tmpTag;
 		}
 		this.movementHandleLayer = function(){
 			var tmpTag = $("<div></div>");
@@ -125,7 +122,7 @@
 			tmpTag.attr("ondrag",this.guiName+".drag.head(this)");
 			tmpTag.attr("ondragend",this.guiName+".dragend.head(this,event)");
 			tmpTag.attr("onclick",this.guiName+".click.head(this)");
-			this.movementHandleTag = tmpTag;
+			this.movementHandleTagArray = tmpTag;
 		}
 		this.hButtonLayer = function(){
 			var tmpTag = $("<div></div>");
@@ -141,7 +138,7 @@
 			tmpTag.width(this.bWidth);
 			tmpTag.height(this.bHeight);
 			tmpTag.attr("onclick",this.guiName+".click.hButton(this)");
-			this.hButtonTag = tmpTag;
+			this.hButtonTagArray = tmpTag;
 		}
 		this.fButtonLayer = function(){
 			var tmpTag = $("<div></div>");
@@ -157,7 +154,7 @@
 			tmpTag.width(this.bWidth);
 			tmpTag.height(this.bHeight);
 			tmpTag.attr("onclick",this.guiName+".click.fButton(this)");
-			this.fButtonTag = tmpTag;
+			this.fButtonTagArray = tmpTag;
 		}
 		this.xButtonLayer = function(){
 			var tmpTag = $("<div></div>");
@@ -173,7 +170,7 @@
 			tmpTag.width(this.bWidth);
 			tmpTag.height(this.bHeight);
 			tmpTag.attr("onclick",this.guiName+".click.xButton(this)");
-			this.xButtonTag = tmpTag;
+			this.xButtonTagArray = tmpTag;
 		}
 		this.northWestLayer = function(){
 			var tmpTag = $("<div></div>");
@@ -189,7 +186,7 @@
 			tmpTag.attr("draggable","true");
 			tmpTag.attr("ondragend",this.guiName+".resizeend.window(this)");
 			tmpTag.attr("ondrag",this.guiName+".resize.window(this)");
-			this.northWestTag = tmpTag;
+			this.northWestTagArray = tmpTag;
 		}
 		this.northEastLayer = function(){
 			var tmpTag = $("<div></div>");
@@ -205,7 +202,7 @@
 			tmpTag.attr("draggable","true");
 			tmpTag.attr("ondragend",this.guiName+".resizeend.window(this)");
 			tmpTag.attr("ondrag",this.guiName+".resize.window(this)");
-			this.northEastTag = tmpTag;
+			this.northEastTagArray = tmpTag;
 		}
 		this.southWestLayer = function(){
 			var tmpTag = $("<div></div>");
@@ -221,7 +218,7 @@
 			tmpTag.attr("draggable","true");
 			tmpTag.attr("ondragend",this.guiName+".resizeend.window(this)");
 			tmpTag.attr("ondrag",this.guiName+".resize.window(this)");
-			this.southWestTag = tmpTag;
+			this.southWestTagArray = tmpTag;
 		}
 		this.southEastLayer = function(){
 			var tmpTag = $("<div></div>");
@@ -237,7 +234,7 @@
 			tmpTag.attr("draggable","true");
 			tmpTag.attr("ondragend",this.guiName+".resizeend.window(this)");
 			tmpTag.attr("ondrag",this.guiName+".resize.window(this)");
-			this.southEastTag = tmpTag;
+			this.southEastTagArray = tmpTag;
 		}
 		
 		this.northLayer = function(){
@@ -254,7 +251,7 @@
 			tmpTag.attr("draggable","true");
 			tmpTag.attr("ondragend",this.guiName+".resizeend.window(this)");
 			tmpTag.attr("ondrag",this.guiName+".resize.window(this)");
-			this.northTag = tmpTag;
+			this.northTagArray = tmpTag;
 		}
 		this.eastLayer = function(){
 			var tmpTag = $("<div></div>");
@@ -270,7 +267,7 @@
 			tmpTag.attr("ondragend",this.guiName+".resizeend.window(this)");
 			tmpTag.attr("draggable","true");
 			tmpTag.attr("ondrag",this.guiName+".resize.window(this)");
-			this.eastTag = tmpTag;
+			this.eastTagArray = tmpTag;
 		}
 		this.southLayer = function(){
 			var tmpTag = $("<div></div>");
@@ -286,7 +283,7 @@
 			tmpTag.attr("ondragend",this.guiName+".resizeend.window(this)");
 			tmpTag.attr("draggable","true");
 			tmpTag.attr("ondrag",this.guiName+".resize.window(this)");
-			this.southTag = tmpTag;
+			this.southTagArray = tmpTag;
 		}
 		this.westLayer = function(){
 			var tmpTag = $("<div></div>");
@@ -302,7 +299,7 @@
 			tmpTag.attr("ondragend",this.guiName+".resizeend.window(this)");
 			tmpTag.attr("draggable","true");
 			tmpTag.attr("ondrag",this.guiName+".resize.window(this)");
-			this.westTag = tmpTag;
+			this.westTagArray = tmpTag;
 		}
 		this.setIds = function () {
 			this.tagIds = [];

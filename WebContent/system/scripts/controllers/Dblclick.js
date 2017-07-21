@@ -10,10 +10,11 @@
 		}
 		this.yo = function(tag){
 			var iconObj = this.iconArray["icon3"];
-			var winNode = this.wm.newWin(iconObj);
+			var winNode = this.wm.newWindow(iconObj);
 			var barNode = this.bm.newBar(iconObj);
-			console.log(winNode);
-			console.log(barNode);
+			this.wpe.newPositioning(winNode);
+			this.bind.windowAndBar(winNode,barNode);
+			//winNode.win.view.done();
 		}
 	}
 	

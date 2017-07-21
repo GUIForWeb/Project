@@ -1,6 +1,8 @@
 	function WinNode(){
-		this.size = 0;
-		this.next = {};
-		this.win = {};
-		this.bar = {};
+		this.count = 0;
+		this.prev = null;
+		this.next = null;
+		this.end = null;
+		this.win = null;
+		this.barNode = null;
 	}

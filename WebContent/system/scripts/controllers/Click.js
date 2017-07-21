@@ -1,10 +1,26 @@
 	function Click(){
 		this.head = function(tag){
 			event.stopPropagation();
-			var winObj = this.ee.window(tag.parentNode.parentNode);
+			this.ee.window(tag.parentNode.parentNode);
+			//console.log(this.nodeArray["win"]);
 			/*
 			if(winObj !== undefined)
 				this.windowListener.call("changeWinVal",winObj);
+			*/
+		}
+		this.xButton = function(tag){
+			tag = tag.parentNode.parentNode;
+			var winNode = this.ee.window(tag);
+			this.wm.disappear(winNode);
+			this.wpe.disappear(winNode);
+			this.bm.disappear(winNode.barNode);
+			/*
+			tag = tag.parentNode.parentNode;
+			var winObj = this.windowArray[tag.style.zIndex];
+			this.wme.disappear(winObj);
+			this.wpe.disappearPositioning(winObj);
+			var barObj = this.bme.disappear(winObj);
+			this.barListener.call("x",barObj);
 			*/
 		}
 		this.content = function(tag){
@@ -29,14 +45,7 @@
 				this.bgContextMenuObj.isOnTheScreen = false;
 			}
 		}
-		this.xButton = function(tag){
-			tag = tag.parentNode.parentNode;
-			var winObj = this.windowArray[tag.style.zIndex];
-			this.wme.disappear(winObj);
-			this.wpe.disappearPositioning(winObj);
-			var barObj = this.bme.disappear(winObj);
-			this.barListener.call("x",barObj);
-		}
+		
 		this.fButton = function(tag){
 			tag = tag.parentNode.parentNode;
 			var winObj = this.windowArray[tag.style.zIndex];

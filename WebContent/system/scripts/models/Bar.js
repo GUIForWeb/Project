@@ -10,18 +10,12 @@
 		this.view = new BarView(this);
 		this.appendBar = function(){
 			var tagIdForAppend = "";
-			this.view.oLeft = this.numId*this.view.oWidth;
-			if(this.taskbarTag != null) {
-				var tag = this.taskbarTag;
-				this.view.oTop = (this.view.taskbarOHeight - this.view.oHeight)/2;
-			}
-			else {
-				this.view.oTop = $(window).height() - this.oHeight;
-				var tag = this.bgTag;
-			}
+			this.view.oLeft = (this.numId-1)*this.view.oWidth;
+			this.view.oTop = (this.view.taskbarOHeight - this.view.oHeight)/2;
 			this.view.getView();
-			tag.append(this.view.barTag);
-			this.tag = this.view.barTag;
+			this.taskbarTagArray.append(this.view.barTagArray);
+			this.tag = this.view.barTagArray[0];
+			this.tagArray = this.view.barTagArray;
 		}
 		this.init = function(numId){
 			this.numId = numId;

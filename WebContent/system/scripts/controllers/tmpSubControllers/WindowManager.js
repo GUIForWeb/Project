@@ -1,20 +1,28 @@
-	function WinManager(){
-		this.newWin = function(obj){
+	function WindowManager(){
+		this.winNum = 0;
+		this.disappear = function(winNode){
+			winNode.prev.next = null;
+			winNode.win.tag.remove();
+			this.nodeArray["win"].count -= 1;
+			this.nodeArray["win"].end = winNode.prev;
+		}
+		this.newWindow = function(obj){
 			var winNode = this.nodeArray["win"];
 			while(winNode.next instanceof WinNode){
 				winNode = winNode.next;
-				console.log("Yo1");
 			}
 			winNode.next = new WinNode();
+			winNode.next.prev = winNode;
 			winNode = winNode.next;
 			winNode.win = new Window();
 			winNode.win.name = obj.name;
 			winNode.win.guiName = this.guiName;
-			winNode.win.bgTag = this.bgTag;
+			winNode.win.bgTagArray = this.bgTagArray;
 			winNode.win.view.setDefaultValues(this.winDefaultValueArray);
-			this.nodeArray["win"].size += 1;
-			winNode.win.view.zIndex = this.nodeArray["win"].size;
-			
+			this.nodeArray["win"].count += 1;
+			var count = this.nodeArray["win"].count;
+			winNode.win.view.zIndex = count;
+			this.winNum += 1;
 			if(obj.contentURL.indexOf("http://") !== -1){
 				this.form.submit("wMode",0);
 				winNode.win.content = this.form.getData(obj.contentURL);
@@ -54,8 +62,9 @@
 				xWinFunc = this.form.getData(this.contextPath+xWinFunc);
 				winNode.win.addEvent("x",xWinFunc);
 			}
-			
+			winNode.win.init(this.winNum);
 			winNode.win.appendWindow();
+			this.nodeArray["win"].end = winNode;
 			return winNode; 
 			/*
 			var newWin  = new Window();
@@ -147,17 +156,7 @@
 			this.windowArray[winSize] = winObj;
 			return winObj;
 		}
-		this.disappear = function(winObj){
-			var zIdx = winObj.view.zIndex;
-			var winSize = this.winSize();
-			for(wi=parseInt(zIdx)+1; wi<winSize; wi++){
-				this.windowArray[wi].view.windowTag.css("z-index",wi-1);
-				this.windowArray[wi].view.zIndex = wi-1;
-				this.windowArray[wi-1] = this.windowArray[wi];
-			}
-			delete this.windowArray[winSize-1];
-			winObj.view.windowTag.remove();
-		}
+		
 		this.appear = function(winObj){
 			var tagId = winObj.tagId;
 			var winSize = this.winSize();

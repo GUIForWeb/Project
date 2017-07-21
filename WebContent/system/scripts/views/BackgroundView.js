@@ -6,7 +6,7 @@
 			var tmpTag = $("<div></div>");
 			tmpTag.css("z-index", this.zIndex);
 			tmpTag.addClass(background.tagClass);
-			this.backgroundTag = tmpTag;
+			this.backgroundTagArray = tmpTag;
 		}
 		this.tableWrap = function(){
 			var tmpTag = $("<div></div>");
@@ -14,12 +14,12 @@
 			tmpTag.addClass(background.iconTableWrapClass);
 			tmpTag.attr("oncontextmenu",this.guiName+".click.rButton(this)");
 			tmpTag.attr("onclick",this.guiName+".click.lButton(this)");
-			this.tableWrapTag = tmpTag;
+			this.tableWrapTagArray = tmpTag;
 		}
 		this.table = function(){
 			var tmpTag = $("<table></table>");
 			tmpTag.addClass(background.iconTableTagClass);
-			this.tableTag = tmpTag;
+			this.tableTagArray = tmpTag;
 		}
 		this.tr = function(){
 			var tmpTag = $("<tr></tr>");

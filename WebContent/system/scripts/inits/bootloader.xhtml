@@ -4,21 +4,32 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 	<h:outputScript library = "models" name = "WinNode.js" />
 	<h:outputScript library = "models" name = "BarNode.js" />
+	<h:outputScript library = "models" name = "Background.js" />
 	<h:outputScript library = "models" name = "Bar.js" />
 	<h:outputScript library = "models" name = "Window.js" />
-	<h:outputScript library = "controllers" name = "tmpSubControllers/WinManager.js" />
+	<h:outputScript library = "models" name = "Taskbar.js" />
+	<h:outputScript library = "models" name = "Icon.js" />
+	<h:outputScript library = "models" name = "ContextMenu.js" />
+	<h:outputScript library = "controllers" name = "tmpSubControllers/WindowManager.js" />
 	<h:outputScript library = "controllers" name = "tmpSubControllers/BarManager.js" />
 	<h:outputScript library = "controllers" name = "tmpSubControllers/EnumEngine.js" />
+	<h:outputScript library = "controllers" name = "tmpSubControllers/WindowSizingEngine.js" />
+	<h:outputScript library = "controllers" name = "tmpSubControllers/WindowPositioningEngine.js" />
+	<h:outputScript library = "controllers" name = "tmpSubControllers/GUIBinder.js" />
 	
 	<h:outputScript library = "modules" name = "Model.js" />
-	<h:outputScript library = "modules" name = "Background.js" />
-	<h:outputScript library = "modules" name = "Icon.js" />
+	
+	
 	<!--
+	<h:outputScript library = "modules" name = "Icon.js" />
+	<h:outputScript library = "modules" name = "Background.js" />
 	<h:outputScript library = "modules" name = "Window.js" />
 	<h:outputScript library = "modules" name = "Bar.js" />
+		<h:outputScript library = "modules" name = "Taskbar.js" />
+		<h:outputScript library = "modules" name = "ContextMenu.js" />
 	-->
-	<h:outputScript library = "modules" name = "Taskbar.js" />
-	<h:outputScript library = "modules" name = "ContextMenu.js" />
+
+	
 	<h:outputScript library = "modules" name = "MenuText.js" />
 	<h:outputScript library = "modules" name = "GUI.js" />
 	<h:outputScript library = "modules" name = "Function.js" />
@@ -45,10 +56,13 @@
 	<h:outputScript library = "controllers" name = "subControllers/BarListener.js" />
 	<h:outputScript library = "controllers" name = "subControllers/WindowListener.js" />
 	<h:outputScript library = "controllers" name = "subControllers/WindowInBarListener.js" />
-	<h:outputScript library = "controllers" name = "subControllers/WindowSizingEngine.js" />
-	<h:outputScript library = "controllers" name = "subControllers/WindowPositioningEngine.js" />
+	<!-- 
+		<h:outputScript library = "controllers" name = "subControllers/WindowSizingEngine.js" />
+		<h:outputScript library = "controllers" name = "subControllers/WindowPositioningEngine.js" />
+		<h:outputScript library = "controllers" name = "subControllers/GUIBinder.js" />
+	 -->
 	<h:outputScript library = "controllers" name = "subControllers/WindowManagerEngine.js" />
 	<h:outputScript library = "controllers" name = "subControllers/BarManagerEngine.js" />
-	<h:outputScript library = "controllers" name = "subControllers/GUIBinder.js" />
+	
 	<ui:include src="/system/scripts/inits/init.xhtml" />
 </ui:composition>

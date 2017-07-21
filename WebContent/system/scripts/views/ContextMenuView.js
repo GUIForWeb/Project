@@ -4,8 +4,8 @@ function ContextMenuView(contextMenuModel){
 		this.contentLayerTagClass = "contextMenuContentLayer";
 		this.contentPath = "";
 		this.contextMenuLayer = function(){
-			this.outerTag.append(this.contentTag);
-			this.contextMenuTag = this.outerTag;
+			this.outerTagArray.append(this.contentTagArray);
+			this.contextMenuTagArray = this.outerTagArray;
 		}
 		this.outerLayer = function(){
 			var tmpTag = $("<div></div>");
@@ -17,7 +17,7 @@ function ContextMenuView(contextMenuModel){
 				top:event.clientY
 			});
 			tmpTag.addClass(this.outerLayerTagClass);
-			this.outerTag = tmpTag;
+			this.outerTagArray = tmpTag;
 		}
 		this.contentLayer = function(){
 			var tmpTag = $("<div></div>");
@@ -39,7 +39,7 @@ function ContextMenuView(contextMenuModel){
 			themeUlTag.append(background);
 			themeUlTag.append(icon);
 			tmpTag.addClass(this.contentLayerTagClass);
-			this.contentTag = tmpTag;
+			this.contentTagArray = tmpTag;
 		}
 		this.getView = function(){
 			this.contentLayer();

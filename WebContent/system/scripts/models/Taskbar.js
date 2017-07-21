@@ -8,7 +8,7 @@
 		this.view = new TaskbarView(this);
 		this.appendTaskbar = function(){
 			this.view.getView();
-			this.bgTag.append(this.view.taskbarTagArray);
+			this.bgTagArray.append(this.view.taskbarTagArray);
 		}
 		this.init = function(numId){
 			this.numId = numId;

@@ -25,23 +25,27 @@
 		this.start = function(){
 			this.nodeArray["win"] = new WinNode();
 			this.nodeArray["bar"] = new BarNode();
-			this.wm = new WinManager();
-			this.wm.__proto__ = this; 
-			this.bm = new BarManager();
-			this.bm.__proto__ = this;
-			this.ee = new EnumEngine();
-			this.ee.__proto__ = this;
 			
 			this.controller = new Controller();
 			this.controller.__proto__ = this;
+			this.wm = new WindowManager();
+			this.wm.__proto__ = this.controller; 
+			this.bm = new BarManager();
+			this.bm.__proto__ = this.controller;
+			this.ee = new EnumEngine();
+			this.ee.__proto__ = this.controller;
 			this.wse = new WindowSizingEngine();
 			this.wse.__proto__ = this.controller;
 			this.wpe = new WindowPositioningEngine();
 			this.wpe.__proto__ = this.controller;
+			
+			
+			
 			this.wme = new WindowManagerEngine();
 			this.wme.__proto__ = this.controller;
 			this.bme = new BarManagerEngine();
 			this.bme.__proto__ = this.controller;
+			
 			this.bind = new GUIBinder();
 			this.bind.__proto__ = this.controller;
 			this.windowListener = new WindowListener();
@@ -91,13 +95,13 @@
 			this.background.setIconTdValues(this.iconTdValueArray);
 			this.background.setIconTableValues(this.iconTableValueArray);
 			this.background.appendBackgroundView();
-			this.bgTag = this.background.view.backgroundTag;
-			this.tableWrapTag = this.background.view.tableWrapTag;
+			this.bgTagArray = this.background.view.backgroundTagArray;
+			this.tableWrapTagArray = this.background.view.tableWrapTagArray;
 			this.background.appendIconTd();
 		}
 		this.initBgContextMenu = function(){
 			var contextMenuObj = new ContextMenu();
-			contextMenuObj.bgTag = this.bgTag;
+			contextMenuObj.bgTagArray = this.bgTagArray;
 			contextMenuObj.tagId = "bgContextMenu";
 			this.bgContextMenuObj = contextMenuObj;
 		}
@@ -106,7 +110,7 @@
 				var tmpIcon = new Icon();
 				tmpIcon.contextPath = this.contextPath;
 				tmpIcon.guiName = this.guiName;
-				tmpIcon.tableWrapTag = this.tableWrapTag;
+				tmpIcon.tableWrapTag = this.tableWrapTagArray;
 				tmpIcon.init(this.iconDataList[ci]);
 				this.iconCoordinate[tmpIcon.iconX+","+tmpIcon.iconY]=true;
 				tmpIcon.view.iconTdBorderWidth = this.iconTdValueArray["iconTdBorderWidth"];
@@ -140,10 +144,10 @@
 			this.taskbar.contextPath = this.contextPath;
 			this.taskbarTagId = "taskbar";
 			this.taskbar.tagId = this.taskbarTagId;
-			this.taskbar.bgTag = this.bgTag;
+			this.taskbar.bgTagArray = this.bgTagArray;
 			this.taskbar.view.setTaskbarValues(this.taskbarValueArray);
 			this.taskbar.appendTaskbar();
-			this.taskbarTag = this.taskbar.view.taskbarTag;
+			this.taskbarTagArray = this.taskbar.view.taskbarTagArray;
 		}
 		this.setIconDataList = function(iconDataList){
 			this.iconDataList = iconDataList;

@@ -7,11 +7,12 @@
 		this.bNumId = 0;
 		this.view = new WindowView(this);
 		this.appendWindow = function(){
-			if(this.view.windowTag === undefined)
+			if(this.view.windowTagArray === undefined)
 				this.view.getView();
-			$(this.tag).css("z-index",this.view.zIndex);
-			this.bgTag.append(this.view.windowTag);
-			this.tag = this.view.windowTag;
+			//$(this.tag).css("z-index",this.view.zIndex);
+			this.bgTagArray.append(this.view.windowTagArray);
+			this.tag = this.view.windowTagArray[0];
+			this.tagArray = this.view.windowTagArray;
 		}
 		this.init = function(numId){
 			this.numId = numId;
