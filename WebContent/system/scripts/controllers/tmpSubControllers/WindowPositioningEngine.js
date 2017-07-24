@@ -1,6 +1,6 @@
 	function WindowPositioningEngine(){
-		this.disappear = function(winNode){
-			var tagId = winNode.win.tagId;
+		this.disappear = function(node){
+			var tagId = node.win.tagId;
 			var coordinate = this.windowCoordinate[tagId];
 			var cLen = this.windowCoordinate[coordinate].length;
 			for(ci=0; ci<cLen; ci++){
@@ -10,16 +10,16 @@
 			}
 			delete this.windowCoordinate[tagId];
 		}
-		this.newPositioning = function(winNode){
-			this.left = winNode.win.view.oLeft;
-			this.top = winNode.win.view.oTop;
-			this.newWindowPositioning(winNode);
-			winNode.win.view.oLeft = this.left;
-			winNode.win.view.oTop = this.top;
+		this.newPositioning = function(node){
+			this.left = node.win.view.oLeft;
+			this.top = node.win.view.oTop;
+			this.newWindowPositioning(node);
+			node.win.view.oLeft = this.left;
+			node.win.view.oTop = this.top;
 		}
-		this.newWindowPositioning = function(winNode){
+		this.newWindowPositioning = function(node){
 			var coordinate = this.left.toFixed(1)+","+this.top.toFixed(1);
-			var tagId = winNode.win.tagId;
+			var tagId = node.win.tagId;
 			if(this.windowCoordinate[coordinate] === undefined || this.windowCoordinate[coordinate][0] === undefined){
 				var subArray = [];
 				subArray[0] = tagId;
@@ -32,7 +32,7 @@
 			}else{
 				this.left += 30;
 				this.top += 30;
-				this.newWindowPositioning(winNode);
+				this.newWindowPositioning(node);
 			}
 		}
 		this.changePositioning = function(winObj){

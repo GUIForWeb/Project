@@ -1,48 +1,17 @@
 	function BarManager(){
-		this.newBar = function(iconObj){
-			var barNode = this.nodeArray["bar"];
-			this.nodeArray["bar"].count += 1;
-			var count = this.nodeArray["bar"].count;
-			while(barNode.next instanceof BarNode){
-				barNode = barNode.next;
-			}
-			barNode.next = new BarNode();
-			barNode.next.prev = barNode;
-			barNode = barNode.next;
-			barNode.bar = new Bar();
-			barNode.bar.name = iconObj.name;
-			barNode.bar.taskbarTagArray = this.taskbarTagArray
-			barNode.bar.init(count);
-			barNode.bar.appendBar();
-			return barNode; 
-			/*
-			var barLen = this.barLen();
-			var barObj  = new Bar();
-			barObj.name = iconObj.name;
-			barObj.guiName = this.guiName;
-			barObj.bgTag = this.bgTag;
-			barObj.taskbarTag = this.taskbarTag;
-			barObj.view.taskbarOHeight = this.taskbar.view.oHeight;
-			barObj.init(barLen);
-			barObj.appendBar();
-			barObj.windowOnScreen = true;
-			this.barArray[barLen] = barObj;
-			return barObj;
-			*/
-		}
-		this.disappear = function(barNode){
-			this.nodeArray["bar"].count -= 1;
-			barNode.bar.tag.remove();
-			if(barNode.next instanceof BarNode){
-				barNode.prev.next = barNode.next;
-				barNode.next.prev = barNode.prev;
+		this.disappear = function(node){
+			this.nodeArray["winAndBar"].count -= 1;
+			node.bar.tag.remove();
+			if(node.nextBar instanceof Node){
+				node.prevBar.nextBar = node.nextBar;
+				node.nextBar.prevBar = node.prevBar;
 			}
 			else
-				barNode.prev.next = null;
-			while(barNode.next instanceof BarNode){
-				barNode = barNode.next
-				var oLeft = barNode.bar.view.oLeft;
-				barNode.bar.view.setOLeft(oLeft - 100);
+				node.prevBar.nextBar = null;
+			while(node.nextBar instanceof Node){
+				node = node.nextBar
+				var oLeft = node.bar.view.oLeft;
+				node.bar.view.setOLeft(oLeft - 100);
 			}
 			/*
 			var bNumId = winObj.bNumId;
@@ -65,6 +34,51 @@
 			return barObj
 			*/
 		}
+		this.newBar = function(iconObj){
+			var tmpNode = this.nodeArray["winAndBar"];
+			this.nodeArray["winAndBar"].barCount += 1;
+			var barCount = this.nodeArray["winAndBar"].barCount;
+			while(tmpNode.nextBar instanceof Node){
+				tmpNode = tmpNode.nextBar;
+			}
+			tmpNode.nextBar = new Node();
+			tmpNode.nextBar.prevBar = tmpNode;
+			tmpNode = tmpNode.nextBar;
+			tmpNode.bar = new Bar();
+			tmpNode.bar.guiName = this.guiName;
+			tmpNode.bar.name = iconObj.name;
+			tmpNode.bar.taskbarTagArray = this.taskbarTagArray
+			tmpNode.bar.init(barCount);
+			tmpNode.bar.appendBar();
+			return tmpNode;
+			/*
+			barNode.next = new BarNode();
+			barNode.next.prev = barNode;
+			barNode = barNode.next;
+			barNode.bar = new Bar();
+			barNode.bar.guiName = this.guiName;
+			barNode.bar.name = iconObj.name;
+			barNode.bar.taskbarTagArray = this.taskbarTagArray
+			barNode.bar.init(count);
+			barNode.bar.appendBar();
+			return barNode;
+			*/ 
+			/*
+			var barLen = this.barLen();
+			var barObj  = new Bar();
+			barObj.name = iconObj.name;
+			barObj.guiName = this.guiName;
+			barObj.bgTag = this.bgTag;
+			barObj.taskbarTag = this.taskbarTag;
+			barObj.view.taskbarOHeight = this.taskbar.view.oHeight;
+			barObj.init(barLen);
+			barObj.appendBar();
+			barObj.windowOnScreen = true;
+			this.barArray[barLen] = barObj;
+			return barObj;
+			*/
+		}
+		
 		this.restoreBar = function(barMap){
 			var barLen = this.barLen();
 			var restoredBar  = new Bar();

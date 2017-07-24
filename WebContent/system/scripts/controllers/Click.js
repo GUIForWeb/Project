@@ -10,10 +10,9 @@
 		}
 		this.xButton = function(tag){
 			tag = tag.parentNode.parentNode;
-			var winNode = this.ee.window(tag);
-			this.wm.disappear(winNode);
-			this.wpe.disappear(winNode);
-			this.bm.disappear(winNode.barNode);
+			var node = this.ee.window(tag);
+			this.gm.xWinAndBar(node);
+			
 			/*
 			tag = tag.parentNode.parentNode;
 			var winObj = this.windowArray[tag.style.zIndex];
@@ -66,6 +65,15 @@
 		}
 		this.bar = function(tag){
 			tag = tag.parentNode;
+			console.log(tag);
+			var barNode = this.nodeArray["bar"];
+			while(barNode.next instanceof BarNode){
+				barNode = barNode.next;
+				if(barNode.bar.tag == tag){
+					console.log("Yo");
+				}
+			}
+			/*
 			var bNumId = this.getBarNumId(tag);
 			var barObj = this.barArray[bNumId];
 			if(this.barArray[bNumId].windowOnScreen){
@@ -88,6 +96,7 @@
 				//this.windowListener.call("screenOn",winObj);
 				this.barListener.call("screenOn",barObj);
 			}
+			*/
 		}
 		this.theme = function(tag){
 			var iconObj = new Icon();

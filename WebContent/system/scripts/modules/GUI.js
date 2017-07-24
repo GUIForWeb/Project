@@ -23,11 +23,15 @@
 		this.barTagIdRule = new Bar().tagIdRule;
 		this.winTagIdRule = new Window().tagIdRule;
 		this.start = function(){
+			/*
 			this.nodeArray["win"] = new WinNode();
 			this.nodeArray["bar"] = new BarNode();
-			
+			*/
+			this.nodeArray["winAndBar"] = new Node();
 			this.controller = new Controller();
 			this.controller.__proto__ = this;
+			this.gm = new GUIManager();
+			this.gm.__proto__ = this.controller;
 			this.wm = new WindowManager();
 			this.wm.__proto__ = this.controller; 
 			this.bm = new BarManager();
@@ -46,8 +50,6 @@
 			this.bme = new BarManagerEngine();
 			this.bme.__proto__ = this.controller;
 			
-			this.bind = new GUIBinder();
-			this.bind.__proto__ = this.controller;
 			this.windowListener = new WindowListener();
 			this.windowListener.__proto__ = this.controller;
 			this.barListener = new BarListener();

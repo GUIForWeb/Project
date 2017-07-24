@@ -2,31 +2,30 @@
 		this.window = function(tag){
 			//set Chosen Window To Top
 			var zIndex = tag.style.zIndex
-			var winNode = this.nodeArray["win"];
-			var count = this.nodeArray["win"].count;
-			var tmpNode = null;
-			if(this.nodeArray["win"].end.win.tag != tag){
-				while(winNode.next instanceof WinNode){
-					var tmpZIdx = winNode.next.win.view.zIndex;
-					if(tmpZIdx == zIndex){
-						tmpNode = winNode.next;
-						tmpNode.win.view.setZIndex(count);
-						winNode.next = winNode.next.next;
-						winNode.next.prev = winNode; 
-						tmpNode.next = null;
-					}
-					else if(tmpZIdx > zIndex){
+			var tmpNode = this.nodeArray["winAndBar"];
+			var winCount = this.nodeArray["winAndBar"].winCount;
+			var lastNode = null;
+			if(this.nodeArray["winAndBar"].lastWin.win.tag != tag){
+				while(tmpNode.nextWin instanceof Node){
+					var tmpZIdx = tmpNode.nextWin.win.view.zIndex
+					if(tmpZIdx > zIndex){
 						tmpZIdx--;
-						winNode.next.win.view.setZIndex(tmpZIdx);
-						winNode = winNode.next;
+						tmpNode.nextWin.win.view.setZIndex(tmpZIdx);
+						tmpNode = tmpNode.nextWin;
+					}else if(tmpZIdx == zIndex){
+						tmpNode.nextWin.win.view.setZIndex(winCount);
+						lastNode = tmpNode.nextWin;
+						tmpNode.nextWin.nextWin.prevWin = tmpNode;
+						tmpNode.nextWin = lastNode.nextWin;
+						lastNode.nextWin = null;
 					}
 					else
-						winNode = winNode.next;
+						tmpNode = tmpNode.nextWin;
 				}
-				tmpNode.prev = winNode;
-				winNode.next = tmpNode;
-				this.nodeArray["win"].end = tmpNode;
+				lastNode.prevWin = tmpNode;
+				tmpNode.nextWin = lastNode;
+				this.nodeArray["winAndBar"].lastWin = lastNode;
 			}
-			return this.nodeArray["win"].end;
+			return this.nodeArray["winAndBar"].lastWin;
 		}
 	}

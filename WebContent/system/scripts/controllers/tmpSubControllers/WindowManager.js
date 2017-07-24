@@ -1,12 +1,56 @@
 	function WindowManager(){
 		this.winNum = 0;
-		this.disappear = function(winNode){
-			winNode.prev.next = null;
-			winNode.win.tag.remove();
-			this.nodeArray["win"].count -= 1;
-			this.nodeArray["win"].end = winNode.prev;
+		this.disappear = function(node){
+			node.prevWin.nextWin = null;
+			node.win.tag.remove();
+			this.nodeArray["winAndBar"].count -= 1;
+			this.nodeArray["winAndBar"].lastWin = node.prevWin;
 		}
-		this.newWindow = function(obj){
+		this.newWindow = function(obj,node){
+			var tmpNode = this.nodeArray["winAndBar"];
+			while(tmpNode.nextWin instanceof Node){
+				tmpNode = tmpNode.nextWin;
+			}
+			tmpNode.nextWin = node;
+			tmpNode.nextWin.prevWin = tmpNode;
+			tmpNode = tmpNode.nextWin;
+			tmpNode.win = new Window();
+			tmpNode.win.name = obj.name;
+			tmpNode.win.guiName = this.guiName;
+			tmpNode.win.bgTagArray = this.bgTagArray;
+			tmpNode.win.view.setDefaultValues(this.winDefaultValueArray);
+			this.nodeArray["winAndBar"].winCount += 1;
+			var winCount = this.nodeArray["winAndBar"].winCount;
+			tmpNode.win.view.zIndex = winCount;
+			this.winNum += 1;
+			tmpNode.win.init(this.winNum);
+			tmpNode.win.appendWindow();
+			this.nodeArray["winAndBar"].lastWin = tmpNode;
+			return tmpNode;
+			
+			/*
+			var node = this.nodeArray["winAndBar"];
+			while(node.next instanceof Node){
+				node = node.next;
+			}
+			node.nextWin = new Node();
+			node.nextWin.prevWin = node;
+			node = node.nextWin;
+			node.win = new Window();
+			node.win.name = obj.name;
+			node.win.guiName = this.guiName;
+			node.win.bgTagArray = this.bgTagArray;
+			node.win.view.setDefaultValues(this.winDefaultValueArray);
+			this.nodeArray["winAndBar"].count += 1;
+			var winCount = this.nodeArray["winAndBar"].winCount;
+			node.win.view.zIndex = winCount;
+			this.winNum += 1;
+			node.win.init(this.winNum);
+			node.win.appendWindow();
+			this.nodeArray["winAndBar"].lastWin = node;
+			return node;
+			*/ 
+			/*
 			var winNode = this.nodeArray["win"];
 			while(winNode.next instanceof WinNode){
 				winNode = winNode.next;
@@ -66,6 +110,7 @@
 			winNode.win.appendWindow();
 			this.nodeArray["win"].end = winNode;
 			return winNode; 
+			*/
 			/*
 			var newWin  = new Window();
 			var zIdx = 0;newWin
