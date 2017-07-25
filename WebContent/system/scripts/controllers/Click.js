@@ -1,7 +1,27 @@
 	function Click(){
+		this.hButton = function(tag){
+			var winTag = tag.parentNode.parentNode;
+			this.gm.disappearWin(winTag);
+			/*
+			tag = tag.parentNode.parentNode;
+			var winObj = this.windowArray[tag.style.zIndex];
+			winObj.tag = tag;
+			this.windowInBarArray[winObj.bNumId] = winObj;
+			this.barArray[winObj.bNumId].windowOnScreen = false;
+			var barObj = this.barArray[winObj.bNumId];
+			this.wme.disappear(winObj);
+			this.wpe.disappearPositioning(winObj);
+			this.barListener.call("hide",barObj);
+			*/
+		}
+		this.bar = function(tag){
+			var barTag = tag.parentNode;
+			this.gm.switchWin(barTag);
+		}
 		this.head = function(tag){
 			event.stopPropagation();
-			this.ee.window(tag.parentNode.parentNode);
+			var winTag = tag.parentNode.parentNode
+			this.ee.window(winTag);
 			//console.log(this.nodeArray["win"]);
 			/*
 			if(winObj !== undefined)
@@ -52,52 +72,8 @@
 			this.wpe.changePositioning(winObj);
 			this.windowListener.call("resize",winObj);
 		}
-		this.hButton = function(tag){
-			tag = tag.parentNode.parentNode;
-			var winObj = this.windowArray[tag.style.zIndex];
-			winObj.tag = tag;
-			this.windowInBarArray[winObj.bNumId] = winObj;
-			this.barArray[winObj.bNumId].windowOnScreen = false;
-			var barObj = this.barArray[winObj.bNumId];
-			this.wme.disappear(winObj);
-			this.wpe.disappearPositioning(winObj);
-			this.barListener.call("hide",barObj);
-		}
-		this.bar = function(tag){
-			tag = tag.parentNode;
-			console.log(tag);
-			var barNode = this.nodeArray["bar"];
-			while(barNode.next instanceof BarNode){
-				barNode = barNode.next;
-				if(barNode.bar.tag == tag){
-					console.log("Yo");
-				}
-			}
-			/*
-			var bNumId = this.getBarNumId(tag);
-			var barObj = this.barArray[bNumId];
-			if(this.barArray[bNumId].windowOnScreen){
-				var wNumId = this.barArray[bNumId].wNumId;
-				var wZIdx = $("#"+this.winTagIdRule+wNumId).css("z-index");
-				var winObj  = this.windowArray[wZIdx];
-				this.windowInBarArray[bNumId] = winObj;
-				this.barArray[bNumId].windowOnScreen = false;
-				this.wme.disappear(winObj);
-				this.wpe.disappearPositioning(winObj);
-				this.barListener.call("hide",barObj);
-			}else{
-				var winObj = this.windowInBarArray[bNumId];
-				winObj = this.wme.addWindowObj(winObj);
-				this.bind.windowAndBar(winObj, barObj);
-				winObj.appendWindow();
-				this.barArray[bNumId].windowOnScreen = true;
-				delete this.windowInBarArray[bNumId];
-				this.wpe.changePositioning(winObj);
-				//this.windowListener.call("screenOn",winObj);
-				this.barListener.call("screenOn",barObj);
-			}
-			*/
-		}
+		
+		
 		this.theme = function(tag){
 			var iconObj = new Icon();
 			if(tag.innerHTML == "Icon"){

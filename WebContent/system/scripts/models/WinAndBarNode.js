@@ -1,4 +1,4 @@
-	function Node(){
+	function WinAndBarNode(){
 		this.winCount = 0;
 		this.barCount = 0;
 		this.prevWin = null;

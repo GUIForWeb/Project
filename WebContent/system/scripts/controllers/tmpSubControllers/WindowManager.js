@@ -6,9 +6,9 @@
 			this.nodeArray["winAndBar"].count -= 1;
 			this.nodeArray["winAndBar"].lastWin = node.prevWin;
 		}
-		this.newWindow = function(obj,node){
+		this.appear = function(obj,node){
 			var tmpNode = this.nodeArray["winAndBar"];
-			while(tmpNode.nextWin instanceof Node){
+			while(tmpNode.nextWin instanceof WinAndBarNode){
 				tmpNode = tmpNode.nextWin;
 			}
 			tmpNode.nextWin = node;
@@ -201,13 +201,14 @@
 			this.windowArray[winSize] = winObj;
 			return winObj;
 		}
-		
+		/*
 		this.appear = function(winObj){
 			var tagId = winObj.tagId;
 			var winSize = this.winSize();
 			winObj.appendWindow();
 			this.windowArray[winSize] = winObj;
 		}
+		*/
 		this.winSize = function(){
 			return this.windowArray.filter(function( element ) {
 				   return element !== undefined;

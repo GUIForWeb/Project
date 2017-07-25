@@ -27,7 +27,7 @@
 			this.nodeArray["win"] = new WinNode();
 			this.nodeArray["bar"] = new BarNode();
 			*/
-			this.nodeArray["winAndBar"] = new Node();
+			this.nodeArray["winAndBar"] = new WinAndBarNode();
 			this.controller = new Controller();
 			this.controller.__proto__ = this;
 			this.gm = new GUIManager();
