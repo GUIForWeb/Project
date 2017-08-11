@@ -1,57 +1,24 @@
 	function BarManager(){
-		this.disappear = function(node){
-			this.nodeArray["winAndBar"].barCount -= 1;
-			node.bar.tag.remove();
-			if(node.nextBar instanceof WinAndBarNode){
-				node.prevBar.nextBar = node.nextBar;
-				node.nextBar.prevBar = node.prevBar;
-			}
-			else
-				node.prevBar.nextBar = null;
-			while(node.nextBar instanceof WinAndBarNode){
-				node = node.nextBar
-				var oLeft = node.bar.view.oLeft;
-				node.bar.view.setOLeft(oLeft - 100);
-			}
-			/*
-			var bNumId = winObj.bNumId;
-			var barObj = this.barArray[bNumId];
-			var barLen = this.barLen();
-			for(bi=parseInt(bNumId)+1; bi<barLen; bi++){
-				this.barArray[bi].view.barTag.css("left",(bi-1)*this.barArray[bi].view.oWidth);
-				this.barArray[bi].view.barTag.attr("id",this.barArray[bi].tagIdRule +(bi-1));
-				this.barArray[bi].init(bi-1);
-				this.barArray[bi-1] = this.barArray[bi];
-				this.bind.again(this.barArray[bi-1]);
-				this.windowInBarArray[bi-1] = this.windowInBarArray[bi];
-			}
-			barObj.view.barTag.remove();
-			if(this.barArray[barLen-1] !== null){
-				delete this.barArray[barLen-1];
-			}
-			if(this.windowInBarArray[barLen-1] !== null)
-				delete this.windowInBarArray[barLen-1]
-			return barObj
-			*/
+		this.remove = function(winAndBarNode){
+			winAndBarNode.bar.tag.remove();
 		}
-		this.appear = function(iconObj){
-			var tmpNode = this.nodeArray["winAndBar"];
-			this.nodeArray["winAndBar"].barCount += 1;
+		
+		this.append = function(iconObj){
+			var winAndBarNode = new WinAndBarNode();
+			var tmpNode = this.nm.addBarNode(winAndBarNode);
 			var barCount = this.nodeArray["winAndBar"].barCount;
-			while(tmpNode.nextBar instanceof WinAndBarNode){
-				tmpNode = tmpNode.nextBar;
-			}
-			tmpNode.nextBar = new WinAndBarNode();
-			tmpNode.nextBar.prevBar = tmpNode;
-			tmpNode = tmpNode.nextBar;
 			tmpNode.bar = new Bar();
 			tmpNode.bar.guiName = this.guiName;
 			tmpNode.bar.name = iconObj.name;
-			tmpNode.bar.taskbarTagArray = this.taskbarTagArray
+			tmpNode.bar.taskbarTagArray = this.taskbarTagArray;
 			tmpNode.bar.windowOnScreen = true;
-			tmpNode.bar.init(barCount);
+			tmpNode.bar.view.taskbarOHeight = this.taskbar.view.oHeight;
+			tmpNode.bar.init(this.valueArray["newId"],this.nodeArray["winAndBar"].barCount);
 			tmpNode.bar.appendBar();
+			this.nodeArray["winAndBar"].barCount += 1;
 			return tmpNode;
+			
+			
 			/*
 			barNode.next = new BarNode();
 			barNode.next.prev = barNode;
@@ -79,7 +46,7 @@
 			return barObj;
 			*/
 		}
-		
+		/*
 		this.restoreBar = function(barMap){
 			var barLen = this.barLen();
 			var restoredBar  = new Bar();
@@ -92,7 +59,7 @@
 			restoredBar.appendBar();
 			this.barArray[barLen] = restoredBar;
 		}
-		
+		*/
 		/*
 		this.appear = function(){
 			var winLen = this.windowArray.length;

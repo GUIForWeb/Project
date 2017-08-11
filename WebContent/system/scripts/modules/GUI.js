@@ -3,8 +3,9 @@
 		this.oWidth = 400;
 		this.oHeight = 400;
 		*/
+		this.winCount = 0;
 		this.nodeArray = {};
-		this.winNum = 0;
+		this.valueArray = {};
 		this.barArray = [];
 		this.iconArray = [];
 		this.iconIdArray = [];
@@ -27,11 +28,17 @@
 			this.nodeArray["win"] = new WinNode();
 			this.nodeArray["bar"] = new BarNode();
 			*/
+			this.valueArray["newId"] = 0;
+			this.valueArray["onScrCount"] = 0;
 			this.nodeArray["winAndBar"] = new WinAndBarNode();
+			this.nodeArray["winAndBar"].lastWin = this.nodeArray["winAndBar"];
+			this.nodeArray["winAndBar"].lastBar = this.nodeArray["winAndBar"];
 			this.controller = new Controller();
 			this.controller.__proto__ = this;
 			this.gm = new GUIManager();
 			this.gm.__proto__ = this.controller;
+			this.gr = new GUIRepository();
+			this.gr.__proto__ = this.controller;
 			this.wm = new WindowManager();
 			this.wm.__proto__ = this.controller; 
 			this.bm = new BarManager();
@@ -40,15 +47,10 @@
 			this.ee.__proto__ = this.controller;
 			this.wse = new WindowSizingEngine();
 			this.wse.__proto__ = this.controller;
-			this.wpe = new WindowPositioningEngine();
-			this.wpe.__proto__ = this.controller;
-			
-			
-			
-			this.wme = new WindowManagerEngine();
-			this.wme.__proto__ = this.controller;
-			this.bme = new BarManagerEngine();
-			this.bme.__proto__ = this.controller;
+			this.pe = new PositioningEngine();
+			this.pe.__proto__ = this.controller;
+			this.nm = new NodeManager();
+			this.nm.__proto__ = this.controller;
 			
 			this.windowListener = new WindowListener();
 			this.windowListener.__proto__ = this.controller;
@@ -76,8 +78,6 @@
 			this.mouseover.__proto__ = this.controller;
 			this.mouseout = new Mouseout();
 			this.mouseout.__proto__ = this.controller;
-			this.reenum = new Reenum();
-			this.reenum.__proto__ = this.controller;
 			this.resize = new Resize();
 			this.resize.__proto__ = this.controller;
 			this.resizeend = new Resizeend();
@@ -163,7 +163,32 @@
 		this.setTaskbarValues = function(taskbarValueArray){
 			this.taskbarValueArray = taskbarValueArray;
 		}
-		this.restoreWindows = function(windowList,barList,windowInBarList){
+		
+		this.restoreWinAndBar = function(winAndBarJSON) {//windowList,barList,windowInBarList)
+			if(winAndBarJSON != ""){
+				winAndBarJSON = JSON.parse(winAndBarJSON);
+				var winAndBarArray = winAndBarJSON["winAndBar"];
+				if(winAndBarArray.length > 0){
+					this.nodeArray["winAndBar"].winCount = this.winCount;
+					this.nodeArray["winAndBar"].barCount = winAndBarArray.length;
+					var tmpNode = new WinAndBarNode();
+					this.gr.restoreNodes(winAndBarArray);
+					this.gr.restoreWinOrder();
+				}
+				if(this.nodeArray["winAndBar"].barCount != 0)
+					this.valueArray["newId"] = this.nodeArray["winAndBar"].lastBar.bar.numId+1;
+				else
+					this.valueArray["newId"] = 0;
+			}
+			/*
+			var tmpNode = this.nodeArray["winAndBar"];
+			
+			while(tmpNode.nextBar instanceof WinAndBarNode){
+				tmpNode = tmpNode.nextBar;
+				console.log(tmpNode);
+			}
+			*/
+			/*
 			if(windowList[0] !== undefined && windowList[0]["numId"] !== undefined){
 				var winLen = windowList.length;
 				for(wi=0; wi<winLen; wi++){
@@ -192,6 +217,7 @@
 					this.windowInBarArray[winObj.bNumId] = winObj;
 				}
 			}
+			*/
 		}
 		this.restoreForms = function(forms){
 			if(forms != ""){

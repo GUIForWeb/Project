@@ -29,8 +29,6 @@ import system.models.Window;
 @Named
 @RequestScoped
 public class Background extends Controller {
-	private int zIdx;
-	private int winNum;
 	private String bgImg;
 	public Background(){
 		this.viewArray[IN] = "background";
@@ -40,7 +38,6 @@ public class Background extends Controller {
 		this.user.setEmail("admin");
 		this.user.setRole("admin");
 		this.session.setAttribute("User",this.user);
-		this.zIdx = 0;
 		this.bgImg = "";
 	}
 	public void init(){
@@ -69,16 +66,6 @@ public class Background extends Controller {
 			IconDAO iconDAO = new IconDAOMySQL(iconsInOSDAO.getIconsInOSList());
 			iconDAO.load();
 			
-			if(null != this.session.getAttribute("windowList"))
-				this.zIdx = ((List<Window>)this.session.getAttribute("windowList")).size();
-			else
-				this.zIdx = 0;
-			
-			if(null != this.session.getAttribute("winNum"))
-				this.winNum = (int) this.session.getAttribute("winNum");
-			else
-				this.winNum = 0;
-	
 			if(null != bgPath.getBgPath()) {
 				this.bgImg = this.context.getRealPath(".").replace(this.contextPath.substring(1), "");
 				this.bgImg += bgPath.getBgPath();
@@ -88,8 +75,6 @@ public class Background extends Controller {
 			this.externalContext.getRequestMap().put("guiSetting",guiSetting);
 			this.externalContext.getRequestMap().put("contextPath",this.contextPath);
 			this.externalContext.getRequestMap().put("iconList",iconDAO.getIconList());
-			this.externalContext.getRequestMap().put("zIdx",this.zIdx);
-			this.externalContext.getRequestMap().put("winNum",this.winNum);
 			this.externalContext.getRequestMap().put("bgImg",this.bgImg);
 		}
 	}

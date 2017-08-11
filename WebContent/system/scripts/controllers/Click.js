@@ -1,54 +1,43 @@
 	function Click(){
+		this.xButton = function(tag){
+			var winTag = tag.parentNode.parentNode;
+			var winAndBarNode = this.gm.xWinAndBar(winTag);
+			this.gr.xWinAndBar(winAndBarNode);
+		}
 		this.hButton = function(tag){
 			var winTag = tag.parentNode.parentNode;
-			this.gm.disappearWin(winTag);
-			/*
-			tag = tag.parentNode.parentNode;
-			var winObj = this.windowArray[tag.style.zIndex];
-			winObj.tag = tag;
-			this.windowInBarArray[winObj.bNumId] = winObj;
-			this.barArray[winObj.bNumId].windowOnScreen = false;
-			var barObj = this.barArray[winObj.bNumId];
-			this.wme.disappear(winObj);
-			this.wpe.disappearPositioning(winObj);
-			this.barListener.call("hide",barObj);
-			*/
+			this.gm.disappear(winTag);
+			this.gr.disappear(winTag.style.zIndex);
 		}
 		this.bar = function(tag){
 			var barTag = tag.parentNode;
-			this.gm.switchWin(barTag);
+			var winTagId = this.winTagIdRule+this.getBarNumId(barTag);
+			var winTag = $("#"+winTagId)[0];
+			if(winTag){
+				this.gm.disappear(winTag);
+				this.gr.disappear(winTag.style.zIndex);
+			}
+			else{
+				this.gm.appear(barTag);
+				this.gr.appear(this.getBarNumId(barTag));
+			}
 		}
 		this.head = function(tag){
 			event.stopPropagation();
-			var winTag = tag.parentNode.parentNode
-			this.ee.window(winTag);
-			//console.log(this.nodeArray["win"]);
-			/*
-			if(winObj !== undefined)
-				this.windowListener.call("changeWinVal",winObj);
-			*/
-		}
-		this.xButton = function(tag){
-			tag = tag.parentNode.parentNode;
-			var node = this.ee.window(tag);
-			this.gm.xWinAndBar(node);
-			
-			/*
-			tag = tag.parentNode.parentNode;
-			var winObj = this.windowArray[tag.style.zIndex];
-			this.wme.disappear(winObj);
-			this.wpe.disappearPositioning(winObj);
-			var barObj = this.bme.disappear(winObj);
-			this.barListener.call("x",barObj);
-			*/
+			var winTag = tag.parentNode.parentNode;
+			var zIndex = winTag.style.zIndex;
+			this.gm.moveWinToTop(winTag);
+			this.gr.moveWinToTop(zIndex);
 		}
 		this.content = function(tag){
 			event.stopPropagation();
-			var winObj = this.reenum.window(tag.parentNode);
-			if(winObj !== undefined){
-				this.windowListener.call("changeWinVal",winObj);
-			}
+			var winTag = tag.parentNode;
+			var zIndex = winTag.style.zIndex;
+			this.gm.moveWinToTop(winTag);
+			this.gr.moveWinToTop(zIndex);
 		}
+		
+		
 		this.rButton = function(tag){
 			if(!this.bgContextMenuObj.isOnTheScreen){
 				this.bgContextMenuObj.guiName = this.guiName;
@@ -66,11 +55,9 @@
 		}
 		
 		this.fButton = function(tag){
-			tag = tag.parentNode.parentNode;
-			var winObj = this.windowArray[tag.style.zIndex];
-			this.wse.fullScreen(tag);
-			this.wpe.changePositioning(winObj);
-			this.windowListener.call("resize",winObj);
+			var winTag = tag.parentNode.parentNode;
+			this.wse.fullScreen(winTag);
+			//this.windowListener.call("resize",winObj);
 		}
 		
 		
@@ -89,7 +76,6 @@
 				iconObj.name = "Background Theme";
 				iconObj.contentURL = "/apps/theme/comps/views/backgroundTheme.jsf";
 			}
-			var menuText = "";
 			var winObj = this.wme.newWindow(iconObj);
 			var barObj = this.bme.newBar(iconObj);
 			this.wpe.newPositioning(winObj);

@@ -1,28 +1,35 @@
 	function WindowSizingEngine(){
+		this.resize = function(tag){
+			this.tag = tag;
+			this.winTag = this.tag.parentNode;
+			this.initStandardValue();
+			this.initAdditionalValue();
+			this.calculate();
+			this.change();
+		}
 		this.initStandardValue = function() {
-			this.zIdx = this.tag.parentNode.style.zIndex;
-			this.win = this.windowArray[this.zIdx];
-			this.oLeft = this.tag.parentNode.offsetLeft;
-			this.oTop = this.tag.parentNode.offsetTop;
-			this.oWidth = $(this.tag.parentNode).width();
-			this.oHeight = $(this.tag.parentNode).height();
+			this.winAndBarNode = this.nm.getNodeWithWinTag(this.winTag);
+			this.win = this.winAndBarNode.win;
+			this.oLeft = this.winTag.offsetLeft;
+			this.oTop = this.winTag.offsetTop;
+			this.oWidth = $(this.winTag).width();
+			this.oHeight = $(this.winTag).height();
 		}
 		this.initAdditionalValue = function() {
+			this.className = this.tag.className;
 			this.minWidth = this.win.view.minWidth;
 			this.minHeight = this.win.view.minHeight;
 			this.resizeHeight = this.win.view.resizeHeight;
 			this.resizeWidth = this.win.view.resizeWidth;
 		}
 		this.calculate = function(){
-			this.className = this.tag.className;
 			this.totalMouseX = event.clientX + window.pageXOffset;
 			this.totalMouseY = event.clientY + window.pageYOffset;
 			if(this.totalMouseX == 0) return 0;
 			if(this.totalMouseY == 0) return 0;
 			this.tmpGapOfWidth = this.totalMouseX - this.oLeft;
 			this.tmpGapOfHeight = this.totalMouseY - this.oTop;
-			if(this.oWidth > this.minWidth && this.oHeight > this.minHeight)
-			{
+			if(this.oWidth > this.minWidth && this.oHeight > this.minHeight) {
 				if (this.className == this.win.view.southEastLayerTagClass) {
 					this.oHeight = this.tmpGapOfHeight;
 					this.oWidth = this.tmpGapOfWidth;
@@ -52,7 +59,6 @@
 				}
 			}
 		}
-		
 		this.change = function(){
 			if(this.oWidth <= this.minWidth){
 				this.oWidth = this.minWidth+5;
@@ -95,34 +101,24 @@
 			$("#" + this.tagIds["s"]).css("top", this.oHeight- this.resizeWidth);
 			$("#" + this.tagIds["s"]).css("width",this.oWidth - this.resizeWidth*2);
 			$("#" + this.tagIds["w"]).css("height",this.oHeight - this.resizeHeight*2);
-			//this.win.view.oHeight = this.oHeight;
-			//this.win.view.oWidth = this.oWidth;
-			//this.win.view.oLeft = this.oLeft; 
-			//this.win.view.oTop = this.oTop;
-		}
-		this.resize = function(tag){
-			this.tag = tag;
-			this.initStandardValue();
-			this.initAdditionalValue();
-			this.calculate();
-			this.change();
 		}
 		this.setSize = function(tag){
 			this.tag = tag;
-			var winObj = this.windowArray[tag.parentNode.style.zIndex];
 			this.initStandardValue();
 			this.win.view.oWidth = this.oWidth;
 			this.win.view.oHeight = this.oHeight;
 			if(this.win.view.oLeft != this.oLeft || this.win.view.oTop != this.oTop) {
-				this.wpe.changePositioning(winObj);
+				this.pe.changePositioning(this.winAndBarNode);
 			}
-			return winObj;
+			this.win.view.oLeft = this.oLeft;
+			this.win.view.oTop = this.oTop;
+			return this.winAndBarNode;
 		}
-		this.fullScreen = function(tag){
-			this.tag = tag;
+		this.fullScreen = function(winTag){
+			this.tag = winTag;
+			this.winTag = winTag;
+			this.initStandardValue();
 			this.oBWidth = parseInt($(this.tag).css("border-width"));
-			this.zIdx = tag.style.zIndex;
-			this.win = this.windowArray[this.zIdx];
 			if(this.win.fullScreen){
 				this.oLeft = this.win.view.preOLeft;
 				this.oTop = this.win.view.preOTop;
@@ -131,10 +127,10 @@
 				this.win.fullScreen = false;
 			}
 			else{
-				this.win.view.preOLeft = tag.offsetLeft;
-				this.win.view.preOTop = tag.offsetTop;
-				this.win.view.preOWidth = tag.offsetWidth;
-				this.win.view.preOHeight = tag.offsetHeight;
+				this.win.view.preOLeft = this.winTag.offsetLeft;
+				this.win.view.preOTop = this.winTag.offsetTop;
+				this.win.view.preOWidth = this.winTag.offsetWidth;
+				this.win.view.preOHeight = this.winTag.offsetHeight;
 				this.oLeft = 0;
 				this.oTop = 0;
 				this.oWidth = $(window).width() - this.oBWidth*2;

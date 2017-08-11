@@ -2,10 +2,6 @@
 	xmlns="http://www.w3.org/1999/xhtml"  
 	xmlns:h="http://xmlns.jcp.org/jsf/html" 
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-	<!-- 
-	<h:outputScript library = "models" name = "WinNode.js" />
-	<h:outputScript library = "models" name = "BarNode.js" /> 
-	 -->
 	<h:outputScript library = "models" name = "WinAndBarNode.js" />
 	<h:outputScript library = "models" name = "Background.js" />
 	<h:outputScript library = "models" name = "Bar.js" />
@@ -13,27 +9,7 @@
 	<h:outputScript library = "models" name = "Taskbar.js" />
 	<h:outputScript library = "models" name = "Icon.js" />
 	<h:outputScript library = "models" name = "ContextMenu.js" />
-	<h:outputScript library = "controllers" name = "tmpSubControllers/GUIManager.js" />
-	<h:outputScript library = "controllers" name = "tmpSubControllers/WindowManager.js" />
-	<h:outputScript library = "controllers" name = "tmpSubControllers/BarManager.js" />
-	<h:outputScript library = "controllers" name = "tmpSubControllers/EnumEngine.js" />
-	<h:outputScript library = "controllers" name = "tmpSubControllers/WindowSizingEngine.js" />
-	<h:outputScript library = "controllers" name = "tmpSubControllers/WindowPositioningEngine.js" />
-	
-	<h:outputScript library = "modules" name = "Model.js" />
-	
-	
-	<!--
-	<h:outputScript library = "modules" name = "Icon.js" />
-	<h:outputScript library = "modules" name = "Background.js" />
-	<h:outputScript library = "modules" name = "Window.js" />
-	<h:outputScript library = "modules" name = "Bar.js" />
-		<h:outputScript library = "modules" name = "Taskbar.js" />
-		<h:outputScript library = "modules" name = "ContextMenu.js" />
-	-->
-
-	
-	<h:outputScript library = "modules" name = "MenuText.js" />
+	<h:outputScript library = "models" name = "Model.js" />
 	<h:outputScript library = "modules" name = "GUI.js" />
 	<h:outputScript library = "modules" name = "Function.js" />
 	<h:outputScript library = "views" name = "IconView.js" />
@@ -55,17 +31,16 @@
 	<h:outputScript library = "controllers" name = "Resizeend.js" />
 	<h:outputScript library = "controllers" name = "subControllers/Form.js" />
 	<h:outputScript library = "controllers" name = "subControllers/EventListener.js" />
-	<h:outputScript library = "controllers" name = "subControllers/Reenum.js" />
 	<h:outputScript library = "controllers" name = "subControllers/BarListener.js" />
 	<h:outputScript library = "controllers" name = "subControllers/WindowListener.js" />
 	<h:outputScript library = "controllers" name = "subControllers/WindowInBarListener.js" />
-	<!-- 
-		<h:outputScript library = "controllers" name = "subControllers/WindowSizingEngine.js" />
-		<h:outputScript library = "controllers" name = "subControllers/WindowPositioningEngine.js" />
-		<h:outputScript library = "controllers" name = "subControllers/GUIBinder.js" />
-	 -->
-	<h:outputScript library = "controllers" name = "subControllers/WindowManagerEngine.js" />
-	<h:outputScript library = "controllers" name = "subControllers/BarManagerEngine.js" />
-	
+	<h:outputScript library = "controllers" name = "subControllers/GUIManager.js" />
+	<h:outputScript library = "controllers" name = "subControllers/GUIRepository.js" />
+	<h:outputScript library = "controllers" name = "subControllers/WindowManager.js" />
+	<h:outputScript library = "controllers" name = "subControllers/NodeManager.js" />
+	<h:outputScript library = "controllers" name = "subControllers/BarManager.js" />
+	<h:outputScript library = "controllers" name = "subControllers/EnumEngine.js" />
+	<h:outputScript library = "controllers" name = "subControllers/WindowSizingEngine.js" />
+	<h:outputScript library = "controllers" name = "subControllers/PositioningEngine.js" />
 	<ui:include src="/system/scripts/inits/init.xhtml" />
 </ui:composition>

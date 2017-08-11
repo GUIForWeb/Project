@@ -53,11 +53,17 @@
 			}
 		}
 		this.head = function (tag,event){
-			tag = tag.parentNode.parentNode;
+			var winTag = tag.parentNode.parentNode;
 			var zIdx = tag.style.zIndex;
-			var winObj = this.windowArray[zIdx];
-			this.wpe.changePositioning(winObj);
-			this.windowListener.call("changeWinVal",winObj);
+			//var winObj = this.windowArray[zIdx];
+			var tmpNode = this.nm.getNodeWithWinTag(tag);
+			this.pe.changePositioning(tmpNode);
+			console.log(tmpNode.win.tag == winTag);
+			/*
+			this.pe.changePositioning(winObj);
+			*/
+			
+			//this.windowListener.call("changeWinVal",winObj);
 			/*
 			tag = tag.parentNode.parentNode;
 			var zIdx = tag.style.zIndex;

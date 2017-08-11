@@ -4,36 +4,34 @@
 		this.tagId = "";
 		this.name = "";
 		this.fullScreen = false;
-		this.bNumId = 0;
+		this.onScreen = true;
 		this.view = new WindowView(this);
 		this.appendWindow = function(){
-			if(this.view.windowTagArray === undefined)
-				this.view.getView();
-			//$(this.tag).css("z-index",this.view.zIndex);
-			this.bgTagArray.append(this.view.windowTagArray);
+			this.view.getView();
+			if(this.onScreen)
+				this.bgTagArray.append(this.view.windowTagArray);
 			this.tag = this.view.windowTagArray[0];
 			this.tagArray = this.view.windowTagArray;
 		}
 		this.init = function(numId){
 			this.numId = numId;
 			this.tagId = this.tagIdRule + numId;
-			this.view.getView();
 		}
-		this.restoreModel = function(windowMap){
-			this.bNumId = windowMap["bNumId"];
-			this.fullScreen = (windowMap["fullScreen"] == "true");
-			this.name = windowMap["name"];
-			this.numId = parseInt(windowMap["numId"]);
-			this.tagId = windowMap["tagId"];
-			this.view.content = decodeURIComponent(windowMap["content"]);
+		this.restoreModel = function(winMap){
+			this.fullScreen = (winMap["fullScreen"] == true);
+			this.onScreen = (winMap["onScreen"] == true);
+			this.name = winMap["name"];
+			this.view.content = decodeURIComponent(winMap["content"]);
 		}
 		this.addEvent = function(status,xFunc){
 			if(status == "x"){
+				/*
 				this.xTrigger = true;
-				this.view.xButtonTag.click(function() {
+				this.view.xButtonTagArray.click(function() {
 					eval(xFunc);
 				});
-				this.view.xButtonTag.attr("onclick",this.guiName+".click.xButton(this)");
+				this.view.xButtonTagArray.attr("onclick",this.guiName+".click.xButton(this)");
+				*/
 			}
 		}
 	}

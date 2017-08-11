@@ -1,31 +1,71 @@
 	function WindowManager(){
-		this.winNum = 0;
-		this.disappear = function(node){
-			node.prevWin.nextWin = null;
-			node.win.tag.remove();
-			this.nodeArray["winAndBar"].count -= 1;
-			this.nodeArray["winAndBar"].lastWin = node.prevWin;
+		this.remove = function(winAndBarNode){
+			winAndBarNode.win.tag.remove();
 		}
-		this.appear = function(obj,node){
-			var tmpNode = this.nodeArray["winAndBar"];
-			while(tmpNode.nextWin instanceof WinAndBarNode){
-				tmpNode = tmpNode.nextWin;
-			}
-			tmpNode.nextWin = node;
-			tmpNode.nextWin.prevWin = tmpNode;
-			tmpNode = tmpNode.nextWin;
+		this.disappear = function(winAndBarNode){
+			winAndBarNode.win.onScreen = false;
+			winAndBarNode.win.tag.remove();
+		}
+		this.appear = function(winAndBarNode){
+			winAndBarNode.win.onScreen = true;
+			winAndBarNode.win.appendWindow();
+		}
+		
+		this.append = function(obj,winAndBarNode){
+			var tmpNode = this.ee.addNewWinAndBarNode(winAndBarNode);
 			tmpNode.win = new Window();
 			tmpNode.win.name = obj.name;
 			tmpNode.win.guiName = this.guiName;
 			tmpNode.win.bgTagArray = this.bgTagArray;
 			tmpNode.win.view.setDefaultValues(this.winDefaultValueArray);
-			this.nodeArray["winAndBar"].winCount += 1;
-			var winCount = this.nodeArray["winAndBar"].winCount;
-			tmpNode.win.view.zIndex = winCount;
-			this.winNum += 1;
-			tmpNode.win.init(this.winNum);
+			tmpNode.win.view.zIndex = this.nodeArray["winAndBar"].winCount;
+			
+			//content
+			if(obj.contentURL.indexOf("http://") !== -1){
+				this.form.submit("wMode",0);
+				tmpNode.win.content = this.form.getData(obj.contentURL);
+				tmpNode.win.contentURL = obj.contentURL;
+			} 
+			else if(obj.contentURL !== undefined){
+				
+				//this.form.submit("wMode",0);
+				var content = this.form.getData(this.contextPath+obj.contentURL);
+				if(obj.option !== undefined){
+					content = $("<div>"+content+"</div>");
+					var html = content.find("#init0Option").html();
+					content.find("#init0Option").html("var option = '" + obj.option +"';" + html);
+					tmpNode.win.content = content.html();
+				}
+				else{
+					tmpNode.win.content = content;
+				}
+				
+				tmpNode.win.contentURL = obj.contentURL;
+			}
+			else
+				tmpNode.win.content = obj.content;
+			
+			if($("<div>"+tmpNode.win.content+"</div>").find(".form").length > 0){
+				var form = $("<div>"+tmpNode.win.content+"</div>").find(".form").val();
+				form = this.form.getData(this.contextPath+form);
+				form  = $("<div>"+form+"</div>").find("form");
+				var formId = form.first().attr("id");
+				if($("#"+formId).length == 0){
+					$("#forms").append($(form));
+					this.form.submit("form",encodeURIComponent($("#forms").html()));
+				}
+			}
+			
+			tmpNode.win.init(this.valueArray["newId"]);
 			tmpNode.win.appendWindow();
+			
 			this.nodeArray["winAndBar"].lastWin = tmpNode;
+			if($("<div>"+tmpNode.win.content+"</div>").find(".xWin").length > 0){	
+				var xWinFunc = $("<div>"+tmpNode.win.content+"</div>").find(".xWin").val();
+				xWinFunc = this.form.getData(this.contextPath+xWinFunc);
+				tmpNode.win.addEvent("x",xWinFunc);
+			}
+			this.nodeArray["winAndBar"].winCount += 1;
 			return tmpNode;
 			
 			/*
@@ -171,44 +211,6 @@
 			*/
 		}
 		
-		this.restoreWindow = function(windowMap){
-			var winSize = this.winSize();
-			var winObj = this.restore(windowMap);
-			winObj.appendWindow();
-			this.windowArray[winSize] = winObj;
-			return winObj;
-		}
-		this.restoreWindowInBar = function(windowMap){
-			var winObj = this.restore(windowMap);
-			this.windowInBarArray[winObj.bNumId] = winObj;
-		}
-		this.restore = function(windowMap){
-			var winObj  = new Window();
-			winObj.guiName = this.guiName;
-			winObj.bgTag = this.bgTag;
-			winObj.view.setDefaultValues(this.winDefaultValueArray);
-			winObj.restoreModel(windowMap);
-			winObj.view.restoreView(windowMap);
-			winObj.view.getView();
-			if(winObj.numId >= this.winLastNumId){
-				this.winLastNumId =  parseInt(winObj.numId) + 1;
-			}
-			return winObj;
-		}
-		this.addWindowObj = function(winObj){
-			var winSize = this.winSize();
-			winObj.view.zIndex = winSize;
-			this.windowArray[winSize] = winObj;
-			return winObj;
-		}
-		/*
-		this.appear = function(winObj){
-			var tagId = winObj.tagId;
-			var winSize = this.winSize();
-			winObj.appendWindow();
-			this.windowArray[winSize] = winObj;
-		}
-		*/
 		this.winSize = function(){
 			return this.windowArray.filter(function( element ) {
 				   return element !== undefined;
