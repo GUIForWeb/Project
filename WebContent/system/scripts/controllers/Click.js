@@ -3,11 +3,16 @@
 			var winTag = tag.parentNode.parentNode;
 			var winAndBarNode = this.gm.xWinAndBar(winTag);
 			this.gr.xWinAndBar(winAndBarNode);
+			//this.nodeArray["winAndBar"].winCount--;
+			//this.nodeArray["winAndBar"].barCount--;
+			console.log(this.nodeArray["winAndBar"].winCount);
+			console.log(this.nodeArray["winAndBar"].barCount);
 		}
 		this.hButton = function(tag){
 			var winTag = tag.parentNode.parentNode;
+			var zIndex = winTag.style.zIndex
 			this.gm.disappear(winTag);
-			this.gr.disappear(winTag.style.zIndex);
+			this.gr.disappear(zIndex);
 		}
 		this.bar = function(tag){
 			var barTag = tag.parentNode;

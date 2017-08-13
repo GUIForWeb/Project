@@ -1,5 +1,7 @@
 function NodeManager(){
 		this.removeLastNode = function(){
+			this.nodeArray["winAndBar"].winCount--;
+			this.nodeArray["winAndBar"].barCount--;
 			this.nodeArray["winAndBar"].lastWin = this.nodeArray["winAndBar"].lastWin.prevWin;
 			this.nodeArray["winAndBar"].lastBar = this.nodeArray["winAndBar"].lastBar.prevBar;
 			this.nodeArray["winAndBar"].lastWin.nextWin = null;

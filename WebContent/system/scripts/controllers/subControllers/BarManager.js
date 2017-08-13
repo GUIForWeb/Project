@@ -11,9 +11,8 @@
 			tmpNode.bar.guiName = this.guiName;
 			tmpNode.bar.name = iconObj.name;
 			tmpNode.bar.taskbarTagArray = this.taskbarTagArray;
-			tmpNode.bar.windowOnScreen = true;
 			tmpNode.bar.view.taskbarOHeight = this.taskbar.view.oHeight;
-			tmpNode.bar.init(this.valueArray["newId"],this.nodeArray["winAndBar"].barCount);
+			tmpNode.bar.init(this.valueArray["newId"],barCount);
 			tmpNode.bar.appendBar();
 			this.nodeArray["winAndBar"].barCount += 1;
 			return tmpNode;

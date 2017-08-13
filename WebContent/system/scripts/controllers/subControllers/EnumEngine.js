@@ -4,7 +4,6 @@
 			var tmpNode = this.nodeArray["winAndBar"];
 			var barCount = this.nodeArray["winAndBar"].barCount;
 			var lastBar = null;
-			console.log(position);
 			if(this.nodeArray["winAndBar"].lastBar != winAndBarNode){
 				while(tmpNode.nextBar instanceof WinAndBarNode){
 					var tmpPst = tmpNode.nextBar.bar.view.position;

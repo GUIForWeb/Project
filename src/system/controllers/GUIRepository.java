@@ -26,6 +26,7 @@ public class GUIRepository extends Controller  {
 		//this.winJSON = jsonObj.getJSONObject("win");
 		//this.barJSON = jsonObj.getJSONObject("bar");
 		switch(this.status){
+		/*
 			case "disappear":
 				this.disappear();
 				break;
@@ -41,7 +42,9 @@ public class GUIRepository extends Controller  {
 			case "xWinAndBar":
 				this.xWinAndBar();
 				break;
+				*/
 		}
+		System.out.println(winCount);
 	}
 	private void xWinAndBar() {
 		String data[] = this.param.split("&");

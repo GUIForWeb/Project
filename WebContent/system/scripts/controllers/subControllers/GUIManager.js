@@ -10,8 +10,6 @@
 			this.nm.removeLastNode();
 			winAndBarNode.win.view.zIndex = zIndex;
 			winAndBarNode.bar.view.position = position;
-			console.log("zIndex: "+zIndex);
-			console.log("position: "+position);
 			return winAndBarNode;
 		}
 		this.moveWinToTop = function(winTag) {
