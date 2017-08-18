@@ -3,10 +3,6 @@
 			var winTag = tag.parentNode.parentNode;
 			var winAndBarNode = this.gm.xWinAndBar(winTag);
 			this.gr.xWinAndBar(winAndBarNode);
-			//this.nodeArray["winAndBar"].winCount--;
-			//this.nodeArray["winAndBar"].barCount--;
-			console.log(this.nodeArray["winAndBar"].winCount);
-			console.log(this.nodeArray["winAndBar"].barCount);
 		}
 		this.hButton = function(tag){
 			var winTag = tag.parentNode.parentNode;
@@ -19,8 +15,9 @@
 			var winTagId = this.winTagIdRule+this.getBarNumId(barTag);
 			var winTag = $("#"+winTagId)[0];
 			if(winTag){
+				var zIndex = winTag.style.zIndex;
 				this.gm.disappear(winTag);
-				this.gr.disappear(winTag.style.zIndex);
+				this.gr.disappear(zIndex);
 			}
 			else{
 				this.gm.appear(barTag);
@@ -62,7 +59,6 @@
 		this.fButton = function(tag){
 			var winTag = tag.parentNode.parentNode;
 			this.wse.fullScreen(winTag);
-			//this.windowListener.call("resize",winObj);
 		}
 		
 		

@@ -63,7 +63,6 @@
 					delete this.windowCoordinate[coordinate][ci];
 				}
 			}
-			console.log(this.windowCoordinate);
 			delete this.windowCoordinate[tagId];
 		}
 		this.append = function(winAndBarNode){

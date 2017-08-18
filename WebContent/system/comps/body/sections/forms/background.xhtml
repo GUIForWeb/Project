@@ -6,15 +6,6 @@
 		<!-- <div ondblclick="gui.dblclick.yo(this)">Yo</div> -->
 	</div>
 	<div id="forms">
-		<h:form id="backgroundForm" onsubmit="return false;">
-			<h:inputHidden value="#{gUIRepository.status}" />
-			<h:inputHidden value="#{gUIRepository.param}" />
-			<h:commandButton id="submit" style="display:none" action="#{gUIRepository.listen()}">
-				<f:ajax execute="@form" render="output0 output1" onevent="getData"/>
-			</h:commandButton>
-			<h:outputText id="output0" value="#{gUIRepository.status}" style="display:none;"/>
-			<h:outputText id="output1" value="#{gUIRepository.param}" style="display:none;"/>
-		</h:form>
 	</div>
 </ui:composition>
 
@@ -23,11 +14,10 @@
 			<h:inputHidden value="#{gUIRepository.status}" />
 			<h:inputHidden value="#{gUIRepository.param}" />
 			<h:commandButton id="submit" style="display:none" action="#{gUIRepository.listen()}">
-				<f:ajax execute="@form" render="output0 output1 output2" onevent="getData"/>
+				<f:ajax execute="@form" render="output0 output1" onevent="getData"/>
 			</h:commandButton>
 			<h:outputText id="output0" value="#{gUIRepository.status}" style="display:none;"/>
 			<h:outputText id="output1" value="#{gUIRepository.param}" style="display:none;"/>
-			<h:outputText id="output2" value="#{gUIRepository.winNum}" style="display:none;"/>
 		</h:form>
 		 -->
 

@@ -1,5 +1,6 @@
 	function WindowManager(){
 		this.remove = function(winAndBarNode){
+			
 			winAndBarNode.win.tag.remove();
 		}
 		this.disappear = function(winAndBarNode){

@@ -3,6 +3,7 @@
 		this.oWidth = 400;
 		this.oHeight = 400;
 		*/
+		
 		this.winCount = 0;
 		this.nodeArray = {};
 		this.valueArray = {};
@@ -24,15 +25,15 @@
 		this.barTagIdRule = new Bar().tagIdRule;
 		this.winTagIdRule = new Window().tagIdRule;
 		this.start = function(){
-			/*
-			this.nodeArray["win"] = new WinNode();
-			this.nodeArray["bar"] = new BarNode();
-			*/
 			this.valueArray["newId"] = 0;
 			this.valueArray["onScrCount"] = 0;
 			this.nodeArray["winAndBar"] = new WinAndBarNode();
 			this.nodeArray["winAndBar"].lastWin = this.nodeArray["winAndBar"];
 			this.nodeArray["winAndBar"].lastBar = this.nodeArray["winAndBar"];
+			/*
+			this.nodeArray["win"] = new WinNode();
+			this.nodeArray["bar"] = new BarNode();
+			*/
 			this.controller = new Controller();
 			this.controller.__proto__ = this;
 			this.gm = new GUIManager();
@@ -163,7 +164,10 @@
 		this.setTaskbarValues = function(taskbarValueArray){
 			this.taskbarValueArray = taskbarValueArray;
 		}
-		
+		this.setWinCount = function(wincount){
+			if(wincount != "")
+				this.winCount = parseInt(winCount)
+		}
 		this.restoreWinAndBar = function(winAndBarJSON) {//windowList,barList,windowInBarList)
 			if(winAndBarJSON != ""){
 				winAndBarJSON = JSON.parse(winAndBarJSON);

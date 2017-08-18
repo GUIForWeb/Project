@@ -1,30 +1,51 @@
 	function GUIRepository(){
 		this.winArray = [];
-		this.winAndBarJSON = {"win":{},"bar":{}}
+		this.json = {}
+		this.ws = new WebSocket("ws://10.0.2.15:8080/WebGUI/gr");
+		this.appear = function(numId){
+			this.json = {"status":"appear","numId":numId}
+			this.ws.send(JSON.stringify(this.json));
+		}
+		this.disappear = function(zIndex){
+			this.json = {"status":"disappear","zIndex":zIndex}
+			this.ws.send(JSON.stringify(this.json));
+		}
 		this.xWinAndBar = function(winAndBarNode){
-			var data = winAndBarNode.win.view.zIndex+"&"+winAndBarNode.bar.view.position;
-			this.form.submit("xWinAndBar",data);
+			this.json = {"status":"xWinAndBar","zIndex":winAndBarNode.win.view.zIndex,"position":winAndBarNode.bar.view.position}
+			this.ws.send(JSON.stringify(this.json));
 		}
-		this.disappear = function(winId){
-			this.form.submit("disappear",winId);
+		this.newWinAndBar = function(winAndBarNode){
+			this.json = {"status":"","win":{},"bar":{}}
+			this.pack(winAndBarNode);
+			this.json.status = "newWinAndBar";
+			this.ws.send(JSON.stringify(this.json));
 		}
-		this.appear = function(barId){
-			this.form.submit("appear",barId);
+		this.moveWinToTop = function(zIndex){
+			this.json = {"status":"moveWinToTop","zIndex":zIndex}
+			this.ws.send(JSON.stringify(this.json));
 		}
+		this.ws.onopen = function(message){ 
+			console.log("open");
+		};
+		this.ws.onmessage = function(message){
+			if(message.isTrusted){
+				if(message.data == "error"){
+					location.reload();
+				}
+			}
+		};
+		this.ws.onclose = function(message){ 
+			console.log("close");
+		};
+		this.ws.onerror = function(message){
+			console.log("error");
+		};
 		this.pack = function(winAndBarNode){
 			this.winToJSON(winAndBarNode.win);
 			this.barToJSON(winAndBarNode.bar);
-			this.winAndBarJSON.win = this.winJSON;
-			this.winAndBarJSON.bar = this.barJSON;
+			this.json.win = this.winJSON;
+			this.json.bar = this.barJSON;
 		}
-		this.moveWinToTop = function(zIndex){
-			this.form.submit("moveWinToTop",zIndex);
-		}
-		this.newWinAndBar = function(winAndBarNode){
-			this.pack(winAndBarNode);
-			this.form.submit("newWinAndBar",JSON.stringify(this.winAndBarJSON));
-		}
-		
 		this.winToJSON = function(win){
 			var content = win.view.contentTagArray.html();
 			content = encodeURIComponent(content);
@@ -54,14 +75,13 @@
 				"position": bar.view.position
 			};
 		}
-		
 		this.restoreNodes = function(winAndBarArray){
 			for(i=0; i<winAndBarArray.length; i++){
+				console.log(winAndBarArray[i]);
 				var winAndBarMap = winAndBarArray[i]
 				var winAndBarNode = new WinAndBarNode();
 				winAndBarNode.bar = this.restoreBar(winAndBarMap["bar"]);
 				winAndBarNode.win = this.restoreWin(winAndBarMap["win"]);
-				console.log(this.nodeArray["winAndBar"].winCount)
 				if(winAndBarMap["win"]["onScreen"]){
 					this.winArray[winAndBarMap["win"]["zIndex"]] = winAndBarNode;
 				}
@@ -70,6 +90,7 @@
 		}
 		this.restoreWinOrder = function(){
 			var tmpNode = this.nodeArray["winAndBar"];
+			console.log(this.winArray);
 			for(wi=0; wi<this.winArray.length; wi++){
 				tmpNode.nextWin = this.winArray[wi];
 				this.winArray[wi].prevWin = tmpNode;

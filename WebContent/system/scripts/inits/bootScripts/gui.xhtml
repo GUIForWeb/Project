@@ -24,7 +24,7 @@
 	gui.setIconDataList(iconDataList);
 	gui.winDefaultValueArray = winDefaultValueArray;
 	gui.start();
-	gui.winCount = #{gUIRepository.winCount};
+	gui.setWinCount(winCount);
 	gui.restoreWinAndBar(winAndBarJSON);//windowList,barList,windowInBarList);
 	gui.restoreForms(forms);
 	function getData(data){
@@ -43,3 +43,4 @@
 		});
 	});
 </script>
+

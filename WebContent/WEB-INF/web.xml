@@ -45,6 +45,14 @@
 		<param-name>javax.faces.ENABLE_WEBSOCKET_ENDPOINT</param-name>
 		<param-value>true</param-value>
 	</context-param>
+	<context-param>
+    	<param-name>org.apache.tomcat.websocket.textBufferSize</param-name>
+    	<param-value>32768</param-value>
+	</context-param>
+	<context-param>
+    	<param-name>org.apache.tomcat.websocket.binaryBufferSize</param-name>
+    	<param-value>32768</param-value>
+	</context-param>
 	<resource-env-ref>
 		<!-- Enable Weld CDI, also needs META-INF/context.xml entry -->
 		<resource-env-ref-name>BeanManager</resource-env-ref-name>
