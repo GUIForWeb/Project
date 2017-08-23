@@ -6,7 +6,6 @@
 	});
 	*/
 	$(window).resize(function(){location.reload();});
-	var system = [];
 	var gui = new GUI("gui");
 	var func = new Function();
 	
@@ -23,6 +22,7 @@
 	gui.setIconTableValues(iconTableValueArray);
 	gui.setIconDataList(iconDataList);
 	gui.winDefaultValueArray = winDefaultValueArray;
+	gui.init();
 	gui.start();
 	gui.setWinCount(winCount);
 	gui.restoreWinAndBar(winAndBarJSON);//windowList,barList,windowInBarList);

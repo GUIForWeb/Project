@@ -3,6 +3,7 @@
 		this.oWidth = 400;
 		this.oHeight = 400;
 		*/
+		//52.14.247.195
 		
 		this.winCount = 0;
 		this.nodeArray = {};
@@ -24,21 +25,27 @@
 		this.iconDataList = null;
 		this.barTagIdRule = new Bar().tagIdRule;
 		this.winTagIdRule = new Window().tagIdRule;
+		
+		this.init = function() {
+		}
 		this.start = function(){
+			this.valueArray["ip"] = "10.0.2.15:8080";
 			this.valueArray["newId"] = 0;
 			this.valueArray["onScrCount"] = 0;
 			this.nodeArray["winAndBar"] = new WinAndBarNode();
 			this.nodeArray["winAndBar"].lastWin = this.nodeArray["winAndBar"];
 			this.nodeArray["winAndBar"].lastBar = this.nodeArray["winAndBar"];
+			this.ws = new WebSocket("ws://"+this.valueArray["ip"]+"/WebGUI/ws");
 			/*
 			this.nodeArray["win"] = new WinNode();
 			this.nodeArray["bar"] = new BarNode();
 			*/
+			
 			this.controller = new Controller();
 			this.controller.__proto__ = this;
 			this.gm = new GUIManager();
 			this.gm.__proto__ = this.controller;
-			this.gr = new GUIRepository();
+			this.gr = new GUIRepository(this.ws);
 			this.gr.__proto__ = this.controller;
 			this.wm = new WindowManager();
 			this.wm.__proto__ = this.controller; 

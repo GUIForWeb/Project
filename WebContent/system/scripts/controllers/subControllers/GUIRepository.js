@@ -1,29 +1,7 @@
-	function GUIRepository(){
+	function GUIRepository(ws){
 		this.winArray = [];
-		this.json = {}
-		this.ws = new WebSocket("ws://10.0.2.15:8080/WebGUI/gr");
-		this.appear = function(numId){
-			this.json = {"status":"appear","numId":numId}
-			this.ws.send(JSON.stringify(this.json));
-		}
-		this.disappear = function(zIndex){
-			this.json = {"status":"disappear","zIndex":zIndex}
-			this.ws.send(JSON.stringify(this.json));
-		}
-		this.xWinAndBar = function(winAndBarNode){
-			this.json = {"status":"xWinAndBar","zIndex":winAndBarNode.win.view.zIndex,"position":winAndBarNode.bar.view.position}
-			this.ws.send(JSON.stringify(this.json));
-		}
-		this.newWinAndBar = function(winAndBarNode){
-			this.json = {"status":"","win":{},"bar":{}}
-			this.pack(winAndBarNode);
-			this.json.status = "newWinAndBar";
-			this.ws.send(JSON.stringify(this.json));
-		}
-		this.moveWinToTop = function(zIndex){
-			this.json = {"status":"moveWinToTop","zIndex":zIndex}
-			this.ws.send(JSON.stringify(this.json));
-		}
+		this.json = {"app":"system.controller.GUIRepository","data":{}}
+		this.ws = ws;
 		this.ws.onopen = function(message){ 
 			console.log("open");
 		};
@@ -40,11 +18,36 @@
 		this.ws.onerror = function(message){
 			console.log("error");
 		};
+		
+		this.appear = function(numId){
+			this.json.data = {"status":"appear","numId":numId}
+			this.ws.send(JSON.stringify(this.json));
+		}
+		this.disappear = function(zIndex){
+			this.json.data = {"status":"disappear","zIndex":zIndex}
+			this.ws.send(JSON.stringify(this.json));
+		}
+		this.xWinAndBar = function(winAndBarNode){
+			this.json.data = {"status":"xWinAndBar","zIndex":winAndBarNode.win.view.zIndex,"position":winAndBarNode.bar.view.position}
+			this.ws.send(JSON.stringify(this.json));
+		}
+		this.newWinAndBar = function(winAndBarNode){
+			this.json.data = {"status":"","win":{},"bar":{}}
+			this.pack(winAndBarNode);
+			this.json.data.status = "newWinAndBar";
+			console.log(this.json);
+			this.ws.send(JSON.stringify(this.json));
+		}
+		this.moveWinToTop = function(zIndex){
+			this.json.data = {"status":"moveWinToTop","zIndex":zIndex}
+			this.ws.send(JSON.stringify(this.json));
+		}
+		
 		this.pack = function(winAndBarNode){
 			this.winToJSON(winAndBarNode.win);
 			this.barToJSON(winAndBarNode.bar);
-			this.json.win = this.winJSON;
-			this.json.bar = this.barJSON;
+			this.json.data.win = this.winJSON;
+			this.json.data.bar = this.barJSON;
 		}
 		this.winToJSON = function(win){
 			var content = win.view.contentTagArray.html();
@@ -76,9 +79,8 @@
 			};
 		}
 		this.restoreNodes = function(winAndBarArray){
-			for(i=0; i<winAndBarArray.length; i++){
-				console.log(winAndBarArray[i]);
-				var winAndBarMap = winAndBarArray[i]
+			for(wbi=0; wbi<winAndBarArray.length; wbi++){
+				var winAndBarMap = winAndBarArray[wbi]
 				var winAndBarNode = new WinAndBarNode();
 				winAndBarNode.bar = this.restoreBar(winAndBarMap["bar"]);
 				winAndBarNode.win = this.restoreWin(winAndBarMap["win"]);

@@ -28,7 +28,6 @@
 				tmpNode.win.contentURL = obj.contentURL;
 			} 
 			else if(obj.contentURL !== undefined){
-				
 				//this.form.submit("wMode",0);
 				var content = this.form.getData(this.contextPath+obj.contentURL);
 				if(obj.option !== undefined){
@@ -45,17 +44,6 @@
 			}
 			else
 				tmpNode.win.content = obj.content;
-			
-			if($("<div>"+tmpNode.win.content+"</div>").find(".form").length > 0){
-				var form = $("<div>"+tmpNode.win.content+"</div>").find(".form").val();
-				form = this.form.getData(this.contextPath+form);
-				form  = $("<div>"+form+"</div>").find("form");
-				var formId = form.first().attr("id");
-				if($("#"+formId).length == 0){
-					$("#forms").append($(form));
-					this.form.submit("form",encodeURIComponent($("#forms").html()));
-				}
-			}
 			
 			tmpNode.win.init(this.valueArray["newId"]);
 			tmpNode.win.appendWindow();

@@ -1,19 +1,105 @@
 function FileBrowser(id){
 	this.id = id;
-	this.start = function(){
+	this.setJSON = function(data) {
+		this.data = data;
+	}
+	this.init = function() {
+		this.controller = new Controller();
+		this.controller.__proto__ = this;
+		//this.fbws = new FBWebSocket(ws);
+		//this.fbws.__proto__ = this.controller;
+		this.dblclick = new DblClick();
+		this.dblclick.__proto__ = this.controller;
+		this.dragstart = new Dragstart();
+		this.dragstart.__proto__ = this.controller;
+		this.drag = new Drag();
+		this.drag.__proto__ = this.controller;
+		this.dragend = new Dragend(); 
+		this.dragend.__proto__ = this.controller;
+		this.ds = new DragSelect();
+		this.ds.__proto__ = this.controller;
+		this.fbm = new FBManager();
+		this.fbm.__proto__ = this.controller;
+		/*
+		this.fbm.send = new FBSender();
+		this.fbm.send.__proto__ = this.controller;
+		this.fbm.receive = new FBReceiver();
+		this.fbm.receive.__proto__ = this.controller;
+		*/
+		this.window = $("#fbTable"+this.id).parent().parent();
+		this.cOfWindow = $("#fbTable"+this.id).parent();
+		this.fbTable = $("#fbTable"+this.id);
+	}
+	this.setFunction = function(){
+		$(this.fbTable.find("tr")[1]).attr("ondblclick","taskArray['fileBrowser']["+this.id+"].dblclick.row(event)");
+		this.fbTable.parent().attr("ondragstart","taskArray['fileBrowser']['"+this.id+"'].dragstart.selection(this,event)");
+		this.fbTable.parent().attr("ondrag","taskArray['fileBrowser']['"+this.id+"'].drag.selection(this,event)");
+		this.fbTable.parent().attr("ondragend","taskArray['fileBrowser']['"+this.id+"'].dragend.selection()");
+	}
+	this.displayHead = function() {
+		this.fbTable.html("");
+		var tmpTr = $("<tr></tr>");
+		tmpTr.addClass("fb-table-header");
+		var tmpTd0 = $("<th>Name</th>");
+		var tmpTd1 = $("<th>Date</th>");
+		var tmpTd2 = $("<th>Type</th>");
+		var tmpTd3 = $("<th>Size</th>");
+		tmpTr.append(tmpTd0);
+		tmpTr.append(tmpTd1);
+		tmpTr.append(tmpTd2);
+		tmpTr.append(tmpTd3);
+		this.fbTable.append(tmpTr);
+		tmpTr = $("<tr></tr>");
+		tmpTr.addClass("fb-table-row");
+		tmpTd0 = $("<td>..</td>");
+		tmpTd1 = $("<td></td>");
+		tmpTd2 = $("<td></td>");
+		tmpTd3 = $("<td></td>");
+		tmpTr.append(tmpTd0);
+		tmpTr.append(tmpTd1);
+		tmpTr.append(tmpTd2);
+		tmpTr.append(tmpTd3);
+		this.fbTable.append(tmpTr);
+	}
+	this.displayData = function() {
+		for(i=0; i<this.data.length; i++) {
+			var tmpTr = $("<tr></tr>");
+			tmpTr.addClass("fb-table-row");
+			tmpTr.addClass("fileItem");
+			tmpTr.attr("ondblclick","taskArray['fileBrowser']["+this.id+"].dblclick.row(event)");
+			var tmpTd0 = $("<td>"+this.data[i]["name"]+"</td>");
+			var tmpTd1 = $("<td>"+this.data[i]["dateModified"]+"</td>");
+			var tmpTd2 = $("<td>"+this.data[i]["type"]+"</td>");
+			var tmpTd3 = $("<td>"+this.data[i]["size"]+"</td>");
+			tmpTr.append(tmpTd0);
+			tmpTr.append(tmpTd1);
+			tmpTr.append(tmpTd2);
+			tmpTr.append(tmpTd3);
+			this.fbTable.append(tmpTr);
+		}
+	}
+	this.display = function() {
+		this.displayHead();
+		this.displayData();
+		this.setFunction();
+		
+		//this.window = $("#fbTable"+this.id).parent().parent();
+		/*
+		 * this.ws = new WebSocket("ws://10.0.2.15:8080/WebGUI/fbc");
+		this.contextMenu = new FileBrowserContextMenu(this);
 		this.controller = new Controller();
 		this.mouseover = new Mouseover();
-		this.dragstart = new Dragstart();
+		
 		this.dragenter = new Dragenter();
 		this.dragover = new Dragover();
 		this.dragleave = new Dragleave();
-		this.drag = new Drag();
+		
 		this.drop = new Drop();
-		this.dragend = new Dragend(); 
+		
 		this.click = new Click();
 		this.focusout = new Focusout();
 		this.keydown = new Keydown();
-		this.ds = new DragSelect();
+		
 		this.dblclick = new DblClick();
 		this.controller.__proto__ = this;
 		this.dragover.__proto__ = this.controller;
@@ -28,11 +114,16 @@ function FileBrowser(id){
 		this.focusout.__proto__ = this.controller;
 		this.keydown.__proto__ = this.controller;
 		this.dblclick.__proto__ = this.controller;
-		this.ds.__proto__ = this.controller;
+	
 		this.window = $("#fbTable"+this.id).parent().parent();
 		this.cOfWindow = $("#fbTable"+this.id).parent();
+		*/
 	}
-	this.contextMenu = new FileBrowserContextMenu(this);
+	/*
+	 *
+	
+	
+	 
 	this.displayData = function(fileItemList){
 		//$("#fbTable"+this.id).parent().attr("onclick","system['fileBrowser']['"+this.id+"'].click.eButton(this)");
 		$("#fbTable"+this.id).parent().click({id:this.id},function(event) {
@@ -76,11 +167,13 @@ function FileBrowser(id){
 		$("#fbTable"+this.id).parent().attr("ondragstart","system['fileBrowser']['"+this.id+"'].dragstart.selection(this,event)");
 		$("#fbTable"+this.id).parent().attr("ondrag","system['fileBrowser']['"+this.id+"'].drag.selection(this,event)");
 		$("#fbTable"+this.id).parent().attr("ondragend","system['fileBrowser']['"+this.id+"'].dragend.selection()");
+		
 	}
 	this.optionFB = function(fileItem,tr,fb){
 		if(this.option !== undefined)
 			eval(this.gui.form.getData(this.gui.contextPath+this.option));
 	}
+	
 	this.javaListToJSMap = function (javaList){
 		javaList = javaList.split("), ");
 		var jsList = [];
@@ -105,6 +198,7 @@ function FileBrowser(id){
 		}
 		return jsList;
 	}
+	
 	this.changeView = function(data){
 		
 		if(data.status == "success") {
@@ -189,5 +283,6 @@ function FileBrowser(id){
 			this.gui.eventListener.callEvent();
 		}
 	}
+	*/
 }
 

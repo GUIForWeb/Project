@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
-import system.models.User;
+import system.model.User;
 
 public class Application {
 	protected User user;
@@ -30,8 +30,8 @@ public class Application {
 			this.user = (User) this.session.getAttribute("User");
 		}
 		this.contextPath = this.externalContext.getApplicationContextPath();
-		this.context = (ServletContext) externalContext.getContext();
-		this.externalContext.getRequestMap().put("contextPath",this.contextPath);
+		this.context = (ServletContext) this.externalContext.getContext();
+		this.externalContext.getApplicationMap().put("contextPath",this.contextPath);
 	}
 	
 	public void redirect(){
