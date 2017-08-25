@@ -23,8 +23,8 @@ public class Authentication {
 	public static Map<String,String> authStandardMap;
 	public static Map<String,List<String>> exceptionXMLMap;
 	public static Map<String,String> dbErrorCodeXMLMap;
-	final private String daos = "system.daos.";
-	final private String parameters = "system.authentication.parameters.";
+	final private String dao = "system.dao.";
+	final private String parameter = "system.authentication.parameter.";
 	private boolean authSuccess;
 	private boolean redayToAuth;
 	private boolean exceptionFilter;
@@ -106,12 +106,12 @@ public class Authentication {
 			DbAuth dbAuth = new DbAuth(this);
 			daoList.addAll(this.procedureMap.keySet());
 			this.authErrorList = new ArrayList<String>();
-			this.authPackage = this.parameters;
+			this.authPackage = this.parameter;
 			RuleResultMap ruleResultMap = new RuleResultMap();  
 			for(int mi=0; mi<daoList.size(); mi++) {
 				this.daoName = daoList.get(mi);
 				try {
-					tmpClass = Class.forName(this.daos+this.daoName);
+					tmpClass = Class.forName(this.dao+this.daoName);
 					tmpObj = tmpClass.getConstructor().newInstance();
 					tmpMethod = tmpClass.getMethod("setPMap", Parameter.class);
 					tmpMethod.invoke(tmpObj,this.pMap);
@@ -199,7 +199,7 @@ public class Authentication {
 			RuleResultMap ruleResultMap = new RuleResultMap();  
 			boolean authRuleSuccess = false;
 			this.authErrorList = new ArrayList<String>();
-			this.authPackage = this.parameters;
+			this.authPackage = this.parameter;
 			for(int li=0; li<this.formAuthList.size(); li++) {
 				this.paramName = this.formAuthList.get(li);
 				this.className = Authentication.authStandardMap.get(this.paramName);

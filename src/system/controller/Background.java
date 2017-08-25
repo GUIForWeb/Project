@@ -33,13 +33,13 @@ public class Background extends Controller {
 	public Background(){
 		this.viewArray[IN] = "background";
 		this.viewArray[OUT] = "login";
-		
+		/*
 		this.user = new User();
 		this.user.setId(1);
 		this.user.setEmail("admin");
 		this.user.setRole("admin");
 		this.session.setAttribute("User",this.user);
-		
+		*/
 		this.bgImg = "";
 	}
 	public void init(){

@@ -1,10 +1,4 @@
 	function GUI(guiVariableName) {
-		/*
-		this.oWidth = 400;
-		this.oHeight = 400;
-		*/
-		//52.14.247.195
-		
 		this.winCount = 0;
 		this.nodeArray = {};
 		this.valueArray = {};
@@ -30,16 +24,12 @@
 		}
 		this.start = function(){
 			this.valueArray["ip"] = "10.0.2.15:8080";
+			//this.valueArray["ip"] = "52.14.247.195:8080";
 			this.valueArray["newId"] = 0;
 			this.valueArray["onScrCount"] = 0;
 			this.nodeArray["winAndBar"] = new WinAndBarNode();
 			this.nodeArray["winAndBar"].lastWin = this.nodeArray["winAndBar"];
 			this.nodeArray["winAndBar"].lastBar = this.nodeArray["winAndBar"];
-			/*
-			this.nodeArray["win"] = new WinNode();
-			this.nodeArray["bar"] = new BarNode();
-			*/
-			
 			this.controller = new Controller();
 			this.controller.__proto__ = this;
 			this.ws = new WebGUIWS(this.valueArray["ip"]);
@@ -72,14 +62,6 @@
 			this.click.__proto__ = this.controller;
 			this.drag = new Drag();
 			this.drag.__proto__ = this.controller;
-			/*
-			this.draging = new Draging();
-			this.draging.__proto__ = this.controller;
-			this.dragend = new Dragend();
-			this.dragend.__proto__ = this.controller;
-			this.dragstart = new Dragstart();
-			this.dragstart.__proto__ = this.controller;
-			*/
 			this.mouseover = new Mouseover();
 			this.mouseover.__proto__ = this.controller;
 			this.mouseout = new Mouseout();
@@ -97,7 +79,6 @@
 		}
 		this.initBackground = function(){
 			this.background = new Background();
-			//this.bgTagId = this.background.tagId;
 			this.background.guiName = this.guiName;
 			this.background.setTaskbarValues(this.taskbarValueArray);
 			this.background.setIconTdValues(this.iconTdValueArray);
@@ -189,44 +170,6 @@
 				else
 					this.valueArray["newId"] = 0;
 			}
-			/*
-			var tmpNode = this.nodeArray["winAndBar"];
-			
-			while(tmpNode.nextBar instanceof WinAndBarNode){
-				tmpNode = tmpNode.nextBar;
-				console.log(tmpNode);
-			}
-			*/
-			/*
-			if(windowList[0] !== undefined && windowList[0]["numId"] !== undefined){
-				var winLen = windowList.length;
-				for(wi=0; wi<winLen; wi++){
-					var winObj = this.wme.restoreWindow(windowList[wi]);
-					this.wpe.restorePositioning(winObj);
-				}
-			}
-			if(barList[0] !== undefined && barList[0]["wNumId"] !== undefined){
-				var barLen = barList.length;
-				for(bi=0; bi<barLen; bi++){
-					var barObj = this.bme.restoreBar(barList[bi]);
-				}
-			}
-			if(windowInBarList[0] !== undefined && windowInBarList[0]["numId"] !== undefined){
-				var wBarLen = windowInBarList.length;
-				for(wbi=0; wbi<wBarLen; wbi++){
-					var winObj  = new Window();
-					winObj.guiName = this.guiName;
-					winObj.bgTag = this.bgTag;
-					winObj.view.setDefaultValues(this.winDefaultValueArray);
-					winObj.restoreModel(windowInBarList[wbi]);
-					winObj.view.restoreView(windowInBarList[wbi]);
-					if(winObj.numId >= this.winLastNumId){
-						this.winLastNumId =  winObj.numId + 1;
-					}
-					this.windowInBarArray[winObj.bNumId] = winObj;
-				}
-			}
-			*/
 		}
 		this.restoreForms = function(forms){
 			if(forms != ""){
