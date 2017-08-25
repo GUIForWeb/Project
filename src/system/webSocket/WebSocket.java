@@ -1,4 +1,4 @@
-package system.websocket;
+package system.webSocket;
 
 
 import java.lang.reflect.InvocationTargetException;
@@ -17,7 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import system.library.ServletAwareConfig;
-import system.websocketInterface.WebSocketInterface;
+import system.webSocketInterface.WebSocketInterface;
 
 @ServerEndpoint(value = "/ws", configurator=ServletAwareConfig.class)
 public class WebSocket{
@@ -40,20 +40,24 @@ public class WebSocket{
 	@OnMessage
 	public String onMessage(String message){
 		JSONObject json = new JSONObject(message);
+		JSONObject be = new JSONObject(); 
 		Method tmpMethod = null;
 		try {
+			json = json.getJSONObject("sending");
 			this.tmpClass = Class.forName(json.getString("app"));
 			this.wsi = (WebSocketInterface) this.tmpClass.getConstructor().newInstance();
 			this.wsi.setConfig(this.config);
 			this.wsi.setSession(this.session);
 			this.wsi.setWebsocketSession(this.websocketSession);
-			this.wsi.onMessage(message);
+			json = this.wsi.onMessage(json.getJSONObject("data").toString());
+			
 		} catch (ClassNotFoundException | JSONException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return message;
+		if(json.length() !=0 )
+			be.put("receiving", json);
+		return be.toString();
 	}
 
 	@OnError

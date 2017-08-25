@@ -4,11 +4,11 @@
 			winAndBarNode.win.tag.remove();
 		}
 		this.disappear = function(winAndBarNode){
-			winAndBarNode.win.onScreen = false;
+			winAndBarNode.win.view.isOnScreen = false;
 			winAndBarNode.win.tag.remove();
 		}
 		this.appear = function(winAndBarNode){
-			winAndBarNode.win.onScreen = true;
+			winAndBarNode.win.view.isOnScreen = true;
 			winAndBarNode.win.appendWindow();
 		}
 		

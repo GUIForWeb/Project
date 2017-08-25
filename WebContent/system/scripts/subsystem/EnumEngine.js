@@ -42,6 +42,7 @@
 						tmpNode.nextWin.win.view.setZIndex(tmpZIdx);
 						tmpNode = tmpNode.nextWin;
 					}else if(tmpZIdx == zIndex){
+						tmpNode.nextWin.win.view.prevZIdx = zIndex;
 						tmpNode.nextWin.win.view.setZIndex(winCount-1);
 						lastWin = tmpNode.nextWin;
 						tmpNode.nextWin.nextWin.prevWin = tmpNode;
@@ -54,6 +55,9 @@
 				lastWin.prevWin = tmpNode;
 				tmpNode.nextWin = lastWin;
 				this.nodeArray["winAndBar"].lastWin = lastWin;
+			}
+			else {
+				this.nodeArray["winAndBar"].lastWin.win.view.prevZIdx = winTag.style.zIndex;
 			}
 			return this.nodeArray["winAndBar"].lastWin;
 		}

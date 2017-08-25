@@ -5,6 +5,7 @@
 		//taskArray["fileBrowser"]["default"] = new FileBrowser();
 	}
 	taskArray["fileBrowser"][fbId] = new FileBrowser(fbId);
+	taskArray["fileBrowser"][fbId].ws = gui.ws;
 	if(typeof gui != "undefined")
 		taskArray["fileBrowser"][fbId].gui = gui;
 </script>

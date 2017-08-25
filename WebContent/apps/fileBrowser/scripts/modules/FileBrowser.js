@@ -1,4 +1,5 @@
 function FileBrowser(id){
+	this.ws = function(){}
 	this.id = id;
 	this.setJSON = function(data) {
 		this.data = data;
@@ -6,8 +7,6 @@ function FileBrowser(id){
 	this.init = function() {
 		this.controller = new Controller();
 		this.controller.__proto__ = this;
-		//this.fbws = new FBWebSocket(ws);
-		//this.fbws.__proto__ = this.controller;
 		this.dblclick = new DblClick();
 		this.dblclick.__proto__ = this.controller;
 		this.dragstart = new Dragstart();

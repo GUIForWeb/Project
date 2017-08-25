@@ -52,13 +52,12 @@
 				this.form.submit("iconXY","iconNumId="+numId+"&"+"iconX="+encodeURIComponent(iconX)+"&"+"iconY="+encodeURIComponent(iconY));
 			}
 		}
-		this.head = function (tag,event){
+		this.head = function (tag){
 			var winTag = tag.parentNode.parentNode;
-			var zIdx = tag.style.zIndex;
-			//var winObj = this.windowArray[zIdx];
-			var tmpNode = this.nm.getNodeWithWinTag(tag);
-			this.pe.changePositioning(tmpNode);
-			console.log(tmpNode.win.tag == winTag);
+			var tmpNode = this.nm.getNodeWithWinTag(winTag);
+			this.pe.changePosition(tmpNode);
+			this.gr.changePosition(tmpNode);
+			
 			/*
 			this.pe.changePositioning(winObj);
 			*/

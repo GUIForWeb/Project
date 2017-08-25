@@ -35,7 +35,6 @@
 			this.nodeArray["winAndBar"] = new WinAndBarNode();
 			this.nodeArray["winAndBar"].lastWin = this.nodeArray["winAndBar"];
 			this.nodeArray["winAndBar"].lastBar = this.nodeArray["winAndBar"];
-			this.ws = new WebSocket("ws://"+this.valueArray["ip"]+"/WebGUI/ws");
 			/*
 			this.nodeArray["win"] = new WinNode();
 			this.nodeArray["bar"] = new BarNode();
@@ -43,6 +42,7 @@
 			
 			this.controller = new Controller();
 			this.controller.__proto__ = this;
+			this.ws = new WebGUIWS(this.valueArray["ip"]);
 			this.gm = new GUIManager();
 			this.gm.__proto__ = this.controller;
 			this.gr = new GUIRepository(this.ws);
@@ -60,12 +60,6 @@
 			this.nm = new NodeManager();
 			this.nm.__proto__ = this.controller;
 			
-			this.windowListener = new WindowListener();
-			this.windowListener.__proto__ = this.controller;
-			this.barListener = new BarListener();
-			this.barListener.__proto__ = this.controller;
-			this.windowInBarListener = new WindowInBarListener();
-			this.windowInBarListener.__proto__ = this.controller;
 			this.eventListener = new EventListener();
 			this.eventListener.__proto__ = this.controller;
 			this.model = new Model();
@@ -78,10 +72,14 @@
 			this.click.__proto__ = this.controller;
 			this.drag = new Drag();
 			this.drag.__proto__ = this.controller;
+			/*
+			this.draging = new Draging();
+			this.draging.__proto__ = this.controller;
 			this.dragend = new Dragend();
 			this.dragend.__proto__ = this.controller;
 			this.dragstart = new Dragstart();
 			this.dragstart.__proto__ = this.controller;
+			*/
 			this.mouseover = new Mouseover();
 			this.mouseover.__proto__ = this.controller;
 			this.mouseout = new Mouseout();

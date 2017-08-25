@@ -58,7 +58,8 @@
 		
 		this.fButton = function(tag){
 			var winTag = tag.parentNode.parentNode;
-			this.wse.fullScreen(winTag);
+			var winAndBarNode = this.gm.fullScreen(winTag);
+			this.gr.fullScreen(winAndBarNode);
 		}
 		
 		

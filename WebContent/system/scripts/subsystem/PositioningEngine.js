@@ -90,7 +90,7 @@
 				this.newWindowPositioning(winAndBarNode);
 			}
 		}
-		this.changePositioning = function(winAndBarNode){
+		this.changePosition = function(winAndBarNode){
 			var tagId = winAndBarNode.win.tagId;
 			var coordinate = winAndBarNode.win.view.oLeft.toFixed(1)+","+winAndBarNode.win.view.oTop.toFixed(1);
 			if(null != this.windowCoordinate[coordinate]){

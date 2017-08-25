@@ -1,46 +1,58 @@
-	function GUIRepository(ws){
+	function GUIRepository(){
 		this.winArray = [];
 		this.json = {"app":"system.controller.GUIRepository","data":{}}
-		this.ws = ws;
-		this.ws.onopen = function(message){ 
-			console.log("open");
-		};
-		this.ws.onmessage = function(message){
-			if(message.isTrusted){
-				if(message.data == "error"){
-					location.reload();
-				}
+		this.fullScreen = function(winAndBarNode){
+			var view = winAndBarNode.win.view;
+			this.json.data = {
+					"status":"fullScreen",
+					"zIndex":view.prevZIdx,
+					"oTop":view.oTop,
+					"oLeft":view.oLeft,
+					"oWidth":view.oWidth,
+					"oHeight":view.oHeight,
+					"prevOTop":view.prevOTop,
+					"prevOLeft":view.prevOLeft,
+					"prevOWidth":view.prevOWidth,
+					"prevOHeight":view.prevOHeight,
+					"isFullScreen":view.isFullScreen
 			}
-		};
-		this.ws.onclose = function(message){ 
-			console.log("close");
-		};
-		this.ws.onerror = function(message){
-			console.log("error");
-		};
-		
+			this.ws.send(this.json);
+		}
+		this.changePosition = function(winAndBarNode) {
+			var numId = winAndBarNode.win.numId;
+			var oTop = winAndBarNode.win.view.oTop;
+			var oLeft = winAndBarNode.win.view.oLeft;
+			var zIndex = winAndBarNode.win.view.prevZIdx;
+			var isFullScreen = winAndBarNode.win.view.isFullScreen;
+			this.json.data = {"status":"position","zIndex":zIndex,"oTop":oTop,"oLeft":oLeft,"isFullScreen":isFullScreen}
+			this.ws.send(this.json);
+		}
+		this.resize = function(tag){
+			this.json.data = {"status":"resize"}
+			var winAndBarNode = this.nm.getNodeWithWinTag(tag);
+			console.log(winAndBarNode);
+		}
 		this.appear = function(numId){
 			this.json.data = {"status":"appear","numId":numId}
-			this.ws.send(JSON.stringify(this.json));
+			this.ws.send(this.json);
 		}
 		this.disappear = function(zIndex){
 			this.json.data = {"status":"disappear","zIndex":zIndex}
-			this.ws.send(JSON.stringify(this.json));
+			this.ws.send(this.json);
 		}
 		this.xWinAndBar = function(winAndBarNode){
 			this.json.data = {"status":"xWinAndBar","zIndex":winAndBarNode.win.view.zIndex,"position":winAndBarNode.bar.view.position}
-			this.ws.send(JSON.stringify(this.json));
+			this.ws.send(this.json);
 		}
 		this.newWinAndBar = function(winAndBarNode){
 			this.json.data = {"status":"","win":{},"bar":{}}
 			this.pack(winAndBarNode);
 			this.json.data.status = "newWinAndBar";
-			console.log(this.json);
-			this.ws.send(JSON.stringify(this.json));
+			this.ws.send(this.json);
 		}
 		this.moveWinToTop = function(zIndex){
 			this.json.data = {"status":"moveWinToTop","zIndex":zIndex}
-			this.ws.send(JSON.stringify(this.json));
+			this.ws.send(this.json);
 		}
 		
 		this.pack = function(winAndBarNode){
@@ -54,8 +66,8 @@
 			content = encodeURIComponent(content);
 			content = content.replace(/'/g, "%27");
 			this.winJSON = {
-				"fullScreen": win.fullScreen,
-				"onScreen": win.onScreen,
+				"isFullScreen": win.view.isFullScreen,
+				"isOnScreen": win.view.isOnScreen,
 				"numId": win.numId,
 				"name": win.name,
 				"content": content,
@@ -63,10 +75,10 @@
 				"oHeight": parseInt(win.view.oHeight),
 				"oLeft": parseInt(win.view.oLeft),
 				"oTop": parseInt(win.view.oTop),
-				"preOWidth": parseInt(win.view.preOWidth),
-				"preOHeight": parseInt(win.view.preOHeight),
-				"preOLeft": parseInt(win.view.preOLeft),
-				"preOTop": parseInt(win.view.preOTop),
+				"prevOWidth": parseInt(win.view.prevOWidth),
+				"prevOHeight": parseInt(win.view.prevOHeight),
+				"prevOLeft": parseInt(win.view.prevOLeft),
+				"prevOTop": parseInt(win.view.prevOTop),
 				"zIndex": win.view.zIndex
 			};
 		}
@@ -84,7 +96,7 @@
 				var winAndBarNode = new WinAndBarNode();
 				winAndBarNode.bar = this.restoreBar(winAndBarMap["bar"]);
 				winAndBarNode.win = this.restoreWin(winAndBarMap["win"]);
-				if(winAndBarMap["win"]["onScreen"]){
+				if(winAndBarMap["win"]["isOnScreen"]){
 					this.winArray[winAndBarMap["win"]["zIndex"]] = winAndBarNode;
 				}
 				this.nm.addBarNode(winAndBarNode);
@@ -92,7 +104,6 @@
 		}
 		this.restoreWinOrder = function(){
 			var tmpNode = this.nodeArray["winAndBar"];
-			console.log(this.winArray);
 			for(wi=0; wi<this.winArray.length; wi++){
 				tmpNode.nextWin = this.winArray[wi];
 				this.winArray[wi].prevWin = tmpNode;

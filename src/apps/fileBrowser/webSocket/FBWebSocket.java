@@ -1,4 +1,4 @@
-package apps.fileBrowser.controller;
+package apps.fileBrowser.webSocket;
 
 
 import javax.servlet.http.HttpSession;
@@ -14,7 +14,7 @@ import org.json.JSONObject;
 
 import apps.fileBrowser.module.FBManager;
 import system.library.ServletAwareConfig;
-import system.websocketInterface.WebSocketInterface;
+import system.webSocketInterface.WebSocketInterface;
 
 public class FBWebSocket implements WebSocketInterface{
 	private Session websocketSession;
@@ -26,10 +26,10 @@ public class FBWebSocket implements WebSocketInterface{
 	}
 	
 	@Override
-	public String onMessage(String message){
+	public JSONObject onMessage(String message){
 		JSONObject json = new JSONObject(message);
 		String status = json.getString("status");
-		json.remove("status");
+		json = json.getJSONObject("data");
 		this.fbm.setSession(this.session);
 		this.fbm.setJson(json);
 		switch (status) {
@@ -37,9 +37,11 @@ public class FBWebSocket implements WebSocketInterface{
 				this.fbm.open(json);
 				break;
 		}
-		message = this.fbm.getJson().toString();
-		System.out.println(message);
-		return message;
+		int id = this.fbm.getId();
+		json = new JSONObject();
+		json.put("app", "taskArray.fileBrowser["+id+"].fbm");
+		json.put("data", this.fbm.getJson());
+		return json;
 	}
 
 	@Override

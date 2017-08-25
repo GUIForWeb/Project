@@ -1,4 +1,11 @@
 	function GUIManager(){
+		this.fullScreen = function(winTag) {
+			var winAndBarNode = this.ee.moveWinToTop(winTag);
+			this.pe.remove(winAndBarNode);
+			this.wse.fullScreen(winAndBarNode);
+			this.pe.append(winAndBarNode);
+			return winAndBarNode;
+		}
 		this.xWinAndBar = function(winTag){
 			var zIndex = winTag.style.zIndex;
 			var winAndBarNode = this.ee.moveWinToTop(winTag);
@@ -16,12 +23,14 @@
 			return this.ee.moveWinToTop(winTag);
 		}
 		this.disappear = function(winTag){
-			var tmpNode = this.ee.disappear(winTag);
-			this.wm.disappear(tmpNode);
+			var winAndBarNode = this.ee.disappear(winTag);
+			this.wm.disappear(winAndBarNode);
+			this.pe.remove(winAndBarNode);
 		}
 		this.appear = function(barTag){
-			var tmpNode = this.ee.recover(barTag);
-			this.wm.appear(tmpNode);
+			var winAndBarNode = this.ee.recover(barTag);
+			this.wm.appear(winAndBarNode);
+			this.pe.append(winAndBarNode);
 		}
 		this.newWinAndBar = function(iconObj){
 			var winAndBarNode = this.bm.append(iconObj);

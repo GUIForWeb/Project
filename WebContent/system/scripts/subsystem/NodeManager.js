@@ -7,6 +7,16 @@ function NodeManager(){
 			this.nodeArray["winAndBar"].lastWin.nextWin = null;
 			this.nodeArray["winAndBar"].lastBar.nextBar = null;
 		}
+		this.getNodeWithWinTagId = function(winTagId){
+			var tmpNode = this.nodeArray["winAndBar"];
+			while(tmpNode.nextBar instanceof WinAndBarNode){
+				tmpNode = tmpNode.nextBar;
+				if(tmpNode.win.tag.id == winTagId){
+					break;
+				}
+			}
+			return tmpNode;
+		}
 		this.getNodeWithWinTag = function(winTag){
 			var tmpNode = this.nodeArray["winAndBar"];
 			while(tmpNode.nextBar instanceof WinAndBarNode){

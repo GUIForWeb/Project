@@ -102,6 +102,7 @@
 			$("#" + this.tagIds["s"]).css("width",this.oWidth - this.resizeWidth*2);
 			$("#" + this.tagIds["w"]).css("height",this.oHeight - this.resizeHeight*2);
 		}
+		/*
 		this.setSize = function(tag){
 			this.tag = tag;
 			this.initStandardValue();
@@ -114,6 +115,47 @@
 			this.win.view.oTop = this.oTop;
 			return this.winAndBarNode;
 		}
+		*/
+		this.fullScreen = function(winAndBarNode){
+			this.winAndBarNode = winAndBarNode;
+			this.tag = winAndBarNode.win.tag;
+			this.winTag = winAndBarNode.win.tag;
+			this.win = this.winAndBarNode.win;
+			this.oLeft = this.winTag.offsetLeft;
+			this.oTop = this.winTag.offsetTop;
+			this.oWidth = $(this.winTag).width();
+			this.oHeight = $(this.winTag).height();
+			this.oBWidth = parseInt($(this.tag).css("border-width"));
+			if(this.win.view.isFullScreen){
+				this.oLeft = this.win.view.prevOLeft;
+				this.oTop = this.win.view.prevOTop;
+				this.oWidth = this.win.view.prevOWidth;
+				this.oHeight = this.win.view.prevOHeight;
+				this.win.view.isFullScreen = false;
+			}
+			else{
+				this.win.view.prevOLeft = this.winTag.offsetLeft;
+				this.win.view.prevOTop = this.winTag.offsetTop;
+				this.win.view.prevOWidth = this.winTag.offsetWidth;
+				this.win.view.prevOHeight = this.winTag.offsetHeight;
+				this.oLeft = 0;
+				this.oTop = 0;
+				this.oWidth = $(window).width() - this.oBWidth*2;
+				this.oHeight = $(window).height() - this.taskbar.view.oHeight;
+				this.win.view.isFullScreen = true;
+			}
+			this.win.view.oWidth = this.oWidth;
+			this.win.view.oHeight = this.oHeight;
+			this.initAdditionalValue();			
+			this.calculate();
+			this.change();
+			this.win.view.oLeft = this.winTag.offsetLeft;
+			this.win.view.oTop = this.winTag.offsetTop;
+			this.win.view.oWidth = this.winTag.offsetWidth;
+			this.win.view.oHeight = this.winTag.offsetHeight;
+			return this.winAndBarNode;
+		}
+		/*
 		this.fullScreen = function(winTag){
 			this.tag = winTag;
 			this.winTag = winTag;
@@ -142,5 +184,7 @@
 			this.initAdditionalValue();			
 			this.calculate();
 			this.change();
+			return this.winAndBarNode;
 		}
+		*/
 	}

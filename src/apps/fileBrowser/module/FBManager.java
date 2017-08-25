@@ -62,7 +62,6 @@ public class FBManager{
 			this.dataItemDAO.setFilePath(this.filePath);
 			this.dataItemArray = this.dataItemDAO.getDataItemArray();
 			this.json = new JSONObject();
-			this.json.put("id", this.id);
 			this.json.put("status", "open");
 			this.json.put("data", this.dataItemArray);
 			this.session.setAttribute("browserList", this.browserList);

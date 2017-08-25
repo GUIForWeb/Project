@@ -1,5 +1,7 @@
 	function WindowView(windowModel){
 		this.__proto__ = windowModel;
+		this.isFullScreen = false;
+		this.isOnScreen = true;
 		this.outerLayerTagClass = "windowOuterLayer";
 		this.headLayerTagClass = "windowHeadLayer";
 		this.contentLayerTagClass = "windowContentLayer";
@@ -13,6 +15,7 @@
 		this.northEastLayerTagClass = "windowNorthEastLayer";
 		this.southWestLayerTagClass = "windowSouthWestLayer";
 		this.southEastLayerTagClass = "windowSouthEastLayer";
+		this.prevZIdx = 0;
 		this.zIndex = 0;
 		this.xBorderWidth = 0;
 		this.oBorderWidth = 0;
@@ -22,10 +25,10 @@
 		this.bTop = 0;
 		this.minWidth = 0;
 		this.minHeight = 0;
-		this.preOLeft = 0;
-		this.preOTop = 0;
-		this.preOWidth = 0;
-		this.preOHeight = 0;
+		this.prevOLeft = 0;
+		this.prevOTop = 0;
+		this.prevOWidth = 0;
+		this.prevOHeight = 0;
 		this.resizeWidth = 10;
 		this.resizeHeight = 10;
 		this.nwLeft = 0;
@@ -118,9 +121,9 @@
 				top:0
 			});
 			tmpTag.attr("draggable","true");
-			tmpTag.attr("ondragstart",this.guiName+".dragstart.head(this,event)");
-			tmpTag.attr("ondrag",this.guiName+".drag.head(this)");
-			tmpTag.attr("ondragend",this.guiName+".dragend.head(this,event)");
+			tmpTag.attr("ondragstart",this.guiName+".drag.start.head(this)");
+			tmpTag.attr("ondrag",this.guiName+".drag.ing.head(this)");
+			tmpTag.attr("ondragend",this.guiName+".drag.end.head(this)");
 			tmpTag.attr("onclick",this.guiName+".click.head(this)");
 			this.movementHandleTagArray = tmpTag;
 		}
@@ -338,10 +341,10 @@
 			this.oTop = windowMap["oTop"];
 			this.oWidth = windowMap["oWidth"];
 			this.oHeight = windowMap["oHeight"];
-			this.preOLeft = windowMap["preOLeft"];
-			this.preOTop = windowMap["preOTop"];
-			this.preOWidth = windowMap["preOWidth"];
-			this.preOHeight = windowMap["preOHeight"];
+			this.prevOLeft = windowMap["prevOLeft"];
+			this.prevOTop = windowMap["prevOTop"];
+			this.prevOWidth = windowMap["prevOWidth"];
+			this.prevOHeight = windowMap["prevOHeight"];
 			this.zIndex = windowMap["zIndex"];
 		}
 		this.getView = function(){
