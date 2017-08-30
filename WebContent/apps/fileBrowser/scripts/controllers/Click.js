@@ -1,34 +1,58 @@
 function Click(){
-	this.eButton = function(tag){
-		event.stopPropagation();
+	this.eButton = function(event){
 		if(this.contextMenu.isOnTheScreen){
 			this.contextMenu.remove();
 			this.contextMenu.isOnTheScreen = false;
-			this.clipboard = null;
-			this.tag = null;
+			this.clipboard("","");
 		}
-		if(this.ds.select == true){
+		if(this.ds.isWorking == true){
 			this.ds.cancle();
 		}
 	}
-	this.cButton = function(tag){
-		event.stopPropagation();
+	this.cButton = function(event){
 		if(!this.contextMenu.isOnTheScreen){
 			this.contextMenu.isInWindow = true;
-			this.tag = tag;
-			this.contextMenu.bgTag = $(tag.parentNode.parentNode.parentNode);
+			this.tag(event.currentTarget);
 			this.contextMenu.appendContextMenu();
-			if(this.ds.select == false){
-				this.clipboard = this.id+"&"+tag.children[2].innerHTML+"&"+tag.children[0].innerHTML;
-				if(tag.children[0].innerHTML != "..")
+			if(this.ds.isWorking == false){
+				this.clipboard([{"name":this.va["tag"].children[0].innerHTML,"type":this.va["tag"].children[2].innerHTML}])
+				if(this.va["tag"].children[0].innerHTML != "..")
 					this.validation = true;
 			}
-			else if(this.ds.select == true){
-				this.clipboard = this.ds.list;
+			else if(this.ds.isWorking == true){
+				this.clipboard(this.ds.list);
 				this.validation = true;
 			}
 		}
 	}
+	this.newFolder = function(event){
+		this.fbm.send.newFolder();
+		this.contextMenu.removeContextMenu();
+	}
+	this.rename = function(event){
+		if(!this.ds.isWorking && Object.keys(this.va["clipboard"][0]).length == 2){
+			this.va["tagArray"].first().attr("contenteditable",true);
+			this.va["tagArray"].first().focusout({"id":this.id},function(event){
+				taskArray["fileBrowser"][event.data.id].focusout.rename(event);
+			});
+			this.va["tagArray"].first().keydown({"id":this.id},function(event){
+				taskArray["fileBrowser"][event.data.id].keydown.rename(event);
+			});
+			this.va["prevValue"] = this.va["clipboard"];
+			this.va["tagArray"].focus();
+			this.contextMenu.removeContextMenu();
+			this.validation = false;
+		}
+	}
+	this.del = function(){
+		/*
+		if(this.validation && confirm('Delete it?')){
+			this.fbm.send.del();
+			this.validation = false;
+		}
+		*/
+	}
+	/*
 	this.downlaod = function(){
 		if(this.validation){
 			this.submitForDl("download",this.clipboard);
@@ -50,12 +74,7 @@ function Click(){
 	this.paste = function(){
 		this.submit("paste",this.clipboard);
 	}
-	this.del = function(){
-		if(this.validation && confirm('Delete it?')){
-			this.submit("del",this.clipboard);
-			this.validation = false;
-		}
-	}
+	
 	this.newFolder = function(){
 			this.submit("newFolder",this.clipboard);
 	}
@@ -69,4 +88,5 @@ function Click(){
 			this.validation = false;
 		}
 	}
+	*/
 }

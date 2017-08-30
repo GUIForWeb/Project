@@ -40,6 +40,9 @@ public class GUIRepository implements WebSocketInterface {
 		case "moveWinToTop":
 			this.moveWinToTop(json);
 			break;
+		case "updateContent":
+			this.updateContent(json);
+			break;
 		case "disappear":
 			this.disappear(json);
 			break;
@@ -67,6 +70,26 @@ public class GUIRepository implements WebSocketInterface {
 		}
 		this.setSession();
 		return new JSONObject();
+	}
+	private void updateContent(JSONObject json) {
+		int winCnt = this.winAndBarArray.length();
+		int numId = json.getInt("numId");
+		int tmpId = 0;
+		JSONObject tmpObj = null;
+		JSONObject tmpWinAndBar = null;
+		for(int wi=0; wi<winCnt; wi++){
+			tmpWinAndBar = this.winAndBarArray.getJSONObject(wi);
+			tmpObj = tmpWinAndBar.getJSONObject("bar");
+			tmpId = tmpObj.getInt("numId");
+			if(numId == tmpId){
+				tmpObj = tmpWinAndBar.getJSONObject("win");
+				tmpObj.put("content", json.getString("content"));
+				tmpWinAndBar.put("win",tmpObj);
+				this.winAndBarArray.put(wi,tmpWinAndBar);
+				break;
+			}
+		}
+		this.isUpdated = true;
 	}
 	public void fullScreen(JSONObject json) {
 		int zIndex = json.getInt("zIndex");

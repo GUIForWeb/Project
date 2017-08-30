@@ -1,6 +1,14 @@
 	function GUIRepository(){
 		this.winArray = [];
 		this.json = {"app":"system.controller.GUIRepository","data":{}}
+		this.updateContent = function(win){
+			var numId = win.numId;
+			var content = win.view.contentTagArray.html();
+			content = encodeURIComponent(content);
+			content = content.replace(/'/g, "%27");
+			this.json.data = {"status":"updateContent","numId":numId,"content":content}
+			this.ws.send(this.json);
+		}
 		this.fullScreen = function(winAndBarNode){
 			var view = winAndBarNode.win.view;
 			this.json.data = {

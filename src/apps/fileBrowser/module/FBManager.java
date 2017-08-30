@@ -25,13 +25,52 @@ public class FBManager{
 	private DataItemDAO dataItemDAO;
 	private JSONArray dataItemArray;
 	private HttpSession session;
+	private Browser browser;
 	
 	
 	public FBManager(){
 		this.dataItemDAO = new DataItemDAO();
 	}
+	public void del() {
+		/*
+		String[] info = this.param.split("&");
+		Browser tmpBrowser = this.browser(info[0]);
+		boolean success = false;
+		for (int ii = 0; ii < info.length; ii += 3) {
+			info[ii + 2] = tmpBrowser.getFilePath() + "/" + info[ii + 2];
+			File dest = new File(info[ii + 2]);
+			if (info[ii + 1].equals("directory")) {
+				try {
+					FileUtils.deleteDirectory(dest);
+					success = true;
+				} catch (IOException e) {
+					e.printStackTrace();
+					break;
+				}
+			} else {
+				if (dest.delete()) {
+					success = true;
+				} else {
+					break;
+				}
+			}
+		}
+		if (success)
+			this.changeView(tmpBrowser);
+		*/
+	}
+	public void rename() {
+		System.out.println(this.json);
+		String srcStr = this.browser.getFilePath() + "/" + this.json.getString("src");
+		String destStr = this.browser.getFilePath() + "/" + this.json.getString("dest");
+		File src = new File(srcStr);
+		File dest = new File(destStr);
+		if (!src.equals(dest) && src.renameTo(dest)){
+			this.reload();
+		}
+	}
 	public void newFB(){
-		this.getSession();
+		this.setNewId();
 		Browser tmpBrowser = new Browser();
 		tmpBrowser.setId(this.id);
 		tmpBrowser.setFilePath(this.root);
@@ -40,15 +79,34 @@ public class FBManager{
 		this.dataItemArray = this.dataItemDAO.getDataItemArray();
 		this.setSession();
 	}
-	public void open(JSONObject json){
-		this.id = json.getInt("id");
-		String name = json.getString("name");
-		String type = json.getString("type");
+	public void newFolder() {
+		String name = "New Folder";
+		File newFolder = new File(this.filePath + "/" + name);
+		if (!newFolder.exists()) {
+			newFolder.mkdirs();
+		} else {
+			this.mkDir(this.browser, name, 0);
+		}
+		this.dataItemDAO.setFilePath(this.filePath);
+		this.dataItemArray = this.dataItemDAO.getDataItemArray();
+		this.reload();
+	}
+	private void mkDir(Browser browser, String name, int num) {
+		File newFolder = new File(browser.getFilePath() + "/" + name + " " + num);
+		if (!newFolder.exists()) {
+			newFolder.mkdirs();
+		} else {
+			this.mkDir(browser, name, num + 1);
+		}
+	}
+	public void open(){
+		String name = this.json.getString("name");
+		String type = this.json.getString("type");
 		if (type.equals("directory") || type.equals("")) {
 			this.root = (String) this.session.getAttribute("root");
 			this.browserList = (List<Browser>) this.session.getAttribute("browserList");
-			Browser tmpBrowser = this.browser();
-			this.filePath = tmpBrowser.getFilePath() + "/" + name;
+			//Browser tmpBrowser = this.browser();
+			this.filePath = this.browser.getFilePath() + "/" + name;
 			File b = new File("", this.filePath);
 			try {
 				if (!b.getCanonicalPath().contains(this.root))
@@ -58,26 +116,32 @@ public class FBManager{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			tmpBrowser.setFilePath(this.filePath);
-			this.dataItemDAO.setFilePath(this.filePath);
-			this.dataItemArray = this.dataItemDAO.getDataItemArray();
-			this.json = new JSONObject();
-			this.json.put("status", "open");
-			this.json.put("data", this.dataItemArray);
+			this.browser.setFilePath(this.filePath);
+			this.reload();
 			this.session.setAttribute("browserList", this.browserList);
+			
 		} else {
 			//file process
 		}
 	}
-	private Browser browser() {
-		Browser tmpBrowser = new Browser();
+	private void reload(){
+		this.dataItemDAO.setFilePath(this.filePath);
+		this.dataItemArray = this.dataItemDAO.getDataItemArray();
+		this.json = new JSONObject();
+		this.json.put("status", "reload");
+		this.json.put("data", this.dataItemArray);
+	}
+	public void findBrowser() {
+		this.getSession();
+		this.id = this.json.getInt("id");
+		this.browser = new Browser();
 		for (Browser b : this.browserList) {
 			if (b.getId() == this.id) {
-				tmpBrowser = b;
+				this.browser = b;
 				break;
 			}
 		}
-		return tmpBrowser;
+		this.filePath = this.browser.getFilePath();
 	}
 	public JSONObject getJson() {
 		return json;
@@ -88,14 +152,21 @@ public class FBManager{
 	private void getSession() {
 		if (null == this.session.getAttribute("browserList")) {
 			this.browserList = new ArrayList<Browser>();
-			this.id = 0;
 		} else {
 			this.browserList = (List<Browser>) this.session.getAttribute("browserList");
-			this.id = this.browserList.get(this.browserList.size()-1).getId()+1;
 		}
+		/*
 		if (null != this.session.getAttribute("clipboard")) {
 			this.clipboard = (String) this.session.getAttribute("clipboard");
 		}
+		*/
+	}
+	private void setNewId(){
+		this.getSession();
+		if(this.browserList.size() != 0)
+			this.id = this.browserList.get(this.browserList.size()-1).getId()+1;
+		else
+			this.id = 0;
 	}
 	private void setSession() {
 		this.session.setAttribute("browserList", this.browserList);

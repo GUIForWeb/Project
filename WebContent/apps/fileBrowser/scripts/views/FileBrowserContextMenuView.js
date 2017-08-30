@@ -32,23 +32,32 @@ function FileBrowserContextMenuView(contextMenuModel){
 		var tmpTag = $("<div></div>");
 		var ulTag = $("<ul></ul>");
 		var newFolderTag = $("<li>New Folder</li>");
-		var rename = $("<li>Rename</li>");
+		var renameTag = $("<li>Rename</li>");
 		var copyTag = $("<li>Copy</li>");
 		var cutTag = $("<li>Cut</li>");
 		var pasteTag = $("<li>Paste</li>");
 		var deleteTag = $("<li>Delete</li>");
 		var downloadTag = $("<li>Download</li>");
-		rename.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.rename(this)");
-		newFolderTag.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.newFolder()");
-		copyTag.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.copy()");
-		cutTag.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.cut()");
-		pasteTag.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.paste()");
-		deleteTag.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.del()");
-		downloadTag.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.downlaod()");
+		newFolderTag.click({"id":this.fb.id},function(event){
+			taskArray["fileBrowser"][event.data.id].click.newFolder(event);
+		});
+		renameTag.click({"id":this.fb.id},function(event){
+			taskArray["fileBrowser"][event.data.id].click.rename(event);
+		});
+		deleteTag.click({"id":this.fb.id},function(event){
+			taskArray["fileBrowser"][event.data.id].click.del(event);
+		});
+		//rename.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.rename(this)");
+		//newFolderTag.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.newFolder()");
+		//copyTag.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.copy()");
+		//cutTag.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.cut()");
+		//pasteTag.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.paste()");
+		//deleteTag.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.del()");
+		//downloadTag.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.downlaod()");
 		
 		tmpTag.append(ulTag);
 		ulTag.append(newFolderTag);
-		ulTag.append(rename);
+		ulTag.append(renameTag);
 		ulTag.append(copyTag);
 		ulTag.append(cutTag);
 		ulTag.append(pasteTag);

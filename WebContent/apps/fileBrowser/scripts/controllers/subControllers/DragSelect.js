@@ -1,22 +1,24 @@
 function DragSelect(){
 	this.stdX = 0;
 	this.stdY = 0;
-	this.select = false;
-	this.sList = [];
+	this.isWorking = false;
+	this.list = [];
+	/*
 	this.setList = function(){
 		this.list = "";
-		for(si=0; si<this.sList.length; si++){
-			if(this.sList[si] != false){
-				this.list += this.sList[si] + "&";
+		for(si=0; si<this.list.length; si++){
+			if(this.list[si] != false){
+				this.list += this.list[si] + "&";
 			}
 		}
 	}
+	*/
 	this.start = function(tag, event){
 		if(event.target !== tag)
 			return;
 		this.stdX = 0;
 		this.stdY = 0;
-		this.select = true;
+		this.isWorking = true;
 		var div = $("<div></div>").attr("id","selection");
 		div.css({"background-color":"blue"});
 		div.css({"opacity":"0.3"});
@@ -93,52 +95,58 @@ function DragSelect(){
 			if(event.clientY != 0) 
 			if(this.case == 0){
 				if(event.clientY > ((fileItem.offset().top*2 + fileItem.height())/2)){
-					this.sList[fi] = this.id+"&"+this.fileItemArray[fi].children[2].innerHTML+"&"+this.fileItemArray[fi].children[0].innerHTML;
+					this.list[fi] = {"name":this.fileItemArray[fi].children[0].innerHTML,"type":this.fileItemArray[fi].children[2].innerHTML};
 					this.hover(false, fileItem);
 				}
 				else{
-					this.sList[fi] = false;
+					delete this.list[fi];
 					this.hover(true, fileItem);
 				} 
 			}
 			else if(this.case == 1){
 				if(event.clientY < ((fileItem.offset().top*2 + fileItem.height())/2)){
-					this.sList[fi] = this.id+"&"+this.fileItemArray[fi].children[2].innerHTML+"&"+this.fileItemArray[fi].children[0].innerHTML;
+					this.list[fi] = {"name":this.fileItemArray[fi].children[0].innerHTML,"type":this.fileItemArray[fi].children[2].innerHTML};
 					this.hover(false, fileItem);
 				}
 				else{
-					this.sList[fi] = false;
+					delete this.list[fi];
 					this.hover(true, fileItem);
 				} 
 			}
 			else if(this.case == 2){
 				if(event.clientY < this.stdY){
 					if(event.clientY < ((fileItem.offset().top*2 + fileItem.height())/2) && ((fileItem.offset().top*2 + fileItem.height())/2) < this.stdY){
-						this.sList[fi] = this.id+"&"+this.fileItemArray[fi].children[2].innerHTML+"&"+this.fileItemArray[fi].children[0].innerHTML;
+						this.list[fi] = {"name":this.fileItemArray[fi].children[0].innerHTML,"type":this.fileItemArray[fi].children[2].innerHTML};
 						this.hover(false, fileItem);
 					}
 					else{
-						this.sList[fi] = false;
+						delete this.list[fi];
 						this.hover(true, fileItem);
 					}
 				}
 				else{
 					if(event.clientY > ((fileItem.offset().top*2 + fileItem.height())/2) && ((fileItem.offset().top*2 + fileItem.height())/2) > this.stdY){
-						this.sList[fi] = this.id+"&"+this.fileItemArray[fi].children[2].innerHTML+"&"+this.fileItemArray[fi].children[0].innerHTML;
+						this.list[fi] = {"name":this.fileItemArray[fi].children[0].innerHTML,"type":this.fileItemArray[fi].children[2].innerHTML};
 						this.hover(false, fileItem);
 					}
 					else{
-						this.sList[fi] = false;
+						delete this.list[fi];
 						this.hover(true, fileItem);
 						
 					}
 				}
 			}
 		}
+		this.list = this.erumSList();
+	}
+	this.erumSList = function(){
+		return this.list.filter(function( element ) {
+			   return element !== undefined;
+			});
 	}
 	this.hover = function(hover, fileItem){
 		if(hover){
-			fileItem.css("background-color","lightgray");
+			fileItem.css("background-color","white");
 		}
 		else {
 			fileItem.css("background-color","dimgray");
@@ -146,21 +154,20 @@ function DragSelect(){
 	}
 	this.end = function(){
 		$("#selection").remove();
-		this.setList();
 	}
 	this.cancle = function(){
 		for(fi=0; fi<this.fileItemArray.length; fi++){
 			var fileItem = $(this.fileItemArray[fi]);
-			this.sList[fileItem.children().html()] = false;
-			fileItem.css("background-color","lightgray");
+			this.list[fileItem.children().html()] = false;
+			fileItem.css("background-color","white");
 			fileItem.hover(
 				function(){
 					$(this).css("background-color","dimgray");
 			    }, 
 			    function(){
-			    	$(this).css("background-color","lightgray");
+			    	$(this).css("background-color","white");
 			});
-			this.select = false;
+			this.isWorking = false;
 		}
 	}
 }

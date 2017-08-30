@@ -1,7 +1,9 @@
 function Focusout(){
-	this.rename = function(tag){
-		this.lastValue = this.id+"&"+tag.children[2].innerHTML+"&"+tag.children[0].innerHTML;
-		if(this.originalValue != this.lastValue)
-			this.submit("rename",this.originalValue + "&" + this.lastValue);
+	this.rename = function(event){
+		this.clipboard([{"name":this.va["tag"].children[0].innerHTML,"type":this.va["tag"].children[2].innerHTML}]);
+		this.va["tagArray"].first().removeAttr("contenteditable");
+		if(JSON.stringify(this.va["clipboard"][0]) != JSON.stringify(this.va["prevValue"][0])){
+			this.fbm.send.rename();
+		}
 	}
 }

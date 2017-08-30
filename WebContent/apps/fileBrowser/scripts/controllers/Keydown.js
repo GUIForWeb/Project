@@ -1,7 +1,7 @@
 function Keydown(){
-	this.rename = function(tag){
+	this.rename = function(event){
 		if(event.keyCode == 13){
-			this.focusout.rename(tag);
+			this.focusout.rename(event);
 		}
 	}
 }

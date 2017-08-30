@@ -9,6 +9,8 @@ function FileBrowser(id){
 		this.controller.__proto__ = this;
 		this.dblclick = new DblClick();
 		this.dblclick.__proto__ = this.controller;
+		this.click = new Click();
+		this.click.__proto__ = this.controller;
 		this.dragstart = new Dragstart();
 		this.dragstart.__proto__ = this.controller;
 		this.drag = new Drag();
@@ -19,6 +21,14 @@ function FileBrowser(id){
 		this.ds.__proto__ = this.controller;
 		this.fbm = new FBManager();
 		this.fbm.__proto__ = this.controller;
+		this.focusout = new Focusout();
+		this.focusout.__proto__ = this.controller;
+		this.keydown = new Keydown();
+		this.keydown.__proto__ = this.controller;
+		this.mouseover = new Mouseover();
+		this.mouseover.__proto__ = this.controller;
+		this.mouseout = new Mouseout();
+		this.mouseout.__proto__ = this.controller;
 		/*
 		this.fbm.send = new FBSender();
 		this.fbm.send.__proto__ = this.controller;
@@ -28,12 +38,28 @@ function FileBrowser(id){
 		this.window = $("#fbTable"+this.id).parent().parent();
 		this.cOfWindow = $("#fbTable"+this.id).parent();
 		this.fbTable = $("#fbTable"+this.id);
+		this.contextMenu = new FileBrowserContextMenu(this);
 	}
-	this.setFunction = function(){
-		$(this.fbTable.find("tr")[1]).attr("ondblclick","taskArray['fileBrowser']["+this.id+"].dblclick.row(event)");
+	this.appendFunction = function(){
+		this.cOfWindow.click({"id":this.id},function(event){
+			taskArray['fileBrowser'][event.data.id].click.eButton(event);
+		});
+		this.fbTable.find("tr").dblclick({"id":this.id},function(event){
+			taskArray['fileBrowser'][event.data.id].dblclick.row(event);
+		});
+		this.fbTable.find("tr").contextmenu({"id":this.id},function(event){
+			taskArray['fileBrowser'][event.data.id].click.cButton(event);
+		});
+		this.fbTable.find("tr").mouseover({"id":this.id},function(event){
+			taskArray['fileBrowser'][event.data.id].mouseover.row(event);
+		});
+		this.fbTable.find("tr").mouseout({"id":this.id},function(event){
+			taskArray['fileBrowser'][event.data.id].mouseout.row(event);
+		});
 		this.fbTable.parent().attr("ondragstart","taskArray['fileBrowser']['"+this.id+"'].dragstart.selection(this,event)");
 		this.fbTable.parent().attr("ondrag","taskArray['fileBrowser']['"+this.id+"'].drag.selection(this,event)");
 		this.fbTable.parent().attr("ondragend","taskArray['fileBrowser']['"+this.id+"'].dragend.selection()");
+		$(this.fbTable.find("tr")[0]).dblclick(null);
 	}
 	this.displayHead = function() {
 		this.fbTable.html("");
@@ -65,7 +91,6 @@ function FileBrowser(id){
 			var tmpTr = $("<tr></tr>");
 			tmpTr.addClass("fb-table-row");
 			tmpTr.addClass("fileItem");
-			tmpTr.attr("ondblclick","taskArray['fileBrowser']["+this.id+"].dblclick.row(event)");
 			var tmpTd0 = $("<td>"+this.data[i]["name"]+"</td>");
 			var tmpTd1 = $("<td>"+this.data[i]["dateModified"]+"</td>");
 			var tmpTd2 = $("<td>"+this.data[i]["type"]+"</td>");
@@ -80,7 +105,6 @@ function FileBrowser(id){
 	this.display = function() {
 		this.displayHead();
 		this.displayData();
-		this.setFunction();
 		
 		//this.window = $("#fbTable"+this.id).parent().parent();
 		/*
@@ -96,8 +120,7 @@ function FileBrowser(id){
 		this.drop = new Drop();
 		
 		this.click = new Click();
-		this.focusout = new Focusout();
-		this.keydown = new Keydown();
+		this.click.__proto__ = this.controller;
 		
 		this.dblclick = new DblClick();
 		this.controller.__proto__ = this;
@@ -109,9 +132,8 @@ function FileBrowser(id){
 		this.drag.__proto__ = this.controller;
 		this.drop.__proto__ = this.controller;
 		this.dragend.__proto__ = this.controller;
-		this.click.__proto__ = this.controller;
-		this.focusout.__proto__ = this.controller;
-		this.keydown.__proto__ = this.controller;
+		
+		
 		this.dblclick.__proto__ = this.controller;
 	
 		this.window = $("#fbTable"+this.id).parent().parent();
