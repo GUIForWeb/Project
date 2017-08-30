@@ -144,6 +144,11 @@ function DragSelect(){
 			   return element !== undefined;
 			});
 	}
+	this.fileList = function(){
+		return this.list.filter(function( element ) {
+			   return (element !== undefined && element.type != "directory");
+			});
+	}
 	this.hover = function(hover, fileItem){
 		if(hover){
 			fileItem.css("background-color","white");

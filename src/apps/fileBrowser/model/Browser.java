@@ -2,10 +2,10 @@ package apps.fileBrowser.model;
 
 public class Browser {
 	private int id;
-	private String filePath;
+	private String path;
 	public Browser(){
 		this.id = 0;
-		this.filePath = "";
+		this.path = "";
 	}
 	public int getId() {
 		return id;
@@ -13,16 +13,16 @@ public class Browser {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getFilePath() {
-		return filePath;
+	public String getPath() {
+		return path;
 	}
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
+	public void setPath(String path) {
+		this.path = path;
 	}
 	public String toString(){
 		String str = "";
 		str += "ID       :"+this.id + System.getProperty("line.separator");
-		str += "File Path:"+this.filePath;
+		str += "File Path:"+this.path;
 		return str;
 	}
 }

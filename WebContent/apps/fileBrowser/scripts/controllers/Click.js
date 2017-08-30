@@ -45,12 +45,19 @@ function Click(){
 		}
 	}
 	this.del = function(){
-		/*
 		if(this.validation && confirm('Delete it?')){
 			this.fbm.send.del();
+			this.contextMenu.removeContextMenu();
 			this.validation = false;
 		}
-		*/
+	}
+	this.downlaod = function(event){
+		if(this.ds.isWorking)
+			this.clipboard(this.ds.fileList());
+		if(this.validation && this.va["clipboard"].length > 0 && this.va["clipboard"][0].type != "directory"){
+			var a = this.fbm.send.download();
+			this.validation = false;
+		}
 	}
 	/*
 	this.downlaod = function(){

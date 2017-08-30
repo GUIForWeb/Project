@@ -12,8 +12,11 @@ function FBSender(){
 		this.ws.send(this.json);
 	}
 	this.del = function(){
-		this.json.data = {"status":"del","data":{"id":this.id,"name":this.va["clipboard"].name}};
-		console.log(this.json);
-		//this.ws.send(this.json);
+		this.json.data = {"status":"del","data":{"id":this.id,"data":this.va["clipboard"]}};
+		this.ws.send(this.json);
+	}
+	this.download = function(){
+		this.json.data = {"status":"download","data":{"id":this.id,"data":this.va["clipboard"]}};
+		this.ws.send(this.json);
 	}
 }

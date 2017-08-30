@@ -47,6 +47,9 @@ function FileBrowserContextMenuView(contextMenuModel){
 		deleteTag.click({"id":this.fb.id},function(event){
 			taskArray["fileBrowser"][event.data.id].click.del(event);
 		});
+		downloadTag.click({"id":this.fb.id},function(event){
+			taskArray["fileBrowser"][event.data.id].click.downlaod(event);
+		});
 		//rename.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.rename(this)");
 		//newFolderTag.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.newFolder()");
 		//copyTag.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.copy()");

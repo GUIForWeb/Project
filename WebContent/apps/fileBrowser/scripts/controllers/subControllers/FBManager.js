@@ -10,6 +10,9 @@ function FBManager(){
 		    case "reload":
 		        this.receive.reload(json.data);
 		        break;
+		    case "download":
+		        this.receive.download(json.data);
+		        break;
 		}
 	}
 }

@@ -2,6 +2,8 @@ package system.controller;
 
 
 import java.io.IOException;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
@@ -21,6 +23,7 @@ import system.webSocketInterface.WebSocketInterface;
 public class GUIRepository implements WebSocketInterface {
 	private boolean isUpdated;
 	private int winCount;
+	private ServletContext servletContext;
 	private Session websocketSession;
 	private HttpSession session;
 	private EndpointConfig config;
@@ -367,5 +370,11 @@ public class GUIRepository implements WebSocketInterface {
 	}
 	public void setConfig(EndpointConfig config) {
 		this.config = config;
+	}
+	public ServletContext getServletContext() {
+		return servletContext;
+	}
+	public void setServletContext(ServletContext servletContext) {
+		this.servletContext = servletContext;
 	}
 }

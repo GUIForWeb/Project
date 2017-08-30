@@ -1,6 +1,7 @@
 package apps.fileBrowser.webSocket;
 
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
@@ -21,6 +22,9 @@ public class FBWebSocket implements WebSocketInterface{
 	private HttpSession session;
 	private EndpointConfig config;
 	private FBManager fbm;
+	private ServletContext servletContext;
+	
+
 	public FBWebSocket(){
 		this.fbm = new FBManager();
 	}
@@ -30,6 +34,7 @@ public class FBWebSocket implements WebSocketInterface{
 		JSONObject json = new JSONObject(message);
 		String status = json.getString("status");
 		json = json.getJSONObject("data");
+		this.fbm.setServletContext(this.servletContext);
 		this.fbm.setSession(this.session);
 		this.fbm.setJson(json);
 		this.fbm.findBrowser();
@@ -46,12 +51,14 @@ public class FBWebSocket implements WebSocketInterface{
 			case "del":
 				this.fbm.del();
 				break;
+			case "download":
+				this.fbm.download();
+				break;
 		}
 		int id = this.fbm.getId();
 		json = new JSONObject();
 		json.put("app", "taskArray.fileBrowser["+id+"].fbm");
 		json.put("data", this.fbm.getJson());
-		System.out.println(json);
 		return json;
 	}
 
@@ -73,6 +80,9 @@ public class FBWebSocket implements WebSocketInterface{
 	@Override
 	public void setConfig(EndpointConfig config) {
 		this.config = config;
+	}
+	public void setServletContext(ServletContext servletContext) {
+		this.servletContext = servletContext;
 	}
 }
 

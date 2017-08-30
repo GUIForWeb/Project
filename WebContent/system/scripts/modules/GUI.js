@@ -23,7 +23,7 @@
 		this.init = function() {
 		}
 		this.start = function(){
-			this.valueArray["ip"] = "10.0.2.15:8080";
+			this.valueArray["ip"] = "192.168.56.103:8080";
 			//this.valueArray["ip"] = "52.14.247.195:8080";
 			this.valueArray["newId"] = 0;
 			this.valueArray["onScrCount"] = 0;

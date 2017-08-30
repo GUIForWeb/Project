@@ -1,4 +1,5 @@
 function FileBrowser(id){
+	this.va = [];
 	this.ws = function(){}
 	this.id = id;
 	this.setJSON = function(data) {
@@ -102,6 +103,7 @@ function FileBrowser(id){
 			this.fbTable.append(tmpTr);
 		}
 	}
+	
 	this.display = function() {
 		this.displayHead();
 		this.displayData();

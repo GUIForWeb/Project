@@ -1,12 +1,22 @@
 package apps.fileBrowser.module;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.inject.Named;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -18,7 +28,7 @@ import apps.fileBrowser.model.DataItem;
 public class FBManager{
 	private int id;
 	private String root;
-	private String filePath = "";
+	private String path = "";
 	private String clipboard;
 	private JSONObject json;
 	private List<Browser> browserList;
@@ -26,20 +36,61 @@ public class FBManager{
 	private JSONArray dataItemArray;
 	private HttpSession session;
 	private Browser browser;
-	
-	
+	private ServletContext servletContext;
+
 	public FBManager(){
 		this.dataItemDAO = new DataItemDAO();
 	}
+
+	public void download() {
+		
+		JSONObject tmpJSON;
+		JSONArray data = this.json.getJSONArray("data");
+		String name;
+		String path;
+		String type;
+		File file;
+		JSONArray jsonArray = new JSONArray();
+		for(int di=0; di<data.length(); di++){
+			tmpJSON = data.getJSONObject(di);
+			name = tmpJSON.getString("name");
+			path = this.path + "/" + name;
+			type = tmpJSON.getString("type");
+			file = new File(path);
+			FileInputStream input = null;
+			byte[] fileData = new byte[(int) file.length()];
+			String encodedString = "";
+			try {
+				input = new FileInputStream(file);
+				input.read(fileData);
+				input.close();
+				byte[] encoded = Base64.encodeBase64(fileData);
+				encodedString = new String(encoded);
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+			
+			JSONObject json = new JSONObject();
+			json.put("name", name);
+			json.put("data", encodedString);
+			jsonArray.put(json);
+		}
+		this.json = new JSONObject();
+		this.json.put("status", "download");
+		this.json.put("data", jsonArray);
+	}
 	public void del() {
-		/*
-		String[] info = this.param.split("&");
-		Browser tmpBrowser = this.browser(info[0]);
+		JSONObject tmpJSON;
+		JSONArray data = this.json.getJSONArray("data");
 		boolean success = false;
-		for (int ii = 0; ii < info.length; ii += 3) {
-			info[ii + 2] = tmpBrowser.getFilePath() + "/" + info[ii + 2];
-			File dest = new File(info[ii + 2]);
-			if (info[ii + 1].equals("directory")) {
+		String path;
+		String type;
+		for (int di = 0; di < data.length(); di++) {
+			tmpJSON = data.getJSONObject(di);
+			path = this.path + "/" + tmpJSON.getString("name");
+			type = tmpJSON.getString("type");
+			File dest = new File(path);
+			if (type.equals("directory")) {
 				try {
 					FileUtils.deleteDirectory(dest);
 					success = true;
@@ -56,13 +107,11 @@ public class FBManager{
 			}
 		}
 		if (success)
-			this.changeView(tmpBrowser);
-		*/
+			this.reload();
 	}
 	public void rename() {
-		System.out.println(this.json);
-		String srcStr = this.browser.getFilePath() + "/" + this.json.getString("src");
-		String destStr = this.browser.getFilePath() + "/" + this.json.getString("dest");
+		String srcStr = this.browser.getPath() + "/" + this.json.getString("src");
+		String destStr = this.browser.getPath() + "/" + this.json.getString("dest");
 		File src = new File(srcStr);
 		File dest = new File(destStr);
 		if (!src.equals(dest) && src.renameTo(dest)){
@@ -73,7 +122,7 @@ public class FBManager{
 		this.setNewId();
 		Browser tmpBrowser = new Browser();
 		tmpBrowser.setId(this.id);
-		tmpBrowser.setFilePath(this.root);
+		tmpBrowser.setPath(this.root);
 		this.browserList.add(tmpBrowser);
 		this.dataItemDAO.setFilePath(this.root);
 		this.dataItemArray = this.dataItemDAO.getDataItemArray();
@@ -81,18 +130,18 @@ public class FBManager{
 	}
 	public void newFolder() {
 		String name = "New Folder";
-		File newFolder = new File(this.filePath + "/" + name);
+		File newFolder = new File(this.path + "/" + name);
 		if (!newFolder.exists()) {
 			newFolder.mkdirs();
 		} else {
 			this.mkDir(this.browser, name, 0);
 		}
-		this.dataItemDAO.setFilePath(this.filePath);
+		this.dataItemDAO.setFilePath(this.path);
 		this.dataItemArray = this.dataItemDAO.getDataItemArray();
 		this.reload();
 	}
 	private void mkDir(Browser browser, String name, int num) {
-		File newFolder = new File(browser.getFilePath() + "/" + name + " " + num);
+		File newFolder = new File(browser.getPath() + "/" + name + " " + num);
 		if (!newFolder.exists()) {
 			newFolder.mkdirs();
 		} else {
@@ -106,17 +155,17 @@ public class FBManager{
 			this.root = (String) this.session.getAttribute("root");
 			this.browserList = (List<Browser>) this.session.getAttribute("browserList");
 			//Browser tmpBrowser = this.browser();
-			this.filePath = this.browser.getFilePath() + "/" + name;
-			File b = new File("", this.filePath);
+			this.path = this.browser.getPath() + "/" + name;
+			File b = new File("", this.path);
 			try {
 				if (!b.getCanonicalPath().contains(this.root))
-					this.filePath = this.root;
+					this.path = this.root;
 				else
-					this.filePath = b.getCanonicalPath();
+					this.path = b.getCanonicalPath();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			this.browser.setFilePath(this.filePath);
+			this.browser.setPath(this.path);
 			this.reload();
 			this.session.setAttribute("browserList", this.browserList);
 			
@@ -125,7 +174,7 @@ public class FBManager{
 		}
 	}
 	private void reload(){
-		this.dataItemDAO.setFilePath(this.filePath);
+		this.dataItemDAO.setFilePath(this.path);
 		this.dataItemArray = this.dataItemDAO.getDataItemArray();
 		this.json = new JSONObject();
 		this.json.put("status", "reload");
@@ -141,7 +190,7 @@ public class FBManager{
 				break;
 			}
 		}
-		this.filePath = this.browser.getFilePath();
+		this.path = this.browser.getPath();
 	}
 	public JSONObject getJson() {
 		return json;
@@ -192,6 +241,12 @@ public class FBManager{
 	}
 	public void setRoot(String root) {
 		this.root = root;
+	}
+	public ServletContext getServletContext() {
+		return servletContext;
+	}
+	public void setServletContext(ServletContext servletContext) {
+		this.servletContext = servletContext;
 	}
 }
 
@@ -364,7 +419,13 @@ private void del() {
 		if (info[ii + 1].equals("directory")) {
 			try {
 				FileUtils.deleteDirectory(dest);
-				success = true;
+				success = true;public ExternalContext getExternalContext() {
+		return externalContext;
+	}
+
+	public void setExternalContext(ExternalContext externalContext) {
+		this.externalContext = externalContext;
+	}
 			} catch (IOException e) {
 				e.printStackTrace();
 				break;
