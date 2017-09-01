@@ -4,16 +4,26 @@ function FBReceiver() {
 		this.display();
 		this.appendFunction();
 	}
-	
 	this.multiReload = function(json){
+		var id = json.id;
+		var data = json.data;
+		for(ii=0; ii<id.length; ii++){
+			taskArray["fileBrowser"][id[ii]].data = data;
+			taskArray["fileBrowser"][id[ii]].display();
+			taskArray["fileBrowser"][id[ii]].appendFunction();
+		}
+	}
+	this.multiplexReload = function(json){
 		for(ji=0; ji<json.length; ji++){
 			console.log(json);
 			var id = json[ji].id;
 			var data = json[ji].data;
 			console.log(id);
-			taskArray["fileBrowser"][id].data = data;
-			taskArray["fileBrowser"][id].display();
-			taskArray["fileBrowser"][id].appendFunction();
+			for(ii=0; ii<id.length; ii++){
+				taskArray["fileBrowser"][id[ii]].data = data;
+				taskArray["fileBrowser"][id[ii]].display();
+				taskArray["fileBrowser"][id[ii]].appendFunction();
+			}
 		}
 	}
 	this.download = function(json) {

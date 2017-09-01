@@ -100,36 +100,55 @@ public class FBManager{
 				}
 			}
 			this.session.removeAttribute("clipboard");
-			this.multiReload(prevId,path);
+			this.multiplexReload(prevId,path);
 		}
-	}
-	private void multiReload(int prevId,String path) {
-		JSONObject json;
-		JSONArray data = new JSONArray();
+	}private void multiReload(){
+		JSONArray id = new JSONArray();
+		JSONObject data = new JSONObject();
+		this.dataItemDAO.setFilePath(this.path);
+		this.dataItemArray = this.dataItemDAO.getDataItemArray();
+		for (Browser b : this.browserList) {
+			if (b.getPath().equals(this.path)) {
+				id.put(b.getId());
+			}
+		}
 		this.json = new JSONObject();
 		this.json.put("status", "multiReload");
+		data.put("id", id);
+		data.put("data", this.dataItemArray);
+		this.json.put("data", data);
+	}
+	private void multiplexReload(int prevId,String path) {
+		JSONObject json;
+		JSONArray data = new JSONArray();
+		JSONArray id = new JSONArray();
+		this.json = new JSONObject();
+		this.json.put("status", "multiplexReload");
 		
 		this.dataItemDAO.setFilePath(this.path);
 		this.dataItemArray = this.dataItemDAO.getDataItemArray();
 		for (Browser b : this.browserList) {
 			if (b.getPath().equals(this.path)) {
-				json = new JSONObject();
-				json.put("id", b.getId());
-				json.put("data", this.dataItemArray);
-				data.put(json);
+				id.put(b.getId());
 			}
 		}
+		json = new JSONObject();
+		json.put("id", id);
+		json.put("data", this.dataItemArray);
+		data.put(json);
 		
+		id = new JSONArray();
 		this.dataItemDAO.setFilePath(path);
 		this.dataItemArray = this.dataItemDAO.getDataItemArray();
 		for (Browser b : this.browserList) {
 			if (b.getPath().equals(path)) {
-				json = new JSONObject();
-				json.put("id", b.getId());
-				json.put("data", this.dataItemArray);
-				data.put(json);
+				id.put(b.getId());
 			}
 		}
+		json = new JSONObject();
+		json.put("id", id);
+		json.put("data", this.dataItemArray);
+		data.put(json);
 		this.json.put("data", data);
 	}
 	public void setClipboard(String status) {
@@ -199,7 +218,7 @@ public class FBManager{
 			}
 		}
 		if (success)
-			this.reload();
+			this.multiReload();
 	}
 	public void rename() {
 		String srcStr = this.browser.getPath() + "/" + this.json.getString("src");
@@ -207,7 +226,7 @@ public class FBManager{
 		File src = new File(srcStr);
 		File dest = new File(destStr);
 		if (!src.equals(dest) && src.renameTo(dest)){
-			this.reload();
+			this.multiReload();
 		}
 	}
 	public void newFB(){
@@ -230,7 +249,7 @@ public class FBManager{
 		}
 		this.dataItemDAO.setFilePath(this.path);
 		this.dataItemArray = this.dataItemDAO.getDataItemArray();
-		this.reload();
+		this.multiReload();
 	}
 	private void mkDir(Browser browser, String name, int num) {
 		File newFolder = new File(browser.getPath() + "/" + name + " " + num);

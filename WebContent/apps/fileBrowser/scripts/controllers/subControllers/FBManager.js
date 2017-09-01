@@ -16,6 +16,10 @@ function FBManager(){
 		    case "download":
 		        this.receive.download(json.data);
 		        break;
+		    case "multiplexReload":
+		        this.receive.multiplexReload(json.data);
+		        break;
+		        
 		}
 	}
 }
