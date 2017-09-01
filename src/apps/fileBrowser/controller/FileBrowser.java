@@ -43,6 +43,7 @@ public class FileBrowser extends Application{
 		this.root += "driver/home/" + this.user.getEmail();
 		this.fbm.setRoot(this.root);
 		this.fbm.setSession(this.session);
+		System.out.println(this.root);
 	}
 	public void start() {
 		this.fbm.newFB();

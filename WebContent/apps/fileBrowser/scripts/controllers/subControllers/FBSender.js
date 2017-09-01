@@ -1,4 +1,8 @@
 function FBSender(){
+	this.x = function(){
+		this.json.data = {"status":"x","data":{"id":this.id}};
+		this.ws.send(this.json);
+	}
 	this.open = function(){
 		this.json.data = {"status":"open","data":{"id":this.id,"name":this.va["selectedData"][0].name,"type":this.va["selectedData"][0].type}};
 		this.ws.send(this.json);

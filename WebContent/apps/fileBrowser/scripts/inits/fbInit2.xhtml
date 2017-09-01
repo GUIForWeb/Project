@@ -1,3 +1,7 @@
 <script id="fbInit2">
-	taskArray["fileBrowser"][fbId].appendFunction();
+	if(wMode){
+		taskArray["fileBrowser"][fbId].setJSON(#{fileBrowser.dataItemArray});
+		taskArray["fileBrowser"][fbId].display();
+		$("#fbInit2").remove();
+	}
 </script>

@@ -39,8 +39,12 @@ function FileBrowser(id){
 		this.cOfWindow = $("#fbTable"+this.id).parent();
 		this.fbTable = $("#fbTable"+this.id);
 		this.contextMenu = new FileBrowserContextMenu(this);
+		this.x = this.window.children("#hOfwindow"+this.id).children("#xBOfwindow"+this.id);
 	}
 	this.appendFunction = function(){
+		this.x.click({"id":this.id},function(event){
+			taskArray['fileBrowser'][event.data.id].click.x(event);
+		});
 		this.cOfWindow.click({"id":this.id},function(event){
 			taskArray['fileBrowser'][event.data.id].click.eButton(event);
 		});

@@ -40,6 +40,15 @@ public class FBManager{
 	public FBManager(){
 		this.dataItemDAO = new DataItemDAO();
 	}
+	public void x() {
+		for (int bi = 0; bi < this.browserList.size(); bi++) {
+			if (this.browserList.get(bi).getId() == this.id) {
+				this.browserList.remove(bi);
+				break;
+			}
+		}
+		this.session.setAttribute("browserList", this.browserList);
+	}
 	private File checkDest(File dest, int num){
 		if(dest.exists()){
 			dest = new File(dest.getPath() + "_" + num);
@@ -237,7 +246,8 @@ public class FBManager{
 		this.browserList.add(tmpBrowser);
 		this.dataItemDAO.setFilePath(this.root);
 		this.dataItemArray = this.dataItemDAO.getDataItemArray();
-		this.setSession();
+		this.session.setAttribute("browserList", this.browserList);
+		this.session.setAttribute("root", this.root);
 	}
 	public void newFolder() {
 		String name = "New Folder";
@@ -327,10 +337,6 @@ public class FBManager{
 			this.id = this.browserList.get(this.browserList.size()-1).getId()+1;
 		else
 			this.id = 0;
-	}
-	private void setSession() {
-		this.session.setAttribute("browserList", this.browserList);
-		this.session.setAttribute("root", this.root);
 	}
 	public void setSession(HttpSession session) {
 		this.session = session;

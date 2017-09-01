@@ -23,6 +23,10 @@
 		}
 		this.addEvent = function(status,xFunc){
 			if(status == "x"){
+				this.view.xButtonTagArray.click(function(event){
+					eval(xFunc);
+				});
+				//xBOfwindow0
 				/*
 				this.xTrigger = true;
 				this.view.xButtonTagArray.click(function() {

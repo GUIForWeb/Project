@@ -191,7 +191,10 @@
 			tmpTag.addClass(this.buttonLayerTagClass);
 			tmpTag.width(this.bWidth);
 			tmpTag.height(this.bHeight);
-			tmpTag.attr("onclick",this.guiName+".click.xButton(this)");
+			//tmpTag.attr("onclick",this.guiName+".click.xButton(this)");
+			tmpTag.click(function(event){
+				gui.click.xButton(event);
+			});
 			this.xButtonTagArray = tmpTag;
 		}
 		this.northWestLayer = function(){

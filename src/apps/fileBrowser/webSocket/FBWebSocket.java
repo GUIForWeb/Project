@@ -61,6 +61,9 @@ public class FBWebSocket implements WebSocketInterface{
 			case "paste":
 				this.fbm.paste();
 				break;
+			case "x":
+				this.fbm.x();
+				break;
 		}
 		int id = this.fbm.getId();
 		json = new JSONObject();

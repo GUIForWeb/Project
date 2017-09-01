@@ -1,8 +1,9 @@
 	function Click(){
-		this.xButton = function(tag){
-			var winTag = tag.parentNode.parentNode;
+		this.xButton = function(event){
+			var winTag = event.currentTarget.parentNode.parentNode;
 			var winAndBarNode = this.gm.xWinAndBar(winTag);
 			this.gr.xWinAndBar(winAndBarNode);
+			console.log("winX");
 		}
 		this.hButton = function(tag){
 			var winTag = tag.parentNode.parentNode;

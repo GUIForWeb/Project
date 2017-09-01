@@ -1,4 +1,7 @@
 function Click(){
+	this.x = function(event){
+		this.fbm.send.x();
+	}
 	this.eButton = function(event){
 		if(this.contextMenu.isOnTheScreen){
 			this.contextMenu.remove();

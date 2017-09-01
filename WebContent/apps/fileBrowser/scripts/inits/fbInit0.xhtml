@@ -1,12 +1,6 @@
 <script id="fbInit0">
 	var fbId = #{fileBrowser.id};
-	if(taskArray["fileBrowser"] === undefined){
-		taskArray["fileBrowser"] = [];
-		//taskArray["fileBrowser"]["default"] = new FileBrowser();
-	}
-	taskArray["fileBrowser"][fbId] = new FileBrowser(fbId);
-	taskArray["fileBrowser"][fbId].ws = gui.ws;
-	if(typeof gui != "undefined")
-		taskArray["fileBrowser"][fbId].gui = gui;
-	taskArray["fileBrowser"][fbId].init();
+	var wMode = true;
+	if(typeof(gui) == "undefined")
+		wMode = false;
 </script>

@@ -1,5 +1,20 @@
 <script id="fbInit1">
-	taskArray["fileBrowser"][fbId].setJSON(#{fileBrowser.dataItemArray});
-	taskArray["fileBrowser"][fbId].display();
-	$("#fbInit1").remove();
+	if(wMode){
+		if(taskArray["fileBrowser"] === undefined){
+			taskArray["fileBrowser"] = [];
+			//taskArray["fileBrowser"]["default"] = new FileBrowser();
+		}
+		taskArray["fileBrowser"][fbId] = new FileBrowser(fbId);
+		taskArray["fileBrowser"][fbId].ws = gui.ws;
+		if(typeof gui != "undefined")
+			taskArray["fileBrowser"][fbId].gui = gui;
+		taskArray["fileBrowser"][fbId].init();
+	}
+	else {
+		/*
+		var fb = new FileBrowser(fbId);
+		fb.ws = this.ws = new WebSocket("ws://192.168.56.103:8080/WebGUI/ws");
+		taskArray["fileBrowser"][fbId].init();
+		*/
+	}
 </script>

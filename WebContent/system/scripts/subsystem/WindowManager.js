@@ -11,44 +11,19 @@
 			winAndBarNode.win.view.isOnScreen = true;
 			winAndBarNode.win.appendWindow();
 		}
-		this.append = function(obj,winAndBarNode){
+		this.append = function(iconObj,winAndBarNode){
 			var zIndex = this.nodeArray["winAndBar"].winCount;
 			var tmpNode = this.ee.addNewWinAndBarNode(winAndBarNode);
 			this.winArray[zIndex] = tmpNode;
 			tmpNode.win = new Window();
-			tmpNode.win.name = obj.name;
+			tmpNode.win.name = iconObj.name;
 			tmpNode.win.guiName = this.guiName;
 			tmpNode.win.bgTagArray = this.bgTagArray;
 			tmpNode.win.view.setDefaultValues(this.winDefaultValueArray);
 			tmpNode.win.view.zIndex = zIndex;
-			
-			//content
-			if(obj.contentURL.indexOf("http://") !== -1){
-				this.form.submit("wMode",0);
-				tmpNode.win.content = this.form.getData(obj.contentURL);
-				tmpNode.win.contentURL = obj.contentURL;
-			} 
-			else if(obj.contentURL !== undefined){
-				//this.form.submit("wMode",0);
-				var content = this.form.getData(this.contextPath+obj.contentURL);
-				if(obj.option !== undefined){
-					content = $("<div>"+content+"</div>");
-					var html = content.find("#init0Option").html();
-					content.find("#init0Option").html("var option = '" + obj.option +"';" + html);
-					tmpNode.win.content = content.html();
-				}
-				else{
-					tmpNode.win.content = content;
-				}
-				
-				tmpNode.win.contentURL = obj.contentURL;
-			}
-			else
-				tmpNode.win.content = obj.content;
-			
+			tmpNode.win.content = this.form.getData(this.contextPath+iconObj.contentURL);
 			tmpNode.win.init(this.valueArray["newId"]);
 			tmpNode.win.appendWindow();
-			//tmpNode.win.node = tmpNode;
 			
 			this.nodeArray["winAndBar"].lastWin = tmpNode;
 			if($("<div>"+tmpNode.win.content+"</div>").find(".xWin").length > 0){	
