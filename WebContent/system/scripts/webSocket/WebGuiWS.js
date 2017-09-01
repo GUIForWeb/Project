@@ -13,9 +13,6 @@
 					if(json.receiving !== undefined){
 						json = json.receiving;
 						eval(json.app+".onMessage("+JSON.stringify(json.data)+")");
-						if(gui.ws.prevHTML != gui.ws.contentTagArray.html()){
-							gui.gr.updateContent(gui.ws.win);
-						}
 					}
 				}
 			}
@@ -30,11 +27,6 @@
 			var be = {};
 			if(json !== undefined){
 				be.sending = json;
-				if(be.sending.app != "system.controller.GUIRepository"){
-					this.win = gui.nodeArray.winAndBar.lastWin.win;
-					this.contentTagArray = gui.nodeArray.winAndBar.lastWin.win.view.contentTagArray;
-					this.prevHTML = this.contentTagArray.html();
-				}
 				this.ws.send(JSON.stringify(be));
 			}
 		}

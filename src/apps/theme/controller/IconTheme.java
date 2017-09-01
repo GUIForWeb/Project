@@ -35,7 +35,6 @@ public class IconTheme extends Application{
 	}
 	public void start() {
 		this.redirect();
-		System.out.println(this.guiSetting);
 		this.themeName = this.guiSetting.getThemeName();
 		this.iconWidth = this.guiSetting.getIconWidth();
 		this.iconHeight = this.guiSetting.getIconHeight();

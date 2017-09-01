@@ -5,7 +5,7 @@
 		this.barArray = [];
 		this.iconArray = [];
 		this.iconIdArray = [];
-		this.windowArray = [];
+		this.winArray = [];
 		this.windowCoordinate = [];
 		this.windowInBarArray = [];
 		this.iconTdValueArray = [];

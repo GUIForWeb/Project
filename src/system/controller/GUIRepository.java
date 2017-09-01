@@ -150,7 +150,6 @@ public class GUIRepository implements WebSocketInterface {
 					tmpWin.put("zIndex", tmpZIdx);
 				}
 				else if (tmpZIdx == zIndex){
-					System.out.println(this.winCount);
 					tmpWin.put("zIndex", this.winCount-1);
 					tmpWin.put("oTop", json.getInt("oTop"));
 					tmpWin.put("oLeft", json.getInt("oLeft"));
@@ -237,7 +236,6 @@ public class GUIRepository implements WebSocketInterface {
 	
 	private void disappear(JSONObject json) {
 		int zIndex = json.getInt("zIndex");
-		System.out.println(zIndex);
 		int tmpZIdx = 0;
 		JSONObject tmpWin = null;
 		JSONObject tmpWinAndBar = null;

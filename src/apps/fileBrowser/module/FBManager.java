@@ -29,7 +29,6 @@ public class FBManager{
 	private int id;
 	private String root;
 	private String path = "";
-	private String clipboard;
 	private JSONObject json;
 	private List<Browser> browserList;
 	private DataItemDAO dataItemDAO;
@@ -41,21 +40,114 @@ public class FBManager{
 	public FBManager(){
 		this.dataItemDAO = new DataItemDAO();
 	}
-
-	public void download() {
+	private File checkDest(File dest, int num){
+		if(dest.exists()){
+			dest = new File(dest.getPath() + "_" + num);
+			this.checkDest(dest, num+1);
+		}
+		return dest;
+	}
+	public void paste() {
+		JSONObject clipboard = (JSONObject) this.session.getAttribute("clipboard");
+		String status = clipboard.getString("status");
+		String path = clipboard.getString("path");
+		int prevId =  clipboard.getInt("id");
+		JSONArray data = clipboard.getJSONArray("data");
+		String name = "";
+		String type = "";
+		if (clipboard != null) {
+			for (int di = 0; di < data.length(); di++) {
+				JSONObject tmpJSON = data.getJSONObject(di);
+				name = tmpJSON.getString("name");
+				type = tmpJSON.getString("type");
+				File src = new File(path+"/"+name);
+				File dest = new File(this.path+"/"+name);
+				if (type.equals("directory")) {
+					this.checkDest(dest, 0);
+					if (status.equals("copy")) {
+						try {
+							FileUtils.copyDirectoryToDirectory(src, dest);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					} else if (status.equals("cut")) {
+						try {
+							FileUtils.moveDirectoryToDirectory(src, dest, true);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+				else {
+					this.checkDest(dest,0);
+					if (status.equals("copy")) {
+						try {
+							FileUtils.copyFileToDirectory(src, dest);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					} else if (status.equals("cut")) {
+						try {
+							FileUtils.moveFileToDirectory(src, dest, true);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+			this.session.removeAttribute("clipboard");
+			this.multiReload(prevId,path);
+		}
+	}
+	private void multiReload(int prevId,String path) {
+		JSONObject json;
+		JSONArray data = new JSONArray();
+		this.json = new JSONObject();
+		this.json.put("status", "multiReload");
 		
+		this.dataItemDAO.setFilePath(this.path);
+		this.dataItemArray = this.dataItemDAO.getDataItemArray();
+		for (Browser b : this.browserList) {
+			if (b.getPath().equals(this.path)) {
+				json = new JSONObject();
+				json.put("id", b.getId());
+				json.put("data", this.dataItemArray);
+				data.put(json);
+			}
+		}
+		
+		this.dataItemDAO.setFilePath(path);
+		this.dataItemArray = this.dataItemDAO.getDataItemArray();
+		for (Browser b : this.browserList) {
+			if (b.getPath().equals(path)) {
+				json = new JSONObject();
+				json.put("id", b.getId());
+				json.put("data", this.dataItemArray);
+				data.put(json);
+			}
+		}
+		this.json.put("data", data);
+	}
+	public void setClipboard(String status) {
+		this.json.put("path", this.path);
+		this.json.put("status", status);
+		this.session.setAttribute("clipboard", this.json);
+	}
+	public void download() {
 		JSONObject tmpJSON;
 		JSONArray data = this.json.getJSONArray("data");
 		String name;
 		String path;
-		String type;
 		File file;
 		JSONArray jsonArray = new JSONArray();
 		for(int di=0; di<data.length(); di++){
 			tmpJSON = data.getJSONObject(di);
 			name = tmpJSON.getString("name");
 			path = this.path + "/" + name;
-			type = tmpJSON.getString("type");
 			file = new File(path);
 			FileInputStream input = null;
 			byte[] fileData = new byte[(int) file.length()];

@@ -91,7 +91,6 @@
 			});
 			this.headTagArray = tmpTag;
 		}
-		
 		this.contentLayer = function(){
 			var tmpTag = $("<div></div>");
 			tmpTag.attr("id",this.tagIds["c"]);
@@ -106,8 +105,28 @@
 				left:this.cLeft,
 				top:this.cTop
 			});
-			tmpTag.attr("onclick",this.guiName+".click.content(this)");
+			tmpTag.click(function(event){
+				gui.click.content(event);
+			});
+			tmpTag.bind("DOMSubtreeModified",function(event){
+				var winTag = event.currentTarget.parentNode;
+				if(winTag.style !== undefined && gui.winArray.length != 0 && gui.winArray[winTag.style.zIndex] !== undefined){
+					gui.winArray[winTag.style.zIndex].win.view.alam();
+				}
+			});
 			this.contentTagArray = tmpTag;
+		}
+		this.alam = function(){
+			var win = this.__proto__;
+			var time = 500;
+			var args = arguments;
+			var winTag = this;
+			if(this.clock === undefined)
+				this.clock = 0;
+			clearTimeout(this.clock);
+			this.clock = setTimeout(function() {
+				gui.gr.updateContent(win);
+	        }, time );
 		}
 		this.movementHandleLayer = function(){
 			var tmpTag = $("<div></div>");

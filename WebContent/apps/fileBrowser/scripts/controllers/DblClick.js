@@ -5,7 +5,7 @@ function DblClick(){
 			var td = $(tr).find("td");
 			var name = $(td[0]).html().trim();
 			var type = $(td[2]).html().trim();
-			this.clipboard([{"name":name,"type":type}]);
+			this.va["selectedData"] = [{"name":name,"type":type}];
 			this.fbm.send.open();	
 		}
 	}

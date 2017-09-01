@@ -50,6 +50,15 @@ function FileBrowserContextMenuView(contextMenuModel){
 		downloadTag.click({"id":this.fb.id},function(event){
 			taskArray["fileBrowser"][event.data.id].click.downlaod(event);
 		});
+		copyTag.click({"id":this.fb.id},function(event){
+			taskArray["fileBrowser"][event.data.id].click.copy(event);
+		});
+		cutTag.click({"id":this.fb.id},function(event){
+			taskArray["fileBrowser"][event.data.id].click.cut(event);
+		});
+		pasteTag.click({"id":this.fb.id},function(event){
+			taskArray["fileBrowser"][event.data.id].click.paste(event);
+		});
 		//rename.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.rename(this)");
 		//newFolderTag.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.newFolder()");
 		//copyTag.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.copy()");

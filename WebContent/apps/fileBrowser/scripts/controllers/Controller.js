@@ -1,11 +1,20 @@
 function Controller(){
 	//valueArray
-	this.tag = function(tag){
-		this.va["tagArray"] = $(tag);
-		this.va["tag"] = tag;
+	this.va = [];
+	this.va["clipboard"] = [];
+	//tagArray
+	this.ta = [];
+	this.ta["script"] = [];
+	this.ta["css"] = [];
+	this.setScriptTag = function(tag){
+		this.ta["script"]["html"] = tag;
+		this.ta["script"]["jQuery"] = $(tag);
 	}
-	this.clipboard = function(jsonArray) {
-		this.va["clipboard"] = jsonArray; 
-	} 
+	this.setCSSTag = function(tag){
+		this.ta["css"]["html"] = tag;
+		this.ta["css"]["jQuery"] = $(tag);
+	}
+	this.tag = this.ta["script"];
+	this.cssTag = this.ta["css"];
 }
 

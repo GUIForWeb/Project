@@ -11,15 +11,16 @@
 			winAndBarNode.win.view.isOnScreen = true;
 			winAndBarNode.win.appendWindow();
 		}
-		
 		this.append = function(obj,winAndBarNode){
+			var zIndex = this.nodeArray["winAndBar"].winCount;
 			var tmpNode = this.ee.addNewWinAndBarNode(winAndBarNode);
+			this.winArray[zIndex] = tmpNode;
 			tmpNode.win = new Window();
 			tmpNode.win.name = obj.name;
 			tmpNode.win.guiName = this.guiName;
 			tmpNode.win.bgTagArray = this.bgTagArray;
 			tmpNode.win.view.setDefaultValues(this.winDefaultValueArray);
-			tmpNode.win.view.zIndex = this.nodeArray["winAndBar"].winCount;
+			tmpNode.win.view.zIndex = zIndex;
 			
 			//content
 			if(obj.contentURL.indexOf("http://") !== -1){
@@ -47,6 +48,7 @@
 			
 			tmpNode.win.init(this.valueArray["newId"]);
 			tmpNode.win.appendWindow();
+			//tmpNode.win.node = tmpNode;
 			
 			this.nodeArray["winAndBar"].lastWin = tmpNode;
 			if($("<div>"+tmpNode.win.content+"</div>").find(".xWin").length > 0){	

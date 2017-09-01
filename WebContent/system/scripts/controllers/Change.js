@@ -1,4 +1,6 @@
 	function Change(){
-		this.content = function(tag){
+		this.content = function(event){
+			console.log(this.gr)
 		}
 	}
+	

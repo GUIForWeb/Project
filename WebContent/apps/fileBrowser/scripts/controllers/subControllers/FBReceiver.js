@@ -4,13 +4,23 @@ function FBReceiver() {
 		this.display();
 		this.appendFunction();
 	}
+	
+	this.multiReload = function(json){
+		for(ji=0; ji<json.length; ji++){
+			console.log(json);
+			var id = json[ji].id;
+			var data = json[ji].data;
+			console.log(id);
+			taskArray["fileBrowser"][id].data = data;
+			taskArray["fileBrowser"][id].display();
+			taskArray["fileBrowser"][id].appendFunction();
+		}
+	}
 	this.download = function(json) {
 		//event.stopPropagation();
 		var uri = "";
 		var a = [];
 		var ie11 = navigator.userAgent.match(/Trident\/7.0/) && navigator.userAgent.match(/rv:11/);
-		console.log(ie11);
-		console.log(navigator.userAgent);
 		for(di=0; di<json.length; di++){
 			if(ie11 == null){
 				uri = "data:application/octet-stream;base64," + json[di].data;

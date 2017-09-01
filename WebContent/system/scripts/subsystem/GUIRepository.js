@@ -1,5 +1,4 @@
 	function GUIRepository(){
-		this.winArray = [];
 		this.json = {"app":"system.controller.GUIRepository","data":{}}
 		this.updateContent = function(win){
 			var numId = win.numId;
@@ -70,15 +69,17 @@
 			this.json.data.bar = this.barJSON;
 		}
 		this.winToJSON = function(win){
+			/*
 			var content = win.view.contentTagArray.html();
 			content = encodeURIComponent(content);
 			content = content.replace(/'/g, "%27");
+			"content": content,
+			*/
 			this.winJSON = {
 				"isFullScreen": win.view.isFullScreen,
 				"isOnScreen": win.view.isOnScreen,
 				"numId": win.numId,
 				"name": win.name,
-				"content": content,
 				"oWidth": parseInt(win.view.oWidth),
 				"oHeight": parseInt(win.view.oHeight),
 				"oLeft": parseInt(win.view.oLeft),

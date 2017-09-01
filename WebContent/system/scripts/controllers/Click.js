@@ -31,9 +31,8 @@
 			this.gm.moveWinToTop(winTag);
 			this.gr.moveWinToTop(zIndex);
 		}
-		this.content = function(tag){
-			event.stopPropagation();
-			var winTag = tag.parentNode;
+		this.content = function(event){
+			var winTag = event.currentTarget.parentNode;;
 			var zIndex = winTag.style.zIndex;
 			this.gm.moveWinToTop(winTag);
 			this.gr.moveWinToTop(zIndex);

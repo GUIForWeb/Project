@@ -1,5 +1,4 @@
 function FileBrowser(id){
-	this.va = [];
 	this.ws = function(){}
 	this.id = id;
 	this.setJSON = function(data) {

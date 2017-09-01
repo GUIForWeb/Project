@@ -41,10 +41,12 @@
 						tmpZIdx--;
 						tmpNode.nextWin.win.view.setZIndex(tmpZIdx);
 						tmpNode = tmpNode.nextWin;
+						this.winArray[tmpZIdx] = tmpNode;
 					}else if(tmpZIdx == zIndex){
 						tmpNode.nextWin.win.view.prevZIdx = zIndex;
 						tmpNode.nextWin.win.view.setZIndex(winCount-1);
 						lastWin = tmpNode.nextWin;
+						this.winArray[winCount-1] = lastWin;
 						tmpNode.nextWin.nextWin.prevWin = tmpNode;
 						tmpNode.nextWin = lastWin.nextWin;
 						lastWin.nextWin = null;
