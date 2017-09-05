@@ -64,6 +64,9 @@ public class GUIRepository implements WebSocketInterface {
 		case "xWinAndBar":
 			this.xWinAndBar(json);
 			break;
+		case "resizeend":
+			this.resizeend(json);
+			break;
 		}
 		if(this.isUpdated){
 			if(this.isError()){
@@ -73,6 +76,38 @@ public class GUIRepository implements WebSocketInterface {
 		}
 		this.setSession();
 		return new JSONObject();
+	}
+	private void resizeend(JSONObject json){
+		int zIndex = json.getInt("zIndex");
+		int len = this.winAndBarArray.length();
+		int tmpZIdx = 0;
+		JSONObject tmpWin = null;
+		JSONObject tmpWinAndBar = null;
+		
+		for(int li=0; li<len; li++){
+			tmpWinAndBar = this.winAndBarArray.getJSONObject(li);
+			tmpWin = tmpWinAndBar.getJSONObject("win");
+			if(tmpWin.getBoolean("isOnScreen")){
+				tmpZIdx = tmpWin.getInt("zIndex");
+				if(tmpZIdx < zIndex){
+					continue;
+				}else if(tmpZIdx > zIndex){
+					tmpZIdx--;
+					tmpWin.put("zIndex", tmpZIdx);
+				}
+				else if (tmpZIdx == zIndex){
+					tmpWin.put("zIndex", this.winCount-1);
+					tmpWin.put("oHeight", json.getInt("oHeight"));
+					tmpWin.put("oWidth", json.getInt("oWidth"));
+					tmpWin.put("oLeft", json.getInt("oLeft"));
+					tmpWin.put("oTop", json.getInt("oTop"));
+					System.out.println(json);
+				}
+				tmpWinAndBar.put("win",tmpWin);
+				this.winAndBarArray.put(li,tmpWinAndBar);
+				this.isUpdated = true;
+			}
+		}
 	}
 	private void updateContent(JSONObject json) {
 		int winCnt = this.winAndBarArray.length();

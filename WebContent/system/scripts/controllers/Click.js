@@ -5,14 +5,14 @@
 			this.gr.xWinAndBar(winAndBarNode);
 			console.log("winX");
 		}
-		this.hButton = function(tag){
-			var winTag = tag.parentNode.parentNode;
+		this.hButton = function(event){
+			var winTag = event.currentTarget.parentNode.parentNode;
 			var zIndex = winTag.style.zIndex
 			this.gm.disappear(winTag);
 			this.gr.disappear(zIndex);
 		}
-		this.bar = function(tag){
-			var barTag = tag.parentNode;
+		this.bar = function(event){
+			var barTag = event.currentTarget.parentNode;
 			var winTagId = this.winTagIdRule+this.getBarNumId(barTag);
 			var winTag = $("#"+winTagId)[0];
 			if(winTag){
@@ -25,9 +25,9 @@
 				this.gr.appear(this.getBarNumId(barTag));
 			}
 		}
-		this.head = function(tag){
+		this.head = function(event){
 			event.stopPropagation();
-			var winTag = tag.parentNode.parentNode;
+			var winTag = event.currentTarget.parentNode.parentNode;
 			var zIndex = winTag.style.zIndex;
 			this.gm.moveWinToTop(winTag);
 			this.gr.moveWinToTop(zIndex);
@@ -56,8 +56,8 @@
 			}
 		}
 		
-		this.fButton = function(tag){
-			var winTag = tag.parentNode.parentNode;
+		this.fButton = function(event){
+			var winTag = event.currentTarget.parentNode.parentNode;
 			var winAndBarNode = this.gm.fullScreen(winTag);
 			this.gr.fullScreen(winAndBarNode);
 		}

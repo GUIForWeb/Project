@@ -2,6 +2,8 @@ function Controller(){
 	//valueArray
 	this.va = [];
 	this.va["clipboard"] = [];
+	this.va["validation"] = false;
+	this.va["dropable"] = false;
 	//tagArray
 	this.ta = [];
 	this.ta["script"] = [];

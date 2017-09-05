@@ -47,7 +47,9 @@
 				left:this.nLeft,
 				top:this.nTop
 			});
-			tmpTag.attr("onclick",this.guiName+".click.bar(this)");
+			tmpTag.click(function(evnet){
+				gui.click.bar(event);
+			});
 			this.nameTagArray = tmpTag;
 		}
 		this.getView = function(){

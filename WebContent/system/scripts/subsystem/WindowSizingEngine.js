@@ -1,5 +1,5 @@
 	function WindowSizingEngine(){
-		this.resize = function(tag){
+		this.resizing = function(tag){
 			this.tag = tag;
 			this.winTag = this.tag.parentNode;
 			this.initStandardValue();
@@ -102,20 +102,21 @@
 			$("#" + this.tagIds["s"]).css("width",this.oWidth - this.resizeWidth*2);
 			$("#" + this.tagIds["w"]).css("height",this.oHeight - this.resizeHeight*2);
 		}
-		/*
+		
 		this.setSize = function(tag){
 			this.tag = tag;
+			this.winTag = tag.parentNode;
 			this.initStandardValue();
 			this.win.view.oWidth = this.oWidth;
 			this.win.view.oHeight = this.oHeight;
 			if(this.win.view.oLeft != this.oLeft || this.win.view.oTop != this.oTop) {
-				this.pe.changePositioning(this.winAndBarNode);
+				this.pe.changePosition(this.winAndBarNode);
 			}
 			this.win.view.oLeft = this.oLeft;
 			this.win.view.oTop = this.oTop;
 			return this.winAndBarNode;
 		}
-		*/
+		
 		this.fullScreen = function(winAndBarNode){
 			this.winAndBarNode = winAndBarNode;
 			this.tag = winAndBarNode.win.tag;

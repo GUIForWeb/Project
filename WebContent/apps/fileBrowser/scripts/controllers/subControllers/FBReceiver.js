@@ -15,10 +15,8 @@ function FBReceiver() {
 	}
 	this.multiplexReload = function(json){
 		for(ji=0; ji<json.length; ji++){
-			console.log(json);
 			var id = json[ji].id;
 			var data = json[ji].data;
-			console.log(id);
 			for(ii=0; ii<id.length; ii++){
 				taskArray["fileBrowser"][id[ii]].data = data;
 				taskArray["fileBrowser"][id[ii]].display();

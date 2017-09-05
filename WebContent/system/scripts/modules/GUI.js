@@ -68,8 +68,6 @@
 			this.mouseout.__proto__ = this.controller;
 			this.resize = new Resize();
 			this.resize.__proto__ = this.controller;
-			this.resizeend = new Resizeend();
-			this.resizeend.__proto__ = this.controller;
 			this.form = new Form();
 			this.form.__proto__ = this.controller;
 			this.initBackground();

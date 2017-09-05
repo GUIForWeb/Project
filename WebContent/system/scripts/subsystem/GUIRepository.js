@@ -34,10 +34,10 @@
 			this.json.data = {"status":"position","zIndex":zIndex,"oTop":oTop,"oLeft":oLeft,"isFullScreen":isFullScreen}
 			this.ws.send(this.json);
 		}
-		this.resize = function(tag){
-			this.json.data = {"status":"resize"}
-			var winAndBarNode = this.nm.getNodeWithWinTag(tag);
-			console.log(winAndBarNode);
+		this.resizeend = function(winAndBarNode){
+			var win = winAndBarNode.win;
+			this.json.data = {"status":"resizeend","zIndex":win.view.prevZIdx,"oWidth": parseInt(win.view.oWidth),"oHeight": parseInt(win.view.oHeight),"oLeft": parseInt(win.view.oLeft),"oTop": parseInt(win.view.oTop)}
+			this.ws.send(this.json);
 		}
 		this.appear = function(numId){
 			this.json.data = {"status":"appear","numId":numId}

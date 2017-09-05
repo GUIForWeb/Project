@@ -163,6 +163,7 @@ public class FBManager{
 	public void setClipboard(String status) {
 		this.json.put("path", this.path);
 		this.json.put("status", status);
+		System.out.println(this.json);
 		this.session.setAttribute("clipboard", this.json);
 	}
 	public void download() {

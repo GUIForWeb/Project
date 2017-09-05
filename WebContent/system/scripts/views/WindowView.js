@@ -140,16 +140,23 @@
 				top:0
 			});
 			tmpTag.attr("draggable","true");
-			tmpTag.attr("ondragstart",this.guiName+".drag.start.head(this)");
-			tmpTag.attr("ondrag",this.guiName+".drag.ing.head(this)");
-			tmpTag.attr("ondragend",this.guiName+".drag.end.head(this)");
-			tmpTag.attr("onclick",this.guiName+".click.head(this)");
+			tmpTag.on("dragstart",function(event){
+				gui.drag.start.head(event);
+			});
+			tmpTag.on("drag",function(event){
+				gui.drag.ing.head(event);
+			});
+			tmpTag.on("dragend",function(event){
+				gui.drag.end.head(event);
+			});
+			tmpTag.click(function(event){
+				gui.click.head(event)
+			});
 			this.movementHandleTagArray = tmpTag;
 		}
 		this.hButtonLayer = function(){
 			var tmpTag = $("<div></div>");
 			tmpTag.attr("id",this.tagIds["hB"]);
-			tmpTag.attr("draggable","true");
 			tmpTag.css("position","absolute");
 			tmpTag.html("&lowbar;");
 			tmpTag.offset({
@@ -159,13 +166,14 @@
 			tmpTag.addClass(this.buttonLayerTagClass);
 			tmpTag.width(this.bWidth);
 			tmpTag.height(this.bHeight);
-			tmpTag.attr("onclick",this.guiName+".click.hButton(this)");
+			tmpTag.click(function(event){
+				gui.click.hButton(event)
+			});
 			this.hButtonTagArray = tmpTag;
 		}
 		this.fButtonLayer = function(){
 			var tmpTag = $("<div></div>");
 			tmpTag.attr("id",this.tagIds["fB"]);
-			tmpTag.attr("draggable","true");
 			tmpTag.css("position","absolute");
 			tmpTag.html("&squ;");
 			tmpTag.offset({
@@ -175,13 +183,14 @@
 			tmpTag.addClass(this.buttonLayerTagClass);
 			tmpTag.width(this.bWidth);
 			tmpTag.height(this.bHeight);
-			tmpTag.attr("onclick",this.guiName+".click.fButton(this)");
+			tmpTag.click(function(event){
+				gui.click.fButton(event)
+			});
 			this.fButtonTagArray = tmpTag;
 		}
 		this.xButtonLayer = function(){
 			var tmpTag = $("<div></div>");
 			tmpTag.attr("id",this.tagIds["xB"]);
-			tmpTag.attr("draggable","true");
 			tmpTag.css("position","absolute");
 			tmpTag.html("&times;");
 			tmpTag.offset({
@@ -191,7 +200,6 @@
 			tmpTag.addClass(this.buttonLayerTagClass);
 			tmpTag.width(this.bWidth);
 			tmpTag.height(this.bHeight);
-			//tmpTag.attr("onclick",this.guiName+".click.xButton(this)");
 			tmpTag.click(function(event){
 				gui.click.xButton(event);
 			});
@@ -209,8 +217,15 @@
 			tmpTag.width(this.resizeWidth);
 			tmpTag.height(this.resizeHeight);
 			tmpTag.attr("draggable","true");
-			tmpTag.attr("ondragend",this.guiName+".resizeend.window(this)");
-			tmpTag.attr("ondrag",this.guiName+".resize.window(this)");
+			tmpTag.on("dragstart",function(event){
+				gui.resize.start.window(event);
+			});
+			tmpTag.on("drag",function(event){
+				gui.resize.ing.window(event);
+			});
+			tmpTag.on("dragend",function(event){
+				gui.resize.end.window(event);
+			});
 			this.northWestTagArray = tmpTag;
 		}
 		this.northEastLayer = function(){
@@ -225,8 +240,15 @@
 			tmpTag.width(this.resizeWidth);
 			tmpTag.height(this.resizeHeight);
 			tmpTag.attr("draggable","true");
-			tmpTag.attr("ondragend",this.guiName+".resizeend.window(this)");
-			tmpTag.attr("ondrag",this.guiName+".resize.window(this)");
+			tmpTag.on("dragstart",function(event){
+				gui.resize.start.window(event);
+			});
+			tmpTag.on("drag",function(event){
+				gui.resize.ing.window(event);
+			});
+			tmpTag.on("dragend",function(event){
+				gui.resize.end.window(event);
+			});
 			this.northEastTagArray = tmpTag;
 		}
 		this.southWestLayer = function(){
@@ -241,8 +263,15 @@
 			tmpTag.width(this.resizeWidth);
 			tmpTag.height(this.resizeHeight);
 			tmpTag.attr("draggable","true");
-			tmpTag.attr("ondragend",this.guiName+".resizeend.window(this)");
-			tmpTag.attr("ondrag",this.guiName+".resize.window(this)");
+			tmpTag.on("dragstart",function(event){
+				gui.resize.start.window(event);
+			});
+			tmpTag.on("drag",function(event){
+				gui.resize.ing.window(event);
+			});
+			tmpTag.on("dragend",function(event){
+				gui.resize.end.window(event);
+			});
 			this.southWestTagArray = tmpTag;
 		}
 		this.southEastLayer = function(){
@@ -257,8 +286,15 @@
 			tmpTag.width(this.resizeWidth);
 			tmpTag.height(this.resizeHeight);
 			tmpTag.attr("draggable","true");
-			tmpTag.attr("ondragend",this.guiName+".resizeend.window(this)");
-			tmpTag.attr("ondrag",this.guiName+".resize.window(this)");
+			tmpTag.on("dragstart",function(event){
+				gui.resize.start.window(event);
+			});
+			tmpTag.on("drag",function(event){
+				gui.resize.ing.window(event);
+			});
+			tmpTag.on("dragend",function(event){
+				gui.resize.end.window(event);
+			});
 			this.southEastTagArray = tmpTag;
 		}
 		
@@ -274,8 +310,15 @@
 			tmpTag.width(this.nWidth);
 			tmpTag.height(this.nHeight);
 			tmpTag.attr("draggable","true");
-			tmpTag.attr("ondragend",this.guiName+".resizeend.window(this)");
-			tmpTag.attr("ondrag",this.guiName+".resize.window(this)");
+			tmpTag.on("dragstart",function(event){
+				gui.resize.start.window(event);
+			});
+			tmpTag.on("drag",function(event){
+				gui.resize.ing.window(event);
+			});
+			tmpTag.on("dragend",function(event){
+				gui.resize.end.window(event);
+			});
 			this.northTagArray = tmpTag;
 		}
 		this.eastLayer = function(){
@@ -289,9 +332,16 @@
 			tmpTag.addClass(this.eastLayerTagClass);
 			tmpTag.width(this.eWidth);
 			tmpTag.height(this.eHeight);
-			tmpTag.attr("ondragend",this.guiName+".resizeend.window(this)");
 			tmpTag.attr("draggable","true");
-			tmpTag.attr("ondrag",this.guiName+".resize.window(this)");
+			tmpTag.on("dragstart",function(event){
+				gui.resize.start.window(event);
+			});
+			tmpTag.on("drag",function(event){
+				gui.resize.ing.window(event);
+			});
+			tmpTag.on("dragend",function(event){
+				gui.resize.end.window(event);
+			});
 			this.eastTagArray = tmpTag;
 		}
 		this.southLayer = function(){
@@ -305,9 +355,16 @@
 			tmpTag.addClass(this.southLayerTagClass);
 			tmpTag.width(this.sWidth);
 			tmpTag.height(this.sHeight);
-			tmpTag.attr("ondragend",this.guiName+".resizeend.window(this)");
 			tmpTag.attr("draggable","true");
-			tmpTag.attr("ondrag",this.guiName+".resize.window(this)");
+			tmpTag.on("dragstart",function(event){
+				gui.resize.start.window(event);
+			});
+			tmpTag.on("drag",function(event){
+				gui.resize.ing.window(event);
+			});
+			tmpTag.on("dragend",function(event){
+				gui.resize.end.window(event);
+			});
 			this.southTagArray = tmpTag;
 		}
 		this.westLayer = function(){
@@ -321,9 +378,16 @@
 			tmpTag.addClass(this.westLayerTagClass);
 			tmpTag.width(this.wWidth);
 			tmpTag.height(this.wHeight);
-			tmpTag.attr("ondragend",this.guiName+".resizeend.window(this)");
 			tmpTag.attr("draggable","true");
-			tmpTag.attr("ondrag",this.guiName+".resize.window(this)");
+			tmpTag.on("dragstart",function(event){
+				gui.resize.start.window(event);
+			});
+			tmpTag.on("drag",function(event){
+				gui.resize.ing.window(event);
+			});
+			tmpTag.on("dragend",function(event){
+				gui.resize.end.window(event);
+			});
 			this.westTagArray = tmpTag;
 		}
 		this.setIds = function () {

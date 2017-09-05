@@ -30,10 +30,12 @@ function FBSender(){
 	}
 	this.copy = function(){
 		this.json.data = {"status":"copy","data":{"id":this.id,"data":this.va["selectedData"]}};
+		console.log(this.json.data);
 		this.ws.send(this.json);
 	}
 	this.paste = function(){
 		this.json.data = {"status":"paste","data":{"id":this.id}};
+		console.log(this.json.data);
 		this.ws.send(this.json);
 	}
 }

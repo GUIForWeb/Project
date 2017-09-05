@@ -1,5 +1,12 @@
 function Drop(){
-	this.fileItem = function(tag,event){
+	this.fileItem = function(event){
+		console.log(this.va["dropable"]);
+		if(!this.ds.isWorking && this.va["dropable"]){
+			this.fbm.send.paste();
+			this.va["dropable"] = false;
+			//event.preventDefault();
+		}
+		/*
 		event.preventDefault();
 		if(event.dataTransfer.files.length != 0){
 			var form = $("#fileBrowserForm1");
@@ -11,5 +18,6 @@ function Drop(){
 			this.clipboard = this.id;
 			this.submit("drop",this.clipboard);
 		}
+		*/
 	}
 }

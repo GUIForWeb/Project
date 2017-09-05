@@ -15,8 +15,12 @@ function FileBrowser(id){
 		this.dragstart.__proto__ = this.controller;
 		this.drag = new Drag();
 		this.drag.__proto__ = this.controller;
+		this.drop = new Drop();
+		this.drop.__proto__ = this.controller;
 		this.dragend = new Dragend(); 
 		this.dragend.__proto__ = this.controller;
+		this.dragover = new Dragover(); 
+		this.dragover.__proto__ = this.controller;
 		this.ds = new DragSelect();
 		this.ds.__proto__ = this.controller;
 		this.fbm = new FBManager();
@@ -48,18 +52,32 @@ function FileBrowser(id){
 		this.cOfWindow.click({"id":this.id},function(event){
 			taskArray['fileBrowser'][event.data.id].click.eButton(event);
 		});
-		this.fbTable.find("tr").dblclick({"id":this.id},function(event){
+		this.fbTable.on("dragover",{"id":this.id},function(event){
+			taskArray['fileBrowser'][event.data.id].dragover.fileItem(event);
+		});
+		this.fbTable.on("drop",{"id":this.id},function(event){
+			taskArray['fileBrowser'][event.data.id].drop.fileItem(event);
+		});
+		var tr = this.fbTable.find("tr"); 
+		tr.dblclick({"id":this.id},function(event){
 			taskArray['fileBrowser'][event.data.id].dblclick.row(event);
 		});
-		this.fbTable.find("tr").contextmenu({"id":this.id},function(event){
+		tr.contextmenu({"id":this.id},function(event){
 			taskArray['fileBrowser'][event.data.id].click.cButton(event);
 		});
-		this.fbTable.find("tr").mouseover({"id":this.id},function(event){
+		tr.mouseover({"id":this.id},function(event){
 			taskArray['fileBrowser'][event.data.id].mouseover.row(event);
 		});
-		this.fbTable.find("tr").mouseout({"id":this.id},function(event){
+		tr.mouseout({"id":this.id},function(event){
 			taskArray['fileBrowser'][event.data.id].mouseout.row(event);
 		});
+		tr.on("dragstart",{"id":this.id},function(event){
+			taskArray['fileBrowser'][event.data.id].dragstart.fileItem(event)
+		});
+		
+		tr.attr("draggable","true");
+		
+		
 		this.fbTable.parent().attr("ondragstart","taskArray['fileBrowser']['"+this.id+"'].dragstart.selection(this,event)");
 		this.fbTable.parent().attr("ondrag","taskArray['fileBrowser']['"+this.id+"'].drag.selection(this,event)");
 		this.fbTable.parent().attr("ondragend","taskArray['fileBrowser']['"+this.id+"'].dragend.selection()");

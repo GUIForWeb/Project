@@ -1,4 +1,10 @@
 	function GUIManager(){
+		this.resizeend = function(tag){
+			this.wse.setSize(tag);
+		}
+		this.resizing = function(tag){
+			this.wse.resizing(tag);
+		}
 		this.fullScreen = function(winTag) {
 			var winAndBarNode = this.ee.moveWinToTop(winTag);
 			this.pe.remove(winAndBarNode);

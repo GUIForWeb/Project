@@ -1,18 +1,18 @@
 function Dragstart(){
-	this.fileItem = function(tag,event){
-		if(this.ds.select == true){
-			this.clipboard = this.ds.list;
+	this.fileItem = function(event){
+		this.setScriptTag(event.currentTarget);
+		if(this.ds.isWorking == false){
+			this.va["selectedData"] =[{"name":this.tag["html"].children[0].innerHTML,"type":this.tag["html"].children[2].innerHTML}];
+			if(this.tag["html"].children[0].innerHTML != "..")
+				this.va["validation"] = true;
+			else
+				this.va["validation"] = false;
 		}
-		else{
-			this.clipboard = this.id+"&"+tag.children[2].innerHTML+"&"+tag.children[0].innerHTML;
+		else if(this.ds.isWorking == true){
+			this.va["selectedData"] = this.ds.list;
+			this.va["validation"] = true;
 		}
-		
-		if(tag.children[0].innerHTML != "..")
-			this.validation = true;
-		if(this.validation){
-			this.submit("cut",this.clipboard);
-			this.validation = false;
-		}
+		this.fbm.send.copy();
 	}
 	this.selection = function(tag, event){
 		this.ds.start(tag, event);

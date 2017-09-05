@@ -52,8 +52,8 @@
 				this.form.submit("iconXY","iconNumId="+numId+"&"+"iconX="+encodeURIComponent(iconX)+"&"+"iconY="+encodeURIComponent(iconY));
 			}
 		}
-		this.head = function (tag){
-			var winTag = tag.parentNode.parentNode;
+		this.head = function (event){
+			var winTag = event.currentTarget.parentNode.parentNode;
 			var tmpNode = this.nm.getNodeWithWinTag(winTag);
 			this.pe.changePosition(tmpNode);
 			this.gr.changePosition(tmpNode);

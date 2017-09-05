@@ -20,13 +20,13 @@ function Click(){
 			if(this.ds.isWorking == false){
 				this.va["selectedData"] =[{"name":this.tag["html"].children[0].innerHTML,"type":this.tag["html"].children[2].innerHTML}];
 				if(this.tag["html"].children[0].innerHTML != "..")
-					this.validation = true;
+					this.va["validation"] = true;
 				else
-					this.validation = false;
+					this.va["validation"] = false;
 			}
 			else if(this.ds.isWorking == true){
 				this.va["selectedData"] = this.ds.list;
-				this.validation = true;
+				this.va["validation"] = true;
 			}
 		}
 	}
@@ -35,7 +35,7 @@ function Click(){
 		this.contextMenu.removeContextMenu();
 	}
 	this.rename = function(event){
-		if(this.validation && !this.ds.isWorking && Object.keys(this.va["selectedData"][0]).length == 2){
+		if(this.va["validation"] && !this.ds.isWorking && Object.keys(this.va["selectedData"][0]).length == 2){
 			this.tag["jQuery"].first().attr("contenteditable",true);
 			this.tag["jQuery"].first().focusout({"id":this.id},function(event){
 				taskArray["fileBrowser"][event.data.id].focusout.rename(event);
@@ -49,7 +49,7 @@ function Click(){
 		}
 	}
 	this.del = function(){
-		if(this.validation && confirm('Delete it?')){
+		if(this.va["validation"] && confirm('Delete it?')){
 			this.fbm.send.del();
 			this.contextMenu.removeContextMenu();
 		}
@@ -57,18 +57,18 @@ function Click(){
 	this.downlaod = function(event){
 		if(this.ds.isWorking)
 			this.va["selectedData"] = this.ds.fileList();
-		if(this.validation && this.va["selectedData"].length > 0 && this.va["selectedData"][0].type != "directory"){
+		if(this.va["validation"] && this.va["selectedData"].length > 0 && this.va["selectedData"][0].type != "directory"){
 			this.fbm.send.download();
 		}
 	}
 	this.copy = function(){
-		if(this.validation){
+		if(this.va["validation"]){
 			this.fbm.send.copy();
 			this.contextMenu.removeContextMenu();
 		}
 	}
 	this.cut = function(){
-		if(this.validation){
+		if(this.va["validation"]){
 			this.fbm.send.cut();
 			this.contextMenu.removeContextMenu();
 		}
@@ -78,15 +78,15 @@ function Click(){
 	}
 	/*
 	this.copy = function(){
-		if(this.validation){
+		if(this.va["validation"]){
 			this.submit("copy",this.selectedData);
-			this.validation = false;
+			this.va["validation"] = false;
 		}
 	}
 	this.cut = function(){
-		if(this.validation){
+		if(this.va["validation"]){
 			this.submit("cut",this.selectedData);
-			this.validation = false;
+			this.va["validation"] = false;
 		}	
 	}
 	this.paste = function(){
@@ -103,7 +103,7 @@ function Click(){
 			$(this.tag).first().attr("onkeydown","system['fileBrowser']["+this.id+"].keydown.rename(this)");
 			this.__proto__.originalValue = this.selectedData;
 			$(this.tag).focus();
-			this.validation = false;
+			this.va["validation"] = false;
 		}
 	}
 	*/
