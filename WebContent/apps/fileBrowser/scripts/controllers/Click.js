@@ -75,36 +75,6 @@ function Click(){
 	}
 	this.paste = function(){
 		this.fbm.send.paste();
+		this.contextMenu.removeContextMenu();
 	}
-	/*
-	this.copy = function(){
-		if(this.va["validation"]){
-			this.submit("copy",this.selectedData);
-			this.va["validation"] = false;
-		}
-	}
-	this.cut = function(){
-		if(this.va["validation"]){
-			this.submit("cut",this.selectedData);
-			this.va["validation"] = false;
-		}	
-	}
-	this.paste = function(){
-		this.submit("paste",this.selectedData);
-	}
-	
-	this.newFolder = function(){
-			this.submit("newFolder",this.selectedData);
-	}
-	this.rename = function(tag){
-		if(this.selectedData.split("&").length == 3){
-			$(this.tag).first().attr("contenteditable",true);
-			$(this.tag).first().attr("onfocusout","system['fileBrowser']["+this.id+"].focusout.rename(this)");
-			$(this.tag).first().attr("onkeydown","system['fileBrowser']["+this.id+"].keydown.rename(this)");
-			this.__proto__.originalValue = this.selectedData;
-			$(this.tag).focus();
-			this.va["validation"] = false;
-		}
-	}
-	*/
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,13 +50,23 @@ public class FBManager{
 		}
 		this.session.setAttribute("browserList", this.browserList);
 	}
-	private File checkDest(File dest, int num){
+	private File checkDest(String name){
+		File dest = new File(this.path+"/"+name);
 		if(dest.exists()){
-			dest = new File(dest.getPath() + "_" + num);
-			this.checkDest(dest, num+1);
+			String ext = name.substring(name.lastIndexOf(".")+1,name.length());
+			name = name.substring(0,name.lastIndexOf("."));
+			dest = this.checkDest(name,0,ext);
 		}
 		return dest;
 	}
+	private File checkDest(String name, int num,String ext){
+		File dest = new File(this.path+"/"+name+"_"+num+"."+ext);
+		if(dest.exists()){
+			dest = this.checkDest(name,num+1,ext);
+		}
+		return dest;
+	}
+	
 	public void paste() {
 		JSONObject clipboard = (JSONObject) this.session.getAttribute("clipboard");
 		String status = clipboard.getString("status");
@@ -69,10 +80,10 @@ public class FBManager{
 				JSONObject tmpJSON = data.getJSONObject(di);
 				name = tmpJSON.getString("name");
 				type = tmpJSON.getString("type");
+				System.out.println(type.equals("directory"));
 				File src = new File(path+"/"+name);
-				File dest = new File(this.path+"/"+name);
+				File dest = new File(this.path);
 				if (type.equals("directory")) {
-					this.checkDest(dest, 0);
 					if (status.equals("copy")) {
 						try {
 							FileUtils.copyDirectoryToDirectory(src, dest);
@@ -90,17 +101,17 @@ public class FBManager{
 					}
 				}
 				else {
-					this.checkDest(dest,0);
+					dest = this.checkDest(name);
 					if (status.equals("copy")) {
 						try {
-							FileUtils.copyFileToDirectory(src, dest);
+							FileUtils.copyFile(src, dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					} else if (status.equals("cut")) {
 						try {
-							FileUtils.moveFileToDirectory(src, dest, true);
+							FileUtils.moveFile(src, dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -111,7 +122,9 @@ public class FBManager{
 			this.session.removeAttribute("clipboard");
 			this.multiplexReload(prevId,path);
 		}
-	}private void multiReload(){
+	}
+	
+	private void multiReload(){
 		JSONArray id = new JSONArray();
 		JSONObject data = new JSONObject();
 		this.dataItemDAO.setFilePath(this.path);
@@ -163,7 +176,6 @@ public class FBManager{
 	public void setClipboard(String status) {
 		this.json.put("path", this.path);
 		this.json.put("status", status);
-		System.out.println(this.json);
 		this.session.setAttribute("clipboard", this.json);
 	}
 	public void download() {
