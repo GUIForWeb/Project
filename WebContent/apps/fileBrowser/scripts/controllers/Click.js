@@ -36,15 +36,16 @@ function Click(){
 	}
 	this.rename = function(event){
 		if(this.va["validation"] && !this.ds.isWorking && Object.keys(this.va["selectedData"][0]).length == 2){
-			this.tag["jQuery"].first().attr("contenteditable",true);
-			this.tag["jQuery"].first().focusout({"id":this.id},function(event){
+			var nameTd = this.tag["jQuery"].children().first();
+			nameTd.attr("contenteditable",true);
+			nameTd.focusout({"id":this.id},function(event){
 				taskArray["fileBrowser"][event.data.id].focusout.rename(event);
 			});
-			this.tag["jQuery"].first().keydown({"id":this.id},function(event){
+			nameTd.keydown({"id":this.id},function(event){
 				taskArray["fileBrowser"][event.data.id].keydown.rename(event);
 			});
 			this.va["prevData"] = this.va["selectedData"];
-			this.tag["jQuery"].focus();
+			nameTd.focus();
 			this.contextMenu.removeContextMenu();
 		}
 	}

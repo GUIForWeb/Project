@@ -50,58 +50,34 @@ public class FBManager{
 		}
 		this.session.setAttribute("browserList", this.browserList);
 	}
-	private File checkDest(String name){
-		File dest = new File(this.path+"/"+name);
+	private File checkDest(String destPath, String name, int num,String ext){
+		File dest = new File(destPath+"/"+name+"_"+num+"."+ext);
 		if(dest.exists()){
-			String ext = name.substring(name.lastIndexOf(".")+1,name.length());
-			name = name.substring(0,name.lastIndexOf("."));
-			dest = this.checkDest(name,0,ext);
+			dest = this.checkDest(destPath,name,num+1,ext);
 		}
 		return dest;
 	}
-	private File checkDest(String name, int num,String ext){
-		File dest = new File(this.path+"/"+name+"_"+num+"."+ext);
-		if(dest.exists()){
-			dest = this.checkDest(name,num+1,ext);
-		}
-		return dest;
-	}
-	
-	public void paste() {
-		JSONObject clipboard = (JSONObject) this.session.getAttribute("clipboard");
-		String status = clipboard.getString("status");
-		String path = clipboard.getString("path");
-		int prevId =  clipboard.getInt("id");
-		JSONArray data = clipboard.getJSONArray("data");
-		String name = "";
-		String type = "";
-		if (clipboard != null) {
-			for (int di = 0; di < data.length(); di++) {
-				JSONObject tmpJSON = data.getJSONObject(di);
-				name = tmpJSON.getString("name");
-				type = tmpJSON.getString("type");
-				System.out.println(type.equals("directory"));
-				File src = new File(path+"/"+name);
-				File dest = new File(this.path);
+	private void checkExistence(String status, JSONArray data, String srcPath, String destPath){
+		if(data.length() != 0){
+			JSONObject tmpJSON = data.getJSONObject(0);
+			String name = tmpJSON.getString("name");
+			String type = tmpJSON.getString("type");
+			data.remove(0);
+			this.checkExistence(status, data, srcPath, destPath);
+			File src = new File(srcPath+"/"+name);
+			File dest = new File(destPath+"/"+name);
+			if(dest.exists()){
 				if (type.equals("directory")) {
-					if (status.equals("copy")) {
-						try {
-							FileUtils.copyDirectoryToDirectory(src, dest);
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					} else if (status.equals("cut")) {
-						try {
-							FileUtils.moveDirectoryToDirectory(src, dest, true);
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
+					destPath = destPath+"/"+name;
+					srcPath = srcPath+"/"+name;
+					this.dataItemDAO.setFilePath(destPath);
+					JSONArray tmpData = this.dataItemDAO.getDataItemArray();
+					this.checkExistence(status, tmpData, srcPath, destPath);
 				}
-				else {
-					dest = this.checkDest(name);
+				else{
+					String ext = name.substring(name.lastIndexOf(".")+1,name.length());
+					name = name.substring(0,name.lastIndexOf("."));
+					dest = this.checkDest(destPath,name,0,ext);
 					if (status.equals("copy")) {
 						try {
 							FileUtils.copyFile(src, dest);
@@ -119,6 +95,58 @@ public class FBManager{
 					}
 				}
 			}
+			else {
+				if (type.equals("directory")) {
+					dest = new File(destPath);
+					if (status.equals("copy")) {
+						try {
+							FileUtils.copyDirectoryToDirectory(src, dest);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					} else if (status.equals("cut")) {
+						try {
+							FileUtils.moveDirectoryToDirectory(src, dest, true);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+				else{
+					if (status.equals("copy")) {
+						try {
+							FileUtils.copyFile(src, dest);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					} else if (status.equals("cut")) {
+						try {
+							FileUtils.moveFile(src, dest);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		}
+	}
+	public void paste() {
+		JSONObject clipboard = (JSONObject) this.session.getAttribute("clipboard");
+		String status = clipboard.getString("status");
+		String path = clipboard.getString("path");
+		int prevId =  clipboard.getInt("id");
+		JSONArray data = clipboard.getJSONArray("data");
+		String name = "";
+		String type = "";
+		JSONObject tmpJSON = null;
+		File src = null;
+		File dest = null;
+		if (clipboard != null) {
+			this.checkExistence(status, data, path, this.path);
 			this.session.removeAttribute("clipboard");
 			this.multiplexReload(prevId,path);
 		}
