@@ -24,6 +24,7 @@
 		}
 		this.start = function(){
 			this.valueArray["ip"] = "192.168.56.103:8080";
+			this.ip = this.valueArray["ip"]; 
 			//this.valueArray["ip"] = "52.14.247.195:8080";
 			this.valueArray["newId"] = 0;
 			this.valueArray["onScrCount"] = 0;

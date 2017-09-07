@@ -2,8 +2,11 @@ package apps.fileBrowser.module;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.ByteBuffer;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +22,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import apps.Application;
@@ -37,10 +41,52 @@ public class FBManager{
 	private HttpSession session;
 	private Browser browser;
 	private ServletContext servletContext;
+	private FileOutputStream fos;
 
 	public FBManager(){
 		this.dataItemDAO = new DataItemDAO();
 	}
+	private void multiReloadForUpload(){
+		JSONArray id = new JSONArray();
+		JSONObject data = new JSONObject();
+		this.dataItemDAO.setFilePath(this.path);
+		this.dataItemArray = this.dataItemDAO.getDataItemArray();
+		for (Browser b : this.browserList) {
+			if (b.getPath().equals(this.path)) {
+				id.put(b.getId());
+			}
+		}
+		this.json = new JSONObject();
+		this.json.put("status", "multiReload");
+		data.put("id", id);
+		data.put("data", this.dataItemArray);
+		this.json.put("data", data);
+	}
+	public void uploadDone(){
+		try {
+            fos.flush();
+            fos.close();                
+            this.multiReloadForUpload();
+        } catch (IOException e) {       
+            e.printStackTrace();
+        }
+	}
+	public void fileUploading(ByteBuffer msg){
+        try {
+            fos.write(msg.get());
+        } catch (IOException e) {               
+            e.printStackTrace();
+        }
+	}
+	public void fileUploadStart(){
+		File uploadedFile = new File(this.path+"/"+this.json.getString("name"));
+		try {
+            fos = new FileOutputStream(uploadedFile);
+        } catch (FileNotFoundException e) {     
+            e.printStackTrace();
+        }
+	}
+	
 	public void x() {
 		for (int bi = 0; bi < this.browserList.size(); bi++) {
 			if (this.browserList.get(bi).getId() == this.id) {

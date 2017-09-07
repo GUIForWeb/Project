@@ -1,8 +1,13 @@
-package system.webSocket;
+package apps.fileBrowser.webSocket;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.ByteBuffer;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -21,20 +26,20 @@ import org.apache.tomcat.util.descriptor.web.ContextHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import apps.fileBrowser.module.FBManager;
 import system.library.ServletAwareConfig;
 import system.webSocketInterface.WebSocketInterface;
 
 
-@ServerEndpoint(value = "/ws", configurator=ServletAwareConfig.class)
-public class WebSocket{
+@ServerEndpoint(value = "/fs", configurator=ServletAwareConfig.class)
+public class FileWebSocket{
 	private ServletContext servletContext;
 	private Session websocketSession;
 	private HttpSession session;
 	private EndpointConfig config;
-	private WebSocketInterface wsi;
-	private Class<?> tmpClass;
-	private Object tmpObj;
-	public WebSocket(){
+	private FBManager fbm;
+	public FileWebSocket(){
+		this.fbm = new FBManager();
 	}
 	
 	@OnOpen
@@ -44,34 +49,38 @@ public class WebSocket{
 		this.session = (HttpSession) config.getUserProperties().get("httpSession");
 		this.servletContext = this.session.getServletContext();
 	}
-	
+	@OnMessage
+    public void processUpload(ByteBuffer msg, boolean last, Session session) {
+        while(msg.hasRemaining()) {
+        	this.fbm.fileUploading(msg);
+        }
+    }
 	@OnMessage
 	public String onMessage(String message){
-		JSONObject json = new JSONObject(message);
-		JSONObject be = new JSONObject(); 
-		Method tmpMethod = null;
-		try {
-			json = json.getJSONObject("sending");
-			this.tmpClass = Class.forName(json.getString("app"));
-			this.wsi = (WebSocketInterface) this.tmpClass.getConstructor().newInstance();
-			this.wsi.setConfig(this.config);
-			this.wsi.setSession(this.session);
-			this.wsi.setWebsocketSession(this.websocketSession);
-			this.wsi.setServletContext(this.servletContext);
-			json = this.wsi.onMessage(json.getJSONObject("data").toString());
-			
-		} catch (ClassNotFoundException | JSONException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		JSONObject json = null;
+		JSONObject be = new JSONObject();
+		if(!message.equals("?end")){
+			json = new JSONObject(message);
+			this.fbm.setServletContext(this.servletContext);
+			this.fbm.setSession(this.session);
+			this.fbm.setJson(json);
+			this.fbm.findBrowser();
+			this.fbm.fileUploadStart();
 		}
-		if(json.length() !=0 )
-			be.put("receiving", json);
+		else {
+			this.fbm.uploadDone();
+			if(this.fbm.getJson().length() !=0 ) {
+				json = new JSONObject();
+				json.put("app", "taskArray.fileBrowser["+this.fbm.getId()+"].fbm");
+				json.put("data", this.fbm.getJson());
+				be.put("receiving", json);
+			}
+		}
 		return be.toString();
 	}
 
 	@OnError
 	public void onError(Throwable exception){
-		this.wsi.onError(exception);
 	}
 	
 	@OnClose

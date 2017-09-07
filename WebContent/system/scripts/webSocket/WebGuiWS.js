@@ -1,11 +1,14 @@
 	function WebGUIWS(ip){
-		this.ws = new WebSocket("ws://"+ip+"/WebGUI/ws");
-		this.ws.onopen = function(message){ 
-			console.log("open");
+		this.socket = new WebSocket("ws://"+ip+"/WebGUI/ws");
+		this.socket.onopen = function(message){ 
+			console.log("ws-open");
 		};
-		this.ws.onmessage = function(message){
+		this.onmessage = function(message){
+			this.socket.onmessage(message);
+		}
+		this.socket.onmessage = function(message){
 			if(message.isTrusted){
-				if(message.data == "error"){
+				if(message.data == "ws-error"){
 					location.reload();
 				}
 				else {
@@ -17,17 +20,25 @@
 				}
 			}
 		};
-		this.ws.onclose = function(message){ 
-			console.log("close");
+		this.socket.onclose = function(message){ 
+			console.log("ws-close");
 		};
-		this.ws.onerror = function(message){
-			console.log("error");
+		this.socket.onerror = function(message){
+			console.log("ws-error");
 		};
-		this.send = function(json) {
+		this.send = function(data) {
 			var be = {};
-			if(json !== undefined){
-				be.sending = json;
-				this.ws.send(JSON.stringify(be));
+			if(data != "object"){
+				be.sending = data;
+				this.socket.send(JSON.stringify(be));
 			}
+		}
+		this.connect = function(){
+			gui.ws = new WebGUIWS(ip);
+		}
+		this.close = function(){
+			this.socket.onclose();
+			this.socket.onclose = null;
+			this.socket.close();
 		}
 	}

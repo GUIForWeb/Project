@@ -1,4 +1,9 @@
 function FBSender(){
+	this.files = function(){
+		this.json.data = {"status":"files","data":{"id":this.id,"files":this.va["selectedData"]}};
+		console.log(this.json.data);
+		this.ws.send(this.json);
+	}
 	this.x = function(){
 		this.json.data = {"status":"x","data":{"id":this.id}};
 		this.ws.send(this.json);
@@ -30,12 +35,10 @@ function FBSender(){
 	}
 	this.copy = function(){
 		this.json.data = {"status":"copy","data":{"id":this.id,"data":this.va["selectedData"]}};
-		console.log(this.json.data);
 		this.ws.send(this.json);
 	}
 	this.paste = function(){
 		this.json.data = {"status":"paste","data":{"id":this.id}};
-		console.log(this.json.data);
 		this.ws.send(this.json);
 	}
 }

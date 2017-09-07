@@ -13,6 +13,7 @@ function Dragstart(){
 			this.va["validation"] = true;
 		}
 		this.fbm.send.copy();
+		this.va["fileItem"] = true;
 	}
 	this.selection = function(tag, event){
 		this.ds.start(tag, event);

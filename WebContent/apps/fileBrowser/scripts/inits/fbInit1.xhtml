@@ -2,12 +2,13 @@
 	if(wMode){
 		if(taskArray["fileBrowser"] === undefined){
 			taskArray["fileBrowser"] = [];
-			//taskArray["fileBrowser"]["default"] = new FileBrowser();
 		}
 		taskArray["fileBrowser"][fbId] = new FileBrowser(fbId);
 		taskArray["fileBrowser"][fbId].ws = gui.ws;
+		/*
 		if(typeof gui != "undefined")
 			taskArray["fileBrowser"][fbId].gui = gui;
+		*/
 		taskArray["fileBrowser"][fbId].init();
 	}
 	else {

@@ -36,7 +36,8 @@ import apps.fileBrowser.module.FBManager;
 public class FileBrowser extends Application{
 	private String root;
 	private FBManager fbm;
-
+	private Part file;
+	
 	public FileBrowser() {
 		this.fbm = new FBManager();
 		this.root = this.context.getRealPath(".").replace(this.contextPath.substring(1), "");
@@ -47,6 +48,9 @@ public class FileBrowser extends Application{
 	}
 	public void start() {
 		this.fbm.newFB();
+	}
+	public void upload(){
+		System.out.println("upload");
 	}
 	public JSONArray getDataItemArray() {
 		return this.fbm.getDataItemArray();
@@ -59,5 +63,11 @@ public class FileBrowser extends Application{
 	}
 	public void setId(int id) {
 		this.fbm.setId(id);
+	}
+	public Part getFile() {
+		return file;
+	}
+	public void setFile(Part file) {
+		this.file = file;
 	}
 }

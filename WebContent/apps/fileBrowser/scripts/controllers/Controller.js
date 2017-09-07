@@ -4,6 +4,7 @@ function Controller(){
 	this.va["clipboard"] = [];
 	this.va["validation"] = false;
 	this.va["dropable"] = false;
+	this.va["selectedData"] = [];
 	//tagArray
 	this.ta = [];
 	this.ta["script"] = [];

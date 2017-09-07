@@ -25,6 +25,8 @@ function FileBrowser(id){
 		this.ds.__proto__ = this.controller;
 		this.fbm = new FBManager();
 		this.fbm.__proto__ = this.controller;
+		this.fs = new FileWebSocket("192.168.56.103:8081");
+		this.fs.__proto__ = this.controller;
 		this.focusout = new Focusout();
 		this.focusout.__proto__ = this.controller;
 		this.keydown = new Keydown();
@@ -53,10 +55,10 @@ function FileBrowser(id){
 			taskArray['fileBrowser'][event.data.id].click.eButton(event);
 		});
 		this.fbTable.on("dragover",{"id":this.id},function(event){
-			taskArray['fileBrowser'][event.data.id].dragover.fileItem(event);
+			taskArray['fileBrowser'][event.data.id].drag.over.fileItem(event);
 		});
 		this.fbTable.on("drop",{"id":this.id},function(event){
-			taskArray['fileBrowser'][event.data.id].drop.fileItem(event);
+			taskArray['fileBrowser'][event.data.id].drag.drop.fileItem(event);
 		});
 		var tr = this.fbTable.find("tr"); 
 		tr.dblclick({"id":this.id},function(event){
@@ -72,15 +74,15 @@ function FileBrowser(id){
 			taskArray['fileBrowser'][event.data.id].mouseout.row(event);
 		});
 		tr.on("dragstart",{"id":this.id},function(event){
-			taskArray['fileBrowser'][event.data.id].dragstart.fileItem(event)
+			taskArray['fileBrowser'][event.data.id].drag.start.fileItem(event)
 		});
 		
 		tr.attr("draggable","true");
 		
 		
-		this.fbTable.parent().attr("ondragstart","taskArray['fileBrowser']['"+this.id+"'].dragstart.selection(this,event)");
-		this.fbTable.parent().attr("ondrag","taskArray['fileBrowser']['"+this.id+"'].drag.selection(this,event)");
-		this.fbTable.parent().attr("ondragend","taskArray['fileBrowser']['"+this.id+"'].dragend.selection()");
+		this.fbTable.parent().attr("ondragstart","taskArray['fileBrowser']['"+this.id+"'].drag.start.selection(this,event)");
+		this.fbTable.parent().attr("ondrag","taskArray['fileBrowser']['"+this.id+"'].drag.ing.selection(this,event)");
+		this.fbTable.parent().attr("ondragend","taskArray['fileBrowser']['"+this.id+"'].drag.end.selection()");
 		$(this.fbTable.find("tr")[0]).dblclick(null);
 	}
 	this.displayHead = function() {
