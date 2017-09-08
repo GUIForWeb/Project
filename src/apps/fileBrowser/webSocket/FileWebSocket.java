@@ -51,23 +51,35 @@ public class FileWebSocket{
 	}
 	@OnMessage
     public void processUpload(ByteBuffer msg, boolean last, Session session) {
-        while(msg.hasRemaining()) {
-        	this.fbm.fileUploading(msg);
+		JSONObject be = new JSONObject();
+		JSONObject json = new JSONObject();
+		JSONObject data0 = new JSONObject();
+		JSONObject data1 = new JSONObject();
+		be.put("receiving", json);
+		json.put("app", "taskArray.fileBrowser["+this.fbm.getId()+"].fbm");
+		json.put("data", data0);
+		data0.put("status", "%");
+		data0.put("data",data1);
+		
+		while(msg.hasRemaining()) {
+			this.fbm.fileUploading(msg);
+			if(this.fbm.getFos().getByteCount() % 2000000 == 0){
+				data1.put("byteCount", this.fbm.getFos().getByteCount());
+	        	try {
+					session.getBasicRemote().sendText(be.toString());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
         }
     }
+	
 	@OnMessage
 	public String onMessage(String message){
-		JSONObject json = null;
 		JSONObject be = new JSONObject();
-		if(!message.equals("?end")){
-			json = new JSONObject(message);
-			this.fbm.setServletContext(this.servletContext);
-			this.fbm.setSession(this.session);
-			this.fbm.setJson(json);
-			this.fbm.findBrowser();
-			this.fbm.fileUploadStart();
-		}
-		else {
+		JSONObject json = new JSONObject(message);
+		if(json.getString("status").equals("end")) {
 			this.fbm.uploadDone();
 			if(this.fbm.getJson().length() !=0 ) {
 				json = new JSONObject();
@@ -75,6 +87,12 @@ public class FileWebSocket{
 				json.put("data", this.fbm.getJson());
 				be.put("receiving", json);
 			}
+		}else if(json.getString("status").equals("fileUload")) {
+			this.fbm.setServletContext(this.servletContext);
+			this.fbm.setSession(this.session);
+			this.fbm.setJson(json);
+			this.fbm.findBrowser();
+			this.fbm.fileUploadStart();
 		}
 		return be.toString();
 	}

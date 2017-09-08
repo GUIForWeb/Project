@@ -7,11 +7,17 @@ function FBManager(){
 	this.receive.__proto__ = this;
 	this.onMessage = function(json){
 		switch(json.status) {
+			case "%":
+		        this.receive.byteCount(json.data);
+		        break;
 		    case "reload":
 		        this.receive.reload(json.data);
 		        break;
 		    case "multiReload":
 		        this.receive.multiReload(json.data);
+		        break;
+		    case "multiReloadForUpload":
+		        this.receive.multiReloadForUpload(json.data);
 		        break;
 		    case "download":
 		        this.receive.download(json.data);
@@ -19,7 +25,6 @@ function FBManager(){
 		    case "multiplexReload":
 		        this.receive.multiplexReload(json.data);
 		        break;
-		        
 		}
 	}
 }

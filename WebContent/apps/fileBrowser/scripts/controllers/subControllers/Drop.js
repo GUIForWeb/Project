@@ -10,16 +10,29 @@ function Drop(){
 			var files = event.originalEvent.dataTransfer.files;
 			for(i=0; i<files.length; i++){
 				var reader = new FileReader();
+				
 				reader.onload = (function(file,fs,id){
 					return function(event){
-						var json = {"id":id,"name":file.name};
+						var json = {"status":"fileUload","id":id,"name":file.name};
 						fs.send(JSON.stringify(json));
-						console.log("Yo");
+						fs.byteLength = this.result.byteLength;
 						fs.send(this.result);
-						fs.send("?end");
+						json = {"status":"end"};
+						fs.send(JSON.stringify(json));
 					}
 				})(files[i],this.fs,this.id);
 				reader.readAsArrayBuffer(files[i],this.fs,this.id);
+				
+				/*
+				var id = this.id;
+				var fs = this.fs;
+				reader.readAsArrayBuffer(files[i]);
+				$(reader).on("loadend",function(){
+					console.log(id);
+					console.log(fs);
+					console.log(reader.result);
+				});
+				*/
 			}
 			this.va["dropable"] = false;
 		}

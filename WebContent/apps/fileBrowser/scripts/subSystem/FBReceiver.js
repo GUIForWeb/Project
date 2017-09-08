@@ -1,8 +1,23 @@
 function FBReceiver() {
+	this.byteCount = function(json) {
+		var bLen = this.fs.byteLength;
+		var bCnt = json.byteCount;
+		console.log(bCnt/bLen*100);
+	}
 	this.reload = function(json) {
 		this.data = json;
 		this.display();
 		this.appendFunction();
+	}
+	this.multiReloadForUpload = function(json){
+		var id = json.id;
+		var data = json.data;
+		for(ii=0; ii<id.length; ii++){
+			taskArray["fileBrowser"][id[ii]].data = data;
+			taskArray["fileBrowser"][id[ii]].display();
+			taskArray["fileBrowser"][id[ii]].appendFunction();
+		}
+		console.log(100);
 	}
 	this.multiReload = function(json){
 		var id = json.id;

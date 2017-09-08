@@ -41,12 +41,17 @@ public class FBManager{
 	private HttpSession session;
 	private Browser browser;
 	private ServletContext servletContext;
-	private FileOutputStream fos;
-
+	private CustomFileOutputStream fos;
+	
+	
 	public FBManager(){
 		this.dataItemDAO = new DataItemDAO();
 	}
 	private void multiReloadForUpload(){
+		this.multiReload();
+		this.json.put("status", "multiReloadForUpload");
+	}
+	private void multiReload(){
 		JSONArray id = new JSONArray();
 		JSONObject data = new JSONObject();
 		this.dataItemDAO.setFilePath(this.path);
@@ -81,7 +86,7 @@ public class FBManager{
 	public void fileUploadStart(){
 		File uploadedFile = new File(this.path+"/"+this.json.getString("name"));
 		try {
-            fos = new FileOutputStream(uploadedFile);
+            fos = new CustomFileOutputStream(uploadedFile);
         } catch (FileNotFoundException e) {     
             e.printStackTrace();
         }
@@ -198,22 +203,7 @@ public class FBManager{
 		}
 	}
 	
-	private void multiReload(){
-		JSONArray id = new JSONArray();
-		JSONObject data = new JSONObject();
-		this.dataItemDAO.setFilePath(this.path);
-		this.dataItemArray = this.dataItemDAO.getDataItemArray();
-		for (Browser b : this.browserList) {
-			if (b.getPath().equals(this.path)) {
-				id.put(b.getId());
-			}
-		}
-		this.json = new JSONObject();
-		this.json.put("status", "multiReload");
-		data.put("id", id);
-		data.put("data", this.dataItemArray);
-		this.json.put("data", data);
-	}
+	
 	private void multiplexReload(int prevId,String path) {
 		JSONObject json;
 		JSONArray data = new JSONArray();
@@ -451,6 +441,12 @@ public class FBManager{
 	}
 	public void setServletContext(ServletContext servletContext) {
 		this.servletContext = servletContext;
+	}
+	public CustomFileOutputStream getFos() {
+		return fos;
+	}
+	public void setFos(CustomFileOutputStream fos) {
+		this.fos = fos;
 	}
 }
 
