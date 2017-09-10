@@ -26,10 +26,13 @@
 			tmpNode.win.appendWindow();
 			
 			this.nodeArray["winAndBar"].lastWin = tmpNode;
-			if($("<div>"+tmpNode.win.content+"</div>").find(".xWin").length > 0){	
-				var xWinFunc = $("<div>"+tmpNode.win.content+"</div>").find(".xWin").val();
-				xWinFunc = this.form.getData(this.contextPath+xWinFunc);
-				tmpNode.win.addEvent("x",xWinFunc);
+			if($("<div>"+tmpNode.win.content+"</div>").find(".xWin").length > 0){
+				var content = $("<div>"+tmpNode.win.content+"</div>");
+				var data = {};
+				data.id = parseInt(content.find(".id").val());
+				var func = content.find(".xWin").val();
+				data.func = this.form.getData(this.contextPath+func);
+				tmpNode.win.addEvent("x",data);
 			}
 			this.nodeArray["winAndBar"].winCount += 1;
 			return tmpNode;

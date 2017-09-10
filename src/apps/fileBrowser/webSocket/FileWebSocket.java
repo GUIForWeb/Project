@@ -48,6 +48,9 @@ public class FileWebSocket{
 		this.config = config;
 		this.session = (HttpSession) config.getUserProperties().get("httpSession");
 		this.servletContext = this.session.getServletContext();
+		this.fbm.setServletContext(this.servletContext);
+		this.fbm.setSession(this.session);
+		this.fbm.setWebsocketSession(this.websocketSession);
 	}
 	@OnMessage
     public void processUpload(ByteBuffer msg, boolean last, Session session) {
@@ -87,12 +90,15 @@ public class FileWebSocket{
 				json.put("data", this.fbm.getJson());
 				be.put("receiving", json);
 			}
-		}else if(json.getString("status").equals("fileUload")) {
-			this.fbm.setServletContext(this.servletContext);
-			this.fbm.setSession(this.session);
+		}else if(json.getString("status").equals("fileUpload")) {
 			this.fbm.setJson(json);
 			this.fbm.findBrowser();
 			this.fbm.fileUploadStart();
+		}else if(json.getString("status").equals("fileDownload")){
+			json = json.getJSONObject("data");
+			this.fbm.setJson(json);
+			this.fbm.findBrowser();
+			this.fbm.download();
 		}
 		return be.toString();
 	}

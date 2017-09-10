@@ -13,9 +13,7 @@ function DragSelect(){
 		}
 	}
 	*/
-	this.start = function(tag, event){
-		if(event.target !== tag)
-			return;
+	this.start = function(event){
 		this.stdX = 0;
 		this.stdY = 0;
 		this.isWorking = true;
@@ -23,15 +21,16 @@ function DragSelect(){
 		div.css({"background-color":"blue"});
 		div.css({"opacity":"0.3"});
 		div.css({"border":"1px solid black"});
+		/*
 		if($("#forms").length) {
 			var offset = this.cOfWindow.offset();
 			var x = event.clientX - offset.left;
 			var y = event.clientY - offset.top;
 		}
-		else {
-			var x = event.clientX;
-			var y = event.clientY;
-		}
+		else {}
+		*/
+		var x = event.clientX;
+		var y = event.clientY;
 		div.css({
 			position:"absolute",
 			top:y+"px",
@@ -54,9 +53,7 @@ function DragSelect(){
 			this.case = 2;
 		}
 	}
-	this.onGoing = function(tag, event){
-		if(event.target !== tag)
-			return;
+	this.onGoing = function(event){
 		var sizeX = this.stdX - event.clientX;
 		var sizeY = this.stdY - event.clientY;
 		var direction = "";
@@ -138,6 +135,7 @@ function DragSelect(){
 			}
 		}
 		this.list = this.erumSList();
+		console.log(this.list);
 	}
 	this.erumSList = function(){
 		return this.list.filter(function( element ) {

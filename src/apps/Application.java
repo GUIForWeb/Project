@@ -13,12 +13,14 @@ import javax.servlet.http.HttpSession;
 import system.model.User;
 
 public class Application {
+	protected int port;
 	protected User user;
 	protected HttpSession session;
 	protected ExternalContext externalContext;
 	protected String contextPath;
 	protected String[] viewArray;
 	protected String view;
+	protected String contextUrl;
 	protected ServletContext context; 
 	final protected int IN = 0;
 	final protected int OUT = 1;

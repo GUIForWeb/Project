@@ -8,13 +8,20 @@ function FileWebSocket(ip){
 	this.socket.onopen = function(event){
 		console.log("fm-open");
 	};
-	this.socket.onmessage = function(message){
-		if(message.isTrusted){
-			if(message.data == "error"){
+	this.socket.onmessage = function(event){
+		if(event.isTrusted){
+			if(event.data == "error"){
 				//location.reload();
 			}
-			else {
-				gui.ws.onmessage(message);
+			else if(!(event.data instanceof ArrayBuffer) && event.data.includes("receiving")) {
+				gui.ws.onmessage(event);
+			}
+			else if(!(event.data instanceof ArrayBuffer) && event.data.includes("download")) {
+				this.json = JSON.parse(event.data);
+			}
+			else if(event.data instanceof ArrayBuffer ){
+				this.json.data.data = event.data;
+				taskArray["fileBrowser"][this.json.id].fbm.onMessage(this.json);
 			}
 		}
 	};

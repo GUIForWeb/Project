@@ -1,5 +1,5 @@
 function Draging(){
-	this.selection = function(tag, event){
-		this.ds.onGoing(tag, event);
+	this.selection = function(event){
+		this.ds.onGoing(event);
 	}
 }

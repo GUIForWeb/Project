@@ -146,6 +146,9 @@
 		this.setContextPath = function(contextPath){
 			this.contextPath = contextPath;
 		}
+		this.setContextURL = function(contextURL){
+			this.contextURL = contextURL;
+		}
 		this.setTaskbarValues = function(taskbarValueArray){
 			this.taskbarValueArray = taskbarValueArray;
 		}
@@ -228,5 +231,10 @@
 			this.iconTdValueArray["iconTdBorderWidth"] = $(input[3]).val();
 			this.iconTdValueArray["iconTdBorderHeight"] = $(input[4]).val();
 			this.iconTdValueArray["iconTdBorderColor"] = $(input[5]).val();
+		}
+		this.length = function(array){
+			return array.filter(function( element ) {
+				   return element !== undefined;
+				}).length;
 		}
 	}

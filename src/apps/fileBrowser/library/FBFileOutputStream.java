@@ -1,13 +1,13 @@
-package apps.fileBrowser.module;
+package apps.fileBrowser.library;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class CustomFileOutputStream extends FileOutputStream{
+public class FBFileOutputStream extends FileOutputStream{
 	private int byteCount=0;
-	public CustomFileOutputStream(File file) throws FileNotFoundException {
+	public FBFileOutputStream(File file) throws FileNotFoundException {
 		super(file);
 		// TODO Auto-generated constructor stub
 	}

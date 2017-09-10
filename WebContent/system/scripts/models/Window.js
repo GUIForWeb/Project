@@ -21,10 +21,12 @@
 			this.name = winMap["name"];
 			this.view.content = decodeURIComponent(winMap["content"]);
 		}
-		this.addEvent = function(status,xFunc){
+		this.addEvent = function(status,data){
+			func = data.func
+			delete data.func;
 			if(status == "x"){
-				this.view.xButtonTagArray.click(function(event){
-					eval(xFunc);
+				this.view.xButtonTagArray.click(data,function(event){
+					eval(func);
 				});
 				//xBOfwindow0
 				/*

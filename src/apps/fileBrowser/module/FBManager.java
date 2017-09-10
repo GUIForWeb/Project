@@ -5,7 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.nio.ByteBuffer;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
@@ -16,7 +18,10 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
@@ -27,6 +32,7 @@ import org.json.JSONObject;
 
 import apps.Application;
 import apps.fileBrowser.dao.DataItemDAO;
+import apps.fileBrowser.library.FBFileOutputStream;
 import apps.fileBrowser.model.Browser;
 import apps.fileBrowser.model.DataItem;
 
@@ -41,7 +47,9 @@ public class FBManager{
 	private HttpSession session;
 	private Browser browser;
 	private ServletContext servletContext;
-	private CustomFileOutputStream fos;
+	private FBFileOutputStream fos;
+	private Session websocketSession;
+	private HttpServletResponse response;
 	
 	
 	public FBManager(){
@@ -67,6 +75,99 @@ public class FBManager{
 		data.put("data", this.dataItemArray);
 		this.json.put("data", data);
 	}
+	public void download() {
+		JSONArray dataArray = this.json.getJSONArray("data");
+		JSONObject data;
+		File tmpFile;
+		String name;
+		String type;
+		for(int ji=0; ji<dataArray.length(); ji++){
+			data = dataArray.getJSONObject(ji);
+			name = data.getString("name");
+			type = data.getString("type");
+			tmpFile = new File(this.path +"/"+ name);
+			byte[] outputByte = new byte[4096];
+			this.response.setContentType("application/octet-stream");
+			this.response.setHeader("Content-Disposition","attachment;filename=\""+name+"\"");
+			try {
+				ServletOutputStream out = this.response.getOutputStream();
+				FileInputStream fis = new FileInputStream(tmpFile);
+				while(fis.read(outputByte,0,4096) != -1){
+					out.write(outputByte, 0, 4096);
+				}
+				fis.close();
+				out.flush();
+				out.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		/*
+		JSONArray dataArray = this.json.getJSONArray("data");
+		JSONObject data;
+		JSONObject json = new JSONObject();
+		File tmpFile;
+		String name;
+		String type;
+		InputStream is;
+		ByteBuffer byteBuffer;
+		json.put("status", "download");
+		json.put("id", this.id);
+		for(int ji=0; ji<dataArray.length(); ji++){
+			data = dataArray.getJSONObject(ji);
+			name = data.getString("name");
+			type = data.getString("type");
+			json.put("data", data);
+			tmpFile = new File(this.path +"/"+ name);
+			try {
+				this.websocketSession.getBasicRemote().sendText(json.toString());
+				is = new FileInputStream(tmpFile);
+				byteBuffer = ByteBuffer.wrap(IOUtils.toByteArray(is));
+				this.websocketSession.getBasicRemote().sendBinary(byteBuffer);
+				is.close();
+				byteBuffer.clear();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		*/
+		/*
+		JSONObject tmpJSON;
+		JSONArray data = this.json.getJSONArray("data");
+		String name;
+		String path;
+		File file;
+		JSONArray jsonArray = new JSONArray();
+		for(int di=0; di<data.length(); di++){
+			tmpJSON = data.getJSONObject(di);
+			name = tmpJSON.getString("name");
+			path = this.path + "/" + name;
+			file = new File(path);
+			FileInputStream input = null;
+			byte[] fileData = new byte[(int) file.length()];
+			String encodedString = "";
+			try {
+				input = new FileInputStream(file);
+				input.read(fileData);
+				input.close();
+				byte[] encoded = Base64.encodeBase64(fileData);
+				encodedString = new String(encoded);
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+			
+			JSONObject json = new JSONObject();
+			json.put("name", name);
+			json.put("data", encodedString);
+			jsonArray.put(json);
+		}
+		this.json = new JSONObject();
+		this.json.put("status", "download");
+		this.json.put("data", jsonArray);
+		*/
+	}
 	public void uploadDone(){
 		try {
             fos.flush();
@@ -86,7 +187,7 @@ public class FBManager{
 	public void fileUploadStart(){
 		File uploadedFile = new File(this.path+"/"+this.json.getString("name"));
 		try {
-            fos = new CustomFileOutputStream(uploadedFile);
+            fos = new FBFileOutputStream(uploadedFile);
         } catch (FileNotFoundException e) {     
             e.printStackTrace();
         }
@@ -242,40 +343,7 @@ public class FBManager{
 		this.json.put("status", status);
 		this.session.setAttribute("clipboard", this.json);
 	}
-	public void download() {
-		JSONObject tmpJSON;
-		JSONArray data = this.json.getJSONArray("data");
-		String name;
-		String path;
-		File file;
-		JSONArray jsonArray = new JSONArray();
-		for(int di=0; di<data.length(); di++){
-			tmpJSON = data.getJSONObject(di);
-			name = tmpJSON.getString("name");
-			path = this.path + "/" + name;
-			file = new File(path);
-			FileInputStream input = null;
-			byte[] fileData = new byte[(int) file.length()];
-			String encodedString = "";
-			try {
-				input = new FileInputStream(file);
-				input.read(fileData);
-				input.close();
-				byte[] encoded = Base64.encodeBase64(fileData);
-				encodedString = new String(encoded);
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-			
-			JSONObject json = new JSONObject();
-			json.put("name", name);
-			json.put("data", encodedString);
-			jsonArray.put(json);
-		}
-		this.json = new JSONObject();
-		this.json.put("status", "download");
-		this.json.put("data", jsonArray);
-	}
+	
 	public void del() {
 		JSONObject tmpJSON;
 		JSONArray data = this.json.getJSONArray("data");
@@ -442,11 +510,23 @@ public class FBManager{
 	public void setServletContext(ServletContext servletContext) {
 		this.servletContext = servletContext;
 	}
-	public CustomFileOutputStream getFos() {
+	public FBFileOutputStream getFos() {
 		return fos;
 	}
-	public void setFos(CustomFileOutputStream fos) {
+	public void setFos(FBFileOutputStream fos) {
 		this.fos = fos;
+	}
+	public Session getWebsocketSession() {
+		return websocketSession;
+	}
+	public void setWebsocketSession(Session websocketSession) {
+		this.websocketSession = websocketSession;
+	}
+	public HttpServletResponse getResponse() {
+		return response;
+	}
+	public void setResponse(HttpServletResponse response) {
+		this.response = response;
 	}
 }
 

@@ -6,7 +6,6 @@
 			action="#{fileBrowser.start()}"/>
 	</f:metadata>
 	<ui:define name="css">
-    	<ui:include src="/apps/fileBrowser/scripts/css/fileBrowser.xhtml" />
     </ui:define>
     <ui:define name="title">
         File Browser
@@ -15,9 +14,9 @@
     </ui:define>
 	<ui:define name="section">
         <ui:include src="/apps/fileBrowser/comps/body/section/fbTable.xhtml" />
-        <ui:include src="/apps/fileBrowser/comps/body/section/fbUl.xhtml" />
     </ui:define>
     <ui:define name="footer">
+    	<ui:include src="/apps/fileBrowser/comps/body/footer/status.xhtml" />
     </ui:define>
     <ui:define name="script">
 		<ui:include src="/apps/fileBrowser/scripts/inits/bootloader.xhtml" />

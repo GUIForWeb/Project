@@ -56,9 +56,11 @@ function Click(){
 		}
 	}
 	this.downlaod = function(event){
+		
 		if(this.ds.isWorking)
 			this.va["selectedData"] = this.ds.fileList();
 		if(this.va["validation"] && this.va["selectedData"].length > 0 && this.va["selectedData"][0].type != "directory"){
+			this.contextMenu.removeContextMenu();
 			this.fbm.send.download();
 		}
 	}

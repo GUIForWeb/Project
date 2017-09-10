@@ -41,9 +41,11 @@ function FileBrowser(id){
 		this.fbm.receive = new FBReceiver();
 		this.fbm.receive.__proto__ = this.controller;
 		*/
-		this.window = $("#fbTable"+this.id).parent().parent();
-		this.cOfWindow = $("#fbTable"+this.id).parent();
+		this.section = $("#fbTable"+this.id).parent();
+		this.cOfWindow = this.section.parent();
+		this.window = this.cOfWindow.parent();
 		this.fbTable = $("#fbTable"+this.id);
+		this.fbStatus = $("#fbStatus"+this.id);
 		this.contextMenu = new FileBrowserContextMenu(this);
 		this.x = this.window.children("#hOfwindow"+this.id).children("#xBOfwindow"+this.id);
 	}
@@ -51,7 +53,7 @@ function FileBrowser(id){
 		this.x.click({"id":this.id},function(event){
 			taskArray['fileBrowser'][event.data.id].click.x(event);
 		});
-		this.cOfWindow.click({"id":this.id},function(event){
+		this.section.click({"id":this.id},function(event){
 			taskArray['fileBrowser'][event.data.id].click.eButton(event);
 		});
 		this.fbTable.on("dragover",{"id":this.id},function(event){
@@ -79,11 +81,27 @@ function FileBrowser(id){
 		
 		tr.attr("draggable","true");
 		
+		this.cOfWindow.on("dragstart",{"id":this.id},function(event){
+			taskArray["fileBrowser"][event.data.id].drag.start.selection(event);
+		});
+		this.cOfWindow.on("drag",{"id":this.id},function(event){
+			taskArray["fileBrowser"][event.data.id].drag.ing.selection(event);
+		});
+		this.cOfWindow.on("dragend",{"id":this.id},function(event){
+			taskArray["fileBrowser"][event.data.id].drag.end.selection(event);
+		});
 		
-		this.fbTable.parent().attr("ondragstart","taskArray['fileBrowser']['"+this.id+"'].drag.start.selection(this,event)");
-		this.fbTable.parent().attr("ondrag","taskArray['fileBrowser']['"+this.id+"'].drag.ing.selection(this,event)");
-		this.fbTable.parent().attr("ondragend","taskArray['fileBrowser']['"+this.id+"'].drag.end.selection()");
 		$(this.fbTable.find("tr")[0]).dblclick(null);
+		
+		if($("#fbCSS").length == 0 ){
+			var link = $("<link></link>");
+			link.attr("id","fbCSS");
+			link.attr("type","text/css");
+			link.attr("rel","stylesheet");
+			link.attr("href",this.contextURL+"/apps/fileBrowser/scripts/css/fileBrowser.css");
+			$(document.head).append(link);
+		}
+		//<link type="text/css" rel="stylesheet" href="#{contextUrl}/apps/fileBrowser/scripts/css/fileBrowser.css" />
 	}
 	this.displayHead = function() {
 		this.fbTable.html("");

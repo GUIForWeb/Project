@@ -1,91 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-	version="3.1">
-	<display-name>WebGUI</display-name>
-	<servlet>
-		<servlet-name>Faces Servlet</servlet-name>
-		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>*.jsf</url-pattern>
-	</servlet-mapping>
-	<context-param>
-		<param-name>javax.faces.PROJECT_STAGE</param-name>
-		<param-value>Development</param-value>
-	</context-param>
-	<welcome-file-list>
-		<welcome-file>system/comps/views/login.jsf</welcome-file>
-	</welcome-file-list>
-	<context-param>
-		<param-name>javax.faces.DISABLE_FACESSERVLET_TO_XHTML</param-name>
-		<param-value>true</param-value>
-	</context-param>
-	<context-param>
-		<param-name>javax.faces.WEBAPP_RESOURCES_DIRECTORY</param-name>
-		<param-value>/system/scripts</param-value>
-	</context-param>
-	<context-param>
-		<description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
-		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
-		<param-value>client</param-value>
-	</context-param>
-	<context-param>
-		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
-		<param-value>resources.application</param-value>
-	</context-param>
-	<context-param>
-		<param-name>javax.faces.ENABLE_CDI_RESOLVER_CHAIN</param-name>
-		<param-value>true</param-value>
-	</context-param>
-	<context-param>
-		<param-name>javax.faces.ENABLE_WEBSOCKET_ENDPOINT</param-name>
-		<param-value>true</param-value>
-	</context-param>
-	<context-param>
-    	<param-name>org.apache.tomcat.websocket.textBufferSize</param-name>
-    	<param-value>32768</param-value>
-	</context-param>
-	<context-param>
-    	<param-name>org.apache.tomcat.websocket.binaryBufferSize</param-name>
-    	<param-value>32768</param-value>
-	</context-param>
-	<resource-env-ref>
-		<!-- Enable Weld CDI, also needs META-INF/context.xml entry -->
-		<resource-env-ref-name>BeanManager</resource-env-ref-name>
-		<resource-env-ref-type>javax.enterprise.inject.spi.BeanManager</resource-env-ref-type>
-	</resource-env-ref>
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>Component</web-resource-name>
-			<url-pattern>/system/comps/frames/*</url-pattern>
-		</web-resource-collection>
-		<auth-constraint />
-	</security-constraint>
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>Component</web-resource-name>
-			<url-pattern>/system/comps/body/*</url-pattern>
-		</web-resource-collection>
-		<auth-constraint />
-	</security-constraint>
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>Component</web-resource-name>
-			<url-pattern>/system/comps/papers/*</url-pattern>
-		</web-resource-collection>
-		<auth-constraint />
-	</security-constraint>
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>Script</web-resource-name>
-			<url-pattern>/system/scripts/*</url-pattern>
-		</web-resource-collection>
-		<auth-constraint />
-	</security-constraint>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+  <display-name>WebGUI</display-name>
+  <context-param>
+    <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+    <param-value>.jsp .xhtml</param-value>
+  </context-param>
+  <context-param>
+    <param-name>javax.faces.FACELETS_VIEW_MAPPINGS</param-name>
+    <param-value>*.xhtml</param-value>
+  </context-param>
+  <servlet>
+    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>*.jsf</url-pattern>
+  </servlet-mapping>
+  <context-param>
+    <param-name>javax.faces.PROJECT_STAGE</param-name>
+    <param-value>Development</param-value>
+  </context-param>
+  <welcome-file-list>
+    <welcome-file>system/comps/views/login.jsf</welcome-file>
+  </welcome-file-list>
+  <context-param>
+    <param-name>javax.faces.DISABLE_FACESSERVLET_TO_XHTML</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <param-name>javax.faces.WEBAPP_RESOURCES_DIRECTORY</param-name>
+    <param-value>/system/scripts</param-value>
+  </context-param>
+  <context-param>
+    <description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
+    <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+    <param-value>client</param-value>
+  </context-param>
+  <context-param>
+    <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+    <param-value>resources.application</param-value>
+  </context-param>
+  <context-param>
+    <param-name>javax.faces.ENABLE_CDI_RESOLVER_CHAIN</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <param-name>javax.faces.ENABLE_WEBSOCKET_ENDPOINT</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <param-name>org.apache.tomcat.websocket.textBufferSize</param-name>
+    <param-value>32768</param-value>
+  </context-param>
+  <context-param>
+    <param-name>org.apache.tomcat.websocket.binaryBufferSize</param-name>
+    <param-value>32768</param-value>
+  </context-param>
+  <resource-env-ref>
+    <resource-env-ref-name>BeanManager</resource-env-ref-name>
+    <resource-env-ref-type>javax.enterprise.inject.spi.BeanManager</resource-env-ref-type>
+  </resource-env-ref>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Component</web-resource-name>
+      <url-pattern>/system/comps/frames/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint/>
+  </security-constraint>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Component</web-resource-name>
+      <url-pattern>/system/comps/body/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint/>
+  </security-constraint>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Component</web-resource-name>
+      <url-pattern>/system/comps/papers/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint/>
+  </security-constraint>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Script</web-resource-name>
+      <url-pattern>/system/scripts/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint/>
+  </security-constraint>
 </web-app>
-
-

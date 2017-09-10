@@ -78,6 +78,8 @@ public class Background extends Controller {
 			this.externalContext.getRequestMap().put("contextPath",this.contextPath);
 			this.externalContext.getRequestMap().put("iconList",iconDAO.getIconList());
 			this.externalContext.getRequestMap().put("bgImg",this.bgImg);
+			this.externalContext.getRequestMap().put("port",this.port);
+			this.externalContext.getRequestMap().put("contextUrl",this.contextUrl);
 		}
 	}
 }

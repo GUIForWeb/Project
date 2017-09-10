@@ -40,7 +40,48 @@ function FBReceiver() {
 		}
 	}
 	this.download = function(json) {
+		console.log(json);
+		console.log(json.data.byteLength);
+		var a = document.createElement('A');
+		//"attachment/file"
+		var blob = new Blob([new Uint8Array(json.data)],{type: "attachment/file"});
+		var reader = new FileReader();
+		var view = document;
+		var name = json.name;
+		reader.onloadend = function(){
+			window.location.href = this.result;
+		};
+		reader.readAsDataURL(blob);
+		
+		/*
+		a.href = url;
+		a.download = json.name;bytes
+		a.target="_blank";
+		a.click();
+		*/
+		/*
+		var bytes = new Uint8Array(json.data);
+	    var data = "";
+	    var len = bytes.byteLength;
+	    for (var i = 0; i < len; ++i) {
+	        data += String.fromCharCode(bytes[i]);
+	    }
+	    uri = "data:application/octet-stream;base64," + btoa(data);
+		a = document.createElement('A');
+		a.href = uri;
+		a.download = json.name;bytes
+		a.target="_blank"
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+		*/
+		//this.fbm.onMessage(this.json);
+		//this.fbm.receiver();
+		/*
+		
+	    */
 		//event.stopPropagation();
+		/*
 		var uri = "";
 		var a = [];
 		var ie11 = navigator.userAgent.match(/Trident\/7.0/) && navigator.userAgent.match(/rv:11/);
@@ -66,7 +107,7 @@ function FBReceiver() {
 				window.navigator.msSaveBlob(dataAsBlob,json[di].name);
 			}
 		}
-		
+		*/
 	}
 	this.saveAs = function(uri, filename) {
 	    var link = document.createElement('a');

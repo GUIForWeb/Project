@@ -3,7 +3,6 @@
 			var winTag = event.currentTarget.parentNode.parentNode;
 			var winAndBarNode = this.gm.xWinAndBar(winTag);
 			this.gr.xWinAndBar(winAndBarNode);
-			console.log("winX");
 		}
 		this.hButton = function(event){
 			var winTag = event.currentTarget.parentNode.parentNode;
