@@ -67,8 +67,10 @@ public class FBWebSocket implements WebSocketInterface{
 		}
 		int id = this.fbm.getId();
 		json = new JSONObject();
-		json.put("app", "taskArray.fileBrowser["+id+"].fbm");
-		json.put("data", this.fbm.getJson());
+		if(null != this.fbm.getJson()) {
+			json.put("app", "taskArray.fileBrowser["+id+"].fbm");
+			json.put("data", this.fbm.getJson());
+		}
 		return json;
 	}
 

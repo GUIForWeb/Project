@@ -38,83 +38,83 @@
 		this.nTop = 0;
 		this.wLeft = 0;
 		this.setZIndex = function(zIndex){
-			this.outerTagArray[0].style.zIndex = zIndex;
+			this.outerSelector[0].style.zIndex = zIndex;
 			this.zIndex = zIndex;
 		}
 		this.windowLayer = function(){
-			this.headTagArray.append(this.hButtonTagArray);
-			this.headTagArray.append(this.fButtonTagArray);
-			this.headTagArray.append(this.xButtonTagArray);
-			this.headTagArray.append(this.movementHandleTagArray);
-			//this.outerTagArray.append(this.movementHandleTagArray);
-			this.outerTagArray.append(this.contentTagArray);
-			this.outerTagArray.append(this.headTagArray);
-			this.outerTagArray.append(this.northTagArray);
-			this.outerTagArray.append(this.eastTagArray);
-			this.outerTagArray.append(this.southTagArray);
-			this.outerTagArray.append(this.westTagArray);
-			this.outerTagArray.append(this.northWestTagArray);
-			this.outerTagArray.append(this.northEastTagArray);
-			this.outerTagArray.append(this.southWestTagArray);
-			this.outerTagArray.append(this.southEastTagArray);
-			this.windowTagArray = this.outerTagArray;
+			this.headSelector.append(this.hButtonSelector);
+			this.headSelector.append(this.fButtonSelector);
+			this.headSelector.append(this.xButtonSelector);
+			this.headSelector.append(this.movementHandleSelector);
+			//this.outerSelector.append(this.movementHandleSelector);
+			this.outerSelector.append(this.contentSelector);
+			this.outerSelector.append(this.headSelector);
+			this.outerSelector.append(this.northSelector);
+			this.outerSelector.append(this.eastSelector);
+			this.outerSelector.append(this.southSelector);
+			this.outerSelector.append(this.westSelector);
+			this.outerSelector.append(this.northWestSelector);
+			this.outerSelector.append(this.northEastSelector);
+			this.outerSelector.append(this.southWestSelector);
+			this.outerSelector.append(this.southEastSelector);
+			this.windowSelector = this.outerSelector;
 		}
 		this.outerLayer = function(){
 			//"<div id='" + this.ids["o"] + "' tabindex='0' style='z-index:1; outline:1px solid transparent; position:absolute; left:" + this.oLeft + "px; top:" + this.oTop + "px; width:" + this.oWidth + "px; height:" + this.oHeight + "px; background-color:" + this.oBgC + ";' onfocus='" + this.ids["id"] + ".incZIndex();'>";
-			var tmpTag = $("<div></div>");
-			tmpTag.attr("id",this.tagId);
-			tmpTag.attr("draggable","true");
-			tmpTag.css("z-index",parseInt(this.zIndex));
-			tmpTag.css("position","absolute");
-			tmpTag.addClass(this.outerLayerTagClass);
-			tmpTag = tmpTag.attr("tabindex","0");
-			tmpTag.width(this.oWidth);
-			tmpTag.height(this.oHeight);
-			tmpTag.offset({
+			var tmpS = $("<div></div>");
+			tmpS.attr("id",this.tagId);
+			tmpS.attr("draggable","true");
+			tmpS.css("z-index",parseInt(this.zIndex));
+			tmpS.css("position","absolute");
+			tmpS.addClass(this.outerLayerTagClass);
+			tmpS = tmpS.attr("tabindex","0");
+			tmpS.width(this.oWidth);
+			tmpS.height(this.oHeight);
+			tmpS.offset({
 				left:this.oLeft,
 				top:this.oTop
 			});
-			this.outerTagArray = tmpTag;
+			this.outerSelector = tmpS;
 		}
 		this.headLayer = function(){
-			var tmpTag = $("<div></div>");
-			tmpTag.html(this.name);
-			tmpTag.attr("id",this.tagIds["h"]);
-			tmpTag.attr("draggable","true");
-			tmpTag.css("position","absolute");
-			tmpTag.addClass(this.headLayerTagClass);
-			tmpTag.width(this.hWidth);
-			tmpTag.height(this.hHeight);
-			tmpTag.offset({
+			var tmpS = $("<div></div>");
+			tmpS.html(this.name);
+			tmpS.attr("id",this.tagIds["h"]);
+			tmpS.attr("draggable","true");
+			tmpS.css("position","absolute");
+			tmpS.addClass(this.headLayerTagClass);
+			tmpS.width(this.hWidth);
+			tmpS.height(this.hHeight);
+			tmpS.offset({
 				left:this.hLeft,
 				top:this.hTop
 			});
-			this.headTagArray = tmpTag;
+			this.headSelector = tmpS;
 		}
 		this.contentLayer = function(){
-			var tmpTag = $("<div></div>");
-			tmpTag.attr("id",this.tagIds["c"]);
-			tmpTag.attr("draggable","true");
-			tmpTag.html(this.content);
-			tmpTag.css("position","absolute");
-			tmpTag.css("overflow","auto");
-			tmpTag.addClass(this.contentLayerTagClass);
-			tmpTag.width(this.cWidth);
-			tmpTag.height(this.cHeight);
-			tmpTag.offset({
+			var tmpS = $("<div></div>");
+			tmpS.attr("id",this.tagIds["c"]);
+			tmpS.attr("draggable","true");
+			tmpS.html(this.content);
+			tmpS.css("position","absolute");
+			tmpS.css("overflow","auto");
+			tmpS.addClass(this.contentLayerTagClass);
+			tmpS.width(this.cWidth);
+			tmpS.height(this.cHeight);
+			tmpS.offset({
 				left:this.cLeft,
 				top:this.cTop
 			});
-			tmpTag.click(function(event){
+			tmpS.click(function(event){
 				gui.click.content(event);
 			});
-			tmpTag.bind("DOMSubtreeModified",function(event){
+			tmpS.bind("DOMSubtreeModified",function(event){
 				var winTag = event.currentTarget.parentNode;
 				if(winTag.style !== undefined && gui.winArray.length != 0 && gui.winArray[winTag.style.zIndex] !== undefined){
 					gui.winArray[winTag.style.zIndex].win.view.alam();
 				}
 			});
-			this.contentTagArray = tmpTag;
+			this.contentSelector = tmpS;
 		}
 		this.alam = function(){
 			var win = this.__proto__;
@@ -129,284 +129,285 @@
 	        }, time );
 		}
 		this.movementHandleLayer = function(){
-			var tmpTag = $("<div></div>");
-			tmpTag.attr("id",this.tagIds["m"]);
-			tmpTag.css("position","absolute");
-			tmpTag.addClass(this.movementHandleLayerTagClass);
-			tmpTag.width(this.mWidth);
-			tmpTag.height(this.hHeight);
-			tmpTag.offset({
+			var tmpS = $("<div></div>");
+			tmpS.attr("id",this.tagIds["m"]);
+			tmpS.css("position","absolute");
+			tmpS.addClass(this.movementHandleLayerTagClass);
+			tmpS.width(this.mWidth);
+			tmpS.height(this.hHeight);
+			tmpS.offset({
 				left:0,
 				top:0
 			});
-			tmpTag.attr("draggable","true");
-			tmpTag.on("dragstart",function(event){
+			tmpS.attr("draggable","true");
+			tmpS.on("dragstart",function(event){
 				gui.drag.start.head(event);
 			});
-			tmpTag.on("drag",function(event){
+			tmpS.on("drag",function(event){
 				gui.drag.ing.head(event);
 			});
-			tmpTag.on("dragend",function(event){
+			tmpS.on("dragend",function(event){
 				gui.drag.end.head(event);
 			});
-			tmpTag.click(function(event){
+			tmpS.click(function(event){
 				gui.click.head(event)
 			});
-			this.movementHandleTagArray = tmpTag;
+			this.movementHandleSelector = tmpS;
 		}
 		this.hButtonLayer = function(){
-			var tmpTag = $("<div></div>");
-			tmpTag.attr("id",this.tagIds["hB"]);
-			tmpTag.css("position","absolute");
-			tmpTag.html("&lowbar;");
-			tmpTag.offset({
+			var tmpS = $("<div></div>");
+			tmpS.attr("id",this.tagIds["hB"]);
+			tmpS.css("position","absolute");
+			tmpS.html("&lowbar;");
+			tmpS.offset({
 				left:this.hBLeft,
 				top:this.bTop
 			});
-			tmpTag.addClass(this.buttonLayerTagClass);
-			tmpTag.width(this.bWidth);
-			tmpTag.height(this.bHeight);
-			tmpTag.click(function(event){
+			tmpS.addClass(this.buttonLayerTagClass);
+			tmpS.width(this.bWidth);
+			tmpS.height(this.bHeight);
+			tmpS.click(function(event){
 				gui.click.hButton(event)
 			});
-			this.hButtonTagArray = tmpTag;
+			this.hButtonSelector = tmpS;
 		}
 		this.fButtonLayer = function(){
-			var tmpTag = $("<div></div>");
-			tmpTag.attr("id",this.tagIds["fB"]);
-			tmpTag.css("position","absolute");
-			tmpTag.html("&squ;");
-			tmpTag.offset({
+			var tmpS = $("<div></div>");
+			tmpS.attr("id",this.tagIds["fB"]);
+			tmpS.css("position","absolute");
+			tmpS.html("&squ;");
+			tmpS.offset({
 				left:this.fBLeft,
 				top:this.bTop
 			});
-			tmpTag.addClass(this.buttonLayerTagClass);
-			tmpTag.width(this.bWidth);
-			tmpTag.height(this.bHeight);
-			tmpTag.click(function(event){
+			tmpS.addClass(this.buttonLayerTagClass);
+			tmpS.width(this.bWidth);
+			tmpS.height(this.bHeight);
+			tmpS.click(function(event){
 				gui.click.fButton(event)
 			});
-			this.fButtonTagArray = tmpTag;
+			this.fButtonSelector = tmpS;
 		}
 		this.xButtonLayer = function(){
-			var tmpTag = $("<div></div>");
-			tmpTag.attr("id",this.tagIds["xB"]);
-			tmpTag.css("position","absolute");
-			tmpTag.html("&times;");
-			tmpTag.offset({
+			var tmpS = $("<div></div>");
+			tmpS.attr("id",this.tagIds["xB"]);
+			tmpS.css("position","absolute");
+			tmpS.html("&times;");
+			tmpS.offset({
 				left:this.xBLeft,
 				top:this.bTop
 			});
-			tmpTag.addClass(this.buttonLayerTagClass);
-			tmpTag.width(this.bWidth);
-			tmpTag.height(this.bHeight);
-			tmpTag.click(function(event){
+			tmpS.addClass(this.buttonLayerTagClass);
+			tmpS.width(this.bWidth);
+			tmpS.height(this.bHeight);
+			tmpS.click(function(event){
 				gui.click.xButton(event);
 			});
-			this.xButtonTagArray = tmpTag;
+			this.xButtonSelector = tmpS;
 		}
 		this.northWestLayer = function(){
-			var tmpTag = $("<div></div>");
-			tmpTag.attr("id",this.tagIds["nw"]);
-			tmpTag.css("position","absolute");
-			tmpTag.offset({
+			var tmpS = $("<div></div>");
+			tmpS.attr("id",this.tagIds["nw"]);
+			tmpS.css("position","absolute");
+			tmpS.offset({
 				left:this.nwLeft,
 				top:this.nwTop
 			});
-			tmpTag.addClass(this.northWestLayerTagClass);
-			tmpTag.width(this.resizeWidth);
-			tmpTag.height(this.resizeHeight);
-			tmpTag.attr("draggable","true");
-			tmpTag.on("dragstart",function(event){
+			tmpS.addClass(this.northWestLayerTagClass);
+			tmpS.width(this.resizeWidth);
+			tmpS.height(this.resizeHeight);
+			tmpS.attr("draggable","true");
+			tmpS.on("dragstart",function(event){
 				gui.resize.start.window(event);
 			});
-			tmpTag.on("drag",function(event){
+			tmpS.on("drag",function(event){
 				gui.resize.ing.window(event);
 			});
-			tmpTag.on("dragend",function(event){
+			tmpS.on("dragend",function(event){
 				gui.resize.end.window(event);
 			});
-			this.northWestTagArray = tmpTag;
+			this.northWestSelector = tmpS;
 		}
 		this.northEastLayer = function(){
-			var tmpTag = $("<div></div>");
-			tmpTag.attr("id",this.tagIds["ne"]);
-			tmpTag.css("position","absolute");
-			tmpTag.offset({
+			var tmpS = $("<div></div>");
+			tmpS.attr("id",this.tagIds["ne"]);
+			tmpS.css("position","absolute");
+			tmpS.offset({
 				left:this.neLeft,
 				top:this.neTop
 			});
-			tmpTag.addClass(this.northEastLayerTagClass);
-			tmpTag.width(this.resizeWidth);
-			tmpTag.height(this.resizeHeight);
-			tmpTag.attr("draggable","true");
-			tmpTag.on("dragstart",function(event){
+			tmpS.addClass(this.northEastLayerTagClass);
+			tmpS.width(this.resizeWidth);
+			tmpS.height(this.resizeHeight);
+			tmpS.attr("draggable","true");
+			tmpS.on("dragstart",function(event){
 				gui.resize.start.window(event);
 			});
-			tmpTag.on("drag",function(event){
+			tmpS.on("drag",function(event){
 				gui.resize.ing.window(event);
 			});
-			tmpTag.on("dragend",function(event){
+			tmpS.on("dragend",function(event){
 				gui.resize.end.window(event);
 			});
-			this.northEastTagArray = tmpTag;
+			this.northEastSelector = tmpS;
 		}
 		this.southWestLayer = function(){
-			var tmpTag = $("<div></div>");
-			tmpTag.attr("id",this.tagIds["sw"]);
-			tmpTag.css("position","absolute");
-			tmpTag.offset({
+			var tmpS = $("<div></div>");
+			tmpS.attr("id",this.tagIds["sw"]);
+			tmpS.css("position","absolute");
+			tmpS.offset({
 				left:this.swLeft,
 				top:this.swTop
 			});
-			tmpTag.addClass(this.southWestLayerTagClass);
-			tmpTag.width(this.resizeWidth);
-			tmpTag.height(this.resizeHeight);
-			tmpTag.attr("draggable","true");
-			tmpTag.on("dragstart",function(event){
+			tmpS.addClass(this.southWestLayerTagClass);
+			tmpS.width(this.resizeWidth);
+			tmpS.height(this.resizeHeight);
+			tmpS.attr("draggable","true");
+			tmpS.on("dragstart",function(event){
 				gui.resize.start.window(event);
 			});
-			tmpTag.on("drag",function(event){
+			tmpS.on("drag",function(event){
 				gui.resize.ing.window(event);
 			});
-			tmpTag.on("dragend",function(event){
+			tmpS.on("dragend",function(event){
 				gui.resize.end.window(event);
 			});
-			this.southWestTagArray = tmpTag;
+			this.southWestSelector = tmpS;
 		}
 		this.southEastLayer = function(){
-			var tmpTag = $("<div></div>");
-			tmpTag.attr("id",this.tagIds["se"]);
-			tmpTag.css("position","absolute");
-			tmpTag.offset({
+			var tmpS = $("<div></div>");
+			tmpS.attr("id",this.tagIds["se"]);
+			tmpS.css("position","absolute");
+			tmpS.offset({
 				left:this.seLeft,
 				top:this.seTop
 			});
-			tmpTag.addClass(this.southEastLayerTagClass);
-			tmpTag.width(this.resizeWidth);
-			tmpTag.height(this.resizeHeight);
-			tmpTag.attr("draggable","true");
-			tmpTag.on("dragstart",function(event){
+			tmpS.addClass(this.southEastLayerTagClass);
+			tmpS.width(this.resizeWidth);
+			tmpS.height(this.resizeHeight);
+			tmpS.attr("draggable","true");
+			tmpS.on("dragstart",function(event){
 				gui.resize.start.window(event);
 			});
-			tmpTag.on("drag",function(event){
+			tmpS.on("drag",function(event){
 				gui.resize.ing.window(event);
 			});
-			tmpTag.on("dragend",function(event){
+			tmpS.on("dragend",function(event){
 				gui.resize.end.window(event);
 			});
-			this.southEastTagArray = tmpTag;
+			this.southEastSelector = tmpS;
 		}
 		
 		this.northLayer = function(){
-			var tmpTag = $("<div></div>");
-			tmpTag.attr("id",this.tagIds["n"]);
-			tmpTag.css("position","absolute");
-			tmpTag.offset({
+			var tmpS = $("<div></div>");
+			tmpS.attr("id",this.tagIds["n"]);
+			tmpS.css("position","absolute");
+			tmpS.offset({
 				left:this.nLeft,
 				top:this.nTop
 			});
-			tmpTag.addClass(this.northLayerTagClass);
-			tmpTag.width(this.nWidth);
-			tmpTag.height(this.nHeight);
-			tmpTag.attr("draggable","true");
-			tmpTag.on("dragstart",function(event){
+			tmpS.addClass(this.northLayerTagClass);
+			tmpS.width(this.nWidth);
+			tmpS.height(this.nHeight);
+			tmpS.attr("draggable","true");
+			tmpS.on("dragstart",function(event){
 				gui.resize.start.window(event);
 			});
-			tmpTag.on("drag",function(event){
+			tmpS.on("drag",function(event){
 				gui.resize.ing.window(event);
 			});
-			tmpTag.on("dragend",function(event){
+			tmpS.on("dragend",function(event){
 				gui.resize.end.window(event);
 			});
-			this.northTagArray = tmpTag;
+			this.northSelector = tmpS;
 		}
 		this.eastLayer = function(){
-			var tmpTag = $("<div></div>");
-			tmpTag.attr("id",this.tagIds["e"]);
-			tmpTag.css("position","absolute");
-			tmpTag.offset({
+			var tmpS = $("<div></div>");
+			tmpS.attr("id",this.tagIds["e"]);
+			tmpS.css("position","absolute");
+			tmpS.offset({
 				left:this.eLeft,
 				top:this.eTop
 			});
-			tmpTag.addClass(this.eastLayerTagClass);
-			tmpTag.width(this.eWidth);
-			tmpTag.height(this.eHeight);
-			tmpTag.attr("draggable","true");
-			tmpTag.on("dragstart",function(event){
+			tmpS.addClass(this.eastLayerTagClass);
+			tmpS.width(this.eWidth);
+			tmpS.height(this.eHeight);
+			tmpS.attr("draggable","true");
+			tmpS.on("dragstart",function(event){
 				gui.resize.start.window(event);
 			});
-			tmpTag.on("drag",function(event){
+			tmpS.on("drag",function(event){
 				gui.resize.ing.window(event);
 			});
-			tmpTag.on("dragend",function(event){
+			tmpS.on("dragend",function(event){
 				gui.resize.end.window(event);
 			});
-			this.eastTagArray = tmpTag;
+			this.eastSelector = tmpS;
 		}
 		this.southLayer = function(){
-			var tmpTag = $("<div></div>");
-			tmpTag.attr("id",this.tagIds["s"]);
-			tmpTag.css("position","absolute");
-			tmpTag.offset({
+			var tmpS = $("<div></div>");
+			tmpS.attr("id",this.tagIds["s"]);
+			tmpS.css("position","absolute");
+			tmpS.offset({
 				left:this.sLeft,
 				top:this.sTop
 			});
-			tmpTag.addClass(this.southLayerTagClass);
-			tmpTag.width(this.sWidth);
-			tmpTag.height(this.sHeight);
-			tmpTag.attr("draggable","true");
-			tmpTag.on("dragstart",function(event){
+			tmpS.addClass(this.southLayerTagClass);
+			tmpS.width(this.sWidth);
+			tmpS.height(this.sHeight);
+			tmpS.attr("draggable","true");
+			tmpS.on("dragstart",function(event){
 				gui.resize.start.window(event);
 			});
-			tmpTag.on("drag",function(event){
+			tmpS.on("drag",function(event){
 				gui.resize.ing.window(event);
 			});
-			tmpTag.on("dragend",function(event){
+			tmpS.on("dragend",function(event){
 				gui.resize.end.window(event);
 			});
-			this.southTagArray = tmpTag;
+			this.southSelector = tmpS;
 		}
 		this.westLayer = function(){
-			var tmpTag = $("<div></div>");
-			tmpTag.attr("id",this.tagIds["w"]);
-			tmpTag.css("position","absolute");
-			tmpTag.offset({
+			var tmpS = $("<div></div>");
+			tmpS.attr("id",this.tagIds["w"]);
+			tmpS.css("position","absolute");
+			tmpS.offset({
 				left:this.wLeft,
 				top:this.wTop
 			});
-			tmpTag.addClass(this.westLayerTagClass);
-			tmpTag.width(this.wWidth);
-			tmpTag.height(this.wHeight);
-			tmpTag.attr("draggable","true");
-			tmpTag.on("dragstart",function(event){
+			tmpS.addClass(this.westLayerTagClass);
+			tmpS.width(this.wWidth);
+			tmpS.height(this.wHeight);
+			tmpS.attr("draggable","true");
+			tmpS.on("dragstart",function(event){
 				gui.resize.start.window(event);
 			});
-			tmpTag.on("drag",function(event){
+			tmpS.on("drag",function(event){
 				gui.resize.ing.window(event);
 			});
-			tmpTag.on("dragend",function(event){
+			tmpS.on("dragend",function(event){
 				gui.resize.end.window(event);
 			});
-			this.westTagArray = tmpTag;
+			this.westSelector = tmpS;
 		}
 		this.setIds = function () {
+			var tagId = this.tagId.charAt(0).toUpperCase() + this.tagId.slice(1);
 			this.tagIds = [];
 			this.tagIds["o"] = this.tagId;
-			this.tagIds["h"] = "hOf" + this.tagId;
-			this.tagIds["c"] = "cOf" + this.tagId;
-			this.tagIds["m"] = "mOf" + this.tagId;
-			this.tagIds["fB"] = "fBOF" + this.tagId;
-			this.tagIds["xB"] = "xBOf" + this.tagId;
-			this.tagIds["hB"] = "hBOf" + this.tagId;
-			this.tagIds["nw"] = "nwOf" + this.tagId;
-			this.tagIds["ne"] = "neOf" + this.tagId;
-			this.tagIds["sw"] = "swOf" + this.tagId;
-			this.tagIds["se"] = "seOf" + this.tagId;
-			this.tagIds["n"] = "nOf" + this.tagId;
-			this.tagIds["e"] = "eOf" + this.tagId;
-			this.tagIds["s"] = "sOf" + this.tagId;
-			this.tagIds["w"] = "wOf" + this.tagId;
+			this.tagIds["h"] = "hOf" + tagId;
+			this.tagIds["c"] = "cOf" + tagId;
+			this.tagIds["m"] = "mOf" + tagId;
+			this.tagIds["fB"] = "fBOF" + tagId;
+			this.tagIds["xB"] = "xBOf" + tagId;
+			this.tagIds["hB"] = "hBOf" + tagId;
+			this.tagIds["nw"] = "nwOf" + tagId;
+			this.tagIds["ne"] = "neOf" + tagId;
+			this.tagIds["sw"] = "swOf" + tagId;
+			this.tagIds["se"] = "seOf" + tagId;
+			this.tagIds["n"] = "nOf" + tagId;
+			this.tagIds["e"] = "eOf" + tagId;
+			this.tagIds["s"] = "sOf" + tagId;
+			this.tagIds["w"] = "wOf" + tagId;
 		}
 		this.setDefaultValues = function (defaultValueArray){
 			this.bBorderWidth = defaultValueArray["bBorderWidth"];

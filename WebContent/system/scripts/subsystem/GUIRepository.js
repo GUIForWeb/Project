@@ -2,7 +2,7 @@
 		this.json = {"app":"system.controller.GUIRepository","data":{}}
 		this.updateContent = function(win){
 			var numId = win.numId;
-			var content = win.view.contentTagArray.html();
+			var content = win.view.contentSelector.html();
 			content = encodeURIComponent(content);
 			content = content.replace(/'/g, "%27");
 			this.json.data = {"status":"updateContent","numId":numId,"content":content}
@@ -70,7 +70,7 @@
 		}
 		this.winToJSON = function(win){
 			/*
-			var content = win.view.contentTagArray.html();
+			var content = win.view.contentSelector.html();
 			content = encodeURIComponent(content);
 			content = content.replace(/'/g, "%27");
 			"content": content,
@@ -110,6 +110,7 @@
 				}
 				this.nm.addBarNode(winAndBarNode);
 			}
+			
 		}
 		this.restoreWinOrder = function(){
 			var tmpNode = this.nodeArray["winAndBar"];
@@ -118,26 +119,27 @@
 				this.winArray[wi].prevWin = tmpNode;
 				tmpNode = this.winArray[wi];
 				this.pe.append(tmpNode);
+				this.nodeArray["winAndBar"].lastWin = tmpNode;
+				tmpNode.win.appendWindow();
 			}
-			this.nodeArray["winAndBar"].lastWin = tmpNode;
+			
 		}
 		this.restoreWin = function(winMap){
 			var win = new Window();
 			win.guiName = this.guiName;
-			win.bgTagArray = this.bgTagArray;
+			win.bgSelector = this.bgSelector;
 			win.view.setDefaultValues(this.winDefaultValueArray);
 			win.init(winMap["numId"]);
 			win.restoreModel(winMap);
 			win.view.restoreView(winMap);
-			win.appendWindow();
 			return win;
 		}
 		
 		this.restoreBar = function(barMap){
 			var bar  = new Bar();
 			bar.guiName = this.guiName;
-			bar.bgTagArray = this.bgTagArray;
-			bar.taskbarTagArray = this.taskbarTagArray;
+			bar.bgSelector = this.bgSelector;
+			bar.taskbarSelector = this.taskbarSelector;
 			bar.view.taskbarOHeight = this.taskbar.view.oHeight;
 			bar.init(barMap["numId"],barMap["position"]);
 			bar.restoreModel(barMap);

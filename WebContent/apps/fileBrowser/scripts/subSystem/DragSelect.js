@@ -21,14 +21,6 @@ function DragSelect(){
 		div.css({"background-color":"blue"});
 		div.css({"opacity":"0.3"});
 		div.css({"border":"1px solid black"});
-		/*
-		if($("#forms").length) {
-			var offset = this.cOfWindow.offset();
-			var x = event.clientX - offset.left;
-			var y = event.clientY - offset.top;
-		}
-		else {}
-		*/
 		var x = event.clientX;
 		var y = event.clientY;
 		div.css({
@@ -135,7 +127,6 @@ function DragSelect(){
 			}
 		}
 		this.list = this.erumSList();
-		console.log(this.list);
 	}
 	this.erumSList = function(){
 		return this.list.filter(function( element ) {

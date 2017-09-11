@@ -18,7 +18,7 @@
 			tmpNode.win = new Window();
 			tmpNode.win.name = iconObj.name;
 			tmpNode.win.guiName = this.guiName;
-			tmpNode.win.bgTagArray = this.bgTagArray;
+			tmpNode.win.bgSelector = this.bgSelector;
 			tmpNode.win.view.setDefaultValues(this.winDefaultValueArray);
 			tmpNode.win.view.zIndex = zIndex;
 			tmpNode.win.content = this.form.getData(this.contextPath+iconObj.contentURL);
@@ -48,7 +48,7 @@
 			node.win = new Window();
 			node.win.name = obj.name;
 			node.win.guiName = this.guiName;
-			node.win.bgTagArray = this.bgTagArray;
+			node.win.bgSelector = this.bgSelector;
 			node.win.view.setDefaultValues(this.winDefaultValueArray);
 			this.nodeArray["winAndBar"].count += 1;
 			var winCount = this.nodeArray["winAndBar"].winCount;
@@ -70,7 +70,7 @@
 			winNode.win = new Window();
 			winNode.win.name = obj.name;
 			winNode.win.guiName = this.guiName;
-			winNode.win.bgTagArray = this.bgTagArray;
+			winNode.win.bgSelector = this.bgSelector;
 			winNode.win.view.setDefaultValues(this.winDefaultValueArray);
 			this.nodeArray["win"].count += 1;
 			var count = this.nodeArray["win"].count;

@@ -5,10 +5,10 @@ function ContextMenu(){
 		this.appendContextMenu = function(){
 			this.isOnTheScreen = true;
 			this.view.getView();
-			this.bgTagArray.append(this.view.contextMenuTagArray);
+			this.bgSelector.append(this.view.contextMenuSelector);
 			event.preventDefault();
 		}
 		this.remove = function(){
-			this.view.contextMenuTagArray.remove();
+			this.view.contextMenuSelector.remove();
 		}
 }

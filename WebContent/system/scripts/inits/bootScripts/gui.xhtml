@@ -27,13 +27,6 @@
 	gui.start();
 	gui.setWinCount(winCount);
 	gui.restoreWinAndBar(winAndBarJSON);//windowList,barList,windowInBarList);
-	gui.restoreForms(forms);
-	function getData(data){
-		if(data.status == "success"){
-			var status= $("#backgroundForm\\:output0").html();
-			var param = $("#backgroundForm\\:output1").html();
-		}
-	}
 	
 	$(document).ready(function() {
 		$(window).keydown(function(event){

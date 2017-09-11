@@ -101,7 +101,6 @@ function FileBrowser(id){
 			link.attr("href",this.contextURL+"/apps/fileBrowser/scripts/css/fileBrowser.css");
 			$(document.head).append(link);
 		}
-		//<link type="text/css" rel="stylesheet" href="#{contextUrl}/apps/fileBrowser/scripts/css/fileBrowser.css" />
 	}
 	this.displayHead = function() {
 		this.fbTable.html("");
@@ -117,6 +116,7 @@ function FileBrowser(id){
 		tmpTr.append(tmpTd3);
 		this.fbTable.append(tmpTr);
 		tmpTr = $("<tr></tr>");
+		tmpTr.addClass("parent");
 		tmpTr.addClass("fb-table-row");
 		tmpTd0 = $("<td>..</td>");
 		tmpTd1 = $("<td></td>");
@@ -141,47 +141,18 @@ function FileBrowser(id){
 			tmpTr.append(tmpTd1);
 			tmpTr.append(tmpTd2);
 			tmpTr.append(tmpTd3);
+			if(this.data[i]["type"] == "directory"){
+				tmpTr.css("color","#ffbf00");
+			}
 			this.fbTable.append(tmpTr);
 		}
 	}
-	
+	this.positioingStatus = function(){
+		gui.api.set(this.fbStatus).bottom();
+	}
 	this.display = function() {
 		this.displayHead();
 		this.displayData();
-		
-		//this.window = $("#fbTable"+this.id).parent().parent();
-		/*
-		 * this.ws = new WebSocket("ws://10.0.2.15:8080/WebGUI/fbc");
-		this.contextMenu = new FileBrowserContextMenu(this);
-		this.controller = new Controller();
-		this.mouseover = new Mouseover();
-		
-		this.dragenter = new Dragenter();
-		this.dragover = new Dragover();
-		this.dragleave = new Dragleave();
-		
-		this.drop = new Drop();
-		
-		this.click = new Click();
-		this.click.__proto__ = this.controller;
-		
-		this.dblclick = new DblClick();
-		this.controller.__proto__ = this;
-		this.dragover.__proto__ = this.controller;
-		this.mouseover.__proto__ = this.controller;
-		this.dragenter.__proto__ = this.controller;
-		this.dragleave.__proto__ = this.controller;
-		this.dragstart.__proto__ = this.controller;
-		this.drag.__proto__ = this.controller;
-		this.drop.__proto__ = this.controller;
-		this.dragend.__proto__ = this.controller;
-		
-		
-		this.dblclick.__proto__ = this.controller;
-	
-		this.window = $("#fbTable"+this.id).parent().parent();
-		this.cOfWindow = $("#fbTable"+this.id).parent();
-		*/
 	}
 	/*
 	 *

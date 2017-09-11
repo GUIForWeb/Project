@@ -16,41 +16,41 @@
 		}
 		this.setOLeft = function(value){
 			this.oLeft = value;
-			this.outerTagArray.css("left",value);
+			this.outerSelector.css("left",value);
 		}
 		this.barLayer = function(){
-			this.outerTagArray.append(this.nameTagArray);
-			this.barTagArray = this.outerTagArray;
+			this.outerSelector.append(this.nameSelector);
+			this.barSelector = this.outerSelector;
 		}
 		this.outerLayer = function(){
-			var tmpTag = $("<div></div>");
-			tmpTag.attr("id",this.tagId);
-			tmpTag.css("position","absolute");
-			tmpTag.addClass(this.outerLayerTagClass);
-			tmpTag.width(this.oWidth);
-			tmpTag.height(this.oHeight);
-			tmpTag.offset({
+			var tmpS = $("<div></div>");
+			tmpS.attr("id",this.tagId);
+			tmpS.css("position","absolute");
+			tmpS.addClass(this.outerLayerTagClass);
+			tmpS.width(this.oWidth);
+			tmpS.height(this.oHeight);
+			tmpS.offset({
 				left:this.oLeft,
 				top:this.oTop
 			});
-			this.outerTagArray = tmpTag;
+			this.outerSelector = tmpS;
 		}
 		this.nameLayer = function(){
-			var tmpTag = $("<div></div>");
-			tmpTag.html(this.name);
-			tmpTag.css("position","absolute");
-			tmpTag.css("overflow","hidden");
-			tmpTag.addClass(this.nameLayerTagClass);
-			tmpTag.width(this.nWidth);
-			tmpTag.height(this.nHeight);
-			tmpTag.offset({
+			var tmpS = $("<div></div>");
+			tmpS.html(this.name);
+			tmpS.css("position","absolute");
+			tmpS.css("overflow","hidden");
+			tmpS.addClass(this.nameLayerTagClass);
+			tmpS.width(this.nWidth);
+			tmpS.height(this.nHeight);
+			tmpS.offset({
 				left:this.nLeft,
 				top:this.nTop
 			});
-			tmpTag.click(function(evnet){
+			tmpS.click(function(evnet){
 				gui.click.bar(event);
 			});
-			this.nameTagArray = tmpTag;
+			this.nameSelector = tmpS;
 		}
 		this.getView = function(){
 			this.nameLayer();

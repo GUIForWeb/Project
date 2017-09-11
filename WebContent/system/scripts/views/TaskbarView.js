@@ -4,9 +4,9 @@
 		this.logoutouterTagClass = "logoutOuterLayer";
 		this.oBorderWidth = 5;
 		this.taskbarLayer = function(){
-			this.logoutouterTagArray.append(this.logoutTagArray);
-			this.outerTagArray.append(this.logoutouterTagArray);
-			this.taskbarTagArray = this.outerTagArray;
+			this.logoutouterSelector.append(this.logoutSelector);
+			this.outerSelector.append(this.logoutouterSelector);
+			this.taskbarSelector = this.outerSelector;
 		}
 		this.outerLayer = function(){
 			var tmpTag = $("<div></div>");
@@ -20,13 +20,13 @@
 				left:this.oLeft,
 				top:this.oTop
 			});
-			this.outerTagArray = tmpTag;
+			this.outerSelector = tmpTag;
 		}
 		this.logoutLayer = function(){
 			var tmpTag = $("<div>&odash;</div>");
 			tmpTag.css("flex","1");
 			tmpTag.attr("onclick","location.href='"+this.contextPath+"/system/comps/views/logout.jsf'");			
-			this.logoutTagArray = tmpTag;
+			this.logoutSelector = tmpTag;
 		}
 		this.logoutOuterLayer = function(){
 			
@@ -44,7 +44,7 @@
 				left:this.oWidth - (this.oHeight - 2),
 				top:2
 			});
-			this.logoutouterTagArray = tmpTag;
+			this.logoutouterSelector = tmpTag;
 		}
 		this.setTaskbarValues = function(taskbarValueArray){
 			this.taskbarMode = taskbarValueArray["taskbarMode"];

@@ -200,6 +200,7 @@ public class FBManager{
 				break;
 			}
 		}
+		this.json = null;
 		this.session.setAttribute("browserList", this.browserList);
 	}
 	private File checkDest(String destPath, String name, int num,String ext){

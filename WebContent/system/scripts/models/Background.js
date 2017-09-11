@@ -13,15 +13,15 @@
 		}
 		this.appendBackgroundView = function(){
 			this.view.getView();
-			$("#backgroundDiv").append(this.view.backgroundTagArray);
-			this.view.backgroundTagArray.append(this.view.tableWrapTagArray);
-			this.view.tableWrapTagArray.append(this.view.tableTagArray);
-			this.view.backgroundTagArray.css("height",(this.view.guiHeight-40)+"px");
-			this.view.tableTagArray.css("height",(this.view.guiHeight-40)+"px");
+			$("#backgroundDiv").append(this.view.backgroundSelector);
+			this.view.backgroundSelector.append(this.view.tableWrapSelector);
+			this.view.tableWrapSelector.append(this.view.tableSelector);
+			this.view.backgroundSelector.css("height",(this.view.guiHeight-40)+"px");
+			this.view.tableSelector.css("height",(this.view.guiHeight-40)+"px");
 		}
 		this.appendIconTd = function(){
-			this.view.iconTableWidth = this.view.tableTagArray.width();
-			this.view.iconTableHeight = this.view.tableTagArray.height();
+			this.view.iconTableWidth = this.view.tableSelector.width();
+			this.view.iconTableHeight = this.view.tableSelector.height();
 			var taskbarWidthSize = 0;
 			var taskbarHeightSize = 0;
 			/*
@@ -38,7 +38,7 @@
 				for(tdi = 0; tdi<tableColNum; tdi++){
 					tmpTr.append(this.view.td(tdi,tri));
 				}
-				this.view.tableTagArray.append(tmpTr);
+				this.view.tableSelector.append(tmpTr);
 			}
 		}
 		this.resizeIconTd = function(){

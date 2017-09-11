@@ -27,15 +27,15 @@ function Icon(){
 		this.iconURL = iconMap["iconURL"];
 	}
 	this.appendIcon = function(){
-		this.tableWrapTag.append(this.view.iconTagArray);
+		this.tableWrapTag.append(this.view.iconSelector);
 		var offset = this.getIconTdTag(this.iconX,this.iconY).offset();
 		this.view.iconOLeft = offset.left + (this.view.iconTdBorderWidth/2);
 		this.view.iconOTop = offset.top + (this.view.iconTdBorderHeight/2);
-		this.view.iconTagArray.offset({
+		this.view.iconSelector.offset({
 			left: this.view.iconOLeft,
 			top: this.view.iconOTop
 		});
-		this.tag = this.view.iconTagArray[0];
+		this.tag = this.view.iconSelector[0];
 	}
 }
 

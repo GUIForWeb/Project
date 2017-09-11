@@ -31,6 +31,8 @@
 			this.nodeArray["winAndBar"] = new WinAndBarNode();
 			this.nodeArray["winAndBar"].lastWin = this.nodeArray["winAndBar"];
 			this.nodeArray["winAndBar"].lastBar = this.nodeArray["winAndBar"];
+			this.api = new API();
+			this.api.__proto__ = this;
 			this.controller = new Controller();
 			this.controller.__proto__ = this;
 			this.ws = new WebGUIWS(this.valueArray["ip"]);
@@ -83,13 +85,13 @@
 			this.background.setIconTdValues(this.iconTdValueArray);
 			this.background.setIconTableValues(this.iconTableValueArray);
 			this.background.appendBackgroundView();
-			this.bgTagArray = this.background.view.backgroundTagArray;
-			this.tableWrapTagArray = this.background.view.tableWrapTagArray;
+			this.bgSelector = this.background.view.backgroundSelector;
+			this.tableWrapSelector = this.background.view.tableWrapSelector;
 			this.background.appendIconTd();
 		}
 		this.initBgContextMenu = function(){
 			var contextMenuObj = new ContextMenu();
-			contextMenuObj.bgTagArray = this.bgTagArray;
+			contextMenuObj.bgSelector = this.bgSelector;
 			contextMenuObj.tagId = "bgContextMenu";
 			this.bgContextMenuObj = contextMenuObj;
 		}
@@ -98,7 +100,7 @@
 				var tmpIcon = new Icon();
 				tmpIcon.contextPath = this.contextPath;
 				tmpIcon.guiName = this.guiName;
-				tmpIcon.tableWrapTag = this.tableWrapTagArray;
+				tmpIcon.tableWrapTag = this.tableWrapSelector;
 				tmpIcon.init(this.iconDataList[ci]);
 				this.iconCoordinate[tmpIcon.iconX+","+tmpIcon.iconY]=true;
 				tmpIcon.view.iconTdBorderWidth = this.iconTdValueArray["iconTdBorderWidth"];
@@ -132,10 +134,10 @@
 			this.taskbar.contextPath = this.contextPath;
 			this.taskbarTagId = "taskbar";
 			this.taskbar.tagId = this.taskbarTagId;
-			this.taskbar.bgTagArray = this.bgTagArray;
+			this.taskbar.bgSelector = this.bgSelector;
 			this.taskbar.view.setTaskbarValues(this.taskbarValueArray);
 			this.taskbar.appendTaskbar();
-			this.taskbarTagArray = this.taskbar.view.taskbarTagArray;
+			this.taskbarSelector = this.taskbar.view.taskbarSelector;
 		}
 		this.setIconDataList = function(iconDataList){
 			this.iconDataList = iconDataList;
@@ -171,11 +173,6 @@
 					this.valueArray["newId"] = this.nodeArray["winAndBar"].lastBar.bar.numId+1;
 				else
 					this.valueArray["newId"] = 0;
-			}
-		}
-		this.restoreForms = function(forms){
-			if(forms != ""){
-				$("#forms").html(decodeURIComponent(forms));
 			}
 		}
 		this.iconTheme = function(iconThemeVals){

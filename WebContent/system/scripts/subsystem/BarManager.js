@@ -10,7 +10,7 @@
 			tmpNode.bar = new Bar();
 			tmpNode.bar.guiName = this.guiName;
 			tmpNode.bar.name = iconObj.name;
-			tmpNode.bar.taskbarTagArray = this.taskbarTagArray;
+			tmpNode.bar.taskbarSelector = this.taskbarSelector;
 			tmpNode.bar.view.taskbarOHeight = this.taskbar.view.oHeight;
 			tmpNode.bar.init(this.valueArray["newId"],barCount);
 			tmpNode.bar.appendBar();
@@ -25,7 +25,7 @@
 			barNode.bar = new Bar();
 			barNode.bar.guiName = this.guiName;
 			barNode.bar.name = iconObj.name;
-			barNode.bar.taskbarTagArray = this.taskbarTagArray
+			barNode.bar.taskbarSelector = this.taskbarSelector
 			barNode.bar.init(count);
 			barNode.bar.appendBar();
 			return barNode;

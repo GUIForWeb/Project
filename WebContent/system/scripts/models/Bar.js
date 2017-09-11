@@ -12,9 +12,9 @@
 			this.view.oLeft = (this.view.position)*this.view.oWidth;
 			this.view.oTop = (this.view.taskbarOHeight - this.view.oHeight)/2;
 			this.view.getView();
-			this.taskbarTagArray.append(this.view.barTagArray);
-			this.tag = this.view.barTagArray[0];
-			this.tagArray = this.view.barTagArray;
+			this.taskbarSelector.append(this.view.barSelector);
+			this.tag = this.view.barSelector[0];
+			this.selector = this.view.barSelector;
 		}
 		this.init = function(numId,position){
 			this.view.position = position;

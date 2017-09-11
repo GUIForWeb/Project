@@ -7,9 +7,9 @@
 		this.appendWindow = function(){
 			this.view.getView();
 			if(this.view.isOnScreen)
-				this.bgTagArray.append(this.view.windowTagArray);
-			this.tag = this.view.windowTagArray[0];
-			this.tagArray = this.view.windowTagArray;
+				this.bgSelector.append(this.view.windowSelector);
+			this.tag = this.view.windowSelector[0];
+			this.selector = this.view.windowSelector;
 		}
 		this.init = function(numId){
 			this.numId = numId;
@@ -25,16 +25,16 @@
 			func = data.func
 			delete data.func;
 			if(status == "x"){
-				this.view.xButtonTagArray.click(data,function(event){
+				this.view.xButtonSelector.click(data,function(event){
 					eval(func);
 				});
 				//xBOfwindow0
 				/*
 				this.xTrigger = true;
-				this.view.xButtonTagArray.click(function() {
+				this.view.xButtonSelector.click(function() {
 					eval(xFunc);
 				});
-				this.view.xButtonTagArray.attr("onclick",this.guiName+".click.xButton(this)");
+				this.view.xButtonSelector.attr("onclick",this.guiName+".click.xButton(this)");
 				*/
 			}
 		}

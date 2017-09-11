@@ -7,7 +7,7 @@
 		this.iconTdBorderWidth = 0;
 		this.iconTdBorderHeight = 0;
 		this.iconLayer = function(){
-			this.iconTagArray = this.outerTagArray;
+			this.iconSelector = this.outerSelector;
 		}
 		this.outerLayer = function(){
 			var tmpTag = $("<div></div>");
@@ -21,7 +21,7 @@
 			var tmpImg = $("<img>").attr("src",this.contextPath+this.iconURL);
 			tmpImg.addClass("iconImg");
 			tmpTag.prepend(tmpImg)
-			this.outerTagArray = tmpTag;
+			this.outerSelector = tmpTag;
 		}
 		this.getView = function(){
 			this.outerLayer();
