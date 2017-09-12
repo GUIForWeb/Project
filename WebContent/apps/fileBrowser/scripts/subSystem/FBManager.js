@@ -7,23 +7,27 @@ function FBManager(){
 	this.receive.__proto__ = this;
 	this.onMessage = function(json){
 		switch(json.status) {
-			case "%":
-		        this.receive.byteCount(json.data);
-		        break;
 		    case "reload":
 		        this.receive.reload(json.data);
+		        this.va["path"] = json.path;
 		        break;
 		    case "multiReload":
 		        this.receive.multiReload(json.data);
+		        this.va["path"] = json.path;
 		        break;
 		    case "multiReloadForUpload":
 		        this.receive.multiReloadForUpload(json.data);
-		        break;
-		    case "download":
-		        this.receive.download(json.data);
+		        this.va["path"] = json.path;
 		        break;
 		    case "multiplexReload":
 		        this.receive.multiplexReload(json.data);
+		        this.va["path"] = json.path;
+		        break;
+		    case "%":
+		        this.receive.byteCount(json.data);
+		        break;
+		    case "download":
+		        this.receive.download(json.data);
 		        break;
 		}
 	}

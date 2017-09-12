@@ -17,18 +17,18 @@ function FBSender(){
 		var files = this.va["selectedData"];
 		for(i=0; i<files.length; i++){
 			var reader = new FileReader();
-			reader.onload = (function(file,fs,id){
+			reader.onload = (function(file,fws,id){
 				return function(event){
 					console.log(file)
 					var json = {"status":"fileUpload","id":id,"name":file.name,"size":file.size};
-					fs.send(JSON.stringify(json));
-					fs.byteLength = this.result.byteLength;
-					fs.send(this.result);
+					fws.send(JSON.stringify(json));
+					fws.byteLength = this.result.byteLength;
+					fws.send(this.result);
 					json = {"status":"end"};
-					fs.send(JSON.stringify(json));
+					fws.send(JSON.stringify(json));
 				}
-			})(files[i],this.fs,this.id);
-			reader.readAsArrayBuffer(files[i],this.fs,this.id);
+			})(files[i],this.fws,this.id);
+			reader.readAsArrayBuffer(files[i],this.fws,this.id);
 		}
 	}
 	this.x = function(){

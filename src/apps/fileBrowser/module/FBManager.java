@@ -73,9 +73,39 @@ public class FBManager{
 		this.json.put("status", "multiReload");
 		data.put("id", id);
 		data.put("data", this.dataItemArray);
+		String path = this.path.replace(this.root,"");
+		this.json.put("path", path);
 		this.json.put("data", data);
 	}
-	
+	public void download() {
+  		JSONArray dataArray = this.json.getJSONArray("data");
+  		JSONObject data;
+  		File tmpFile;
+  		String name;
+  		String type;
+  		for(int ji=0; ji<dataArray.length(); ji++){
+  			data = dataArray.getJSONObject(ji);
+  			name = data.getString("name");
+  			type = data.getString("type");
+  			tmpFile = new File(this.path +"/"+ name);
+  			byte[] outputByte = new byte[4096];
+  			this.response.setContentType("application/octet-stream");
+  			this.response.setHeader("Content-Disposition","attachment;filename=\""+name+"\"");
+  			try {
+  				ServletOutputStream out = this.response.getOutputStream();
+  				FileInputStream fis = new FileInputStream(tmpFile);
+  				while(fis.read(outputByte,0,4096) != -1){
+  					out.write(outputByte, 0, 4096);
+  				}
+  				fis.close();
+  				out.flush();
+  				out.close();
+  			} catch (IOException e) {
+  				// TODO Auto-generated catch block
+  				e.printStackTrace();
+  			}
+  		}
+	}
 	public void uploadDone(){
 		try {
             fos.flush();
@@ -244,6 +274,8 @@ public class FBManager{
 		json = new JSONObject();
 		json.put("id", id);
 		json.put("data", this.dataItemArray);
+		path = this.path.replace(this.root,"");
+		json.put("path", path);
 		data.put(json);
 		this.json.put("data", data);
 	}
@@ -323,11 +355,13 @@ public class FBManager{
 			this.mkDir(browser, name, num + 1);
 		}
 	}
+	public void loadRoot(){
+		this.root = (String) this.session.getAttribute("root");
+	}
 	public void open(){
 		String name = this.json.getString("name");
 		String type = this.json.getString("type");
 		if (type.equals("directory") || type.equals("")) {
-			this.root = (String) this.session.getAttribute("root");
 			this.browserList = (List<Browser>) this.session.getAttribute("browserList");
 			//Browser tmpBrowser = this.browser();
 			this.path = this.browser.getPath() + "/" + name;
@@ -353,6 +387,8 @@ public class FBManager{
 		this.dataItemArray = this.dataItemDAO.getDataItemArray();
 		this.json = new JSONObject();
 		this.json.put("status", "reload");
+		String path = this.path.replace(this.root,"");
+		this.json.put("path", path);
 		this.json.put("data", this.dataItemArray);
 	}
 	public void findBrowser() {

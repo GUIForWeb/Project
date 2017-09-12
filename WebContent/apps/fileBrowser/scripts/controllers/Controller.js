@@ -5,6 +5,7 @@ function Controller(){
 	this.va["validation"] = false;
 	this.va["dropable"] = false;
 	this.va["selectedData"] = [];
+	this.va["path"] = "";
 	//tagArray
 	this.ta = [];
 	this.ta["script"] = [];

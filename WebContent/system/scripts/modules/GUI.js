@@ -23,7 +23,7 @@
 		this.init = function() {
 		}
 		this.start = function(){
-			this.valueArray["ip"] = "192.168.56.103:8080";
+			this.valueArray["ip"] = "192.168.56.103";
 			this.ip = this.valueArray["ip"]; 
 			//this.valueArray["ip"] = "52.14.247.195:8080";
 			this.valueArray["newId"] = 0;
@@ -35,7 +35,7 @@
 			this.api.__proto__ = this;
 			this.controller = new Controller();
 			this.controller.__proto__ = this;
-			this.ws = new WebGUIWS(this.valueArray["ip"]);
+			this.ws = new WebGUIWS(this.valueArray["ip"]+":8080");
 			this.gm = new GUIManager();
 			this.gm.__proto__ = this.controller;
 			this.gr = new GUIRepository(this.ws);

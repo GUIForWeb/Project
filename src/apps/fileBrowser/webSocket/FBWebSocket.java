@@ -37,6 +37,7 @@ public class FBWebSocket implements WebSocketInterface{
 		this.fbm.setServletContext(this.servletContext);
 		this.fbm.setSession(this.session);
 		this.fbm.setJson(json);
+		this.fbm.loadRoot();
 		this.fbm.findBrowser();
 		switch (status) {
 			case "open":

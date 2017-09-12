@@ -52,6 +52,7 @@ public class FileWebSocket{
 		this.fbm.setServletContext(this.servletContext);
 		this.fbm.setSession(this.session);
 		this.fbm.setWebsocketSession(this.websocketSession);
+		this.fbm.loadRoot();
 	}
 	@OnMessage
     public void processUpload(ByteBuffer msg, boolean last, Session session) {
