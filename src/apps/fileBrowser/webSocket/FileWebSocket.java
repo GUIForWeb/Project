@@ -38,6 +38,7 @@ public class FileWebSocket{
 	private HttpSession session;
 	private EndpointConfig config;
 	private FBManager fbm;
+	private int per;
 	public FileWebSocket(){
 		this.fbm = new FBManager();
 	}
@@ -63,10 +64,9 @@ public class FileWebSocket{
 		json.put("data", data0);
 		data0.put("status", "%");
 		data0.put("data",data1);
-		
 		while(msg.hasRemaining()) {
 			this.fbm.fileUploading(msg);
-			if(this.fbm.getFos().getByteCount() % 2000000 == 0){
+			if(this.fbm.getFos().getByteCount() % this.per == 0){
 				data1.put("byteCount", this.fbm.getFos().getByteCount());
 	        	try {
 					session.getBasicRemote().sendText(be.toString());
@@ -94,11 +94,13 @@ public class FileWebSocket{
 			this.fbm.setJson(json);
 			this.fbm.findBrowser();
 			this.fbm.fileUploadStart();
-		}else if(json.getString("status").equals("fileDownload")){
-			json = json.getJSONObject("data");
-			this.fbm.setJson(json);
-			this.fbm.findBrowser();
-			this.fbm.download();
+			int size = json.getInt("size");
+			String sizeStr = String.valueOf(size);
+			int sizeLen = String.valueOf(size).length();
+			this.per = (Integer.valueOf(String.valueOf(sizeStr.charAt(0))) + 1);
+			this.per = (int) (this.per * Math.pow(10,sizeLen));
+			this.per= ((this.per/100000000)+1) * 3;
+			this.per = size / this.per;
 		}
 		return be.toString();
 	}

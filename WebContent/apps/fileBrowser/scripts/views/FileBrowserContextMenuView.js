@@ -1,82 +1,70 @@
-function FileBrowserContextMenuView(contextMenuModel){
-	this.__proto__ = contextMenuModel;
-	this.outerLayerTagClass = "fbContextMenuOuterLayer";
-	this.contentLayerTagClass = "fbContextMenuContentLayer";
+function FileBrowserContextMenuView(){
+	this.outerLayerSelectorClass = "fbContextMenuOuterLayer";
+	this.contentLayerSelectorClass = "fbContextMenuContentLayer";
 	this.contentPath = "";
 	this.contextMenuLayer = function(){
-		this.outerTag.append(this.contentTag);
-		this.contextMenuTag = this.outerTag;
+		this.outerSelector.append(this.contentSelector);
+		this.contextMenuSelector = this.outerSelector;
 	}
 	this.outerLayer = function(){
-		var tmpTag = $("<div></div>");
-		tmpTag.attr("id","fbContextMenu"+this.fb.id);
-		tmpTag.css("z-index", this.zIndex);
-		tmpTag.css("position","absolute");
+		var tmpSelector = $("<div></div>");
+		tmpSelector.attr("id","fbContextMenu"+this.id);
+		tmpSelector.css("z-index", this.zIndex);
+		tmpSelector.css("position","absolute");
 		if(this.isInWindow)
-			tmpTag.offset({
-				left:event.clientX - this.bgTag.offset().left,
-				top:event.clientY - this.bgTag.offset().top
+			tmpSelector.offset({
+				left:event.clientX - this.bgSelector.offset().left,
+				top:event.clientY - this.bgSelector.offset().top
 			});
 		else
-			tmpTag.offset({
+			tmpSelector.offset({
 				left:event.clientX,
 				top:event.clientY
 			});
-		tmpTag.addClass(this.outerLayerTagClass);
-		this.outerTag = tmpTag;
+		tmpSelector.addClass(this.outerLayerSelectorClass);
+		this.outerSelector = tmpSelector;
 	}
 	this.contentLayer = function(){
-		//var form = new Form();
-		//form.submit("contextMenu",this.contentPath);
-		//form.getData(this.contextPath+"/"+this.contentPath);
-		var tmpTag = $("<div></div>");
-		var ulTag = $("<ul></ul>");
-		var newFolderTag = $("<li>New Folder</li>");
-		var renameTag = $("<li>Rename</li>");
-		var copyTag = $("<li>Copy</li>");
-		var cutTag = $("<li>Cut</li>");
-		var pasteTag = $("<li>Paste</li>");
-		var deleteTag = $("<li>Delete</li>");
-		var downloadTag = $("<li>Download</li>");
-		newFolderTag.click({"id":this.fb.id},function(event){
+		var tmpSelector = $("<div></div>");
+		var ulSelector = $("<ul></ul>");
+		var newFolderSelector = $("<li>New Folder</li>");
+		var renameSelector = $("<li>Rename</li>");
+		var copySelector = $("<li>Copy</li>");
+		var cutSelector = $("<li>Cut</li>");
+		var pasteSelector = $("<li>Paste</li>");
+		var deleteSelector = $("<li>Delete</li>");
+		var downloadSelector = $("<li>Download</li>");
+		newFolderSelector.click({"id":this.id},function(event){
 			taskArray["fileBrowser"][event.data.id].click.newFolder(event);
 		});
-		renameTag.click({"id":this.fb.id},function(event){
+		renameSelector.click({"id":this.id},function(event){
 			taskArray["fileBrowser"][event.data.id].click.rename(event);
 		});
-		deleteTag.click({"id":this.fb.id},function(event){
+		deleteSelector.click({"id":this.id},function(event){
 			taskArray["fileBrowser"][event.data.id].click.del(event);
 		});
-		downloadTag.click({"id":this.fb.id},function(event){
+		downloadSelector.click({"id":this.id},function(event){
 			taskArray["fileBrowser"][event.data.id].click.downlaod(event);
 		});
-		copyTag.click({"id":this.fb.id},function(event){
+		copySelector.click({"id":this.id},function(event){
 			taskArray["fileBrowser"][event.data.id].click.copy(event);
 		});
-		cutTag.click({"id":this.fb.id},function(event){
+		cutSelector.click({"id":this.id},function(event){
 			taskArray["fileBrowser"][event.data.id].click.cut(event);
 		});
-		pasteTag.click({"id":this.fb.id},function(event){
+		pasteSelector.click({"id":this.id},function(event){
 			taskArray["fileBrowser"][event.data.id].click.paste(event);
 		});
-		//rename.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.rename(this)");
-		//newFolderTag.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.newFolder()");
-		//copyTag.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.copy()");
-		//cutTag.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.cut()");
-		//pasteTag.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.paste()");
-		//deleteTag.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.del()");
-		//downloadTag.attr("onclick","system['fileBrowser']["+this.fb.id+"].click.downlaod()");
-		
-		tmpTag.append(ulTag);
-		ulTag.append(newFolderTag);
-		ulTag.append(renameTag);
-		ulTag.append(copyTag);
-		ulTag.append(cutTag);
-		ulTag.append(pasteTag);
-		ulTag.append(deleteTag);
-		ulTag.append(downloadTag);
-		tmpTag.addClass(this.contentLayerTagClass);
-		this.contentTag = tmpTag;
+		tmpSelector.append(ulSelector);
+		ulSelector.append(newFolderSelector);
+		ulSelector.append(renameSelector);
+		ulSelector.append(copySelector);
+		ulSelector.append(cutSelector);
+		ulSelector.append(pasteSelector);
+		ulSelector.append(deleteSelector);
+		ulSelector.append(downloadSelector);
+		tmpSelector.addClass(this.contentLayerSelectorClass);
+		this.contentSelector = tmpSelector;
 	}
 	this.getView = function(){
 		this.contentLayer();

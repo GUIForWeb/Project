@@ -15,7 +15,6 @@
 					var json = JSON.parse(message.data);
 					if(json.receiving !== undefined){
 						json = json.receiving;
-						console.log(json);
 						eval(json.app+".onMessage("+JSON.stringify(json.data)+")");
 					}
 				}

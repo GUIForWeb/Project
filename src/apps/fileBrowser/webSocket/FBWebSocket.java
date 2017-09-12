@@ -51,9 +51,6 @@ public class FBWebSocket implements WebSocketInterface{
 			case "del":
 				this.fbm.del();
 				break;
-			case "download":
-				this.fbm.download();
-				break;
 			case "copy":
 			case "cut":
 				this.fbm.setClipboard(status);

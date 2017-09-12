@@ -28,14 +28,6 @@
 				this.view.xButtonSelector.click(data,function(event){
 					eval(func);
 				});
-				//xBOfwindow0
-				/*
-				this.xTrigger = true;
-				this.view.xButtonSelector.click(function() {
-					eval(xFunc);
-				});
-				this.view.xButtonSelector.attr("onclick",this.guiName+".click.xButton(this)");
-				*/
 			}
 		}
 	}

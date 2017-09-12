@@ -6,20 +6,21 @@ function FBSender(){
 		req.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		req.onload = function() {
 			if(req.readyState == 4 && req.status == 200) {
-				console.log(req);
-                //window.location.href=req.response;
                 window.open(req.response,"_blank")
             }
 	    }
 		req.send("json="+JSON.stringify(this.json));
 	}
 	this.upload = function() {
+		this.status.infoHtml("Status");
+		this.status.detailHtml("Uploading...");
 		var files = this.va["selectedData"];
 		for(i=0; i<files.length; i++){
 			var reader = new FileReader();
 			reader.onload = (function(file,fs,id){
 				return function(event){
-					var json = {"status":"fileUpload","id":id,"name":file.name};
+					console.log(file)
+					var json = {"status":"fileUpload","id":id,"name":file.name,"size":file.size};
 					fs.send(JSON.stringify(json));
 					fs.byteLength = this.result.byteLength;
 					fs.send(this.result);

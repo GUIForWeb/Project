@@ -16,9 +16,6 @@ function FileWebSocket(ip){
 			else if(!(event.data instanceof ArrayBuffer) && event.data.includes("receiving")) {
 				gui.ws.onmessage(event);
 			}
-			else if(!(event.data instanceof ArrayBuffer) && event.data.includes("download")) {
-				this.json = JSON.parse(event.data);
-			}
 			else if(event.data instanceof ArrayBuffer ){
 				this.json.data.data = event.data;
 				taskArray["fileBrowser"][this.json.id].fbm.onMessage(this.json);

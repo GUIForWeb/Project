@@ -35,19 +35,16 @@ function FileBrowser(id){
 		this.mouseover.__proto__ = this.controller;
 		this.mouseout = new Mouseout();
 		this.mouseout.__proto__ = this.controller;
-		/*
-		this.fbm.send = new FBSender();
-		this.fbm.send.__proto__ = this.controller;
-		this.fbm.receive = new FBReceiver();
-		this.fbm.receive.__proto__ = this.controller;
-		*/
 		this.section = $("#fbTable"+this.id).parent();
 		this.cOfWindow = this.section.parent();
 		this.window = this.cOfWindow.parent();
 		this.fbTable = $("#fbTable"+this.id);
-		this.fbStatus = $("#fbStatus"+this.id);
-		this.contextMenu = new FileBrowserContextMenu(this);
 		this.x = this.window.children("#hOfwindow"+this.id).children("#xBOfwindow"+this.id);
+		
+		this.contextMenu = new FileBrowserContextMenu();
+		this.contextMenu.__proto__ = this;
+		this.status = new FileBrowserStatus();
+		this.status.__proto__ = this;
 	}
 	this.appendFunction = function(){
 		this.x.click({"id":this.id},function(event){
@@ -147,8 +144,8 @@ function FileBrowser(id){
 			this.fbTable.append(tmpTr);
 		}
 	}
-	this.positioingStatus = function(){
-		gui.api.set(this.fbStatus).bottom();
+	this.positioningStatus = function(){
+		this.status.appendStatus();
 	}
 	this.display = function() {
 		this.displayHead();
