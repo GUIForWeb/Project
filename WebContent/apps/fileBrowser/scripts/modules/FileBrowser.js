@@ -109,16 +109,16 @@ function FileBrowser(id){
 		this.typeHead = $(thS[2]);
 		this.sizeHead = $(thS[3]);
 		this.nameHead.click(function(){
-			taskArray["fileBrowser"][id].fs.sort(0);
+			taskArray["fileBrowser"][id].fs.string.sort("name");
 		});
 		this.dateHead.click(function(){
-			taskArray["fileBrowser"][id].fs.sort(1);
+			taskArray["fileBrowser"][id].fs.date.sort("dateModified");
 		});
 		this.typeHead.click(function(){
-			taskArray["fileBrowser"][id].fs.sort(2);
+			taskArray["fileBrowser"][id].fs.string.sort("type");
 		});
 		this.sizeHead.click(function(){
-			taskArray["fileBrowser"][id].fs.sort(3);
+			taskArray["fileBrowser"][id].fs.int.sort("size");
 		});
 	}
 	
@@ -126,9 +126,9 @@ function FileBrowser(id){
 		this.status.appendStatus();
 	}
 	this.display = function() {
-		this.fs.reference();
-		//this.displayHead();
-		//this.displayData();
+		this.fs.option = "name";
+		this.fs.string.arrayPrototype();
+		this.fs.string.sortFromLowToHigh();
 	}
 }
 

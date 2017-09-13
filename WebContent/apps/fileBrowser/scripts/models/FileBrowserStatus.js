@@ -7,7 +7,8 @@ function FileBrowserStatus(){
 		this.footerSelector.append(this.view.statusSelector);
 		this.selector = this.view.statusSelector;
 		this.tag = this.selector[0];
-		gui.api.set(this.selector).bottom();
+		this.api = new API(); 
+		this.api.set(this.selector).bottom();
 	}
 	this.infoHtml = function(info){
 		this.view.infoSelector.html(info);

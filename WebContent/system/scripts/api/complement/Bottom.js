@@ -21,32 +21,33 @@ function Bottom(){
 			ss.css("position","absolute");
 			ss.css("top",height-ss.height()+sTop);
 		});
+		var api = this;
 		fB.bind("click",function(){
-			gui.api.complement.positioning();
+			api.complement.positioning();
 		}); 
 		nw.bind("drag",function(){
-			gui.api.complement.positioning();
+			api.complement.positioning();
 		});
 		ne.bind("drag",function(){
-			gui.api.complement.positioning();
+			api.complement.positioning();
 		});
 		sw.bind("drag",function(){
-			gui.api.complement.positioning();
+			api.complement.positioning();
 		});
 		se.bind("drag",function(){
-			gui.api.complement.positioning();
+			api.complement.positioning();
 		});
 		n.bind("drag",function(){
-			gui.api.complement.positioning();
+			api.complement.positioning();
 		});
 		e.bind("drag",function(){
-			gui.api.complement.positioning();
+			api.complement.positioning();
 		});
 		s.bind("drag",function(){
-			gui.api.complement.positioning();
+			api.complement.positioning();
 		});
 		w.bind("drag",function(){
-			gui.api.complement.positioning();
+			api.complement.positioning();
 		});
 	}
 	this.positioning = function(){

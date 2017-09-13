@@ -2,6 +2,7 @@ function API(){
 	//api value array
 	this.va = [];
 	this.bottom = function() {
+		console.log(this.va["s"])
 		this.complement = new Bottom();
 		this.complName = "Bottom";
 		this.complement.__proto__ = this;
@@ -23,7 +24,7 @@ function API(){
 		this.settlor = new Set();
 		this.settlor.__proto__ = this;
 		this.settlor.setValue(value);
-		this.va["w"] = this.nodeArray["winAndBar"].lastWin.win;
+		this.va["w"] = gui.nodeArray["winAndBar"].lastWin.win;
 		return this;
 	}
 }

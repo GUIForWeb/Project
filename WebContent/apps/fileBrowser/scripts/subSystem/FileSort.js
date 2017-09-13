@@ -1,59 +1,12 @@
 function FileSort() {
-	this.forward = 1;
-	this.sort = function(col){
-		this.col = col;
-		if(this.forward == 1)
-			this.lowToHigh();
-		else if (this.forward == 0)
-			this.highToLow();
-		else if (this.forward == -1)
-			this.reference();
-	}
-	this.reference = function(){
-		var dArr = [];
-		var fArr = [];
-		Array.prototype.put = function(data){
-			if(this[0] === undefined){
-				this.push(data);
-			}
-			else {
-				this.sortPut(data,0);
-			}
-		}
-		Array.prototype.sortPut = function(data,num){
-			if(this[num].name.toLowerCase() > data.name.toLowerCase()){
-				var tmpData = this[num];
-				this[num] = data;
-				if(this[num+1] !== undefined){
-					this.sortPut(tmpData,num+1);
-				}
-				else{
-					this.push(tmpData);
-				}
-			}
-			else {
-				if(this[num+1] !== undefined){
-					this.sortPut(data,num+1);
-				}
-				else {
-					this.push(data);
-				}
-			}
-		}
-		for(di=0; di<this.data.length; di++){
-			if(this.data[di].type == "directory"){
-				dArr.put(this.data[di]);
-			}
-			else{
-				fArr.put(this.data[di]);
-			}
-		}
-		var data = dArr.concat(fArr);
-		this.data = data; 
-		this.displayHead();
-		this.displayData();
-		this.forward = 1;
-	}
+	this.data = [];
+	this.string = new StringSort();
+	this.string.__proto__ = this;
+	this.date = new DateSort();
+	this.date.__proto__ = this;
+	this.int = new IntSort();
+	this.int.__proto__ = this;
+	this.display = this.string.sortFromLowToHigh;
 	this.displayData = function() {
 		for(i=0; i<this.data.length; i++) {
 			var tmpTr = $("<tr></tr>");
@@ -98,49 +51,5 @@ function FileSort() {
 		tmpTr.append(tmpTd2);
 		tmpTr.append(tmpTd3);
 		this.fbTable.append(tmpTr);
-	}
-	this.lowToHigh = function(){
-		var rows, switching, i, x, y, shouldSwitch;
-		switching = true;
-		while (switching) {
-			switching = false;
-			rows = this.fbTable.find("TR");
-			for (i = 2; i < (rows.length-1); i++) {
-				shouldSwitch = false;
-				x = rows[i].getElementsByTagName("TD")[this.col];
-				y = rows[i + 1].getElementsByTagName("TD")[this.col];
-				if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-					shouldSwitch = true;
-					break;
-				}
-			}
-			if (shouldSwitch) {
-				rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-				switching = true;
-			}
-		}
-		this.forward = 0;
-	}
-	this.highToLow = function(){
-		var rows, switching, i, x, y, shouldSwitch;
-		switching = true;
-		while (switching) {
-			switching = false;
-			rows = this.fbTable.find("TR");
-			for (i = 2; i < (rows.length-1); i++) {
-				shouldSwitch = false;
-				x = rows[i].getElementsByTagName("TD")[this.col];
-				y = rows[i + 1].getElementsByTagName("TD")[this.col];
-				if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-					shouldSwitch = true;
-					break;
-				}
-			}
-			if (shouldSwitch) {
-				rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-				switching = true;
-			}
-		}
-		this.forward = -1;
 	}
 }

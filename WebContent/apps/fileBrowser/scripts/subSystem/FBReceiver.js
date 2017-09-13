@@ -8,16 +8,17 @@ function FBReceiver() {
 	}
 	this.reload = function(json) {
 		this.fs.data = json;
-		this.fs.reference();
+		this.fs.display();
 		this.appendFunction();
 	}
+	this.displayData = function(idx, id, data){
+		taskArray["fileBrowser"][id[idx]].fs.data = data;
+		taskArray["fileBrowser"][id[idx]].fs.display();
+		taskArray["fileBrowser"][id[idx]].appendFunction();
+	}
 	this.multiReloadForUpload = function(json){
-		var id = json.id;
-		var data = json.data;
 		for(ii=0; ii<id.length; ii++){
-			taskArray["fileBrowser"][id[ii]].fs.data = data;
-			taskArray["fileBrowser"][id[ii]].fs.reference();
-			taskArray["fileBrowser"][id[ii]].appendFunction();
+			this.displayData(ii, json.id, json.data);
 		}
 		var status = this.status;
 		this.status.detailGraph(100,100+"%");
@@ -30,12 +31,8 @@ function FBReceiver() {
         }, 1000 );
 	}
 	this.multiReload = function(json){
-		var id = json.id;
-		var data = json.data;
-		for(ii=0; ii<id.length; ii++){
-			taskArray["fileBrowser"][id[ii]].fs.data = data;
-			taskArray["fileBrowser"][id[ii]].fs.reference();
-			taskArray["fileBrowser"][id[ii]].appendFunction();
+		for(ii=0; ii<json.id.length; ii++){
+			this.displayData(ii, json.id, json.data);
 		}
 	}
 	this.multiplexReload = function(json){
@@ -43,15 +40,11 @@ function FBReceiver() {
 			var id = json[ji].id;
 			var data = json[ji].data;
 			for(ii=0; ii<id.length; ii++){
-				taskArray["fileBrowser"][id[ii]].fs.data = data;
-				taskArray["fileBrowser"][id[ii]].fs.reference();
-				taskArray["fileBrowser"][id[ii]].appendFunction();
+				this.displayData(ii, id, data);
 			}
 		}
 	}
 	this.download = function(json) {
-		console.log(json);
-		console.log(json.data.byteLength);
 		var a = document.createElement('A');
 		//"attachment/file"
 		var blob = new Blob([new Uint8Array(json.data)],{type: "attachment/file"});
