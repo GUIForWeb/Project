@@ -31,10 +31,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import apps.Application;
-import apps.fileBrowser.dao.DataItemDAO;
 import apps.fileBrowser.library.FBFileOutputStream;
 import apps.fileBrowser.model.Browser;
 import apps.fileBrowser.model.DataItem;
+import system.dao.DataItemDAO;
 
 public class FBManager{
 	private int id;

@@ -26,10 +26,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import apps.Application;
-import apps.fileBrowser.dao.DataItemDAO;
 import apps.fileBrowser.model.Browser;
 import apps.fileBrowser.model.DataItem;
 import apps.fileBrowser.module.FBManager;
+import system.dao.DataItemDAO;
 
 @Named
 @RequestScoped

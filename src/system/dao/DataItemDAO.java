@@ -1,25 +1,20 @@
-package apps.fileBrowser.dao;
+package system.dao;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.JSONArray;
-import org.json.JSONObject;
-
 import apps.fileBrowser.model.DataItem;
 
 public class DataItemDAO {
 	private String filePath;
-	private JSONObject JSON;
 	private JSONArray dataItemArray;
 	public DataItemDAO(){
 	}
 	public DataItemDAO(String filePath){
 		this.filePath = filePath;
+		this.listFoldersAndFiles();
 	}
 	
 	private void listFoldersAndFiles() {

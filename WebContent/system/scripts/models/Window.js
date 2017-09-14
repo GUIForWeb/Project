@@ -5,7 +5,6 @@
 		this.name = "";
 		this.view = new WindowView(this);
 		this.appendWindow = function(){
-			this.view.getView();
 			if(this.view.isOnScreen)
 				this.bgSelector.append(this.view.windowSelector);
 			this.tag = this.view.windowSelector[0];
@@ -14,6 +13,7 @@
 		this.init = function(numId){
 			this.numId = numId;
 			this.tagId = this.tagIdRule + numId;
+			this.view.getView();
 		}
 		this.restoreModel = function(winMap){
 			this.view.isFullScreen = (winMap["isFullScreen"] == true);

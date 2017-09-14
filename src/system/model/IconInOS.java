@@ -1,5 +1,7 @@
 package system.model;
 
+import org.json.JSONObject;
+
 public class IconInOS{
 	private int iconId;
 	private int osId;
@@ -8,10 +10,10 @@ public class IconInOS{
 	public IconInOS() {
 		
 	}
-	public IconInOS(String[] param){
-		this.iconId = Integer.valueOf(param[0]);
-		this.iconX = Integer.valueOf(param[1]);
-		this.iconY = Integer.valueOf(param[2]);
+	public IconInOS(JSONObject json){
+		this.iconId = json.getInt("iconNumId");
+		this.iconX = json.getInt("iconX");
+		this.iconY = json.getInt("iconY");
 	}
 	public int getIconX() {
 		return iconX;

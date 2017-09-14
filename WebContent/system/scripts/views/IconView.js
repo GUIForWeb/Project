@@ -15,9 +15,14 @@
 			tmpTag.css("z-index", this.zIndex);
 			tmpTag.addClass(this.tagClass);
 			tmpTag.attr("dragable","true");
-			tmpTag.attr("ondrag",this.guiName+".drag.icon(this)");
-			tmpTag.attr("ondragend",this.guiName+".dragend.icon(this)");
-			tmpTag.attr("ondblclick",this.guiName+".dblclick.icon(this)");
+			tmpTag.attr("ondrag",this.guiName+".drag.ing.icon(this)");
+			tmpTag.attr("ondragend",this.guiName+".drag.end.icon(this)");
+			//tmpTag.attr("ondblclick",this.guiName+".dblclick.icon(this)");
+			tmpTag.dblclick(function(event){
+				gui.dblclick.icon(event);
+			});
+				
+			
 			var tmpImg = $("<img>").attr("src",this.contextPath+this.iconURL);
 			tmpImg.addClass("iconImg");
 			tmpTag.prepend(tmpImg)

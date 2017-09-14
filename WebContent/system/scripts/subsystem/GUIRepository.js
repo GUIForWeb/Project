@@ -69,12 +69,6 @@
 			this.json.data.bar = this.barJSON;
 		}
 		this.winToJSON = function(win){
-			/*
-			var content = win.view.contentSelector.html();
-			content = encodeURIComponent(content);
-			content = content.replace(/'/g, "%27");
-			"content": content,
-			*/
 			this.winJSON = {
 				"isFullScreen": win.view.isFullScreen,
 				"isOnScreen": win.view.isOnScreen,

@@ -19,7 +19,7 @@
 		this.iconDataList = null;
 		this.barTagIdRule = new Bar().tagIdRule;
 		this.winTagIdRule = new Window().tagIdRule;
-		
+		this.fileItem = [];
 		this.init = function() {
 		}
 		this.start = function(){
@@ -41,7 +41,9 @@
 			this.gr = new GUIRepository(this.ws);
 			this.gr.__proto__ = this.controller;
 			this.wm = new WindowManager();
-			this.wm.__proto__ = this.controller; 
+			this.wm.__proto__ = this.controller;
+			this.im = new IconManager();
+			this.im.__proto__ = this.controller; 
 			this.bm = new BarManager();
 			this.bm.__proto__ = this.controller;
 			this.ee = new EnumEngine();
@@ -77,6 +79,7 @@
 			this.initBgContextMenu();
 			this.initIcon();
 			this.initTaskbar();
+			this.initFileItem();
 		}
 		this.initBackground = function(){
 			this.background = new Background();
@@ -157,6 +160,17 @@
 		this.setWinCount = function(wincount){
 			if(wincount != "")
 				this.winCount = parseInt(winCount)
+		}
+		this.setDesktopDataArray = function(desktopDataArray) {
+			this.desktopDataArray = desktopDataArray;
+		}
+		this.initFileItem = function(){
+			for(di=0; di<this.desktopDataArray.length; di++) {
+				var json = this.desktopDataArray[di];
+				this.fileItem[di] = new FileItem();
+				this.fileItem[di].setJSON(json);
+			}
+			//console.log(this.fileItem);
 		}
 		this.restoreWinAndBar = function(winAndBarJSON) {//windowList,barList,windowInBarList)
 			if(winAndBarJSON != ""){

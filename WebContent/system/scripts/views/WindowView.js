@@ -436,6 +436,7 @@
 			this.prevOWidth = windowMap["prevOWidth"];
 			this.prevOHeight = windowMap["prevOHeight"];
 			this.zIndex = windowMap["zIndex"];
+			this.getView();
 		}
 		this.getView = function(){
 			this.hLeft = this.oBorderWidth/2;

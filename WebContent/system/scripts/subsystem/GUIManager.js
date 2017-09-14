@@ -45,6 +45,7 @@
 			this.valueArray["newId"]++;
 			return winAndBarNode;
 		}
+		
 		//this.switchWin = function(barTag){
 			/*
 			var tmpNode = this.nm.getNodeWithBarTag(barTag);

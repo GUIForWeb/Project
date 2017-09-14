@@ -26,11 +26,13 @@ function Click(){
 			this.setScriptTag(event.currentTarget);
 			this.contextMenu.appendContextMenu();
 			if(this.ds.isWorking == false && this.cs.isWorking == false){
-				this.va["selectedData"] =[{"name":this.tag["html"].children[0].innerHTML,"type":this.tag["html"].children[2].innerHTML}];
-				if(this.tag["html"].children[0].innerHTML != "..")
-					this.va["validation"] = true;
-				else
-					this.va["validation"] = false;
+				if(this.tag["s"].prop("tagName")== "TR"){
+					this.va["selectedData"] =[{"name":this.tag["t"].children[0].innerHTML,"type":this.tag["t"].children[2].innerHTML}];
+					if(this.tag["t"].children[0].innerHTML != "..")
+						this.va["validation"] = true;
+					else
+						this.va["validation"] = false;
+				}
 			}
 			else if(this.ds.isWorking == true || this.cs.isWorking == true){
 				this.va["validation"] = true;
@@ -43,7 +45,7 @@ function Click(){
 	}
 	this.rename = function(event){
 		if(this.va["validation"] && !this.ds.isWorking && Object.keys(this.va["selectedData"][0]).length == 2){
-			var nameTd = this.tag["jQuery"].children().first();
+			var nameTd = this.tag["s"].children().first();
 			nameTd.attr("contenteditable",true);
 			var id = this.id;
 			nameTd.focusout(function(event){

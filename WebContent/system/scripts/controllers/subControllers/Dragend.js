@@ -49,7 +49,9 @@
 					left:iconOLeft,
 					top:iconOTop
 				});
-				this.form.submit("iconXY","iconNumId="+numId+"&"+"iconX="+encodeURIComponent(iconX)+"&"+"iconY="+encodeURIComponent(iconY));
+				var json = {"iconNumId":numId,"iconX":iconX,"iconY":iconY};
+				this.im.iconXY(json);
+				//this.form.submit("iconXY","iconNumId="+numId+"&"+"iconX="+encodeURIComponent(iconX)+"&"+"iconY="+encodeURIComponent(iconY));
 			}
 		}
 		this.head = function (event){
@@ -57,28 +59,5 @@
 			var tmpNode = this.nm.getNodeWithWinTag(winTag);
 			this.pe.changePosition(tmpNode);
 			this.gr.changePosition(tmpNode);
-			
-			/*
-			this.pe.changePositioning(winObj);
-			*/
-			
-			//this.windowListener.call("changeWinVal",winObj);
-			/*
-			tag = tag.parentNode.parentNode;
-			var zIdx = tag.style.zIndex;
-			var tagId = tag.id;
-			coordinate = this.windowArray[zIdx].view.oLeft+","+this.windowArray[zIdx].view.oTop;
-			delete this.windowCoordinate[coordinate][tagId];
-			delete this.windowCoordinate[tagId];
-			if(this.windowCoordinate[coordinate].length == 0)
-				delete this.windowCoordinate[coordinate];
-			coordinate = tag.offsetLeft+","+tag.offsetTop;
-			this.windowArray[zIdx].view.oLeft = tag.offsetLeft;
-			this.windowArray[zIdx].view.oTop = tag.offsetTop;
-			var subArray = [];
-			subArray[tagId] = tagId;
-			this.windowCoordinate[coordinate] = subArray;
-			this.windowCoordinate[tagId] = coordinate;
-			*/
 		}
 	} 

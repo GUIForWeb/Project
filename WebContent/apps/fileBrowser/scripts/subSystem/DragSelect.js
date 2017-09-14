@@ -2,18 +2,7 @@ function DragSelect(){
 	this.stdX = 0;
 	this.stdY = 0;
 	this.isWorking = false;
-	/*
-	this.setList = function(){
-		this.va["selectedData"] = "";
-		for(si=0; si<this.va["selectedData"].length; si++){
-			if(this.va["selectedData"][si] != false){
-				this.va["selectedData"] += this.va["selectedData"][si] + "&";
-			}
-		}
-	}
-	*/
 	this.start = function(event){
-		console.log(this.va["selectedData"]);
 		this.va["selectedData"] = [];
 		this.stdX = 0;
 		this.stdY = 0;

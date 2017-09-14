@@ -10,13 +10,14 @@ function Controller(){
 	this.ta = [];
 	this.ta["script"] = [];
 	this.ta["css"] = [];
+	//t = tag, s = selector
 	this.setScriptTag = function(tag){
-		this.ta["script"]["html"] = tag;
-		this.ta["script"]["jQuery"] = $(tag);
+		this.ta["script"]["t"] = tag;
+		this.ta["script"]["s"] = $(tag);
 	}
 	this.setCSSTag = function(tag){
-		this.ta["css"]["html"] = tag;
-		this.ta["css"]["jQuery"] = $(tag);
+		this.ta["css"]["t"] = tag;
+		this.ta["css"]["s"] = $(tag);
 	}
 	this.tag = this.ta["script"];
 	this.cssTag = this.ta["css"];

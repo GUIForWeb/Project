@@ -7,8 +7,13 @@ import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
+import javax.websocket.EndpointConfig;
+import javax.websocket.Session;
 
 import org.apache.commons.io.FileUtils;
+import org.json.JSONObject;
 
 import system.controller.Controller;
 import system.dao.IconsInOSDAOMySQL;
@@ -17,10 +22,58 @@ import system.model.Bar;
 import system.model.IconInOS;
 import system.model.OSSetting;
 import system.model.Window;
+import system.webSocketInterface.WebSocketInterface;
 
-@Named
-@RequestScoped
-public class GUIManager extends Controller {
+public class IconManager implements WebSocketInterface {
+	private ServletContext servletContext;
+	private Session websocketSession;
+	private HttpSession session;
+	private EndpointConfig config;
+	public IconManager(){
+		
+	}
+	private void iconXY(JSONObject json){
+		IconInOS tmpIconInOS = new IconInOS(json);
+		OSSetting osSetting = (OSSetting) this.session.getAttribute("osSetting");
+		tmpIconInOS.setOSId(osSetting.getId());
+		IconsInOSDAO iconsInOSDAO = new IconsInOSDAOMySQL();
+		iconsInOSDAO.updateXY(tmpIconInOS);
+	}
+	@Override
+	public JSONObject onMessage(String message) {
+		// TODO Auto-generated method stub
+		JSONObject json = new JSONObject(message);
+		String status = json.getString("status");
+		json.remove("status");
+		switch(status){
+		case "iconXY":
+			this.iconXY(json);
+			break;
+		}
+		json = new JSONObject();
+		return json;
+	}
+	@Override
+	public void onError(Throwable exception) {
+		
+	}
+	@Override
+	public void setSession(HttpSession session) {
+		this.session = session;
+	}
+	@Override
+	public void setWebsocketSession(Session websocketSession) {
+		this.websocketSession = websocketSession;
+	}
+	@Override
+	public void setConfig(EndpointConfig config) {
+		this.config = config;
+	}
+	@Override
+	public void setServletContext(ServletContext servletContext) {
+		this.servletContext = servletContext;
+	}
+	/*
 	private int winNum;
 	private String status;
 	private String param;
@@ -278,4 +331,5 @@ public class GUIManager extends Controller {
 	public void setWinNum(int winNum) {
 		this.winNum = winNum;
 	}
+	*/
 }
