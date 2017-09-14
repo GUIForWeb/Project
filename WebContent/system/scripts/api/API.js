@@ -1,12 +1,18 @@
 function API(){
 	//api value array
 	this.va = [];
+	
 	this.bottom = function() {
-		console.log(this.va["s"])
 		this.complement = new Bottom();
 		this.complName = "Bottom";
 		this.complement.__proto__ = this;
 		this.complement.init();
+	}
+	this.filter = function() {
+		this.complement = new Filter();
+		this.complName = "Filter";
+		this.complement.__proto__ = this;
+		return this.complement.init();
 	}
 	this.sort = function(col) {
 		if(this.complName == "Sort" && this.complement.col == col){
@@ -25,6 +31,12 @@ function API(){
 		this.settlor.__proto__ = this;
 		this.settlor.setValue(value);
 		this.va["w"] = gui.nodeArray["winAndBar"].lastWin.win;
+		return this;
+	}
+	this.has = function(value){
+		this.settlor = new Has();
+		this.settlor.__proto__ = this;
+		this.settlor.setValue(value);
 		return this;
 	}
 }

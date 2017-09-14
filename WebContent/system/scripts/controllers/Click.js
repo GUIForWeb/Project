@@ -4,6 +4,12 @@
 			var winAndBarNode = this.gm.xWinAndBar(winTag);
 			this.gr.xWinAndBar(winAndBarNode);
 		}
+		this.cButton = function(event){
+			var winTag = event.currentTarget.parentNode;
+			var zIndex = winTag.style.zIndex;
+			this.gm.moveWinToTop(winTag);
+			this.gr.moveWinToTop(zIndex);
+		}
 		this.hButton = function(event){
 			var winTag = event.currentTarget.parentNode.parentNode;
 			var zIndex = winTag.style.zIndex

@@ -16,7 +16,6 @@ function Dragstart(){
 		this.va["fileItem"] = true;
 	}
 	this.selection = function(event){
-		console.log("Yo");
 		this.ds.start(event);
 	}
 }

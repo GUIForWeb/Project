@@ -29,7 +29,7 @@ function DateSort(){
 		}
 	}
 	this.sort = function(option){
-		if(this.data.length != 0) {
+		if(this.va["data"].length != 0) {
 			this.arrayPrototype();
 			this.option = option;
 			if(!this.flag){
@@ -44,7 +44,7 @@ function DateSort(){
 		else {
 			var trS = this.fbTable.find("tr");
 			var tdS = null;
-			this.data = [];
+			this.va["data"] = [];
 			for(ri=2; ri<trS.length; ri++){
 				tdS = $(trS[ri]).find("td");
 				var json = {};
@@ -52,7 +52,7 @@ function DateSort(){
 				json.dateModified = tdS[1].innerHTML;
 				json.type = tdS[2].innerHTML;
 				json.size = parseInt(tdS[3].innerHTML);
-				this.data.push(json);
+				this.va["data"].push(json);
 			}
 			this.sort(option);
 		}
@@ -61,15 +61,15 @@ function DateSort(){
 	this.sortFromHighToLow = function(){
 		var dArr = [];
 		var fArr = [];
-		for(di=0; di<this.data.length; di++){
-			if(this.data[di].type == "directory"){
-				dArr.highToLow(this.data[di],0,this.option);
+		for(di=0; di<this.va["data"].length; di++){
+			if(this.va["data"][di].type == "directory"){
+				dArr.highToLow(this.va["data"][di],0,this.option);
 			}
 			else{
-				fArr.highToLow(this.data[di],0,this.option);
+				fArr.highToLow(this.va["data"][di],0,this.option);
 			}
 		}
-		this.data = dArr.concat(fArr);
+		this.va["data"] = dArr.concat(fArr);
 		this.flag = false;
 		this.displayHead();
 		this.displayData();
@@ -77,15 +77,15 @@ function DateSort(){
 	this.sortFromLowToHigh = function(){
 		var dArr = [];
 		var fArr = [];
-		for(di=0; di<this.data.length; di++){
-			if(this.data[di].type == "directory"){
-				dArr.lowToHigh(this.data[di],0,this.option);
+		for(di=0; di<this.va["data"].length; di++){
+			if(this.va["data"][di].type == "directory"){
+				dArr.lowToHigh(this.va["data"][di],0,this.option);
 			}
 			else{
-				fArr.lowToHigh(this.data[di],0,this.option);
+				fArr.lowToHigh(this.va["data"][di],0,this.option);
 			}
 		}
-		this.data = dArr.concat(fArr);
+		this.va["data"] = dArr.concat(fArr);
 		this.flag = true;
 		this.displayHead();
 		this.displayData();

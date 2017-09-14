@@ -11,21 +11,28 @@ function Click(){
 		if(this.ds.isWorking == true){
 			this.ds.cancle();
 		}
+		if(event.ctrlKey) {
+			this.cs.isWorking = true;
+			this.cs.choose(event);
+			this.cs.bgColor(event)
+		}
+		else {
+			this.cs.cancle();
+		}
 	}
 	this.cButton = function(event){
 		if(!this.contextMenu.isOnTheScreen){
 			this.contextMenu.isInWindow = true;
 			this.setScriptTag(event.currentTarget);
 			this.contextMenu.appendContextMenu();
-			if(this.ds.isWorking == false){
+			if(this.ds.isWorking == false && this.cs.isWorking == false){
 				this.va["selectedData"] =[{"name":this.tag["html"].children[0].innerHTML,"type":this.tag["html"].children[2].innerHTML}];
 				if(this.tag["html"].children[0].innerHTML != "..")
 					this.va["validation"] = true;
 				else
 					this.va["validation"] = false;
 			}
-			else if(this.ds.isWorking == true){
-				this.va["selectedData"] = this.ds.list;
+			else if(this.ds.isWorking == true || this.cs.isWorking == true){
 				this.va["validation"] = true;
 			}
 		}
@@ -38,11 +45,12 @@ function Click(){
 		if(this.va["validation"] && !this.ds.isWorking && Object.keys(this.va["selectedData"][0]).length == 2){
 			var nameTd = this.tag["jQuery"].children().first();
 			nameTd.attr("contenteditable",true);
-			nameTd.focusout({"id":this.id},function(event){
-				taskArray["fileBrowser"][event.data.id].focusout.rename(event);
+			var id = this.id;
+			nameTd.focusout(function(event){
+				taskArray["fileBrowser"][id].focusout.rename(event);
 			});
-			nameTd.keydown({"id":this.id},function(event){
-				taskArray["fileBrowser"][event.data.id].keydown.rename(event);
+			nameTd.keydown(function(event){
+				taskArray["fileBrowser"][id].keydown.rename(event);
 			});
 			this.va["prevData"] = this.va["selectedData"];
 			nameTd.focus();

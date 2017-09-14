@@ -45,7 +45,6 @@ function FBSender(){
 	}
 	this.rename = function(){
 		this.json.data = {"status":"rename","data":{"id":this.id,"src":this.va["prevData"][0].name,"dest":this.va["selectedData"][0].name}};
-		console.log(this.json.data);
 		this.ws.send(this.json);
 	}
 	this.del = function(){
@@ -55,10 +54,12 @@ function FBSender(){
 	this.cut = function(){
 		this.json.data = {"status":"cut","data":{"id":this.id,"data":this.va["selectedData"]}};
 		this.ws.send(this.json);
+		this.va["selectedData"] = [];
 	}
 	this.copy = function(){
 		this.json.data = {"status":"copy","data":{"id":this.id,"data":this.va["selectedData"]}};
 		this.ws.send(this.json);
+		this.va["selectedData"] = [];
 	}
 	this.paste = function(){
 		this.json.data = {"status":"paste","data":{"id":this.id}};

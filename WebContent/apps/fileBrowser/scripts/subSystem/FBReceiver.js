@@ -7,17 +7,17 @@ function FBReceiver() {
 		this.status.detailGraph(gLen,parseInt(gLen)+"%");
 	}
 	this.reload = function(json) {
-		this.fs.data = json;
+		this.va["data"] = json;
 		this.fs.display();
 		this.appendFunction();
 	}
 	this.displayData = function(idx, id, data){
-		taskArray["fileBrowser"][id[idx]].fs.data = data;
+		taskArray["fileBrowser"][id[idx]].controller.va["data"] = data;
 		taskArray["fileBrowser"][id[idx]].fs.display();
 		taskArray["fileBrowser"][id[idx]].appendFunction();
 	}
 	this.multiReloadForUpload = function(json){
-		for(ii=0; ii<id.length; ii++){
+		for(ii=0; ii<json.id.length; ii++){
 			this.displayData(ii, json.id, json.data);
 		}
 		var status = this.status;

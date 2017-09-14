@@ -1,10 +1,12 @@
 function FileBrowser(id){
 	this.ws = function(){}
 	this.id = id;
+	this.data = [];
 	this.setJSON = function(data) {
-		this.fs.data = data;
+		this.controller.va["data"] = data;
 	}
 	this.init = function() {
+		this.api = new API();
 		this.controller = new Controller();
 		this.controller.__proto__ = this;
 		this.dblclick = new DblClick();
@@ -23,6 +25,8 @@ function FileBrowser(id){
 		this.dragover.__proto__ = this.controller;
 		this.ds = new DragSelect();
 		this.ds.__proto__ = this.controller;
+		this.cs = new CtrlSelect();
+		this.cs.__proto__ = this.controller; 
 		this.fbm = new FBManager();
 		this.fbm.__proto__ = this.controller;
 		this.fws = new FileWebSocket(this.ip+":8081");
@@ -47,6 +51,8 @@ function FileBrowser(id){
 		this.status.__proto__ = this;
 		this.fs = new FileSort();
 		this.fs.__proto__ = this.controller;
+		this.fs.option = "name";
+		this.fs.string.arrayPrototype();
 	}
 	this.appendFunction = function(){
 		var id = this.id;
@@ -126,9 +132,7 @@ function FileBrowser(id){
 		this.status.appendStatus();
 	}
 	this.display = function() {
-		this.fs.option = "name";
-		this.fs.string.arrayPrototype();
-		this.fs.string.sortFromLowToHigh();
+		this.fs.display();
 	}
 }
 

@@ -1,5 +1,4 @@
 function FileSort() {
-	this.data = [];
 	this.string = new StringSort();
 	this.string.__proto__ = this;
 	this.date = new DateSort();
@@ -8,19 +7,19 @@ function FileSort() {
 	this.int.__proto__ = this;
 	this.display = this.string.sortFromLowToHigh;
 	this.displayData = function() {
-		for(i=0; i<this.data.length; i++) {
+		for(i=0; i<this.va["data"].length; i++) {
 			var tmpTr = $("<tr></tr>");
 			tmpTr.addClass("fb-table-row");
 			tmpTr.addClass("fileItem");
-			var tmpTd0 = $("<td>"+this.data[i]["name"]+"</td>");
-			var tmpTd1 = $("<td>"+this.data[i]["dateModified"]+"</td>");
-			var tmpTd2 = $("<td>"+this.data[i]["type"]+"</td>");
-			var tmpTd3 = $("<td>"+this.data[i]["size"]+"</td>");
+			var tmpTd0 = $("<td>"+this.va["data"][i]["name"]+"</td>");
+			var tmpTd1 = $("<td>"+this.va["data"][i]["dateModified"]+"</td>");
+			var tmpTd2 = $("<td>"+this.va["data"][i]["type"]+"</td>");
+			var tmpTd3 = $("<td>"+this.va["data"][i]["size"]+"</td>");
 			tmpTr.append(tmpTd0);
 			tmpTr.append(tmpTd1);
 			tmpTr.append(tmpTd2);
 			tmpTr.append(tmpTd3);
-			if(this.data[i]["type"] == "directory"){
+			if(this.va["data"][i]["type"] == "directory"){
 				tmpTr.css("color","#ffbf00");
 			}
 			this.fbTable.append(tmpTr);

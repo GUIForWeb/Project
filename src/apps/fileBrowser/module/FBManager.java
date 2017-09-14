@@ -123,7 +123,12 @@ public class FBManager{
         }
 	}
 	public void fileUploadStart(){
-		File uploadedFile = new File(this.path+"/"+this.json.getString("name"));
+		String name = this.json.getString("name");
+		File uploadedFile = new File(this.path+"/"+name);
+		String ext = name.substring(name.lastIndexOf(".")+1,name.length());
+		name = name.substring(0,name.lastIndexOf("."));
+		if(uploadedFile.exists())
+			uploadedFile = this.checkDest(this.path,name,0,ext);
 		try {
             fos = new FBFileOutputStream(uploadedFile);
         } catch (FileNotFoundException e) {     

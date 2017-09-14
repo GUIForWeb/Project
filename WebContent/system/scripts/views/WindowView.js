@@ -108,6 +108,9 @@
 			tmpS.click(function(event){
 				gui.click.content(event);
 			});
+			tmpS.contextmenu(function(event){
+				gui.click.cButton(event);
+			});
 			tmpS.bind("DOMSubtreeModified",function(event){
 				var winTag = event.currentTarget.parentNode;
 				if(winTag.style !== undefined && gui.winArray.length != 0 && gui.winArray[winTag.style.zIndex] !== undefined){

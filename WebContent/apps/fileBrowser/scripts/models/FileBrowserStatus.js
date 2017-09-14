@@ -4,10 +4,10 @@ function FileBrowserStatus(){
 	this.appendStatus = function(){
 		this.view.getView();
 		this.footerSelector = this.cOfWindow.find("footer");
+		this.footerSelector.find(".fb-status").remove();
 		this.footerSelector.append(this.view.statusSelector);
 		this.selector = this.view.statusSelector;
 		this.tag = this.selector[0];
-		this.api = new API(); 
 		this.api.set(this.selector).bottom();
 	}
 	this.infoHtml = function(info){

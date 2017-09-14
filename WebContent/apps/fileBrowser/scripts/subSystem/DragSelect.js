@@ -2,18 +2,19 @@ function DragSelect(){
 	this.stdX = 0;
 	this.stdY = 0;
 	this.isWorking = false;
-	this.list = [];
 	/*
 	this.setList = function(){
-		this.list = "";
-		for(si=0; si<this.list.length; si++){
-			if(this.list[si] != false){
-				this.list += this.list[si] + "&";
+		this.va["selectedData"] = "";
+		for(si=0; si<this.va["selectedData"].length; si++){
+			if(this.va["selectedData"][si] != false){
+				this.va["selectedData"] += this.va["selectedData"][si] + "&";
 			}
 		}
 	}
 	*/
 	this.start = function(event){
+		console.log(this.va["selectedData"]);
+		this.va["selectedData"] = [];
 		this.stdX = 0;
 		this.stdY = 0;
 		this.isWorking = true;
@@ -84,58 +85,53 @@ function DragSelect(){
 			if(event.clientY != 0) 
 			if(this.case == 0){
 				if(event.clientY > ((fileItem.offset().top*2 + fileItem.height())/2)){
-					this.list[fi] = {"name":this.fileItemArray[fi].children[0].innerHTML,"type":this.fileItemArray[fi].children[2].innerHTML};
+					this.va["selectedData"][fi] = {"name":this.fileItemArray[fi].children[0].innerHTML,"type":this.fileItemArray[fi].children[2].innerHTML};
 					this.hover(false, fileItem);
 				}
 				else{
-					delete this.list[fi];
+					delete this.va["selectedData"][fi];
 					this.hover(true, fileItem);
 				} 
 			}
 			else if(this.case == 1){
 				if(event.clientY < ((fileItem.offset().top*2 + fileItem.height())/2)){
-					this.list[fi] = {"name":this.fileItemArray[fi].children[0].innerHTML,"type":this.fileItemArray[fi].children[2].innerHTML};
+					this.va["selectedData"][fi] = {"name":this.fileItemArray[fi].children[0].innerHTML,"type":this.fileItemArray[fi].children[2].innerHTML};
 					this.hover(false, fileItem);
 				}
 				else{
-					delete this.list[fi];
+					delete this.va["selectedData"][fi];
 					this.hover(true, fileItem);
 				} 
 			}
 			else if(this.case == 2){
 				if(event.clientY < this.stdY){
 					if(event.clientY < ((fileItem.offset().top*2 + fileItem.height())/2) && ((fileItem.offset().top*2 + fileItem.height())/2) < this.stdY){
-						this.list[fi] = {"name":this.fileItemArray[fi].children[0].innerHTML,"type":this.fileItemArray[fi].children[2].innerHTML};
+						this.va["selectedData"][fi] = {"name":this.fileItemArray[fi].children[0].innerHTML,"type":this.fileItemArray[fi].children[2].innerHTML};
 						this.hover(false, fileItem);
 					}
 					else{
-						delete this.list[fi];
+						delete this.va["selectedData"][fi];
 						this.hover(true, fileItem);
 					}
 				}
 				else{
 					if(event.clientY > ((fileItem.offset().top*2 + fileItem.height())/2) && ((fileItem.offset().top*2 + fileItem.height())/2) > this.stdY){
-						this.list[fi] = {"name":this.fileItemArray[fi].children[0].innerHTML,"type":this.fileItemArray[fi].children[2].innerHTML};
+						this.va["selectedData"][fi] = {"name":this.fileItemArray[fi].children[0].innerHTML,"type":this.fileItemArray[fi].children[2].innerHTML};
 						this.hover(false, fileItem);
 					}
 					else{
-						delete this.list[fi];
+						delete this.va["selectedData"][fi];
 						this.hover(true, fileItem);
 						
 					}
 				}
 			}
 		}
-		this.list = this.erumSList();
+		this.va["selectedData"] = this.erumSList();
 	}
 	this.erumSList = function(){
-		return this.list.filter(function( element ) {
+		return this.va["selectedData"].filter(function( element ) {
 			   return element !== undefined;
-			});
-	}
-	this.fileList = function(){
-		return this.list.filter(function( element ) {
-			   return (element !== undefined && element.type != "directory");
 			});
 	}
 	this.hover = function(hover, fileItem){
@@ -152,16 +148,10 @@ function DragSelect(){
 	this.cancle = function(){
 		for(fi=0; fi<this.fileItemArray.length; fi++){
 			var fileItem = $(this.fileItemArray[fi]);
-			this.list[fileItem.children().html()] = false;
+			this.va["selectedData"][fileItem.children().html()] = false;
 			fileItem.css("background-color","white");
-			fileItem.hover(
-				function(){
-					$(this).css("background-color","dimgray");
-			    }, 
-			    function(){
-			    	$(this).css("background-color","white");
-			});
-			this.isWorking = false;
 		}
+		this.va["selectedData"] = [];
+		this.isWorking = false;
 	}
 }
