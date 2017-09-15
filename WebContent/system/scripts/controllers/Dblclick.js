@@ -1,9 +1,8 @@
-	function Dblclick(){
-		this.icon = function(event){
-			var id =event.currentTarget.id;
-			var iconObj = this.iconArray[id];
-			var winAndBarNode = this.gm.newWinAndBar(iconObj);
-			this.gr.newWinAndBar(winAndBarNode);
-		}
+guiLib.controllers.Dblclick = function() {
+	this.icon = function(event) {
+		var id = event.currentTarget.id;
+		var iconObj = this.iconArray[id];
+		var winAndBarNode = this.gm.newWinAndBar(iconObj);
+		this.gr.newWinAndBar(winAndBarNode);
 	}
-	
+}

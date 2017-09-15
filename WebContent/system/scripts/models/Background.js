@@ -1,4 +1,4 @@
-	function Background()
+guiLib.models.Background = function()
 	{
 		this.__proto__ = new Model();
 		this.tagClass = "background";

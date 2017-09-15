@@ -1,4 +1,4 @@
-function Icon(){
+guiLib.models.Icon = function(){
 	this.__proto__ = new Model;
 	this.guiName = "";
 	this.tagIdRule = "icon";

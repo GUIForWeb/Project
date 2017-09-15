@@ -89,13 +89,17 @@ public class FBManager{
   			type = data.getString("type");
   			tmpFile = new File(this.path +"/"+ name);
   			byte[] outputByte = new byte[4096];
-  			this.response.setContentType("application/octet-stream");
+  			this.response.setCharacterEncoding("ISO-8859-1");
+  			this.response.setContentType(type);
   			this.response.setHeader("Content-Disposition","attachment;filename=\""+name+"\"");
   			try {
   				ServletOutputStream out = this.response.getOutputStream();
   				FileInputStream fis = new FileInputStream(tmpFile);
-  				while(fis.read(outputByte,0,4096) != -1){
-  					out.write(outputByte, 0, 4096);
+  				int size = (int) tmpFile.length();
+  				if(size > 4096)
+  					size = 4096;
+  				while(fis.read(outputByte,0,size) != -1){
+  					out.write(outputByte, 0, size);
   				}
   				fis.close();
   				out.flush();
