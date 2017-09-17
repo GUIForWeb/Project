@@ -22,10 +22,10 @@ guiLib.subsystem.PositioningEngine = function() {
 			this.forMovement.subY = event.clientY;
 			gapX = this.forMovement.subX - this.forMovement.preX;
 			gapY = this.forMovement.subY - this.forMovement.preY;
-			if (gapX > 10 || gapY > 10) {
+			if (gapX > 50 || gapY > 50) {
 				gapX = 1;
 				gapY = 1;
-			} else if (gapX < -10 || gapY < -10) {
+			} else if (gapX < -50 || gapY < -50) {
 				gapX = -1;
 				gapY = -1;
 			}

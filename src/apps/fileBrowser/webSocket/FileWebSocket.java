@@ -1,17 +1,9 @@
 package apps.fileBrowser.webSocket;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 
-import javax.enterprise.context.RequestScoped;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.websocket.EndpointConfig;
@@ -22,13 +14,10 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import org.apache.tomcat.util.descriptor.web.ContextHandler;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import apps.fileBrowser.module.FBManager;
 import system.library.ServletAwareConfig;
-import system.webSocketInterface.WebSocketInterface;
 
 
 @ServerEndpoint(value = "/fs", configurator=ServletAwareConfig.class)
@@ -62,6 +51,7 @@ public class FileWebSocket{
 		JSONObject data1 = new JSONObject();
 		be.put("receiving", json);
 		json.put("app", "taskArray.fileBrowser["+this.fbm.getId()+"].fbm");
+		json.put("id", this.fbm.getId());
 		json.put("data", data0);
 		data0.put("status", "%");
 		data0.put("data",data1);
@@ -89,6 +79,7 @@ public class FileWebSocket{
 				json = new JSONObject();
 				json.put("app", "taskArray.fileBrowser["+this.fbm.getId()+"].fbm");
 				json.put("data", this.fbm.getJson());
+				json.put("id", this.fbm.getId());
 				be.put("receiving", json);
 			}
 		}else if(json.getString("status").equals("fileUpload")) {

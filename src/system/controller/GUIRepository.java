@@ -6,21 +6,12 @@ import java.io.IOException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.websocket.EndpointConfig;
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
 import javax.websocket.Session;
-import javax.websocket.server.ServerEndpoint;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import system.exception.GUIException;
-import system.library.ServletAwareConfig;
-import system.webSocketInterface.WebSocketInterface;
-
-public class GUIRepository implements WebSocketInterface {
+public class GUIRepository {
 	private boolean isUpdated;
 	private int winCount;
 	private ServletContext servletContext;
@@ -32,52 +23,8 @@ public class GUIRepository implements WebSocketInterface {
 	public GUIRepository(){
 	}
 
-	public JSONObject onMessage(String message){
-		this.isUpdated = false;
-		this.getSession();
-		JSONObject json = new JSONObject(message);
-		//json = json.getJSONObject("data");
-		String status = json.getString("status");
-		json.remove("status");
-		switch(status){
-		case "moveWinToTop":
-			this.moveWinToTop(json);
-			break;
-		case "updateContent":
-			this.updateContent(json);
-			break;
-		case "disappear":
-			this.disappear(json);
-			break;
-		case "appear":
-			this.appear(json);
-			break;
-		case "fullScreen":
-			this.fullScreen(json);
-			break;
-		case "position":
-			this.changePosition(json);
-			break;
-		case "newWinAndBar":
-			this.newWinAndBar(json);
-			break;
-		case "xWinAndBar":
-			this.xWinAndBar(json);
-			break;
-		case "resizeend":
-			this.resizeend(json);
-			break;
-		}
-		if(this.isUpdated){
-			if(this.isError()){
-				GUIException e = new GUIException();
-				this.onError(e);
-			}
-		}
-		this.setSession();
-		return new JSONObject();
-	}
-	private void resizeend(JSONObject json){
+	
+	public void resizeend(JSONObject json){
 		int zIndex = json.getInt("zIndex");
 		int len = this.winAndBarArray.length();
 		int tmpZIdx = 0;
@@ -109,7 +56,7 @@ public class GUIRepository implements WebSocketInterface {
 			}
 		}
 	}
-	private void updateContent(JSONObject json) {
+	public void updateContent(JSONObject json) {
 		int winCnt = this.winAndBarArray.length();
 		int numId = json.getInt("numId");
 		int tmpId = 0;
@@ -204,7 +151,7 @@ public class GUIRepository implements WebSocketInterface {
 		}
 	}
 	
-	private void moveWinToTop(JSONObject json) {
+	public void moveWinToTop(JSONObject json) {
 		int zIndex = json.getInt("zIndex");
 		int len = this.winAndBarArray.length();
 		int tmpZIdx = 0;
@@ -232,13 +179,13 @@ public class GUIRepository implements WebSocketInterface {
 		}
 	}
 	
-	private void newWinAndBar(JSONObject json) {
+	public void newWinAndBar(JSONObject json) {
 		this.winCount++;
 		this.winAndBarArray.put(json);
 		this.isUpdated = true;
 	}
 	
-	private boolean isError(){
+	public boolean isError(){
 		boolean error = false;
 		boolean tmpError[] = new boolean[this.winCount];
 		int len = this.winAndBarArray.length();
@@ -269,7 +216,7 @@ public class GUIRepository implements WebSocketInterface {
 		return error;
 	}
 	
-	private void disappear(JSONObject json) {
+	public void disappear(JSONObject json) {
 		int zIndex = json.getInt("zIndex");
 		int tmpZIdx = 0;
 		JSONObject tmpWin = null;
@@ -297,7 +244,7 @@ public class GUIRepository implements WebSocketInterface {
 		this.isUpdated = true;
 	}
 	
-	private void appear(JSONObject json) {
+	public void appear(JSONObject json) {
 		int winCnt = this.winAndBarArray.length();
 		int numId = json.getInt("numId");
 		int tmpId = 0;
@@ -320,7 +267,7 @@ public class GUIRepository implements WebSocketInterface {
 		this.isUpdated = true;
 	}
 	
-	private void xWinAndBar(JSONObject json) {
+	public void xWinAndBar(JSONObject json) {
 		int zIndex = json.getInt("zIndex");
 		int position = json.getInt("position");
 		int tmpZIdx = 0;
@@ -360,13 +307,13 @@ public class GUIRepository implements WebSocketInterface {
 		this.isUpdated = true;
 	}
 	
-	private void setSession(){
+	public void setSession(){
 		this.winAndBarJSON.put("winAndBar",this.winAndBarArray);
 		this.session.setAttribute("winCount",this.winCount);
 		this.session.setAttribute("winAndBarJSON",this.winAndBarJSON);
 	}
 	
-	private void getSession(){
+	public void getSession(){
 		this.winAndBarArray = new JSONArray();
 		if(null != this.session.getAttribute("winAndBarJSON")){
 			this.winAndBarJSON = (JSONObject) this.session.getAttribute("winAndBarJSON");
@@ -409,5 +356,11 @@ public class GUIRepository implements WebSocketInterface {
 	}
 	public void setServletContext(ServletContext servletContext) {
 		this.servletContext = servletContext;
+	}
+	public boolean isUpdated() {
+		return isUpdated;
+	}
+	public void setUpdated(boolean isUpdated) {
+		this.isUpdated = isUpdated;
 	}
 }

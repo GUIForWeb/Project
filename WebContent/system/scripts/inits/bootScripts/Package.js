@@ -4,3 +4,4 @@ guiLib.subsystem = {};
 guiLib.controllers = {}
 guiLib.controllers.subControllers = {}
 guiLib.views = {};
+guiLib.webSockets = {};

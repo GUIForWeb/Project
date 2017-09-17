@@ -1,4 +1,12 @@
 <style>
+	.fb-header{
+	}
+	.fb-section{
+		width: 100%;
+	}
+	.fb-footer{
+		width: 100%;
+	}
 	.fb-table {
     	border-collapse: collapse;
 		table-layout:fixed;

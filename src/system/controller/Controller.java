@@ -7,7 +7,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import system.authentication.Authentication;
@@ -26,6 +25,7 @@ public class Controller {
 	protected String[] viewArray;
 	protected String view;
 	protected ServletContext context;
+	protected String serverName;
 	final protected int IN = 0;
 	final protected int OUT = 1;
 	public Controller() {
@@ -39,9 +39,9 @@ public class Controller {
 		this.contextPath = this.externalContext.getApplicationContextPath();
 		this.context = (ServletContext) externalContext.getContext();
 		String scheme = this.externalContext.getRequestScheme();
-		String severName = this.externalContext.getRequestServerName();
+		this.serverName = this.externalContext.getRequestServerName();
 		this.port = this.externalContext.getRequestServerPort();
-		this.contextUrl = scheme+"://"+severName+":"+port+this.contextPath;
+		this.contextUrl = scheme+"://"+this.serverName+":"+this.port+this.contextPath;
 	}
 	
 	public void redirect(int view){

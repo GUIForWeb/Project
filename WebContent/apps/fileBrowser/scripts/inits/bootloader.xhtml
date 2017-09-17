@@ -1,6 +1,7 @@
 <ui:composition
 	xmlns="http://www.w3.org/1999/xhtml"  
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<script src="#{contextPath}/apps/fileBrowser/scripts/inits/bootScripts/Package.js"/>
 	<script src="#{contextPath}/apps/fileBrowser/scripts/models/FileBrowserContextMenu.js"/>
 	<script src="#{contextPath}/apps/fileBrowser/scripts/models/FileBrowserStatus.js"/>
 	<script src="#{contextPath}/apps/fileBrowser/scripts/views/FileBrowserContextMenuView.js"/>
@@ -20,16 +21,20 @@
 	<script src="#{contextPath}/apps/fileBrowser/scripts/controllers/subControllers/Dragover.js"/>
 	<script src="#{contextPath}/apps/fileBrowser/scripts/controllers/subControllers/Dragstart.js"/>
 	<script src="#{contextPath}/apps/fileBrowser/scripts/controllers/subControllers/Drop.js"/>
-	<script src="#{contextPath}/apps/fileBrowser/scripts/subSystem/DragSelect.js"/>
-	<script src="#{contextPath}/apps/fileBrowser/scripts/subSystem/CtrlSelect.js"/>
-	<script src="#{contextPath}/apps/fileBrowser/scripts/subSystem/FBManager.js"/>
-	<script src="#{contextPath}/apps/fileBrowser/scripts/subSystem/FBSender.js"/>
-	<script src="#{contextPath}/apps/fileBrowser/scripts/subSystem/FBReceiver.js"/>
-	<script src="#{contextPath}/apps/fileBrowser/scripts/subSystem/FileSort.js"/>
-	<script src="#{contextPath}/apps/fileBrowser/scripts/subSystem/fileSort/DateSort.js"/>
-	<script src="#{contextPath}/apps/fileBrowser/scripts/subSystem/fileSort/IntSort.js"/>
-	<script src="#{contextPath}/apps/fileBrowser/scripts/subSystem/fileSort/StringSort.js"/>
+	<script src="#{contextPath}/apps/fileBrowser/scripts/subSystems/DragSelect.js"/>
+	<script src="#{contextPath}/apps/fileBrowser/scripts/subSystems/CtrlSelect.js"/>
+	<script src="#{contextPath}/apps/fileBrowser/scripts/subSystems/FBManager.js"/>
+	<script src="#{contextPath}/apps/fileBrowser/scripts/subSystems/FBSender.js"/>
+	<script src="#{contextPath}/apps/fileBrowser/scripts/subSystems/FBReceiver.js"/>
+	<script src="#{contextPath}/apps/fileBrowser/scripts/subSystems/FileSort.js"/>
+	<script src="#{contextPath}/apps/fileBrowser/scripts/subSystems/fileSorts/DateSort.js"/>
+	<script src="#{contextPath}/apps/fileBrowser/scripts/subSystems/fileSorts/IntSort.js"/>
+	<script src="#{contextPath}/apps/fileBrowser/scripts/subSystems/fileSorts/StringSort.js"/>
 	<script src="#{contextPath}/apps/fileBrowser/scripts/webSockets/FileWebSocket.js"/>
+	<script src="#{contextPath}/apps/fileBrowser/scripts/inits/bootScripts/Import.js"/>
+	<ui:repeat value="#{libs.list}" var="value">
+    	<script src="#{value}" /> 
+	</ui:repeat>
 	<ui:include src="/apps/fileBrowser/scripts/inits/fbInit.xhtml" />
 </ui:composition>
 	

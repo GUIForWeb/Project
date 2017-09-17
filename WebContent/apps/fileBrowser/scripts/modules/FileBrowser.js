@@ -5,8 +5,18 @@ function FileBrowser(id){
 	this.setJSON = function(data) {
 		this.controller.va["data"] = data;
 	}
-	this.init = function() {
+	this.InitForWMode = function() {
 		this.api = new API();
+		this.cOfWindow = this.section.parent();
+		this.window = this.cOfWindow.parent();
+		this.x = this.window.children("#hOfwindow"+this.id).children("#xBOfwindow"+this.id);
+	}
+	this.appendFunctionForWMode = function() {
+		this.x.click(function(event){
+			taskArray['fileBrowser'][id].click.x(event);
+		});
+	}
+	this.init = function() {
 		this.controller = new Controller();
 		this.controller.__proto__ = this;
 		this.dblclick = new DblClick();
@@ -40,10 +50,8 @@ function FileBrowser(id){
 		this.mouseout = new Mouseout();
 		this.mouseout.__proto__ = this.controller;
 		this.section = $("#fbTable"+this.id).parent();
-		this.cOfWindow = this.section.parent();
-		this.window = this.cOfWindow.parent();
+		this.footer = this.section.parent().find("footer");
 		this.fbTable = $("#fbTable"+this.id);
-		this.x = this.window.children("#hOfwindow"+this.id).children("#xBOfwindow"+this.id);
 		
 		this.contextMenu = new FileBrowserContextMenu();
 		this.contextMenu.__proto__ = this;
@@ -53,12 +61,12 @@ function FileBrowser(id){
 		this.fs.__proto__ = this.controller;
 		this.fs.option = "name";
 		this.fs.string.arrayPrototype();
+		if(sessionStorage.wMode !== undefined)
+			this.InitForWMode();
 	}
 	this.appendFunction = function(){
 		var id = this.id;
-		this.x.click(function(event){
-			taskArray['fileBrowser'][id].click.x(event);
-		});
+		
 		this.section.click(function(event){
 			taskArray['fileBrowser'][id].click.eButton(event);
 		});
@@ -86,27 +94,18 @@ function FileBrowser(id){
 		});
 		
 		tr.attr("draggable","true");
-		
-		this.cOfWindow.on("dragstart",function(event){
+		this.section.attr("draggable","true");
+		this.section.on("dragstart",function(event){
 			taskArray["fileBrowser"][id].drag.start.selection(event);
 		});
-		this.cOfWindow.on("drag",function(event){
+		this.section.on("drag",function(event){
 			taskArray["fileBrowser"][id].drag.ing.selection(event);
 		});
-		this.cOfWindow.on("dragend",function(event){
+		this.section.on("dragend",function(event){
 			taskArray["fileBrowser"][id].drag.end.selection(event);
 		});
 		
 		$(this.fbTable.find("tr")[0]).dblclick(null);
-		
-		if($("#fbCSS").length == 0 ){
-			var link = $("<link></link>");
-			link.attr("id","fbCSS");
-			link.attr("type","text/css");
-			link.attr("rel","stylesheet");
-			link.attr("href",this.contextURL+"/apps/fileBrowser/scripts/css/fileBrowser.css");
-			$(document.head).append(link);
-		}
 		
 		var trS = this.fbTable.find("tr");
 		var thS = $(trS[0]).find("th");
@@ -125,6 +124,23 @@ function FileBrowser(id){
 		});
 		this.sizeHead.click(function(){
 			taskArray["fileBrowser"][id].fs.int.sort("size");
+		});
+		if(sessionStorage.wMode !== undefined)
+			this.appendFunctionForWMode();
+		else {
+			this.section.height(window.innerHeight - this.footer.height());
+		}
+		if($("#fbCSS").length == 0 ){
+			var link = $("<link></link>");
+			link.attr("id","fbCSS");
+			link.attr("type","text/css");
+			link.attr("rel","stylesheet");
+			link.attr("href",this.contextURL+"/apps/fileBrowser/scripts/css/fileBrowser.css");
+			$(document.head).append(link);
+		}
+		$("body").offset({
+			top: 0,
+			left: 0
 		});
 	}
 	

@@ -1,7 +1,7 @@
-function API(){
-	//api value array
+function API() {
+	// api value array
 	this.va = [];
-	
+
 	this.bottom = function() {
 		this.complement = new Bottom();
 		this.complName = "Bottom";
@@ -15,10 +15,9 @@ function API(){
 		return this.complement.init();
 	}
 	this.sort = function(col) {
-		if(this.complName == "Sort" && this.complement.col == col){
+		if (this.complName == "Sort" && this.complement.col == col) {
 			this.complement.work();
-		}
-		else {
+		} else {
 			this.complement = new Sort();
 			this.complName = "Sort";
 			this.complement.setCol(col);
@@ -26,14 +25,15 @@ function API(){
 			this.complement.work();
 		}
 	}
-	this.set = function(value){
+	this.set = function(value) {
 		this.settlor = new Set();
 		this.settlor.__proto__ = this;
 		this.settlor.setValue(value);
-		this.va["w"] = gui.nodeArray["winAndBar"].lastWin.win;
+		if(sessionStorage.wMode !== undefined)
+			this.va["w"] = gui.nodeArray["winAndBar"].lastWin.win;
 		return this;
 	}
-	this.has = function(value){
+	this.has = function(value) {
 		this.settlor = new Has();
 		this.settlor.__proto__ = this;
 		this.settlor.setValue(value);

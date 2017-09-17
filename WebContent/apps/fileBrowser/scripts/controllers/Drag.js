@@ -1,4 +1,4 @@
-function Drag(){
+fileBrowser.controllers.Drag = function() {
 	this.ing = new Draging();
 	this.ing.__proto__ = this;
 	this.end = new Dragend();

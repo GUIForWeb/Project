@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import system.controller.EssentialJSLib;
 import system.model.User;
 
 public class Application {
@@ -21,9 +22,12 @@ public class Application {
 	protected String[] viewArray;
 	protected String view;
 	protected String contextUrl;
-	protected ServletContext context; 
+	protected String serverName;
+	protected ServletContext context;
+	protected String importLib;
 	final protected int IN = 0;
 	final protected int OUT = 1;
+	private EssentialJSLib essentialJSLib;
 	public Application() {
 		this.externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		this.session = (HttpSession) this.externalContext.getSession(true);
@@ -33,7 +37,6 @@ public class Application {
 		}
 		this.contextPath = this.externalContext.getApplicationContextPath();
 		this.context = (ServletContext) this.externalContext.getContext();
-		this.externalContext.getApplicationMap().put("contextPath",this.contextPath);
 	}
 	
 	public void redirect(){

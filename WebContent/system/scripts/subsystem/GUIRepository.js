@@ -1,6 +1,6 @@
 guiLib.subsystem.GUIRepository = function() {
 	this.json = {
-		"app" : "system.controller.GUIRepository",
+		"app" : "system.webSocket.GUIWebSocket",
 		"data" : {}
 	}
 	this.updateContent = function(win) {

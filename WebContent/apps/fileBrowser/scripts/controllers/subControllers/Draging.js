@@ -1,5 +1,5 @@
-function Draging(){
-	this.selection = function(event){
+fileBrowser.controllers.subControllers.Draging = function() {
+	this.selection = function(event) {
 		this.ds.onGoing(event);
 	}
 }

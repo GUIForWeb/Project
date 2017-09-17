@@ -29,6 +29,7 @@ import system.model.User;
 public class Background extends Controller {
 	private String bgImg;
 	private String desktop;
+	private EssentialJSLib essentialJSLib;
 	public Background(){
 		this.viewArray[IN] = "background";
 		this.viewArray[OUT] = "login";
@@ -43,7 +44,9 @@ public class Background extends Controller {
 		this.session.setAttribute("User",this.user);
 		
 		this.bgImg = "";
+		this.essentialJSLib = new EssentialJSLib(this.contextPath);
 	}
+	
 	public void init(){
 		this.redirect(OUT);
 		if(null != this.user) {
@@ -80,12 +83,14 @@ public class Background extends Controller {
 			}
 			
 			this.externalContext.getRequestMap().put("guiSetting",guiSetting);
-			this.externalContext.getRequestMap().put("contextPath",this.contextPath);
 			this.externalContext.getRequestMap().put("iconList",iconDAO.getIconList());
 			this.externalContext.getRequestMap().put("desktopDataArray",desktopItemDAO.getDataItemArray());
 			this.externalContext.getRequestMap().put("bgImg",this.bgImg);
 			this.externalContext.getRequestMap().put("port",this.port);
-			this.externalContext.getRequestMap().put("contextUrl",this.contextUrl);
+			this.externalContext.getApplicationMap().put("contextURL",this.contextUrl);
+			this.externalContext.getApplicationMap().put("contextPath",this.contextPath);
+			this.externalContext.getApplicationMap().put("serverName",this.serverName);
+			this.externalContext.getApplicationMap().put("libs",this.essentialJSLib);
 		}
 	}
 }

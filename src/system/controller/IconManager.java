@@ -1,27 +1,16 @@
 package system.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.websocket.EndpointConfig;
 import javax.websocket.Session;
 
-import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
 
-import system.controller.Controller;
 import system.dao.IconsInOSDAOMySQL;
 import system.daoInterface.IconsInOSDAO;
-import system.model.Bar;
 import system.model.IconInOS;
 import system.model.OSSetting;
-import system.model.Window;
 import system.webSocketInterface.WebSocketInterface;
 
 public class IconManager implements WebSocketInterface {

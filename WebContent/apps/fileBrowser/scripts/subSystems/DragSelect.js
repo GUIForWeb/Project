@@ -1,4 +1,4 @@
-function DragSelect(){
+fileBrowser.subsystem.DragSelect = function() {
 	this.stdX = 0;
 	this.stdY = 0;
 	this.isWorking = false;
@@ -44,23 +44,23 @@ function DragSelect(){
 		if(sizeX == 0 && sizeY ==0){
 			sizeX = preX;
 			sizeY = preY;
-		}//SE
+		}// SE
 		else if(sizeX < 0 &&  sizeY <0){
 			sizeX = -sizeX;
 			sizeY = -sizeY;
-		}//NW
+		}// NW
 		else if(sizeX > 0 &&  sizeY > 0){
 			$("#selection").offset({
 				left:event.clientX,
 				top:event.clientY
 			});
-		}//SW
+		}// SW
 		else if(sizeX < 0 &&  sizeY > 0){
 			sizeX = -sizeX;
 			$("#selection").offset({
 				top:event.clientY
 			});
-		}//NE
+		}// NE
 		else if(sizeX > 0 &&  sizeY < 0){
 			$("#selection").offset({
 				left:event.clientX

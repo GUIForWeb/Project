@@ -30,10 +30,6 @@
     <param-value>true</param-value>
   </context-param>
   <context-param>
-    <param-name>javax.faces.WEBAPP_RESOURCES_DIRECTORY</param-name>
-    <param-value>/system/scripts</param-value>
-  </context-param>
-  <context-param>
     <description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
     <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
     <param-value>client</param-value>
@@ -80,13 +76,6 @@
     <web-resource-collection>
       <web-resource-name>Component</web-resource-name>
       <url-pattern>/system/comps/papers/*</url-pattern>
-    </web-resource-collection>
-    <auth-constraint/>
-  </security-constraint>
-  <security-constraint>
-    <web-resource-collection>
-      <web-resource-name>Script</web-resource-name>
-      <url-pattern>/system/scripts/*</url-pattern>
     </web-resource-collection>
     <auth-constraint/>
   </security-constraint>

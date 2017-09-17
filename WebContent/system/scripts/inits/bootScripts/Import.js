@@ -46,4 +46,3 @@ var ContextMenuView = guiLib.views.ContextMenuView;
 var IconView = guiLib.views.IconView;
 var TaskbarView = guiLib.views.TaskbarView;
 var WindowView = guiLib.views.WindowView;
-		

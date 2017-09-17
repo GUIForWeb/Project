@@ -1,23 +1,33 @@
 <script id="fbInit1">
-	if(wMode){
-		if(taskArray["fileBrowser"] === undefined){
+	if(sessionStorage.wMode !== undefined){
+		if (taskArray["fileBrowser"] === undefined) {
 			taskArray["fileBrowser"] = [];
 		}
 		taskArray["fileBrowser"][fbId] = new FileBrowser(fbId);
 		taskArray["fileBrowser"][fbId].ws = gui.ws;
 		taskArray["fileBrowser"][fbId].ip = gui.ip;
 		taskArray["fileBrowser"][fbId].contextURL = gui.contextURL;
-		/*
-		if(typeof gui != "undefined")
-			taskArray["fileBrowser"][fbId].gui = gui;
-		*/
 		taskArray["fileBrowser"][fbId].init();
 	}
 	else {
-		/*
-		var fb = new FileBrowser(fbId);
-		fb.ws = this.ws = new WebSocket("ws://192.168.56.103:8080/WebGUI/ws");
+		taskArray = [];
+		taskArray["fileBrowser"] = [];
+		console.log("Yo");
+		console.log("#{serverName}");
+		console.log("#{contextPath}");
+		taskArray["fileBrowser"][fbId] = new FileBrowser(fbId);
+		taskArray["fileBrowser"][fbId].ws = new GUIWebSocket("#{serverName}");
+		taskArray["fileBrowser"][fbId].ip = "#{serverName}";
+		taskArray["fileBrowser"][fbId].contextURL = "#{contextURL}";
 		taskArray["fileBrowser"][fbId].init();
-		*/
 	}
 </script>
+<!-- 
+<script src="#{contextPath}/system/scripts/webSocket/WebSocket.js"/>
+<script src="#{contextPath}/system/scripts/api/complement/Sort.js"/>
+<script src="#{contextPath}/system/scripts/api/complement/Bottom.js"/>
+<script src="#{contextPath}/system/scripts/api/complement/Filter.js"/>
+<script src="#{contextPath}/system/scripts/api/settlor/Set.js"/>
+<script src="#{contextPath}/system/scripts/api/settlor/Has.js"/>
+<script src="#{contextPath}/system/scripts/api/API.js"/>
+ -->

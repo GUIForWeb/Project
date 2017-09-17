@@ -1,5 +1,5 @@
-function Dragend(){
-	this.selection = function(){
+fileBrowser.controllers.subControllers.Dragend = function() {
+	this.selection = function() {
 		this.ds.end();
 	}
 }

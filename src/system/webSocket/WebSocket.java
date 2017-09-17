@@ -2,11 +2,7 @@ package system.webSocket;
 
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
-import javax.enterprise.context.RequestScoped;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.websocket.EndpointConfig;
@@ -17,7 +13,6 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import org.apache.tomcat.util.descriptor.web.ContextHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,7 +28,6 @@ public class WebSocket{
 	private EndpointConfig config;
 	private WebSocketInterface wsi;
 	private Class<?> tmpClass;
-	private Object tmpObj;
 	public WebSocket(){
 	}
 	
@@ -49,7 +43,6 @@ public class WebSocket{
 	public String onMessage(String message){
 		JSONObject json = new JSONObject(message);
 		JSONObject be = new JSONObject(); 
-		Method tmpMethod = null;
 		try {
 			json = json.getJSONObject("sending");
 			this.tmpClass = Class.forName(json.getString("app"));

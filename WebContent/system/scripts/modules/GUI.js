@@ -22,10 +22,11 @@ function GUI(guiVariableName) {
 	this.fileItem = [];
 	this.init = function() {
 	}
-	this.start = function(){
+	this.start = function() {
+		sessionStorage.wMode = true;
 		this.valueArray["ip"] = "192.168.56.103";
-		this.ip = this.valueArray["ip"]; 
-		//this.valueArray["ip"] = "52.14.247.195:8080";
+		this.ip = this.valueArray["ip"];
+		// this.valueArray["ip"] = "52.14.247.195:8080";
 		this.valueArray["newId"] = 0;
 		this.valueArray["onScrCount"] = 0;
 		this.nodeArray["winAndBar"] = new WinAndBarNode();
@@ -35,7 +36,7 @@ function GUI(guiVariableName) {
 		this.api.__proto__ = this;
 		this.controller = new Controller();
 		this.controller.__proto__ = this;
-		this.ws = new WebGUIWS(this.valueArray["ip"]+":8080");
+		this.ws = new GUIWebSocket(this.valueArray["ip"]);
 		this.gm = new GUIManager();
 		this.gm.__proto__ = this.controller;
 		this.gr = new GUIRepository(this.ws);
@@ -43,7 +44,7 @@ function GUI(guiVariableName) {
 		this.wm = new WindowManager();
 		this.wm.__proto__ = this.controller;
 		this.im = new IconManager();
-		this.im.__proto__ = this.controller; 
+		this.im.__proto__ = this.controller;
 		this.bm = new BarManager();
 		this.bm.__proto__ = this.controller;
 		this.ee = new EnumEngine();
@@ -54,7 +55,7 @@ function GUI(guiVariableName) {
 		this.pe.__proto__ = this.controller;
 		this.nm = new NodeManager();
 		this.nm.__proto__ = this.controller;
-		
+
 		this.eventListener = new EventListener();
 		this.eventListener.__proto__ = this.controller;
 		this.model = new Model();
@@ -83,7 +84,7 @@ function GUI(guiVariableName) {
 		this.initTaskbar();
 		this.initFileItem();
 	}
-	this.initBackground = function(){
+	this.initBackground = function() {
 		this.background = new Background();
 		this.background.guiName = this.guiName;
 		this.background.setTaskbarValues(this.taskbarValueArray);
@@ -94,20 +95,20 @@ function GUI(guiVariableName) {
 		this.tableWrapSelector = this.background.view.tableWrapSelector;
 		this.background.appendIconTd();
 	}
-	this.initBgContextMenu = function(){
+	this.initBgContextMenu = function() {
 		var contextMenuObj = new models.ContextMenu();
 		contextMenuObj.bgSelector = this.bgSelector;
 		contextMenuObj.tagId = "bgContextMenu";
 		this.bgContextMenu = contextMenuObj;
 	}
-	this.initIcon = function(){
-		for(ci=0; ci<this.iconDataList.length; ci++){
+	this.initIcon = function() {
+		for (ci = 0; ci < this.iconDataList.length; ci++) {
 			var tmpIcon = new Icon();
 			tmpIcon.contextPath = this.contextPath;
 			tmpIcon.guiName = this.guiName;
 			tmpIcon.tableWrapTag = this.tableWrapSelector;
 			tmpIcon.init(this.iconDataList[ci]);
-			this.iconCoordinate[tmpIcon.iconX+","+tmpIcon.iconY]=true;
+			this.iconCoordinate[tmpIcon.iconX + "," + tmpIcon.iconY] = true;
 			tmpIcon.view.iconTdBorderWidth = this.iconTdValueArray["iconTdBorderWidth"];
 			tmpIcon.view.iconTdBorderHeight = this.iconTdValueArray["iconTdBorderHeight"];
 			tmpIcon.view.getView();
@@ -118,8 +119,8 @@ function GUI(guiVariableName) {
 		}
 		this.iconTagIdRule = tmpIcon.tagIdRule;
 	}
-	this.reinitIcon = function(iconTdBorderWidth,iconTdBorderHeight){
-		for(ci=0; ci<this.iconDataList.length; ci++){
+	this.reinitIcon = function(iconTdBorderWidth, iconTdBorderHeight) {
+		for (ci = 0; ci < this.iconDataList.length; ci++) {
 			var tmpIcon = new Icon();
 			tmpIcon.contextPath = this.contextPath;
 			tmpIcon.guiName = this.guiName;
@@ -131,10 +132,10 @@ function GUI(guiVariableName) {
 			tmpIcon.appendIcon();
 		}
 	}
-	this.setIconTdValues = function(iconTdValueArray){
+	this.setIconTdValues = function(iconTdValueArray) {
 		this.iconTdValueArray = iconTdValueArray;
 	}
-	this.initTaskbar = function(){
+	this.initTaskbar = function() {
 		this.taskbar = new Taskbar();
 		this.taskbar.contextPath = this.contextPath;
 		this.taskbarTagId = "taskbar";
@@ -144,89 +145,92 @@ function GUI(guiVariableName) {
 		this.taskbar.appendTaskbar();
 		this.taskbarSelector = this.taskbar.view.taskbarSelector;
 	}
-	this.setIconDataList = function(iconDataList){
+	this.setIconDataList = function(iconDataList) {
 		this.iconDataList = iconDataList;
 	}
-	this.setIconTableValues = function(iconTableValueArray){
+	this.setIconTableValues = function(iconTableValueArray) {
 		this.iconTableValueArray = iconTableValueArray;
 	}
-	this.setContextPath = function(contextPath){
+	this.setContextPath = function(contextPath) {
 		this.contextPath = contextPath;
 	}
-	this.setContextURL = function(contextURL){
+	this.setContextURL = function(contextURL) {
 		this.contextURL = contextURL;
 	}
-	this.setTaskbarValues = function(taskbarValueArray){
+	this.setTaskbarValues = function(taskbarValueArray) {
 		this.taskbarValueArray = taskbarValueArray;
 	}
-	this.setWinCount = function(wincount){
-		if(wincount != "")
+	this.setWinCount = function(wincount) {
+		if (wincount != "")
 			this.winCount = parseInt(winCount)
 	}
 	this.setDesktopDataArray = function(desktopDataArray) {
 		this.desktopDataArray = desktopDataArray;
 	}
-	this.initFileItem = function(){
-		for(di=0; di<this.desktopDataArray.length; di++) {
+	this.initFileItem = function() {
+		for (di = 0; di < this.desktopDataArray.length; di++) {
 			var json = this.desktopDataArray[di];
 			this.fileItem[di] = new FileItem();
 			this.fileItem[di].setJSON(json);
 		}
-		//console.log(this.fileItem);
+		// console.log(this.fileItem);
 	}
-	this.restoreWinAndBar = function(winAndBarJSON) {//windowList,barList,windowInBarList)
-		if(winAndBarJSON != ""){
+	this.restoreWinAndBar = function(winAndBarJSON) {// windowList,barList,windowInBarList)
+		if (winAndBarJSON != "") {
 			winAndBarJSON = JSON.parse(winAndBarJSON);
 			var winAndBarArray = winAndBarJSON["winAndBar"];
-			if(winAndBarArray.length > 0){
+			if (winAndBarArray.length > 0) {
 				this.nodeArray["winAndBar"].winCount = this.winCount;
 				this.nodeArray["winAndBar"].barCount = winAndBarArray.length;
 				var tmpNode = new WinAndBarNode();
 				this.gr.restoreNodes(winAndBarArray);
 				this.gr.restoreWinOrder();
 			}
-			if(this.nodeArray["winAndBar"].barCount != 0)
-				this.valueArray["newId"] = this.nodeArray["winAndBar"].lastBar.bar.numId+1;
+			if (this.nodeArray["winAndBar"].barCount != 0)
+				this.valueArray["newId"] = this.nodeArray["winAndBar"].lastBar.bar.numId + 1;
 			else
 				this.valueArray["newId"] = 0;
 		}
 	}
-	this.iconTheme = function(iconThemeVals){
-		var view = this.background.view; 
+	this.iconTheme = function(iconThemeVals) {
+		var view = this.background.view;
 		var cls = new Icon().tagClass
 		var imgCls = new Icon().imgClass
-		var tmpWidth =  iconThemeVals["iconTdWidth"];
+		var tmpWidth = iconThemeVals["iconTdWidth"];
 		var tmpHeight = iconThemeVals["iconTdHeight"];
-		var tmpBWidth =  iconThemeVals["iconTdBorderWidth"];
+		var tmpBWidth = iconThemeVals["iconTdBorderWidth"];
 		var tmpBHeight = iconThemeVals["iconTdBorderHeight"];
 		var tmpColor = iconThemeVals["iconTdBorderColor"];
-		
-		view.tableTag.css("width",$(window).width()-view.iconTableLeftPadding);
-		view.tableTag.css("height",(view.guiHeight-view.iconTableTopPadding)+"px");
+
+		view.tableTag.css("width", $(window).width()
+				- view.iconTableLeftPadding);
+		view.tableTag.css("height", (view.guiHeight - view.iconTableTopPadding)
+				+ "px");
 		view.iconTdWidth = parseInt(tmpWidth);
 		view.iconTdHeight = parseInt(tmpHeight);
 		view.iconTdBorderWidth = parseInt(tmpBWidth);
 		view.iconTdBorderHeight = parseInt(tmpBHeight);
 		gui.background.resizeIconTd();
-		$(".iconTd").css("border-left",(tmpBWidth)+"px solid "+tmpColor);
-		$(".iconTd").css("border-right",(tmpBWidth)+"px solid "+tmpColor);
-		$(".iconTd").css("border-top",(tmpBHeight)+"px solid "+tmpColor);
-		$(".iconTd").css("border-bottom",(tmpBHeight)+"px solid "+tmpColor);
-		
-		for(ii=0; ii<gui.iconIdArray.length; ii++){
-			$("#"+gui.iconIdArray[ii]).remove();
+		$(".iconTd").css("border-left", (tmpBWidth) + "px solid " + tmpColor);
+		$(".iconTd").css("border-right", (tmpBWidth) + "px solid " + tmpColor);
+		$(".iconTd").css("border-top", (tmpBHeight) + "px solid " + tmpColor);
+		$(".iconTd")
+				.css("border-bottom", (tmpBHeight) + "px solid " + tmpColor);
+
+		for (ii = 0; ii < gui.iconIdArray.length; ii++) {
+			$("#" + gui.iconIdArray[ii]).remove();
 		}
-		gui.reinitIcon(tmpBWidth,tmpBHeight);
-		$("."+cls).css("width",tmpWidth);
-		$("."+cls).css("height",tmpHeight);
-		$("."+imgCls).css("width",tmpWidth);
-		$("."+imgCls).css("height",tmpHeight);
+		gui.reinitIcon(tmpBWidth, tmpBHeight);
+		$("." + cls).css("width", tmpWidth);
+		$("." + cls).css("height", tmpHeight);
+		$("." + imgCls).css("width", tmpWidth);
+		$("." + imgCls).css("height", tmpHeight);
 	}
-	this.changeIconTheme = function(tag){
-		if (event.keyCode == 13 || event.type =="blur") {
-			var iconThemeVals = [];	
+	this.changeIconTheme = function(tag) {
+		if (event.keyCode == 13 || event.type == "blur") {
+			var iconThemeVals = [];
 			var input = $(tag).parent().find("input")
-			iconThemeVals["iconTdWidth"] =  $(input[1]).val();
+			iconThemeVals["iconTdWidth"] = $(input[1]).val();
 			iconThemeVals["iconTdHeight"] = $(input[2]).val();
 			iconThemeVals["iconTdBorderWidth"] = $(input[3]).val();
 			iconThemeVals["iconTdBorderHeight"] = $(input[4]).val();
@@ -234,20 +238,20 @@ function GUI(guiVariableName) {
 			this.iconTheme(iconThemeVals);
 		}
 	}
-	this.restoreIconTheme = function(){
+	this.restoreIconTheme = function() {
 		this.iconTheme(this.iconTdValueArray);
 	}
-	this.resetIconTheme = function(){
+	this.resetIconTheme = function() {
 		var input = $("#iconThemeForm0").parent().find("input");
-		this.iconTdValueArray["iconTdWidth"] =  $(input[1]).val();
+		this.iconTdValueArray["iconTdWidth"] = $(input[1]).val();
 		this.iconTdValueArray["iconTdHeight"] = $(input[2]).val();
 		this.iconTdValueArray["iconTdBorderWidth"] = $(input[3]).val();
 		this.iconTdValueArray["iconTdBorderHeight"] = $(input[4]).val();
 		this.iconTdValueArray["iconTdBorderColor"] = $(input[5]).val();
 	}
-	this.length = function(array){
-		return array.filter(function( element ) {
-			   return element !== undefined;
-			}).length;
+	this.length = function(array) {
+		return array.filter(function(element) {
+			return element !== undefined;
+		}).length;
 	}
 }

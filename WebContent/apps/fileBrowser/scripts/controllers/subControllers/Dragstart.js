@@ -1,4 +1,4 @@
-function Dragstart(){
+fileBrowser.controllers.subControllers.Dragstart = function(){
 	this.fileItem = function(event){
 		this.setScriptTag(event.currentTarget);
 		if(this.ds.isWorking == false){
