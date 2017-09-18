@@ -1,6 +1,6 @@
 fileBrowser.controllers.DblClick = function() {
 	this.row = function(event) {
-		if (!this.ds.isWorking) {
+		if (!this.select.drag.isWorking) {
 			var tr = event.currentTarget;
 			var td = $(tr).find("td");
 			if (td.length) {

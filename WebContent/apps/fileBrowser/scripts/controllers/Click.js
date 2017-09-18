@@ -5,8 +5,12 @@ fileBrowser.controllers.Click = function() {
 	this.button = function(event) {
 		if(event.ctrlKey)
 			this.select.ctrl.choose(event);
-		else
+		else {
 			this.select.cancle();
+			var selector = $(event.target.parentNode);
+			if(selector.prop("tagName") == "TR")
+				$(event.target.parentNode).css("background-color","dimgray");
+		}
 	}
 	this.newFolder = function(event) {
 		this.fbm.send.newFolder();
@@ -37,7 +41,6 @@ fileBrowser.controllers.Click = function() {
 		}
 	}
 	this.downlaod = function(event) {
-
 		if (this.ds.isWorking)
 			this.va["selectedData"] = this.ds.fileList();
 		if (this.va["validation"] && this.va["selectedData"].length > 0

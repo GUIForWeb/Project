@@ -9,10 +9,14 @@ fileBrowser.subsystem.select.SelectEnd = function() {
 			} ];
 			this.tag["s"].css("background-color", "dimgray");
 		}
+		this.validation();
 	}
 	this.dataItems = function() {
-		console.log(this.va["data"]);
 		this.filter(this.va["selectedData"]);
-		console.log(this.va["selectedData"]);
+		this.validation();
+	}
+	this.validation = function() {
+		if(this.va["selectedData"].length != 0)
+			this.va["validation"] = true;
 	}
 }

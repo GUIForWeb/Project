@@ -1,8 +1,8 @@
 fileBrowser.controllers.Mouseout = function() {
 	this.row = function(event) {
-		if (!this.select.drag.isWorking && !this.select.contextmenu.isWorking && !this.contextMenu.isOnTheScreen) {
+		if (!this.select.drag.isWorking && !this.select.ctrl.isWorking && !this.contextMenu.isOnTheScreen) {
 			var tmpClass = this.cssTag["s"].attr("class");
-			if (tmpClass.includes("fileItem") || tmpClass.includes("parent")) {
+			if (tmpClass.includes("dataItem") || tmpClass.includes("parent")) {
 				this.cssTag["s"].css("background-color", "white");
 			}
 		}

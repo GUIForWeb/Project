@@ -1,7 +1,7 @@
 fileBrowser.controllers.subControllers.Dragstart = function(){
 	this.dataItem = function(event){
 		this.setScriptTag(event.currentTarget);
-		if(this.ds.isWorking == false){
+		if(this.select.drag.isWorking == false){
 			this.va["selectedData"] =[{"name":this.tag["t"].children[0].innerHTML,"type":this.tag["t"].children[2].innerHTML}];
 			if(this.tag["t"].children[0].innerHTML != "..")
 				this.va["validation"] = true;
