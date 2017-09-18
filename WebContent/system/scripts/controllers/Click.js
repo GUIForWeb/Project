@@ -38,7 +38,6 @@ guiLib.controllers.Click = function() {
 	}
 	this.content = function(event) {
 		var winTag = event.currentTarget.parentNode;
-		;
 		var zIndex = winTag.style.zIndex;
 		this.gm.moveWinToTop(winTag);
 		this.gr.moveWinToTop(zIndex);

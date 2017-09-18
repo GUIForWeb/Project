@@ -1,4 +1,5 @@
 var Click = fileBrowser.controllers.Click;
+var ContextMenu = fileBrowser.controllers.ContextMenu;
 var Controller = fileBrowser.controllers.Controller;
 var DblClick = fileBrowser.controllers.DblClick;
 var Drag = fileBrowser.controllers.Drag;
@@ -29,8 +30,11 @@ var IntSort = fileBrowser.subsystem.fileSorts.IntSort;
 var StringSort = fileBrowser.subsystem.fileSorts.StringSort;
 
 var subsystem = fileBrowser.subsystem;
-var CtrlSelect = fileBrowser.subsystem.CtrlSelect;
-var DragSelect = fileBrowser.subsystem.DragSelect;
+var Select = fileBrowser.subsystem.Select;
+var ContextMenuSelect = fileBrowser.subsystem.select.ContextMenuSelect;
+var DragSelect = fileBrowser.subsystem.select.DragSelect;
+var CtrlSelect = fileBrowser.subsystem.select.CtrlSelect;
+var SelectEnd = fileBrowser.subsystem.select.SelectEnd;
 var FBManager = fileBrowser.subsystem.FBManager;
 var FBReceiver = fileBrowser.subsystem.FBReceiver;
 var FBSender = fileBrowser.subsystem.FBSender;

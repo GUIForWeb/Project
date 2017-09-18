@@ -1,5 +1,5 @@
 fileBrowser.controllers.subControllers.Dragstart = function(){
-	this.fileItem = function(event){
+	this.dataItem = function(event){
 		this.setScriptTag(event.currentTarget);
 		if(this.ds.isWorking == false){
 			this.va["selectedData"] =[{"name":this.tag["t"].children[0].innerHTML,"type":this.tag["t"].children[2].innerHTML}];
@@ -16,6 +16,10 @@ fileBrowser.controllers.subControllers.Dragstart = function(){
 		this.va["fileItem"] = true;
 	}
 	this.selection = function(event){
-		this.ds.start(event);
+		if (event.ctrlKey)
+			this.select.drag.ctrlKey = true;
+		else
+			this.select.drag.ctrlKey = false;
+			this.select.drag.start(event);
 	}
 }

@@ -119,7 +119,8 @@ guiLib.subsystem.GUIRepository = function() {
 			"prevOHeight" : parseInt(win.view.prevOHeight),
 			"prevOLeft" : parseInt(win.view.prevOLeft),
 			"prevOTop" : parseInt(win.view.prevOTop),
-			"zIndex" : win.view.zIndex
+			"zIndex" : win.view.zIndex,
+			"contentURL" : win.view.contentURL
 		};
 	}
 

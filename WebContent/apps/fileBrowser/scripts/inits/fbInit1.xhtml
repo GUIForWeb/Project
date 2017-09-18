@@ -12,9 +12,6 @@
 	else {
 		taskArray = [];
 		taskArray["fileBrowser"] = [];
-		console.log("Yo");
-		console.log("#{serverName}");
-		console.log("#{contextPath}");
 		taskArray["fileBrowser"][fbId] = new FileBrowser(fbId);
 		taskArray["fileBrowser"][fbId].ws = new GUIWebSocket("#{serverName}");
 		taskArray["fileBrowser"][fbId].ip = "#{serverName}";

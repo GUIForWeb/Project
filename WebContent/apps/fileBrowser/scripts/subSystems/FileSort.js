@@ -10,7 +10,7 @@ fileBrowser.subsystem.FileSort = function() {
 		for(i=0; i<this.va["data"].length; i++) {
 			var tmpTr = $("<tr></tr>");
 			tmpTr.addClass("fb-table-row");
-			tmpTr.addClass("fileItem");
+			tmpTr.addClass("dataItem");
 			var tmpTd0 = $("<td>"+this.va["data"][i]["name"]+"</td>");
 			var tmpTd1 = $("<td>"+this.va["data"][i]["dateModified"]+"</td>");
 			var tmpTd2 = $("<td>"+this.va["data"][i]["type"]+"</td>");
@@ -19,6 +19,8 @@ fileBrowser.subsystem.FileSort = function() {
 			tmpTr.append(tmpTd1);
 			tmpTr.append(tmpTd2);
 			tmpTr.append(tmpTd3);
+			this.va["data"][i].isChosen = false;
+			this.va["data"][i].isChangeable = true;
 			if(this.va["data"][i]["type"] == "directory"){
 				tmpTr.css("color","#ffbf00");
 			}

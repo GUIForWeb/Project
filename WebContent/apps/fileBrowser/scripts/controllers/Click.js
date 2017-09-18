@@ -2,45 +2,11 @@ fileBrowser.controllers.Click = function() {
 	this.x = function(event) {
 		this.fbm.send.x();
 	}
-	this.eButton = function(event) {
-		if (this.contextMenu.isOnTheScreen) {
-			this.contextMenu.remove();
-			this.contextMenu.isOnTheScreen = false;
-			this.fbTable.find("tr").css("background-color", "white");
-			this.va["selectedData"] = null;
-		}
-		if (this.ds.isWorking == true) {
-			this.ds.cancle();
-		}
-		if (event.ctrlKey) {
-			this.cs.isWorking = true;
-			this.cs.choose(event);
-			this.cs.bgColor(event)
-		} else {
-			this.cs.cancle();
-		}
-	}
-	this.cButton = function(event) {
-		if (!this.contextMenu.isOnTheScreen) {
-			this.contextMenu.isOnTheScreen = true;
-			this.setScriptTag(event.currentTarget);
-			this.contextMenu.appendContextMenu();
-			if (this.ds.isWorking == false && this.cs.isWorking == false) {
-				if (this.tag["s"].prop("tagName") == "TR") {
-					this.va["selectedData"] = [ {
-						"name" : this.tag["t"].children[0].innerHTML,
-						"type" : this.tag["t"].children[2].innerHTML
-					} ];
-					this.tag["s"].css("background-color", "dimgray");
-					if (this.tag["t"].children[0].innerHTML != "..")
-						this.va["validation"] = true;
-					else
-						this.va["validation"] = false;
-				}
-			} else if (this.ds.isWorking == true || this.cs.isWorking == true) {
-				this.va["validation"] = true;
-			}
-		}
+	this.button = function(event) {
+		if(event.ctrlKey)
+			this.select.ctrl.choose(event);
+		else
+			this.select.cancle();
 	}
 	this.newFolder = function(event) {
 		this.fbm.send.newFolder();
@@ -95,5 +61,17 @@ fileBrowser.controllers.Click = function() {
 	this.paste = function() {
 		this.fbm.send.paste();
 		this.contextMenu.removeContextMenu();
+	}
+	this.nameHead = function(){
+		this.fs.string.sort("name");
+	}
+	this.dateHead = function() {
+		this.fs.date.sort("dateModified");
+	}
+	this.typeHead = function() {
+		this.fs.string.sort("type");
+	}
+	this.sizeHead = function() {
+		this.fs.int.sort("size");
 	}
 }

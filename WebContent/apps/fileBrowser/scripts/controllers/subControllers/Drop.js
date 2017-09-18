@@ -1,5 +1,6 @@
 fileBrowser.controllers.subControllers.Drop = function() {
-	this.fileItem = function(event) {
+	this.dataItem = function(event) {
+		/*
 		if (!this.ds.isWorking && this.va["dropable"] && this.va["fileItem"]) {
 			this.fbm.send.paste();
 			this.va["dropable"] = false;
@@ -11,5 +12,6 @@ fileBrowser.controllers.subControllers.Drop = function() {
 			this.fbm.send.upload();
 			this.va["dropable"] = false;
 		}
+		*/
 	}
 }

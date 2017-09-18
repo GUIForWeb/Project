@@ -23,6 +23,8 @@ function FileBrowser(id){
 		this.dblclick.__proto__ = this.controller;
 		this.click = new Click();
 		this.click.__proto__ = this.controller;
+		this.contextmenu = new ContextMenu();
+		this.contextmenu.__proto__ = this.controller;	
 		this.dragstart = new Dragstart();
 		this.dragstart.__proto__ = this.controller;
 		this.drag = new Drag();
@@ -33,10 +35,16 @@ function FileBrowser(id){
 		this.dragend.__proto__ = this.controller;
 		this.dragover = new Dragover(); 
 		this.dragover.__proto__ = this.controller;
+		this.select = new Select();
+		this.select.__proto__ = this.controller;
+		/*
+		this.ks = new ClickSelect();
+		this.ks.__proto__ = this.controller;
 		this.ds = new DragSelect();
 		this.ds.__proto__ = this.controller;
 		this.cs = new CtrlSelect();
-		this.cs.__proto__ = this.controller; 
+		this.cs.__proto__ = this.controller;
+		*/
 		this.fbm = new FBManager();
 		this.fbm.__proto__ = this.controller;
 		this.fws = new FileWebSocket(this.ip+":8081");
@@ -68,20 +76,20 @@ function FileBrowser(id){
 		var id = this.id;
 		
 		this.section.click(function(event){
-			taskArray['fileBrowser'][id].click.eButton(event);
+			taskArray['fileBrowser'][id].click.button(event);
 		});
 		this.fbTable.on("dragover",function(event){
-			taskArray['fileBrowser'][id].drag.over.fileItem(event);
+			taskArray['fileBrowser'][id].drag.over.dataItem(event);
 		});
 		this.fbTable.on("drop",function(event){
-			taskArray['fileBrowser'][id].drag.drop.fileItem(event);
+			taskArray['fileBrowser'][id].drag.drop.dataItem(event);
 		});
 		var tr = this.fbTable.find("tr"); 
 		tr.dblclick(function(event){
 			taskArray['fileBrowser'][id].dblclick.row(event);
 		});
 		tr.contextmenu(function(event){
-			taskArray['fileBrowser'][id].click.cButton(event);
+			taskArray['fileBrowser'][id].contextmenu.button(event);
 		});
 		tr.mouseover(function(event){
 			taskArray['fileBrowser'][id].mouseover.row(event);
@@ -90,7 +98,7 @@ function FileBrowser(id){
 			taskArray['fileBrowser'][id].mouseout.row(event);
 		});
 		tr.on("dragstart",function(event){
-			taskArray['fileBrowser'][id].drag.start.fileItem(event)
+			taskArray['fileBrowser'][id].drag.start.dataItem(event)
 		});
 		
 		tr.attr("draggable","true");
@@ -114,16 +122,16 @@ function FileBrowser(id){
 		this.typeHead = $(thS[2]);
 		this.sizeHead = $(thS[3]);
 		this.nameHead.click(function(){
-			taskArray["fileBrowser"][id].fs.string.sort("name");
+			taskArray["fileBrowser"][id].click.nameHead();
 		});
 		this.dateHead.click(function(){
-			taskArray["fileBrowser"][id].fs.date.sort("dateModified");
+			taskArray["fileBrowser"][id].click.dateHead();
 		});
 		this.typeHead.click(function(){
-			taskArray["fileBrowser"][id].fs.string.sort("type");
+			taskArray["fileBrowser"][id].click.typeHead();
 		});
 		this.sizeHead.click(function(){
-			taskArray["fileBrowser"][id].fs.int.sort("size");
+			taskArray["fileBrowser"][id].click.sizeHead();
 		});
 		if(sessionStorage.wMode !== undefined)
 			this.appendFunctionForWMode();

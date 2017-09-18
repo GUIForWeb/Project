@@ -21,8 +21,9 @@ guiLib.subsystem.WindowManager = function() {
 		tmpNode.win.bgSelector = this.bgSelector;
 		tmpNode.win.view.setDefaultValues(this.winDefaultValueArray);
 		tmpNode.win.view.zIndex = zIndex;
-		tmpNode.win.content = this.form.getData(this.contextPath
+		tmpNode.win.content = this.request.getData(this.contextPath
 				+ iconObj.contentURL);
+		tmpNode.win.contentURL = iconObj.contentURL;
 		tmpNode.win.init(this.valueArray["newId"]);
 		tmpNode.win.appendWindow();
 
@@ -32,7 +33,7 @@ guiLib.subsystem.WindowManager = function() {
 			var data = {};
 			data.id = parseInt(content.find(".id").val());
 			var func = content.find(".xWin").val();
-			data.func = this.form.getData(this.contextPath + func);
+			data.func = this.request.getData(this.contextPath + func);
 			tmpNode.win.addEvent("x", data);
 		}
 		this.nodeArray["winAndBar"].winCount += 1;

@@ -76,8 +76,8 @@ function GUI(guiVariableName) {
 		this.mouseout.__proto__ = this.controller;
 		this.resize = new Resize();
 		this.resize.__proto__ = this.controller;
-		this.form = new Form();
-		this.form.__proto__ = this.controller;
+		this.request = new GUIXMLHttpRequest();
+		this.request.__proto__ = this.controller;
 		this.initBackground();
 		this.initBgContextMenu();
 		this.initIcon();

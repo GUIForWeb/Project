@@ -1,5 +1,5 @@
 fileBrowser.controllers.subControllers.Dragover = function(){
-	this.fileItem = function(event){
+	this.dataItem = function(event){
 		event.preventDefault();
 		this.va["dropable"] = true;
 	}

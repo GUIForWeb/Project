@@ -1,6 +1,7 @@
 var fileBrowser = {};
 fileBrowser.models = {};
 fileBrowser.subsystem = {};
+fileBrowser.subsystem.select = {};
 fileBrowser.subsystem.fileSorts = {};
 fileBrowser.controllers = {}
 fileBrowser.controllers.subControllers = {}

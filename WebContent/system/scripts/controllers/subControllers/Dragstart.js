@@ -1,6 +1,12 @@
 guiLib.controllers.subControllers.Dragstart = function() {
 	this.head = function(event) {
 		var winTag = event.currentTarget.parentNode.parentNode;
-		this.gm.moveWinToTop(winTag);
+		var winAndBarNode = this.gm.moveWinToTop(winTag);
+		var url = window.location.href.split(this.contextPath)[0];
+		url += this.contextPath + winAndBarNode.win.contentURL;
+		if(event.originalEvent.dataTransfer)
+			event.originalEvent.dataTransfer.setData("text/uri-list", url);
+		else(event.dataTransfer)
+			event.dataTransfer.setData("text/uri-list", url);
 	}
 }
