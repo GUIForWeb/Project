@@ -254,4 +254,20 @@ function GUI(guiVariableName) {
 			return element !== undefined;
 		}).length;
 	}
+	this.getWinInfo = function(section) {
+		var cOfWindow = section.parent();
+		var window = cOfWindow.parent();
+		var winAndBarNode = this.nm.getNodeWithWinTag(window[0]);
+		var win = winAndBarNode.win;
+		
+		var json = {
+			"id":win.numId,
+			"window":window,
+			"content":cOfWindow,
+			"x":win.view.xButtonSelector,
+			"m":win.view.movementHandleSelector
+		};
+		
+		return json;
+	}
 }

@@ -1,7 +1,4 @@
 fileBrowser.controllers.Click = function() {
-	this.x = function(event) {
-		this.fbm.send.x();
-	}
 	this.button = function(event) {
 		if(event.ctrlKey)
 			this.select.ctrl.choose(event);

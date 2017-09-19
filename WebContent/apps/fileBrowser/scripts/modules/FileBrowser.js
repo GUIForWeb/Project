@@ -7,14 +7,25 @@ function FileBrowser(id){
 	}
 	this.InitForWMode = function() {
 		this.api = new API();
-		this.cOfWindow = this.section.parent();
-		this.window = this.cOfWindow.parent();
-		this.x = this.window.children("#hOfwindow"+this.id).children("#xBOfwindow"+this.id);
+		var winInfo = gui.getWinInfo(this.section)
+		this.cOfWindow = winInfo.content;
+		this.window = winInfo.window;
+		this.winId = winInfo.id;
+		this.x = winInfo.x;
+		this.m = winInfo.m;
+		var path = this.path;
+		this.m.bind("dragstart",function(event){
+			var url = event.originalEvent.dataTransfer.getData("text/uri-list");
+			url += "?path="+encodeURIComponent(path.val());
+			if(event.originalEvent.dataTransfer !== undefined){
+				event.originalEvent.dataTransfer.setData("text/uri-list", url);
+			}
+			else if(event.dataTransfer !== undefined)
+				event.dataTransfer.setData("text/uri-list", url);
+		});
 	}
 	this.appendFunctionForWMode = function() {
-		this.x.click(function(event){
-			taskArray['fileBrowser'][id].click.x(event);
-		});
+		var id = this.id;
 	}
 	this.init = function() {
 		this.controller = new Controller();
@@ -134,8 +145,9 @@ function FileBrowser(id){
 		this.sizeHead.click(function(){
 			taskArray["fileBrowser"][id].click.sizeHead();
 		});
-		if(sessionStorage.wMode !== undefined)
+		if(sessionStorage.wMode !== undefined){
 			this.appendFunctionForWMode();
+		}
 		else {
 			this.section.height(window.innerHeight - this.footer.height());
 			this.fbm.send.isNotInWindow();

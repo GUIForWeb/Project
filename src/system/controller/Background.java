@@ -1,5 +1,7 @@
 package system.controller;
 
+import java.io.File;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
@@ -38,7 +40,7 @@ public class Background extends Controller {
 		this.user.setId(1);
 		this.user.setEmail("admin");
 		this.user.setRole("admin");
-		
+
 		this.desktop = this.context.getRealPath(".").replace(this.contextPath.substring(1), "");
 		this.desktop += "driver/home/" + this.user.getEmail() + "/Desktop";
 		this.session.setAttribute("User",this.user);
@@ -72,6 +74,10 @@ public class Background extends Controller {
 			iconsInOSDAO.load();
 			IconDAO iconDAO = new IconDAOMySQL(iconsInOSDAO.getIconsInOSList());
 			iconDAO.load();
+			
+			File file = new File(this.desktop);
+			if(!file.exists())
+				file.mkdir();
 			
 			DataItemDAO desktopItemDAO = new DataItemDAO();
 			desktopItemDAO.setFilePath(this.desktop);

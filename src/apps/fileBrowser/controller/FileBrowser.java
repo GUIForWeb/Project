@@ -12,18 +12,19 @@ import apps.fileBrowser.module.FBManager;
 @Named
 @RequestScoped
 public class FileBrowser extends Application{
-	private String root;
 	private FBManager fbm;
 	private Part file;
 	public FileBrowser() {
 		this.fbm = new FBManager();
-		this.root = this.context.getRealPath(".").replace(this.contextPath.substring(1), "");
-		this.root += "driver/home/" + this.user.getEmail();
-		this.fbm.setRoot(this.root);
+		String root = this.context.getRealPath(".").replace(this.contextPath.substring(1), "");
+		root += "driver/home/" + this.user.getEmail();
+		this.fbm.setRoot(root);
 		this.fbm.setSession(this.session);
-	}
-	public void start() {
-		this.fbm.newFB();
+		String path = this.externalContext.getRequestParameterMap().get("path");
+		if(null == path)
+			this.fbm.newFB();
+		else
+			this.fbm.newFBFrom(path);
 	}
 	public void upload(){
 		System.out.println("upload");

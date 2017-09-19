@@ -383,18 +383,6 @@ public class FBManager {
 		}
 	}
 
-	public void newFB() {
-		this.setNewId();
-		Browser tmpBrowser = new Browser();
-		tmpBrowser.setId(this.id);
-		tmpBrowser.setPath(this.root);
-		this.browserList.add(tmpBrowser);
-		this.dataItemDAO.setFilePath(this.root);
-		this.dataItemArray = this.dataItemDAO.getDataItemArray();
-		this.setSession();
-		this.session.setAttribute("root", this.root);
-	}
-
 	public void newFolder() {
 		String name = "New Folder";
 		File newFolder = new File(this.path + "/" + name);
@@ -435,6 +423,7 @@ public class FBManager {
 				else
 					this.path = b.getCanonicalPath();
 			} catch (IOException e) {
+				this.path = this.root;
 				e.printStackTrace();
 			}
 			this.browser.setPath(this.path);
@@ -445,7 +434,47 @@ public class FBManager {
 			// file process
 		}
 	}
-
+	
+	public void newFBFrom(String path) {
+		this.setNewId();
+		System.out.println(path);
+		Browser tmpBrowser = new Browser();
+		tmpBrowser.setId(this.id);
+		tmpBrowser.setPath(this.root);
+		this.browserList.add(tmpBrowser);
+		this.path = this.root+path;
+		File b = new File("", this.path);
+		try {
+			if(!b.getCanonicalPath().contains(this.root))
+				this.path = this.root;
+			else
+				this.path = b.getCanonicalPath();
+			b = new File("", this.path);
+		} catch (IOException e) {
+			this.path = this.root;
+			e.printStackTrace();
+		}
+		if(!b.exists())
+			this.path = this.root;
+		tmpBrowser.setPath(this.path);
+		this.dataItemDAO.setFilePath(this.path);
+		this.dataItemArray = this.dataItemDAO.getDataItemArray();
+		this.setSession();
+		this.session.setAttribute("root", this.root);
+	}
+	
+	public void newFB() {
+		this.setNewId();
+		Browser tmpBrowser = new Browser();
+		tmpBrowser.setId(this.id);
+		tmpBrowser.setPath(this.root);
+		this.browserList.add(tmpBrowser);
+		this.dataItemDAO.setFilePath(this.root);
+		this.dataItemArray = this.dataItemDAO.getDataItemArray();
+		this.setSession();
+		this.session.setAttribute("root", this.root);
+	}
+	
 	public JSONObject getJson() {
 		return json;
 	}
