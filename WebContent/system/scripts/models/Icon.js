@@ -5,37 +5,29 @@ guiLib.models.Icon = function(){
 	this.tagClass = "iconDiv";
 	this.imgClass = "iconImg";
 	this.guiId = 0;
-	this.numId = 0;
+	this.id = 0;
 	this.tagId = "";
-	this.iconX = 0;
-	this.iconY = 0;
 	this.iconTypeId = 0;
 	this.iconType = "";
 	this.img = "";
 	this.name = "";
 	this.contentURL = "";
 	this.view = new IconView(this);
-	this.init = function(iconMap){
-		this.numId = iconMap["iconNumId"];
-		this.tagId = this.tagIdRule + this.numId;
-		this.iconX = iconMap["iconX"];
-		this.iconY = iconMap["iconY"];
-		this.iconTypeId = iconMap["iconTypeId"];
-		this.iconType = iconMap["iconType"];
-		this.name = iconMap["name"];
-		this.contentURL = iconMap["contentURL"];
-		this.iconURL = iconMap["iconURL"];
+	this.init = function(iconJSON){
+		this.id = iconJSON.id;
+		this.tagId = this.tagIdRule + this.id;
+		this.x = iconJSON.x;
+		this.y = iconJSON.y;
+		this.iconTypeId = iconJSON.iconTypeId;
+		this.iconType = iconJSON.iconType;
+		this.name = iconJSON.name;
+		this.contentURL = iconJSON.contentURL;
+		this.iconURL = iconJSON.iconURL;
 	}
 	this.appendIcon = function(){
-		this.tableWrapTag.append(this.view.iconSelector);
-		var offset = this.getIconTdTag(this.iconX,this.iconY).offset();
-		this.view.iconOLeft = offset.left + (this.view.iconTdBorderWidth/2);
-		this.view.iconOTop = offset.top + (this.view.iconTdBorderHeight/2);
-		this.view.iconSelector.offset({
-			left: this.view.iconOLeft,
-			top: this.view.iconOTop
-		});
+		this.selector = this.view.iconSelector;
 		this.tag = this.view.iconSelector[0];
+		this.getIconTdSelector(this.x,this.y).append(this.selector);
 	}
 }
 

@@ -3,35 +3,35 @@ package system.model;
 import org.json.JSONObject;
 
 public class IconInOS{
-	private int iconId;
+	private int id;
 	private int osId;
-	private int iconX;
-	private int iconY;
+	private int x;
+	private int y;
 	public IconInOS() {
 		
 	}
 	public IconInOS(JSONObject json){
-		this.iconId = json.getInt("iconNumId");
-		this.iconX = json.getInt("iconX");
-		this.iconY = json.getInt("iconY");
+		this.id = json.getInt("id");
+		this.x = json.getInt("x");
+		this.y = json.getInt("y");
 	}
-	public int getIconX() {
-		return iconX;
+	public int getX() {
+		return x;
 	}
-	public void setIconX(int iconX) {
-		this.iconX = iconX;
+	public void setX(int x) {
+		this.x = x;
 	}
-	public int getIconY() {
-		return iconY;
+	public int getY() {
+		return y;
 	}
-	public void setIconY(int iconY) {
-		this.iconY = iconY;
+	public void setY(int y) {
+		this.y = y;
 	}
-	public int getIconId() {
-		return iconId;
+	public int getId() {
+		return id;
 	}
-	public void setIconId(int iconId) {
-		this.iconId = iconId;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public int getOSId() {
 		return osId;
@@ -43,10 +43,10 @@ public class IconInOS{
 	public String toString()
 	{
 		String str = "";
-		str += "(Icon ID = " + this.iconId + ", ";
+		str += "(Icon ID = " + this.id + ", ";
 		str += "OS ID = " + this.osId + ", ";
-		str += "iconX = " + this.iconX + ", ";
-		str += "iconY = " + this.iconY + ")";
+		str += "iconX = " + this.x + ", ";
+		str += "iconY = " + this.y + ")";
 		return str;
 	}
 }

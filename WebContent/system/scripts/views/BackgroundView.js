@@ -34,6 +34,12 @@ guiLib.views.BackgroundView = function(background) {
 		var tmpTag = $("<td></td>");
 		tmpTag.attr("id", this.getIconTdTagId(x, y));
 		tmpTag.addClass(background.iconTdTagClass);
+		tmpTag.on("drop",function(event){
+			gui.drop.icon(event);
+		});
+		tmpTag.on("dragover",function(event){
+			gui.drag.over.icon();
+		});
 		return tmpTag;
 	}
 	this.getView = function() {

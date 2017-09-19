@@ -5,4 +5,6 @@ guiLib.controllers.Drag = function() {
 	this.ing.__proto__ = this;
 	this.end = new Dragend();
 	this.end.__proto__ = this;
+	this.over = new Dragover();
+	this.over.__proto__ = this;
 }

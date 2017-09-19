@@ -37,10 +37,10 @@ public class IconsInOSDAOMySQL implements IconsInOSDAO{
 	public void updateXY(IconInOS iconInOS){
 		String query = "UPDATE iconsinos_t SET iconX=?, iconY=? WHERE os_id = ? AND icon_id = ?";
 		String[] info = new String[4];
-		info[0] = String.valueOf(iconInOS.getIconX());
-		info[1] = String.valueOf(iconInOS.getIconY());
+		info[0] = String.valueOf(iconInOS.getX());
+		info[1] = String.valueOf(iconInOS.getY());
 		info[2] = String.valueOf(iconInOS.getOSId());
-		info[3] = String.valueOf(iconInOS.getIconId());
+		info[3] = String.valueOf(iconInOS.getId());
 		this.db.connect();
 		this.db.update(query,info);
 		this.db.close();
@@ -58,9 +58,9 @@ public class IconsInOSDAOMySQL implements IconsInOSDAO{
 			while(this.rset.next()){
 				tmpUserIcon = new IconInOS();
 				tmpUserIcon.setOSId(this.rset.getInt("os_id"));
-				tmpUserIcon.setIconId(this.rset.getInt("icon_id"));
-				tmpUserIcon.setIconX(this.rset.getInt("iconX"));
-				tmpUserIcon.setIconY(this.rset.getInt("iconY"));
+				tmpUserIcon.setId(this.rset.getInt("icon_id"));
+				tmpUserIcon.setX(this.rset.getInt("iconX"));
+				tmpUserIcon.setY(this.rset.getInt("iconY"));
 				this.iconsInOSList.add(tmpUserIcon);
 			}
 		} catch (SQLException e) {

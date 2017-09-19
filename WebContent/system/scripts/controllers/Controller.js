@@ -11,4 +11,9 @@ guiLib.controllers.Controller = function() {
 	this.getIconTdTagId = function(x, y) {
 		return this.model.getIconTdTagId(x, y);
 	}
+	this.getIconTdXY = function(tag){
+		var xy = tag.id.replace("iconTdX","");
+		xy = xy.split("Y");
+		return {"x":xy[0],"y":xy[1]};
+	}
 }

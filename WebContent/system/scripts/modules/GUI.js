@@ -19,8 +19,34 @@ function GUI(guiVariableName) {
 	this.iconDataList = null;
 	this.barTagIdRule = new Bar().tagIdRule;
 	this.winTagIdRule = new Window().tagIdRule;
-	this.fileItem = [];
+	this.dataItem = [];
 	this.init = function() {
+	}
+	this.initDesktopDataItems = function() {
+		for (di = 0; di < this.desktopDataArray.length; di++) {
+			var json = this.desktopDataArray[di];
+			this.dataItem[di] = new DataItem();
+			this.dataItem[di].setJSON(json);
+		}
+		/*
+		console.log(this.iconCoordinate);
+		console.log(this.dataItem);
+		console.log(this.iconArray);
+		console.log(this.iconIdArray);
+		*/
+	}
+	this.initIcon = function() {
+		for (ci = 0; ci < this.iconJSONArray.length; ci++) {
+			var tmpIcon = new Icon();
+			tmpIcon.contextPath = this.contextPath;
+			tmpIcon.init(this.iconJSONArray[ci]);
+			this.iconCoordinate[tmpIcon.x + "," + tmpIcon.y] = true;
+			tmpIcon.view.iconTdBorderWidth = this.iconTdValueArray["iconTdBorderWidth"];
+			tmpIcon.view.iconTdBorderHeight = this.iconTdValueArray["iconTdBorderHeight"];
+			tmpIcon.view.getView();
+			tmpIcon.appendIcon();
+		}
+		this.iconTagIdRule = tmpIcon.tagIdRule;
 	}
 	this.start = function() {
 		sessionStorage.wMode = true;
@@ -70,6 +96,8 @@ function GUI(guiVariableName) {
 		this.contextmenu.__proto__ = this.controller;
 		this.drag = new Drag();
 		this.drag.__proto__ = this.controller;
+		this.drop = new Drop();
+		this.drop.__proto__ = this.controller;
 		this.mouseover = new Mouseover();
 		this.mouseover.__proto__ = this.controller;
 		this.mouseout = new Mouseout();
@@ -82,7 +110,7 @@ function GUI(guiVariableName) {
 		this.initBgContextMenu();
 		this.initIcon();
 		this.initTaskbar();
-		this.initFileItem();
+		this.initDesktopDataItems();
 	}
 	this.initBackground = function() {
 		this.background = new Background();
@@ -100,24 +128,6 @@ function GUI(guiVariableName) {
 		contextMenuObj.bgSelector = this.bgSelector;
 		contextMenuObj.tagId = "bgContextMenu";
 		this.bgContextMenu = contextMenuObj;
-	}
-	this.initIcon = function() {
-		for (ci = 0; ci < this.iconDataList.length; ci++) {
-			var tmpIcon = new Icon();
-			tmpIcon.contextPath = this.contextPath;
-			tmpIcon.guiName = this.guiName;
-			tmpIcon.tableWrapTag = this.tableWrapSelector;
-			tmpIcon.init(this.iconDataList[ci]);
-			this.iconCoordinate[tmpIcon.iconX + "," + tmpIcon.iconY] = true;
-			tmpIcon.view.iconTdBorderWidth = this.iconTdValueArray["iconTdBorderWidth"];
-			tmpIcon.view.iconTdBorderHeight = this.iconTdValueArray["iconTdBorderHeight"];
-			tmpIcon.view.getView();
-			tmpIcon.appendIcon();
-			this.iconArray[tmpIcon.tagId] = tmpIcon;
-			this.iconArray[tmpIcon.name] = this.iconArray[tmpIcon.tagId];
-			this.iconIdArray[this.iconIdArray.length] = tmpIcon.tagId;
-		}
-		this.iconTagIdRule = tmpIcon.tagIdRule;
 	}
 	this.reinitIcon = function(iconTdBorderWidth, iconTdBorderHeight) {
 		for (ci = 0; ci < this.iconDataList.length; ci++) {
@@ -145,8 +155,8 @@ function GUI(guiVariableName) {
 		this.taskbar.appendTaskbar();
 		this.taskbarSelector = this.taskbar.view.taskbarSelector;
 	}
-	this.setIconDataList = function(iconDataList) {
-		this.iconDataList = iconDataList;
+	this.setIconJSONArray = function(iconJSONArray) {
+		this.iconJSONArray = iconJSONArray;
 	}
 	this.setIconTableValues = function(iconTableValueArray) {
 		this.iconTableValueArray = iconTableValueArray;
@@ -166,14 +176,6 @@ function GUI(guiVariableName) {
 	}
 	this.setDesktopDataArray = function(desktopDataArray) {
 		this.desktopDataArray = desktopDataArray;
-	}
-	this.initFileItem = function() {
-		for (di = 0; di < this.desktopDataArray.length; di++) {
-			var json = this.desktopDataArray[di];
-			this.fileItem[di] = new FileItem();
-			this.fileItem[di].setJSON(json);
-		}
-		// console.log(this.fileItem);
 	}
 	this.restoreWinAndBar = function(winAndBarJSON) {// windowList,barList,windowInBarList)
 		if (winAndBarJSON != "") {
@@ -259,15 +261,15 @@ function GUI(guiVariableName) {
 		var window = cOfWindow.parent();
 		var winAndBarNode = this.nm.getNodeWithWinTag(window[0]);
 		var win = winAndBarNode.win;
-		
+
 		var json = {
-			"id":win.numId,
-			"window":window,
-			"content":cOfWindow,
-			"x":win.view.xButtonSelector,
-			"m":win.view.movementHandleSelector
+			"id" : win.numId,
+			"window" : window,
+			"content" : cOfWindow,
+			"x" : win.view.xButtonSelector,
+			"m" : win.view.movementHandleSelector
 		};
-		
+
 		return json;
 	}
 }

@@ -2,7 +2,7 @@ var models = guiLib.models
 var Background = guiLib.models.Background;
 var Bar = guiLib.models.Bar;
 var ContextMenu = guiLib.models.ContextMenu;
-var FileItem = guiLib.models.FileItem;
+var DataItem = guiLib.models.DataItem;
 var Icon = guiLib.models.Icon;
 var Model = guiLib.models.Model;
 var Taskbar = guiLib.models.Taskbar;
@@ -30,6 +30,8 @@ var Drag = guiLib.controllers.Drag;
 var Mouseout = guiLib.controllers.Mouseout;
 var Mouseover = guiLib.controllers.Mouseover;
 var Resize = guiLib.controllers.Resize;
+var Drop = guiLib.controllers.Drop;
+
 
 var subControllers = guiLib.controllers.subControllers
 var Dragend = guiLib.controllers.subControllers.Dragend;
@@ -38,6 +40,7 @@ var Dragstart = guiLib.controllers.subControllers.Dragstart;
 var Resizeend = guiLib.controllers.subControllers.Resizeend;
 var Resizestart = guiLib.controllers.subControllers.Resizestart;
 var Resizing = guiLib.controllers.subControllers.Resizing;
+var Dragover = guiLib.controllers.subControllers.Dragover;
 
 var view = guiLib.views;
 var BackgroundView = guiLib.views.BackgroundView;

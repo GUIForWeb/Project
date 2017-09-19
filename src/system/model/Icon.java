@@ -1,77 +1,73 @@
 package system.model;
 
+import org.json.JSONObject;
+
 public class Icon{
-	private int id;
-	private int iconX;
-	private int iconY;
-	private int iconTypeId;
-	private String name;
-	private String iconType;
-	private String contentURL;
-	private String iconURL;
+	private JSONObject json;
+
 	public Icon(){
+		this.json = new JSONObject();
 	}
 	
 	public int getId() {
-		return id;
+		return this.json.getInt("id");
 	}
 	public void setId(int id) {
-		this.id = id;
+		this.json.put("id", id);
 	}
-	public int getIconX() {
-		return iconX;
+	public int getX() {
+		return this.json.getInt("x");
 	}
-	public void setIconX(int iconX) {
-		this.iconX = iconX;
+	public void setX(int iconX) {
+		this.json.put("x", iconX);
 	}
-	public int getIconY() {
-		return iconY;
+	public int getY() {
+		return this.json.getInt("y");
 	}
-	public void setIconY(int iconY) {
-		this.iconY = iconY;
+	public void setY(int iconY) {
+		this.json.put("y", iconY);
 	}
 	public int getIconTypeId() {
-		return iconTypeId;
+		return this.json.getInt("iconTypeId");
 	}
 	public void setIconTypeId(int iconTypeId) {
-		this.iconTypeId = iconTypeId;
+		this.json.put("iconTypeId", iconTypeId);
 	}
 	public String getName() {
-		return name;
+		return this.json.getString("name");
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.json.put("name", name);
 	}
 	public String getIconType() {
-		return iconType;
+		return this.json.getString("iconType");
 	}
 	public void setIconType(String iconType) {
-		this.iconType = iconType;
+		this.json.put("iconType", iconType);
 	}
 	public String getContentURL() {
-		return contentURL;
+		return this.json.getString("contentURL");
 	}
 	public void setContentURL(String contentURL) {
-		this.contentURL = contentURL;
+		this.json.put("contentURL", contentURL);
 	}
 	public String getIconURL() {
-		return iconURL;
+		return this.json.getString("iconURL");
 	}
 	public void setIconURL(String iconURL) {
-		this.iconURL = iconURL;
+		this.json.put("iconURL", iconURL);
+	}
+	public JSONObject getJSON() {
+		return json;
+	}
+
+	public void setJSON(JSONObject json) {
+		this.json = json;
 	}
 	public String toString()
 	{
 		String tmpStr = "";
-		tmpStr += "(";
-		tmpStr += "iconNumId:=" + this.id + ", ";
-		tmpStr += "iconX:=" + this.iconX + ", ";
-		tmpStr += "iconY:=" + this.iconY + ", ";
-		tmpStr += "name:=" + this.name + ", ";
-		tmpStr += "iconTypeId:="+this.iconTypeId + ", ";
-		tmpStr += "iconType:=" +this.iconType+", ";
-		tmpStr += "contentURL:=" +this.contentURL+", ";
-		tmpStr += "iconURL:=" +this.iconURL+")";
+		tmpStr += this.json;
 		return tmpStr;
 	}
 }

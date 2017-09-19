@@ -10,9 +10,11 @@ package system.daoInterface;
 
 import java.util.List;
 
+import org.json.JSONArray;
+
 import system.model.Icon;
 
 public interface IconDAO {
 	public void load(); 
-	public List<Icon> getIconList();
+	public JSONArray getIconJSONArray();
 }

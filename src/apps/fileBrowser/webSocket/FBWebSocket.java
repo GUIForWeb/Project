@@ -9,7 +9,7 @@ import javax.websocket.Session;
 import org.json.JSONObject;
 
 import apps.fileBrowser.module.FBManager;
-import system.webSocketInterface.WebSocketInterface;
+import system.webSocketInterfaces.WebSocketInterface;
 
 public class FBWebSocket implements WebSocketInterface{
 	@SuppressWarnings("unused")

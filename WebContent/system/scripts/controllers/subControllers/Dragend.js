@@ -1,5 +1,6 @@
 guiLib.controllers.subControllers.Dragend = function() {
 	this.icon = function(event) {
+		/*
 		var tag = event.currentTarget;
 		var tagId = tag.id;
 		var numId = this.getIconNumId(tag);
@@ -55,6 +56,7 @@ guiLib.controllers.subControllers.Dragend = function() {
 			};
 			this.im.iconXY(json);
 		}
+		*/
 	}
 	this.head = function(event) {
 		var winTag = event.currentTarget.parentNode.parentNode;
