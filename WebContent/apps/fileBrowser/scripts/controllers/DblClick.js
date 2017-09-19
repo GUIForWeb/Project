@@ -11,6 +11,18 @@ fileBrowser.controllers.DblClick = function() {
 					"type" : type
 				} ];
 				this.fbm.send.open();
+				if(type == "directory"){
+					if(this.path[0].value === undefined)
+						this.path[0].value = "/"+name;
+					else
+						this.path[0].value += "/"+name;
+				}
+				else if(type == ""){
+					var val = this.path[0].value
+					var idx = val.lastIndexOf("/");
+					val = val.substring(0,idx);
+					this.path[0].value = val;
+				}
 			}
 		}
 	}

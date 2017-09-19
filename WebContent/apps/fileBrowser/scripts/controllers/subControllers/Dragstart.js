@@ -8,8 +8,8 @@ fileBrowser.controllers.subControllers.Dragstart = function(){
 			else
 				this.va["validation"] = false;
 		}
-		else if(this.ds.isWorking == true){
-			this.va["selectedData"] = this.ds.list;
+		else if(this.select.drag.isWorking == true){
+			console.log(this.va["selectedData"]);
 			this.va["validation"] = true;
 		}
 		this.fbm.send.copy();

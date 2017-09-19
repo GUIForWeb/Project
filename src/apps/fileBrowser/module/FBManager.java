@@ -82,23 +82,40 @@ public class FBManager {
 		this.json.put("status", "multiReloadForUpload");
 	}
 
-	private void multiReload() {
-		JSONArray ids = new JSONArray();
-		JSONObject data = new JSONObject();
+	private void reload() {
 		this.dataItemDAO.setFilePath(this.path);
 		this.dataItemArray = this.dataItemDAO.getDataItemArray();
-		for (Browser b : this.browserList) {
-			if (b.getPath().equals(this.path) && !b.isWeb()) {
-				ids.put(b.getId());
-			}
-		}
 		this.json = new JSONObject();
-		this.json.put("status", "multiReload");
-		data.put("id", ids);
-		data.put("data", this.dataItemArray);
+		this.json.put("status", "reload");
 		String path = this.path.replace(this.root, "");
 		this.json.put("path", path);
-		this.json.put("data", data);
+		this.json.put("data", this.dataItemArray);
+	}
+
+	private void multiReload() {
+		if (this.browser.isWeb()) {
+			this.reload();
+		} else {
+			JSONArray ids = new JSONArray();
+			JSONObject data = new JSONObject();
+			this.dataItemDAO.setFilePath(this.path);
+			this.dataItemArray = this.dataItemDAO.getDataItemArray();
+			Browser tmpBrowser = null;
+			for (Browser b : this.browserList) {
+				if (b.getPath().equals(this.path) && !b.isWeb()) {
+					ids.put(b.getId());
+				} else if (b.isWeb()) {
+					tmpBrowser = b;
+				}
+			}
+			this.json = new JSONObject();
+			this.json.put("status", "multiReload");
+			data.put("id", ids);
+			data.put("data", this.dataItemArray);
+			String path = this.path.replace(this.root, "");
+			this.json.put("path", path);
+			this.json.put("data", data);
+		}
 	}
 
 	public void download() {
@@ -280,39 +297,43 @@ public class FBManager {
 	}
 
 	private void multiplexReload(int prevId, String path) {
-		JSONObject json;
-		JSONArray data = new JSONArray();
-		JSONArray ids = new JSONArray();
-		this.json = new JSONObject();
-		this.json.put("status", "multiplexReload");
+		if (this.browser.isWeb()) {
+			this.reload();
+		} else {
+			JSONObject json;
+			JSONArray data = new JSONArray();
+			JSONArray ids = new JSONArray();
+			this.json = new JSONObject();
+			this.json.put("status", "multiplexReload");
 
-		this.dataItemDAO.setFilePath(this.path);
-		this.dataItemArray = this.dataItemDAO.getDataItemArray();
-		for (Browser b : this.browserList) {
-			if (b.getPath().equals(this.path) && !b.isWeb()) {
-				ids.put(b.getId());
+			this.dataItemDAO.setFilePath(this.path);
+			this.dataItemArray = this.dataItemDAO.getDataItemArray();
+			for (Browser b : this.browserList) {
+				if (b.getPath().equals(this.path) && !b.isWeb()) {
+					ids.put(b.getId());
+				}
 			}
-		}
-		json = new JSONObject();
-		json.put("id", ids);
-		json.put("data", this.dataItemArray);
-		data.put(json);
+			json = new JSONObject();
+			json.put("id", ids);
+			json.put("data", this.dataItemArray);
+			data.put(json);
 
-		ids = new JSONArray();
-		this.dataItemDAO.setFilePath(path);
-		this.dataItemArray = this.dataItemDAO.getDataItemArray();
-		for (Browser b : this.browserList) {
-			if (b.getPath().equals(path)) {
-				ids.put(b.getId());
+			ids = new JSONArray();
+			this.dataItemDAO.setFilePath(path);
+			this.dataItemArray = this.dataItemDAO.getDataItemArray();
+			for (Browser b : this.browserList) {
+				if (b.getPath().equals(path)) {
+					ids.put(b.getId());
+				}
 			}
+			json = new JSONObject();
+			json.put("id", id);
+			json.put("data", this.dataItemArray);
+			path = this.path.replace(this.root, "");
+			json.put("path", path);
+			data.put(json);
+			this.json.put("data", data);
 		}
-		json = new JSONObject();
-		json.put("id", id);
-		json.put("data", this.dataItemArray);
-		path = this.path.replace(this.root, "");
-		json.put("path", path);
-		data.put(json);
-		this.json.put("data", data);
 	}
 
 	public void setClipboard(String status) {
@@ -423,16 +444,6 @@ public class FBManager {
 		} else {
 			// file process
 		}
-	}
-
-	private void reload() {
-		this.dataItemDAO.setFilePath(this.path);
-		this.dataItemArray = this.dataItemDAO.getDataItemArray();
-		this.json = new JSONObject();
-		this.json.put("status", "reload");
-		String path = this.path.replace(this.root, "");
-		this.json.put("path", path);
-		this.json.put("data", this.dataItemArray);
 	}
 
 	public JSONObject getJson() {

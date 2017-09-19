@@ -59,6 +59,7 @@ function FileBrowser(id){
 		this.mouseout.__proto__ = this.controller;
 		this.section = $("#fbTable"+this.id).parent();
 		this.footer = this.section.parent().find("footer");
+		this.path = this.footer.find(".path");
 		this.fbTable = $("#fbTable"+this.id);
 		
 		this.contextMenu = new FileBrowserContextMenu();
