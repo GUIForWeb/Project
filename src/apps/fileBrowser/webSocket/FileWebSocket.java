@@ -25,6 +25,7 @@ public class FileWebSocket{
 	private ServletContext servletContext;
 	private Session websocketSession;
 	private HttpSession session;
+	@SuppressWarnings("unused")
 	private EndpointConfig config;
 	private FBManager fbm;
 	private int per;

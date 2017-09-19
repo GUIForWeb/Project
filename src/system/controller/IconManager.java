@@ -14,9 +14,12 @@ import system.model.OSSetting;
 import system.webSocketInterface.WebSocketInterface;
 
 public class IconManager implements WebSocketInterface {
+	@SuppressWarnings("unused")
 	private ServletContext servletContext;
+	@SuppressWarnings("unused")
 	private Session websocketSession;
 	private HttpSession session;
+	@SuppressWarnings("unused")
 	private EndpointConfig config;
 	public IconManager(){
 		

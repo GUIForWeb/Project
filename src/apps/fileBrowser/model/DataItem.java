@@ -1,10 +1,5 @@
 package apps.fileBrowser.model;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.text.SimpleDateFormat;
-
 import org.json.JSONObject;
 
 public class DataItem {

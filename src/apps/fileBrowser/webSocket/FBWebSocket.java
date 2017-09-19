@@ -4,22 +4,18 @@ package apps.fileBrowser.webSocket;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.websocket.EndpointConfig;
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
 import javax.websocket.Session;
-import javax.websocket.server.ServerEndpoint;
 
 import org.json.JSONObject;
 
 import apps.fileBrowser.module.FBManager;
-import system.library.ServletAwareConfig;
 import system.webSocketInterface.WebSocketInterface;
 
 public class FBWebSocket implements WebSocketInterface{
+	@SuppressWarnings("unused")
 	private Session websocketSession;
 	private HttpSession session;
+	@SuppressWarnings("unused")
 	private EndpointConfig config;
 	private FBManager fbm;
 	private ServletContext servletContext;

@@ -24,7 +24,6 @@ import system.model.BgPath;
 import system.model.GUISetting;
 import system.model.GUIsInOS;
 import system.model.OSSetting;
-import system.model.User;
 
 @Named
 @RequestScoped

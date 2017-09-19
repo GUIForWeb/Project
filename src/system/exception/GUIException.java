@@ -1,5 +1,6 @@
 package system.exception;
 
+@SuppressWarnings("serial")
 public class GUIException extends Exception{
 	public GUIException() { super("error"); }
 	public GUIException(String message) { super(message); }

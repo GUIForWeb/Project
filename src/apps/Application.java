@@ -1,16 +1,12 @@
 package apps;
 
 import java.io.IOException;
-import java.util.Map;
 
-import javax.faces.annotation.RequestMap;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
-import system.controller.EssentialJSLib;
 import system.model.User;
 
 public class Application {
@@ -27,7 +23,6 @@ public class Application {
 	protected String importLib;
 	final protected int IN = 0;
 	final protected int OUT = 1;
-	private EssentialJSLib essentialJSLib;
 	public Application() {
 		this.externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		this.session = (HttpSession) this.externalContext.getSession(true);
