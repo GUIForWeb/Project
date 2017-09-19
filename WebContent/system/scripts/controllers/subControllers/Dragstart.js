@@ -4,9 +4,11 @@ guiLib.controllers.subControllers.Dragstart = function() {
 		var winAndBarNode = this.gm.moveWinToTop(winTag);
 		var url = window.location.href.split(this.contextPath)[0];
 		url += this.contextPath + winAndBarNode.win.contentURL;
-		if(event.originalEvent.dataTransfer)
+		console.log(event.originalEvent.dataTransfer);
+		console.log(event.dataTransfer);
+		if(event.originalEvent.dataTransfer !== undefined)
 			event.originalEvent.dataTransfer.setData("text/uri-list", url);
-		else(event.dataTransfer)
+		else if(event.dataTransfer !== undefined)
 			event.dataTransfer.setData("text/uri-list", url);
 	}
 }

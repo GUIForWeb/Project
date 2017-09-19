@@ -1,7 +1,5 @@
 function Bottom() {
 	this.init = function() {
-		console.log(this.va["s"]);
-		console.log(this.va["w"]);
 		var nw = this.va["w"].view.northWestSelector;
 		var ne = this.va["w"].view.northEastSelector;
 		var sw = this.va["w"].view.southWestSelector;

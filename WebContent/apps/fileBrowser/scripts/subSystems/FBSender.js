@@ -1,4 +1,14 @@
 fileBrowser.subsystem.FBSender = function() {
+	this.isNotInWindow = function() {
+		this.json.data = {"status" : "isNotInWindow"}
+		this.json.data.data = {"id" : this.id};
+		var data = this.json;
+		this.ws.onopen(function(){
+			var be = {};
+			be.sending = data; 
+			this.send(JSON.stringify(be));
+		});
+	}
 	this.download = function() {
 		this.json = {
 			"id" : this.id,

@@ -8,6 +8,9 @@ fileBrowser.webSockets.FileWebSocket = function(ip) {
 	this.socket.onopen = function(event) {
 		console.log("fm-open");
 	};
+	this.onopen = function(func){
+		this.socket.onopen = func;
+	}
 	this.socket.onmessage = function(event) {
 		if (event.isTrusted) {
 			if (event.data == "error") {

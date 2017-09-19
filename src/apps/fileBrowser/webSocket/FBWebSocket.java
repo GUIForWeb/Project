@@ -43,6 +43,9 @@ public class FBWebSocket implements WebSocketInterface{
 			case "open":
 				this.fbm.open();
 				break;
+			case "isNotInWindow":
+				this.fbm.isNotInWindow();
+				break;
 			case "newFolder":
 				this.fbm.newFolder();
 				break;

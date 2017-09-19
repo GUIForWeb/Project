@@ -137,6 +137,11 @@ function FileBrowser(id){
 			this.appendFunctionForWMode();
 		else {
 			this.section.height(window.innerHeight - this.footer.height());
+			this.fbm.send.isNotInWindow();
+			var fbm = this.fbm;
+			window.onbeforeunload = function () {
+				fbm.send.x();
+		    }
 		}
 		if($("#fbCSS").length == 0 ){
 			var link = $("<link></link>");

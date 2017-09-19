@@ -6,6 +6,10 @@ function GUIWebSocket(ip) {
 	this.onmessage = function(message) {
 		this.socket.onmessage(message);
 	}
+	this.onopen = function(func){
+		console.log("ws-open");
+		this.socket.onopen = func;
+	}
 	this.socket.onmessage = function(message) {
 		if (message.isTrusted) {
 			if (message.data == "ws-error") {

@@ -20,6 +20,7 @@ guiLib.models.Window = function() {
 		this.view.isOnScreen = (winMap["isOnScreen"] == true);
 		this.name = winMap["name"];
 		this.view.content = decodeURIComponent(winMap["content"]);
+		this.contentURL = winMap["contentURL"]; 
 	}
 	this.addEvent = function(status,data){
 		func = data.func
