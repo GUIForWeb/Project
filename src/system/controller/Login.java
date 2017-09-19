@@ -25,6 +25,7 @@ public class Login extends Controller {
 		this.auth.getProcedureMap().put("UserDAOMySQL", "login");
 	}
 	public String login(){
+		this.redirect(IN);
 		this.auth.start();
 		if(this.auth.getAuthErrorList().size() == 0) {
 			this.user = (User) this.session.getAttribute("User");

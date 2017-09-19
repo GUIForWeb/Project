@@ -74,7 +74,6 @@ public class FBManager {
 
 	public void isNotInWindow() {
 		this.browser.setWeb(true);
-		System.out.println(this.browserList);
 	}
 
 	private void multiReloadForUpload() {
@@ -437,7 +436,6 @@ public class FBManager {
 	
 	public void newFBFrom(String path) {
 		this.setNewId();
-		System.out.println(path);
 		Browser tmpBrowser = new Browser();
 		tmpBrowser.setId(this.id);
 		tmpBrowser.setPath(this.root);

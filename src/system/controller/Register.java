@@ -21,6 +21,7 @@ public class Register extends Controller {
 		this.auth.getProcedureMap().put("UserDAOMySQL", "register");
 	}
 	public String register(){
+		this.redirect(IN);
 		String str = "register";
 		this.auth.start();
 		if(this.auth.getAuthErrorList().size() == 0) {

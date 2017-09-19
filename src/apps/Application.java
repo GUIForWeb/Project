@@ -42,7 +42,7 @@ public class Application {
 	public void redirect(){
 		if(null == this.user)
 			try {
-				this.externalContext.redirect(this.contextPath+"/view/logout.jsf");
+				this.externalContext.redirect(this.contextPath+"/system/comps/views/logout.jsf");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

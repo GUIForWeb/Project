@@ -35,16 +35,14 @@ public class Background extends Controller {
 	public Background(){
 		this.viewArray[IN] = "background";
 		this.viewArray[OUT] = "login";
-
+		/*
 		this.user = new User();
 		this.user.setId(1);
 		this.user.setEmail("admin");
 		this.user.setRole("admin");
-
-		this.desktop = this.context.getRealPath(".").replace(this.contextPath.substring(1), "");
-		this.desktop += "driver/home/" + this.user.getEmail() + "/Desktop";
+		*/
+		System.out.println(this.user);
 		this.session.setAttribute("User",this.user);
-		
 		this.bgImg = "";
 		this.essentialJSLib = new EssentialJSLib(this.contextPath);
 	}
@@ -52,6 +50,9 @@ public class Background extends Controller {
 	public void init(){
 		this.redirect(OUT);
 		if(null != this.user) {
+			this.desktop = this.context.getRealPath(".").replace(this.contextPath.substring(1), "");
+			this.desktop += "driver/home/" + this.user.getEmail() + "/Desktop";
+			
 			OSSettingDAO osSettingDAO = new OSSettingDAOMySQL(this.user);
 			osSettingDAO.load();
 			OSSetting osSetting = osSettingDAO.getOsSetting();

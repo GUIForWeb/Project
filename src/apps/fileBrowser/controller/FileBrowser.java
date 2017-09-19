@@ -16,6 +16,10 @@ public class FileBrowser extends Application{
 	private Part file;
 	public FileBrowser() {
 		this.fbm = new FBManager();
+	}
+	
+	public void init(){
+		this.redirect();
 		String root = this.context.getRealPath(".").replace(this.contextPath.substring(1), "");
 		root += "driver/home/" + this.user.getEmail();
 		this.fbm.setRoot(root);
@@ -25,9 +29,6 @@ public class FileBrowser extends Application{
 			this.fbm.newFB();
 		else
 			this.fbm.newFBFrom(path);
-	}
-	public void upload(){
-		System.out.println("upload");
 	}
 	public JSONArray getDataItemArray() {
 		return this.fbm.getDataItemArray();
