@@ -3,7 +3,8 @@ fileBrowser.models.FileBrowserContextMenu = function() {
 	this.view.__proto__ = this;
 	this.isOnTheScreen = false;
 	this.appendContextMenu = function() {
-		this.bgSelector = this.section.parent();
+		this.bgSelector = $("body");
+		console.log(this.bgSelector);
 		this.isOnTheScreen = true;
 		this.view.getView();
 		this.bgSelector.append(this.view.outerSelector);
