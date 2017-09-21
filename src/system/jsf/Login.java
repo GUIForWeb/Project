@@ -7,12 +7,12 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import system.authentication.Authentication;
-import system.jsf.System;
+import system.jsf.SystemJSF;
 import system.model.User;
 
 @Named
 @RequestScoped
-public class Login extends System {
+public class Login extends SystemJSF {
 	public Login(){
 		this.viewArray[IN] = "background";
         this.viewArray[OUT] = "login";

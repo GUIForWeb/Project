@@ -4,11 +4,11 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import system.authentication.Authentication;
-import system.jsf.System;
+import system.jsf.SystemJSF;
 
 @Named
 @RequestScoped
-public class Register extends System {
+public class Register extends SystemJSF {
 	public Register() {
 		this.viewArray[IN] = "background";
 		this.viewArray[OUT] = "register";

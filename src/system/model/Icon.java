@@ -18,20 +18,20 @@ public class Icon{
 	public int getX() {
 		return this.json.getInt("x");
 	}
-	public void setX(int iconX) {
-		this.json.put("x", iconX);
+	public void setX(int x) {
+		this.json.put("x", x);
 	}
 	public int getY() {
 		return this.json.getInt("y");
 	}
-	public void setY(int iconY) {
-		this.json.put("y", iconY);
+	public void setY(int y) {
+		this.json.put("y", y);
 	}
-	public int getIconTypeId() {
-		return this.json.getInt("iconTypeId");
+	public int getTypeId() {
+		return this.json.getInt("typeId");
 	}
-	public void setIconTypeId(int iconTypeId) {
-		this.json.put("iconTypeId", iconTypeId);
+	public void setTypeId(int typeId) {
+		this.json.put("typeId", typeId);
 	}
 	public String getName() {
 		return this.json.getString("name");
@@ -39,11 +39,11 @@ public class Icon{
 	public void setName(String name) {
 		this.json.put("name", name);
 	}
-	public String getIconType() {
-		return this.json.getString("iconType");
+	public String getType() {
+		return this.json.getString("type");
 	}
-	public void setIconType(String iconType) {
-		this.json.put("iconType", iconType);
+	public void setType(String type) {
+		this.json.put("type", type);
 	}
 	public String getContentURL() {
 		return this.json.getString("contentURL");
@@ -51,11 +51,11 @@ public class Icon{
 	public void setContentURL(String contentURL) {
 		this.json.put("contentURL", contentURL);
 	}
-	public String getIconURL() {
-		return this.json.getString("iconURL");
+	public String getImgURL() {
+		return this.json.getString("imgURL");
 	}
-	public void setIconURL(String iconURL) {
-		this.json.put("iconURL", iconURL);
+	public void setImgURL(String imgURL) {
+		this.json.put("imgURL", imgURL);
 	}
 	public JSONObject getJSON() {
 		return json;

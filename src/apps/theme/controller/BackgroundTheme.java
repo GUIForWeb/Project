@@ -4,17 +4,17 @@ import java.io.IOException;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
-import apps.Application;
-import system.dao.BgPathDAOMySQL;
-import system.dao.GUIsInOSDAOMySQL;
-import system.daoInterface.BgPathDAO;
-import system.daoInterface.GUIsInOSDAO;
+import apps.jsf.ApplicationJSF;
+import system.dao.BgPathsDAOMySQL;
+import system.dao.GUISettingsInOSDAOMySQL;
+import system.daoInterface.BgPathsDAO;
+import system.daoInterface.GUISettingsInOSDAO;
 import system.model.GUIsInOS;
-import system.model.OSSetting;
+import system.model.OS;
 
 @Named
 @RequestScoped
-public class BackgroundTheme extends Application{
+public class BackgroundTheme extends ApplicationJSF{
 	public BackgroundTheme() {
 		
 	}
@@ -29,11 +29,11 @@ public class BackgroundTheme extends Application{
 			srcPath = srcPath.substring(1);
 		}
 		
-		OSSetting osSetting = (OSSetting)this.session.getAttribute("osSetting");
-		GUIsInOSDAO guisInOSDAO = new  GUIsInOSDAOMySQL(osSetting);
+		OS osSetting = (OS)this.session.getAttribute("osSetting");
+		GUISettingsInOSDAO guisInOSDAO = new  GUISettingsInOSDAOMySQL(osSetting);
 		guisInOSDAO.load();
 		GUIsInOS guisInOS = guisInOSDAO.getGUIsInOS();
-		BgPathDAO bgPathDAO = new BgPathDAOMySQL();
+		BgPathsDAO bgPathDAO = new BgPathsDAOMySQL();
 		bgPathDAO.setGUIId(guisInOS.getGuiId());
 		bgPathDAO.setBgPath(srcPath);
 		bgPathDAO.update();

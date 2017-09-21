@@ -7,11 +7,11 @@ import javax.websocket.Session;
 
 import org.json.JSONObject;
 
-import system.controllers.IconManager;
 import system.dao.IconsInOSDAOMySQL;
 import system.daoInterface.IconsInOSDAO;
 import system.model.IconInOS;
-import system.model.OSSetting;
+import system.model.OS;
+import system.modules.IconManager;
 import system.webSocketInterfaces.WebSocketInterface;
 
 public class IconWebSocket implements WebSocketInterface {

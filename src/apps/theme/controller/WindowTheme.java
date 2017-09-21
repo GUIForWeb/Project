@@ -5,31 +5,31 @@ package apps.theme.controller;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
-import apps.Application;
-import system.dao.GUISettingDAOMySQL;
-import system.dao.GUIsInOSDAOMySQL;
-import system.dao.OSSettingDAOMySQL;
-import system.daoInterface.GUISettingDAO;
-import system.daoInterface.GUIsInOSDAO;
-import system.daoInterface.OSSettingDAO;
+import apps.jsf.ApplicationJSF;
+import system.dao.GUISettingsDAOMySQL;
+import system.dao.GUISettingsInOSDAOMySQL;
+import system.dao.OSsDAOMySQL;
+import system.daoInterface.GUISettingsDAO;
+import system.daoInterface.GUISettingsInOSDAO;
+import system.daoInterface.OSsDAO;
 import system.model.GUISetting;
 import system.model.GUIsInOS;
-import system.model.OSSetting;
+import system.model.OS;
 
 @Named
 @RequestScoped
-public class WindowTheme extends Application{
-	private GUISettingDAO guiSettingDAO;
+public class WindowTheme extends ApplicationJSF{
+	private GUISettingsDAO guiSettingDAO;
 	private GUISetting guiSetting;
 	public WindowTheme() {
-		OSSettingDAO osSettingDAO = new OSSettingDAOMySQL(this.user);
+		OSsDAO osSettingDAO = new OSsDAOMySQL(this.user);
 		osSettingDAO.load();
-		OSSetting osSetting = osSettingDAO.getOsSetting();
+		OS osSetting = osSettingDAO.getOS();
 		this.session.setAttribute("osSetting", osSetting);
-		GUIsInOSDAO guisInOSDAO = new  GUIsInOSDAOMySQL(osSetting);
+		GUISettingsInOSDAO guisInOSDAO = new  GUISettingsInOSDAOMySQL(osSetting);
 		guisInOSDAO.load();
 		GUIsInOS guisInOS = guisInOSDAO.getGUIsInOS();
-		this.guiSettingDAO = new GUISettingDAOMySQL(guisInOS);
+		this.guiSettingDAO = new GUISettingsDAOMySQL(guisInOS);
 		guiSettingDAO.load();
 		this.guiSetting = this.guiSettingDAO.getGUISetting();
 	}

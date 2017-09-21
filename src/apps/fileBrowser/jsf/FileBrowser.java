@@ -6,12 +6,12 @@ import javax.servlet.http.Part;
 
 import org.json.JSONArray;
 
-import apps.Application;
 import apps.fileBrowser.module.FBManager;
+import apps.jsf.ApplicationJSF;
 
 @Named
 @RequestScoped
-public class FileBrowser extends Application{
+public class FileBrowser extends ApplicationJSF{
 	private FBManager fbm;
 	private Part file;
 	public FileBrowser() {
@@ -31,7 +31,7 @@ public class FileBrowser extends Application{
 			this.fbm.newFBFrom(path);
 	}
 	public JSONArray getDataItemArray() {
-		return this.fbm.getDataItemArray();
+		return this.fbm.getJSONArray();
 	}
 	public void setDataItemArray(JSONArray dataItemArray) {
 		this.fbm.setDataItemArray(dataItemArray);

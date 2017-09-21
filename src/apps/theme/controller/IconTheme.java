@@ -4,18 +4,18 @@ package apps.theme.controller;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
-import apps.Application;
-import system.dao.GUISettingDAOMySQL;
-import system.dao.GUIsInOSDAOMySQL;
-import system.dao.OSSettingDAOMySQL;
-import system.daoInterface.GUISettingDAO;
-import system.daoInterface.GUIsInOSDAO;
-import system.daoInterface.OSSettingDAO;
+import apps.jsf.ApplicationJSF;
+import system.dao.GUISettingsDAOMySQL;
+import system.dao.GUISettingsInOSDAOMySQL;
+import system.dao.OSsDAOMySQL;
+import system.daoInterface.GUISettingsDAO;
+import system.daoInterface.GUISettingsInOSDAO;
+import system.daoInterface.OSsDAO;
 import system.model.GUISetting;
 
 @Named
 @RequestScoped
-public class IconTheme extends Application{
+public class IconTheme extends ApplicationJSF{
 	private String themeName;
 	private double iconWidth;
 	private double iconHeight;
@@ -23,13 +23,13 @@ public class IconTheme extends Application{
 	private double iconBorderHeight;
 	private String iconBorderColor;
 	private GUISetting guiSetting;
-	private GUISettingDAO guiSettingDAO;
+	private GUISettingsDAO guiSettingDAO;
 	public IconTheme() {
-		OSSettingDAO osSettingDAO = new OSSettingDAOMySQL(this.user);
+		OSsDAO osSettingDAO = new OSsDAOMySQL(this.user);
 		osSettingDAO.load();
-		GUIsInOSDAO guisInOSDAO = new  GUIsInOSDAOMySQL(osSettingDAO.getOsSetting());
+		GUISettingsInOSDAO guisInOSDAO = new  GUISettingsInOSDAOMySQL(osSettingDAO.getOS());
 		guisInOSDAO.load();
-		this.guiSettingDAO = new GUISettingDAOMySQL(guisInOSDAO.getGUIsInOS());
+		this.guiSettingDAO = new GUISettingsDAOMySQL(guisInOSDAO.getGUIsInOS());
 		this.guiSettingDAO.load();
 		this.guiSetting = guiSettingDAO.getGUISetting();
 	}

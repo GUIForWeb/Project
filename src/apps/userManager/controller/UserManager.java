@@ -5,19 +5,19 @@ import java.io.IOException;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
-import apps.Application;
-import system.dao.UserDAOMySQL;
-import system.daoInterface.UserDAO;
+import apps.jsf.ApplicationJSF;
+import system.dao.UsersDAOMySQL;
+import system.daoInterface.UsersDAO;
 import system.model.User;
 
 @Named
 @RequestScoped
-public class UserManager extends Application{
+public class UserManager extends ApplicationJSF{
 	private int id;
-	private UserDAO userDao;
+	private UsersDAO userDao;
 	private User userArray[];
 	public UserManager() {
-		this.userDao = new UserDAOMySQL();
+		this.userDao = new UsersDAOMySQL();
 		this.userArray = this.userDao.selectAll();
 	}
 	public User[] getUserArray() {

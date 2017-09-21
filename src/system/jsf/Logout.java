@@ -3,11 +3,11 @@ package system.jsf;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
-import system.jsf.System;
+import system.jsf.SystemJSF;
 
 @Named
 @RequestScoped
-public class Logout extends System {
+public class Logout extends SystemJSF {
 	public Logout(){
 	}
 	public String logout(){

@@ -20,7 +20,7 @@ import org.json.JSONObject;
 
 import apps.fileBrowser.library.FBFileOutputStream;
 import apps.fileBrowser.model.Browser;
-import system.dao.DataItemDAO;
+import system.dao.DataItemsDAO;
 
 public class FBManager {
 	private int id;
@@ -28,7 +28,7 @@ public class FBManager {
 	private String path = "";
 	private JSONObject json;
 	private List<Browser> browserList;
-	private DataItemDAO dataItemDAO;
+	private DataItemsDAO dataItemDAO;
 	private JSONArray dataItemArray;
 	private HttpSession session;
 	private Browser browser;
@@ -38,7 +38,7 @@ public class FBManager {
 	private HttpServletResponse response;
 
 	public FBManager() {
-		this.dataItemDAO = new DataItemDAO();
+		this.dataItemDAO = new DataItemsDAO();
 	}
 
 	private void setSession() {
@@ -69,7 +69,8 @@ public class FBManager {
 
 	private void reload() {
 		this.dataItemDAO.setFilePath(this.path);
-		this.dataItemArray = this.dataItemDAO.getDataItemArray();
+		this.dataItemDAO.load();
+		this.dataItemArray = this.dataItemDAO.getJSONArray();
 		this.json = new JSONObject();
 		this.json.put("status", "reload");
 		String path = this.path.replace(this.root, "");
@@ -84,7 +85,8 @@ public class FBManager {
 			JSONArray ids = new JSONArray();
 			JSONObject data = new JSONObject();
 			this.dataItemDAO.setFilePath(this.path);
-			this.dataItemArray = this.dataItemDAO.getDataItemArray();
+			this.dataItemDAO.load();
+			this.dataItemArray = this.dataItemDAO.getJSONArray();
 			for (Browser b : this.browserList) {
 				if (b.getPath().equals(this.path) && !b.isWeb()) {
 					ids.put(b.getId());
@@ -199,7 +201,8 @@ public class FBManager {
 					destPath = destPath + "/" + name;
 					srcPath = srcPath + "/" + name;
 					this.dataItemDAO.setFilePath(destPath);
-					JSONArray tmpData = this.dataItemDAO.getDataItemArray();
+					this.dataItemDAO.load();
+					JSONArray tmpData = this.dataItemDAO.getJSONArray();
 					this.checkExistence(status, tmpData, srcPath, destPath);
 				} else {
 					String ext = name.substring(name.lastIndexOf(".") + 1, name.length());
@@ -284,7 +287,8 @@ public class FBManager {
 			this.json.put("status", "multiplexReload");
 
 			this.dataItemDAO.setFilePath(this.path);
-			this.dataItemArray = this.dataItemDAO.getDataItemArray();
+			this.dataItemDAO.load();
+			this.dataItemArray = this.dataItemDAO.getJSONArray();
 			for (Browser b : this.browserList) {
 				if (b.getPath().equals(this.path) && !b.isWeb()) {
 					ids.put(b.getId());
@@ -297,7 +301,8 @@ public class FBManager {
 
 			ids = new JSONArray();
 			this.dataItemDAO.setFilePath(path);
-			this.dataItemArray = this.dataItemDAO.getDataItemArray();
+			this.dataItemDAO.load();
+			this.dataItemArray = this.dataItemDAO.getJSONArray();
 			for (Browser b : this.browserList) {
 				if (b.getPath().equals(path)) {
 					ids.put(b.getId());
@@ -369,7 +374,8 @@ public class FBManager {
 			this.mkDir(this.browser, name, 0);
 		}
 		this.dataItemDAO.setFilePath(this.path);
-		this.dataItemArray = this.dataItemDAO.getDataItemArray();
+		this.dataItemDAO.load();
+		this.dataItemArray = this.dataItemDAO.getJSONArray();
 		this.multiReload();
 	}
 
@@ -435,7 +441,8 @@ public class FBManager {
 			this.path = this.root;
 		tmpBrowser.setPath(this.path);
 		this.dataItemDAO.setFilePath(this.path);
-		this.dataItemArray = this.dataItemDAO.getDataItemArray();
+		this.dataItemDAO.load();
+		this.dataItemArray = this.dataItemDAO.getJSONArray();
 		this.setSession();
 		this.session.setAttribute("root", this.root);
 	}
@@ -447,9 +454,12 @@ public class FBManager {
 		tmpBrowser.setPath(this.root);
 		this.browserList.add(tmpBrowser);
 		this.dataItemDAO.setFilePath(this.root);
-		this.dataItemArray = this.dataItemDAO.getDataItemArray();
+		this.dataItemDAO.load();
+		this.dataItemArray = this.dataItemDAO.getJSONArray();
 		this.setSession();
 		this.session.setAttribute("root", this.root);
+		System.out.println(this.dataItemArray);
+		System.out.println(this.id);
 	}
 	
 	public JSONObject getJson() {
@@ -481,7 +491,7 @@ public class FBManager {
 		this.session = session;
 	}
 
-	public JSONArray getDataItemArray() {
+	public JSONArray getJSONArray() {
 		return dataItemArray;
 	}
 

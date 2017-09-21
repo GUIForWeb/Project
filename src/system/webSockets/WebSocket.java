@@ -64,7 +64,7 @@ public class WebSocket{
 
 	@OnError
 	public void onError(Throwable exception){
-		this.wsi.onError(exception);
+		//this.wsi.onError(exception);
 	}
 	
 	@OnClose

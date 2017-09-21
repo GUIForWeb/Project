@@ -54,6 +54,7 @@ public class MySQL{
 		}
 		return this.rset;
 	}
+	
 	public ResultSet call(String query) {
 		try {
 			this.cstmt = this.conn.prepareCall(query);
@@ -97,6 +98,40 @@ public class MySQL{
 		}
 		return result;
 	}
+	public int executeUpdate(String query, long[] info){
+		int result = 0;
+		try {
+			this.pstmt = this.conn.prepareStatement(query);
+			for(int ii=0; ii<info.length; ii++)
+				this.pstmt.setLong(ii+1, info[ii]);
+			result = this.pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public int executeUpdate(String query, int[] info){
+		int result = 0;
+		try {
+			this.pstmt = this.conn.prepareStatement(query);
+			for(int ii=0; ii<info.length; ii++)
+				this.pstmt.setInt(ii+1, info[ii]);
+			result = this.pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public int executeUpdate(String query){
+		int result = 0;
+		try {
+			this.pstmt = this.conn.prepareStatement(query);
+			result = this.pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	//select data for Mysql
 	public ResultSet select(String query){
 		try {
@@ -129,6 +164,18 @@ public class MySQL{
 			this.pstmt = this.conn.prepareStatement(query);
 			for(int ii=0; ii<info.length; ii++)
 				this.pstmt.setString(ii+1, info[ii]);
+			result = this.pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public int update(String query, long[] info){
+		int result = 0;
+		try {
+			this.pstmt = this.conn.prepareStatement(query);
+			for(int ii=0; ii<info.length; ii++)
+				this.pstmt.setLong(ii+1, info[ii]);
 			result = this.pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

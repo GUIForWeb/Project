@@ -4,7 +4,6 @@ function GUI(guiVariableName) {
 	this.valueArray = {};
 	this.barArray = [];
 	this.iconArray = [];
-	this.iconIdArray = [];
 	this.winArray = [];
 	this.windowCoordinate = [];
 	this.windowInBarArray = [];
@@ -19,22 +18,19 @@ function GUI(guiVariableName) {
 	this.iconDataList = null;
 	this.barTagIdRule = new Bar().tagIdRule;
 	this.winTagIdRule = new Window().tagIdRule;
-	this.dataItem = [];
+	this.dataIconArray = [];
 	this.init = function() {
 	}
-	this.initDesktopDataItems = function() {
-		for (di = 0; di < this.desktopDataArray.length; di++) {
-			var json = this.desktopDataArray[di];
-			this.dataItem[di] = new DataItem();
-			this.dataItem[di].setJSON(json);
-		}
-		/*
-		console.log(this.iconCoordinate);
-		console.log(this.dataItem);
-		console.log(this.iconArray);
-		console.log(this.iconIdArray);
-		*/
+	this.setDataIconJSONArray = function(dataIconJSONArray) {
+		this.dataIconJSONArray = dataIconJSONArray;
 	}
+	this.initDesktopDataItems = function() {
+		//this.dataComparison(this.dataIconJSONArray,this.desktopDataJSONArray,0, 0);
+		console.log(this.dataIconJSONArray); // delete icon
+		console.log(this.desktopDataJSONArray); //new data
+		console.log(this.dataIconArray); //kept Icon
+	}
+	
 	this.initIcon = function() {
 		for (ci = 0; ci < this.iconJSONArray.length; ci++) {
 			var tmpIcon = new Icon();
@@ -45,6 +41,7 @@ function GUI(guiVariableName) {
 			tmpIcon.view.iconTdBorderHeight = this.iconTdValueArray["iconTdBorderHeight"];
 			tmpIcon.view.getView();
 			tmpIcon.appendIcon();
+			this.iconArray[tmpIcon.tagId] = tmpIcon;
 		}
 		this.iconTagIdRule = tmpIcon.tagIdRule;
 	}
@@ -174,20 +171,13 @@ function GUI(guiVariableName) {
 		if (wincount != "")
 			this.winCount = parseInt(winCount)
 	}
-	this.setDesktopDataArray = function(desktopDataArray) {
-		this.desktopDataArray = desktopDataArray;
-	}
-	this.restoreWinAndBar = function(winAndBarJSON) {// windowList,barList,windowInBarList)
-		if (winAndBarJSON != "") {
-			winAndBarJSON = JSON.parse(winAndBarJSON);
-			var winAndBarArray = winAndBarJSON["winAndBar"];
-			if (winAndBarArray.length > 0) {
-				this.nodeArray["winAndBar"].winCount = this.winCount;
-				this.nodeArray["winAndBar"].barCount = winAndBarArray.length;
-				var tmpNode = new WinAndBarNode();
-				this.gr.restoreNodes(winAndBarArray);
-				this.gr.restoreWinOrder();
-			}
+	this.restoreWinAndBar = function(winAndBarJSONArray) {
+		if (winAndBarJSONArray.length > 0) {
+			this.nodeArray["winAndBar"].winCount = this.winCount;
+			this.nodeArray["winAndBar"].barCount = winAndBarJSONArray.length;
+			var tmpNode = new WinAndBarNode();
+			this.gr.restoreNodes(winAndBarJSONArray);
+			this.gr.restoreWinOrder();
 			if (this.nodeArray["winAndBar"].barCount != 0)
 				this.valueArray["newId"] = this.nodeArray["winAndBar"].lastBar.bar.numId + 1;
 			else

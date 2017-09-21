@@ -14,7 +14,7 @@ fileBrowser.controllers.Click = function() {
 		this.contextMenu.removeContextMenu();
 	}
 	this.rename = function(event) {
-		if (this.va["validation"] && !this.ds.isWorking
+		if (this.va["validation"] && !this.select.drag.isWorking
 				&& Object.keys(this.va["selectedData"][0]).length == 2) {
 			var nameTd = this.tag["s"].children().first();
 			nameTd.attr("contenteditable", true);

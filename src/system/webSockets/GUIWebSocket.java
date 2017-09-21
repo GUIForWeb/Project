@@ -7,8 +7,8 @@ import javax.websocket.Session;
 
 import org.json.JSONObject;
 
-import system.controllers.GUIRepository;
 import system.exception.GUIException;
+import system.modules.GUIRepository;
 import system.webSocketInterfaces.WebSocketInterface;
 
 public class GUIWebSocket implements WebSocketInterface  {

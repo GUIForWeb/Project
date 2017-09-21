@@ -16,26 +16,26 @@ import java.util.List;
 import system.daoInterface.IconsInOSDAO;
 import system.database.MySQL;
 import system.model.IconInOS;
-import system.model.OSSetting;
+import system.model.OS;
 
 public class IconsInOSDAOMySQL implements IconsInOSDAO{
 	private MySQL db;
-	private OSSetting osSetting;
+	private OS os;
 	private ResultSet rset;
 	private List<IconInOS> iconsInOSList;
 	
 	
 	public IconsInOSDAOMySQL(){
 		this.db = new MySQL();
-		this.osSetting = new OSSetting();
+		this.os = new OS();
 	}
-	public IconsInOSDAOMySQL(OSSetting osSetting){
+	public IconsInOSDAOMySQL(OS os){
 		this.db = new MySQL();
-		this.osSetting = osSetting;
+		this.os = os;
 	}
 	@Override
 	public void updateXY(IconInOS iconInOS){
-		String query = "UPDATE iconsinos_t SET iconX=?, iconY=? WHERE os_id = ? AND icon_id = ?";
+		String query = "UPDATE icons_in_os_t SET iconX=?, iconY=? WHERE os_id = ? AND icon_id = ?";
 		String[] info = new String[4];
 		info[0] = String.valueOf(iconInOS.getX());
 		info[1] = String.valueOf(iconInOS.getY());
@@ -49,9 +49,9 @@ public class IconsInOSDAOMySQL implements IconsInOSDAO{
 	public void load(){
 		this.iconsInOSList = new ArrayList<IconInOS>();
 		IconInOS tmpUserIcon;
-		String query = "SELECT * FROM iconsinos_t WHERE os_id = ?";
+		String query = "SELECT * FROM icons_in_os_t WHERE os_id = ?";
 		String[] info = new String[1];
-		info[0] = String.valueOf(this.osSetting.getId());
+		info[0] = String.valueOf(this.os.getId());
 		this.db.connect();
 		this.rset = this.db.select(query, info);
 		try {
