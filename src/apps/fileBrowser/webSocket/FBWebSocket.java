@@ -9,6 +9,7 @@ import javax.websocket.Session;
 import org.json.JSONObject;
 
 import apps.fileBrowser.module.FBManager;
+import system.modules.DesktopManager;
 import system.webSocketInterfaces.WebSocketInterface;
 
 public class FBWebSocket implements WebSocketInterface{
@@ -35,6 +36,7 @@ public class FBWebSocket implements WebSocketInterface{
 		this.fbm.setJson(json);
 		this.fbm.loadRoot();
 		this.fbm.findBrowser();
+		this.fbm.setDesktopManager(new DesktopManager());
 		switch (status) {
 			case "open":
 				this.fbm.open();

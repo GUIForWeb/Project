@@ -18,7 +18,7 @@ guiLib.subsystem.WindowManager = function() {
 		tmpNode.win = new Window();
 		tmpNode.win.name = iconObj.name;
 		tmpNode.win.guiName = this.guiName;
-		tmpNode.win.bgSelector = this.bgSelector;
+		tmpNode.win.windowZoneSelector = this.windowZoneSelector;
 		tmpNode.win.view.setDefaultValues(this.winDefaultValueArray);
 		tmpNode.win.view.zIndex = zIndex;
 		tmpNode.win.content = this.request.getData(this.contextPath

@@ -1,28 +1,22 @@
 guiLib.models.DataIcon = function(){
 	this.__proto__ = new Model;
 	this.guiName = "";
-	this.tagIdRule = "icon";
+	this.tagIdRule = "dataIcon";
 	this.tagClass = "iconDiv";
 	this.imgClass = "iconImg";
 	this.id = null;
 	this.tagId = null;
 	this.view = new IconView(this);
 	this.init = function(dataJSON){
+		this.id = dataJSON.id;
+		this.tagId = this.tagIdRule + this.id;
 		this.name = dataJSON.name;
 		this.dateModified = dataJSON.dateModified;
 		this.size = dataJSON.size;
 		this.type = dataJSON.type;
 		this.x = dataJSON.x;
 		this.y = dataJSON.y;
-		//this.imgURL = "/WebGUI/system/comps/icons/"+this.type.replaces("/","_")+".png";
-		/*
-		this.id = json.id;
-		this.tagId = this.tagIdRule + this.id;
-		this.x = json.x;
-		this.y = json.y;
-		
-		this.iconURL = "/WebGUI/system/comps/icons/file.png";
-		*/
+		this.imgURL = "/system/comps/icons/"+this.type.replace("/","_")+".png";
 	}
 	this.appendIcon = function(){
 		this.selector = this.view.iconSelector;

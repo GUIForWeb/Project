@@ -30,7 +30,7 @@ guiLib.subsystem.PositioningEngine = function() {
 				gapY = -1;
 			}
 
-			window.scrollTo(oLeft, oTop);
+			if(this.dynamicMode) window.scrollTo(oLeft, oTop);
 			oLeft = oLeft + (parseInt(gapX) * 2);
 			oTop = oTop + (parseInt(gapY) * 2);
 
@@ -43,7 +43,16 @@ guiLib.subsystem.PositioningEngine = function() {
 			} else if (oTop <= 0) {
 				$(tag).css("top", "10px");
 				oTop = 10;
+			} else if (oLeft > this.bgSelector.width() - 30 && !this.dynamicMode) {
+				var newOLeft = this.bgSelector.width() - 30;
+				$(tag).css("left", newOLeft + "px");
+				oLeft = newOLeft;
+			} else if (oTop > this.bgSelector.height() - 30 && !this.dynamicMode) {
+				var newOTop = this.bgSelector.height() - 30;
+				$(tag).css("top", newOTop + "px");
+				oTop = newOTop;
 			}
+			
 			this.forMovement = {
 				preX : "noValue",
 				preY : "noValue",

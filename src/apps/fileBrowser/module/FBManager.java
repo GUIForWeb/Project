@@ -21,6 +21,8 @@ import org.json.JSONObject;
 import apps.fileBrowser.library.FBFileOutputStream;
 import apps.fileBrowser.model.Browser;
 import system.dao.DataItemsDAO;
+import system.model.OS;
+import system.modules.DesktopManager;
 
 public class FBManager {
 	private int id;
@@ -29,13 +31,14 @@ public class FBManager {
 	private JSONObject json;
 	private List<Browser> browserList;
 	private DataItemsDAO dataItemDAO;
-	private JSONArray dataItemArray;
+	private JSONArray jsonArray;
 	private HttpSession session;
 	private Browser browser;
 	private ServletContext servletContext;
 	private FBFileOutputStream fos;
 	private Session websocketSession;
 	private HttpServletResponse response;
+	private DesktopManager desktopManager;
 
 	public FBManager() {
 		this.dataItemDAO = new DataItemsDAO();
@@ -70,12 +73,12 @@ public class FBManager {
 	private void reload() {
 		this.dataItemDAO.setFilePath(this.path);
 		this.dataItemDAO.load();
-		this.dataItemArray = this.dataItemDAO.getJSONArray();
+		this.jsonArray = this.dataItemDAO.getJSONArray();
 		this.json = new JSONObject();
 		this.json.put("status", "reload");
 		String path = this.path.replace(this.root, "");
 		this.json.put("path", path);
-		this.json.put("data", this.dataItemArray);
+		this.json.put("data", this.jsonArray);
 	}
 
 	private void multiReload() {
@@ -86,16 +89,16 @@ public class FBManager {
 			JSONObject data = new JSONObject();
 			this.dataItemDAO.setFilePath(this.path);
 			this.dataItemDAO.load();
-			this.dataItemArray = this.dataItemDAO.getJSONArray();
+			this.jsonArray = this.dataItemDAO.getJSONArray();
 			for (Browser b : this.browserList) {
 				if (b.getPath().equals(this.path) && !b.isWeb()) {
 					ids.put(b.getId());
-				} 
+				}
 			}
 			this.json = new JSONObject();
 			this.json.put("status", "multiReload");
 			data.put("id", ids);
-			data.put("data", this.dataItemArray);
+			data.put("data", this.jsonArray);
 			String path = this.path.replace(this.root, "");
 			this.json.put("path", path);
 			this.json.put("data", data);
@@ -288,7 +291,7 @@ public class FBManager {
 
 			this.dataItemDAO.setFilePath(this.path);
 			this.dataItemDAO.load();
-			this.dataItemArray = this.dataItemDAO.getJSONArray();
+			this.jsonArray = this.dataItemDAO.getJSONArray();
 			for (Browser b : this.browserList) {
 				if (b.getPath().equals(this.path) && !b.isWeb()) {
 					ids.put(b.getId());
@@ -296,13 +299,13 @@ public class FBManager {
 			}
 			json = new JSONObject();
 			json.put("id", ids);
-			json.put("data", this.dataItemArray);
+			json.put("data", this.jsonArray);
 			data.put(json);
 
 			ids = new JSONArray();
 			this.dataItemDAO.setFilePath(path);
 			this.dataItemDAO.load();
-			this.dataItemArray = this.dataItemDAO.getJSONArray();
+			this.jsonArray = this.dataItemDAO.getJSONArray();
 			for (Browser b : this.browserList) {
 				if (b.getPath().equals(path)) {
 					ids.put(b.getId());
@@ -310,7 +313,7 @@ public class FBManager {
 			}
 			json = new JSONObject();
 			json.put("id", id);
-			json.put("data", this.dataItemArray);
+			json.put("data", this.jsonArray);
 			path = this.path.replace(this.root, "");
 			json.put("path", path);
 			data.put(json);
@@ -375,7 +378,7 @@ public class FBManager {
 		}
 		this.dataItemDAO.setFilePath(this.path);
 		this.dataItemDAO.load();
-		this.dataItemArray = this.dataItemDAO.getJSONArray();
+		this.jsonArray = this.dataItemDAO.getJSONArray();
 		this.multiReload();
 	}
 
@@ -418,17 +421,23 @@ public class FBManager {
 			// file process
 		}
 	}
-	
+	/*
+	public void getJSONArray(){
+		this.dataItemDAO.setFilePath(this.path);
+		this.dataItemDAO.load();
+		this.jsonArray = this.dataItemDAO.getJSONArray();
+	}
+	*/
 	public void newFBFrom(String path) {
 		this.setNewId();
 		Browser tmpBrowser = new Browser();
 		tmpBrowser.setId(this.id);
 		tmpBrowser.setPath(this.root);
 		this.browserList.add(tmpBrowser);
-		this.path = this.root+path;
+		this.path = this.root + path;
 		File b = new File("", this.path);
 		try {
-			if(!b.getCanonicalPath().contains(this.root))
+			if (!b.getCanonicalPath().contains(this.root))
 				this.path = this.root;
 			else
 				this.path = b.getCanonicalPath();
@@ -437,16 +446,16 @@ public class FBManager {
 			this.path = this.root;
 			e.printStackTrace();
 		}
-		if(!b.exists())
+		if (!b.exists())
 			this.path = this.root;
 		tmpBrowser.setPath(this.path);
 		this.dataItemDAO.setFilePath(this.path);
 		this.dataItemDAO.load();
-		this.dataItemArray = this.dataItemDAO.getJSONArray();
+		this.jsonArray = this.dataItemDAO.getJSONArray();
 		this.setSession();
 		this.session.setAttribute("root", this.root);
 	}
-	
+
 	public void newFB() {
 		this.setNewId();
 		Browser tmpBrowser = new Browser();
@@ -455,14 +464,12 @@ public class FBManager {
 		this.browserList.add(tmpBrowser);
 		this.dataItemDAO.setFilePath(this.root);
 		this.dataItemDAO.load();
-		this.dataItemArray = this.dataItemDAO.getJSONArray();
+		this.jsonArray = this.dataItemDAO.getJSONArray();
 		this.setSession();
 		this.session.setAttribute("root", this.root);
-		System.out.println(this.dataItemArray);
-		System.out.println(this.id);
 	}
-	
-	public JSONObject getJson() {
+
+	public JSONObject getJson() {			
 		return json;
 	}
 
@@ -492,11 +499,11 @@ public class FBManager {
 	}
 
 	public JSONArray getJSONArray() {
-		return dataItemArray;
+		return jsonArray;
 	}
 
 	public void setDataItemArray(JSONArray dataItemArray) {
-		this.dataItemArray = dataItemArray;
+		this.jsonArray = dataItemArray;
 	}
 
 	public int getId() {
@@ -545,5 +552,13 @@ public class FBManager {
 
 	public void setResponse(HttpServletResponse response) {
 		this.response = response;
+	}
+
+	public DesktopManager getDesktopManager() {
+		return desktopManager;
+	}
+
+	public void setDesktopManager(DesktopManager desktopManager) {
+		this.desktopManager = desktopManager;
 	}
 }

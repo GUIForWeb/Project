@@ -8,7 +8,7 @@ guiLib.models.Taskbar = function(){
 	this.view = new TaskbarView(this);
 	this.appendTaskbar = function(){
 		this.view.getView();
-		this.bgSelector.append(this.view.taskbarSelector);
+		this.sectionSelector.append(this.view.taskbarSelector);
 	}
 	this.init = function(numId){
 		this.numId = numId;

@@ -5,7 +5,5 @@ fileBrowser.subsystem.select.ContextMenuSelect = function() {
 			this.va["isData"] = true;
 		else
 			this.va["isData"] = false;
-		this.contextMenu.isOnTheScreen = true;
-		this.contextMenu.appendContextMenu();
 	}
 }

@@ -8,10 +8,13 @@ fileBrowser.controllers.Click = function() {
 			if(selector.prop("tagName") == "TR")
 				$(event.target.parentNode).css("background-color","dimgray");
 		}
+		if (taskArray["contextMenu"].isOnTheScreen) {
+			taskArray["contextMenu"].disappear();
+		}
 	}
 	this.newFolder = function(event) {
 		this.fbm.send.newFolder();
-		this.contextMenu.removeContextMenu();
+		this.contextMenu.disappear();
 	}
 	this.rename = function(event) {
 		if (this.va["validation"] && !this.select.drag.isWorking
@@ -27,13 +30,13 @@ fileBrowser.controllers.Click = function() {
 			});
 			this.va["prevData"] = this.va["selectedData"];
 			nameTd.focus();
-			this.contextMenu.removeContextMenu();
+			this.contextMenu.disappear();
 		}
 	}
 	this.del = function() {
 		if (this.va["validation"] && confirm('Delete it?')) {
 			this.fbm.send.del();
-			this.contextMenu.removeContextMenu();
+			this.contextMenu.disappear();
 			this.va["selectedData"] = [];
 		}
 	}
@@ -42,25 +45,25 @@ fileBrowser.controllers.Click = function() {
 			this.va["selectedData"] = this.ds.fileList();
 		if (this.va["validation"] && this.va["selectedData"].length > 0
 				&& this.va["selectedData"][0].type != "directory") {
-			this.contextMenu.removeContextMenu();
+			this.contextMenu.disappear();
 			this.fbm.send.download();
 		}
 	}
 	this.copy = function() {
 		if (this.va["validation"]) {
 			this.fbm.send.copy();
-			this.contextMenu.removeContextMenu();
+			this.contextMenu.disappear();
 		}
 	}
 	this.cut = function() {
 		if (this.va["validation"]) {
 			this.fbm.send.cut();
-			this.contextMenu.removeContextMenu();
+			this.contextMenu.disappear();
 		}
 	}
 	this.paste = function() {
 		this.fbm.send.paste();
-		this.contextMenu.removeContextMenu();
+		this.contextMenu.disappear();
 	}
 	this.nameHead = function(){
 		this.fs.string.sort("name");

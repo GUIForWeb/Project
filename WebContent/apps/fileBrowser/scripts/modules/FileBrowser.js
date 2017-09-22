@@ -2,7 +2,7 @@ function FileBrowser(id){
 	this.ws = function(){}
 	this.id = id;
 	this.data = [];
-	this.setJSON = function(data) {
+	this.setJSONArray = function(data) {
 		this.controller.va["data"] = data;
 	}
 	this.InitForWMode = function() {
@@ -75,16 +75,23 @@ function FileBrowser(id){
 		
 		this.contextMenu = new FileBrowserContextMenu();
 		this.contextMenu.__proto__ = this;
+		taskArray["contextMenu"] = this.contextMenu; 
 		this.status = new FileBrowserStatus();
 		this.status.__proto__ = this;
 		this.fs = new FileSort();
 		this.fs.__proto__ = this.controller;
 		this.fs.option = "name";
 		this.fs.string.arrayPrototype();
+		this.fm = new TableManager();
+		this.fm.__proto__ = this.controller;
+		
 		if(sessionStorage.wMode !== undefined)
 			this.InitForWMode();
 	}
 	this.appendFunction = function(){
+		if(this.controller.va["data"].length == 0)
+			this.fm.getData();
+		
 		var id = this.id;
 		
 		this.section.click(function(event){

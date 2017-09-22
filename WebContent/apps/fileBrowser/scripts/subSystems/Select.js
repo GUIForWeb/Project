@@ -9,10 +9,6 @@ fileBrowser.subsystem.Select = function() {
 	this.end.__proto__ = this;
 
 	this.cancle = function(){
-		if (this.contextMenu.isOnTheScreen) {
-			this.contextMenu.remove();
-			this.contextMenu.isOnTheScreen = false;
-		}
 		this.fbTable.find("tr").css("background-color", "white");
 		this.va["selectedData"] = [];
 		for(i=0; i<this.va["data"].length; i++) 

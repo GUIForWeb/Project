@@ -43,9 +43,8 @@ guiLib.controllers.Click = function() {
 		this.gr.moveWinToTop(zIndex);
 	}
 	this.eButton = function(tag) {
-		if (this.bgContextMenu.isOnTheScreen) {
-			this.bgContextMenu.remove();
-			this.bgContextMenu.isOnTheScreen = false;
+		if (taskArray["contextMenu"].isOnTheScreen) {
+			taskArray["contextMenu"].disappear();
 		}
 	}
 

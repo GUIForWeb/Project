@@ -1,5 +1,5 @@
 $(window).resize(function(){location.reload();});
-
+var taskArray = [];
 var gui = new GUI("gui");
 var func = new Function();
 

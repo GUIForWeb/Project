@@ -19,18 +19,37 @@ function GUI(guiVariableName) {
 	this.barTagIdRule = new Bar().tagIdRule;
 	this.winTagIdRule = new Window().tagIdRule;
 	this.dataIconArray = [];
+	//html scroll for windows
+	this.dynamicMode = false;
 	this.init = function() {
 	}
 	this.setDataIconJSONArray = function(dataIconJSONArray) {
 		this.dataIconJSONArray = dataIconJSONArray;
 	}
 	this.initDesktopDataItems = function() {
-		//this.dataComparison(this.dataIconJSONArray,this.desktopDataJSONArray,0, 0);
-		console.log(this.dataIconJSONArray); // delete icon
-		console.log(this.desktopDataJSONArray); //new data
-		console.log(this.dataIconArray); //kept Icon
+		console.log(this.dataIconJSONArray);
+		var rowNum = this.background.view.tableSelector.find("tr").length;
+		var dNum = this.dataIconJSONArray.length;
+		var iNum = this.iconArray.length;
+		//new one
+		//old one
+		/*
+		for(di=0; di < this.dataIconJSONArray.length; di++) {
+			var tmpIcon = new DataIcon();
+			tmpIcon.contextPath = this.contextPath;
+			tmpIcon.init(this.dataIconJSONArray[di]);
+			this.iconCoordinate[tmpIcon.x + "," + tmpIcon.y] = true;
+			tmpIcon.view.iconTdBorderWidth = this.iconTdValueArray["iconTdBorderWidth"];
+			tmpIcon.view.iconTdBorderHeight = this.iconTdValueArray["iconTdBorderHeight"];
+			tmpIcon.view.getView();
+			tmpIcon.appendIcon();
+			this.dataIconArray[di] = tmpIcon;
+		}
+		*/
 	}
-	
+	this.coordinateFilter = function(){
+		
+	}
 	this.initIcon = function() {
 		for (ci = 0; ci < this.iconJSONArray.length; ci++) {
 			var tmpIcon = new Icon();
@@ -106,8 +125,14 @@ function GUI(guiVariableName) {
 		this.initBackground();
 		this.initBgContextMenu();
 		this.initIcon();
+		this.initWindowZone();
 		this.initTaskbar();
 		this.initDesktopDataItems();
+	}
+	this.initWindowZone = function() {
+		this.windowZoneSelector = $("<div></div>");
+		this.windowZoneSelector.attr("id","windowZone");
+		this.sectionSelector.append(this.windowZoneSelector);
 	}
 	this.initBackground = function() {
 		this.background = new Background();
@@ -117,7 +142,12 @@ function GUI(guiVariableName) {
 		this.background.setIconTableValues(this.iconTableValueArray);
 		this.background.appendBackgroundView();
 		this.bgSelector = this.background.view.backgroundSelector;
+		this.sectionSelector = this.bgSelector.parent();
+		console.log(this.sectionSelector);
+		/*
 		this.tableWrapSelector = this.background.view.tableWrapSelector;
+		this.tableWrapSelector;
+		*/
 		this.background.appendIconTd();
 	}
 	this.initBgContextMenu = function() {
@@ -125,6 +155,7 @@ function GUI(guiVariableName) {
 		contextMenuObj.bgSelector = this.bgSelector;
 		contextMenuObj.tagId = "bgContextMenu";
 		this.bgContextMenu = contextMenuObj;
+		taskArray["contextMenu"] = this.bgContextMenu;
 	}
 	this.reinitIcon = function(iconTdBorderWidth, iconTdBorderHeight) {
 		for (ci = 0; ci < this.iconDataList.length; ci++) {
@@ -147,7 +178,7 @@ function GUI(guiVariableName) {
 		this.taskbar.contextPath = this.contextPath;
 		this.taskbarTagId = "taskbar";
 		this.taskbar.tagId = this.taskbarTagId;
-		this.taskbar.bgSelector = this.bgSelector;
+		this.taskbar.sectionSelector = this.sectionSelector;
 		this.taskbar.view.setTaskbarValues(this.taskbarValueArray);
 		this.taskbar.appendTaskbar();
 		this.taskbarSelector = this.taskbar.view.taskbarSelector;

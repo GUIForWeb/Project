@@ -39,5 +39,6 @@ var FBManager = fileBrowser.subsystem.FBManager;
 var FBReceiver = fileBrowser.subsystem.FBReceiver;
 var FBSender = fileBrowser.subsystem.FBSender;
 var FileSort = fileBrowser.subsystem.FileSort;
-
+var TableManager = fileBrowser.subsystem.TableManager;
+	
 var FileWebSocket = fileBrowser.webSockets.FileWebSocket;

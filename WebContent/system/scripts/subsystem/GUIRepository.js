@@ -159,7 +159,7 @@ guiLib.subsystem.GUIRepository = function() {
 	this.restoreWin = function(winMap) {
 		var win = new Window();
 		win.guiName = this.guiName;
-		win.bgSelector = this.bgSelector;
+		win.windowZoneSelector = this.windowZoneSelector;
 		win.view.setDefaultValues(this.winDefaultValueArray);
 		win.init(winMap["numId"]);
 		win.restoreModel(winMap);

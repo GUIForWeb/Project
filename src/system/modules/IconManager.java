@@ -28,8 +28,8 @@ public class IconManager {
 
 	public void iconXY() {
 		IconInOS tmpIconInOS = new IconInOS(this.json);
-		OS osSetting = (OS) this.session.getAttribute("osSetting");
-		tmpIconInOS.setOSId(osSetting.getId());
+		OS os = (OS) this.session.getAttribute("os");
+		tmpIconInOS.setOSId(os.getId());
 		IconsInOSDAO iconsInOSDAO = new IconsInOSDAOMySQL();
 		iconsInOSDAO.updateXY(tmpIconInOS);
 	}

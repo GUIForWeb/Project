@@ -2,19 +2,19 @@ fileBrowser.models.FileBrowserContextMenu = function() {
 	this.view = new FileBrowserContextMenuView();
 	this.view.__proto__ = this;
 	this.isOnTheScreen = false;
-	this.appendContextMenu = function() {
+	this.setOnTheScreen = function(flag){
+		this.isOnTheScreen = flag;
+		taskArray["contextMenu"] = this;
+	}
+	this.appear = function() {
 		this.bgSelector = $("body");
-		console.log(this.bgSelector);
-		this.isOnTheScreen = true;
+		this.setOnTheScreen(true);
 		this.view.getView();
 		this.bgSelector.append(this.view.outerSelector);
 		event.preventDefault();
 	}
-	this.removeContextMenu = function() {
+	this.disappear = function() {
 		this.view.outerSelector.remove();
-		this.isOnTheScreen = false;
-	}
-	this.remove = function() {
-		this.view.contextMenuSelector.remove();
+		this.setOnTheScreen(false);
 	}
 }

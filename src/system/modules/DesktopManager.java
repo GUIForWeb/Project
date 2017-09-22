@@ -1,17 +1,10 @@
 package system.modules;
 
-import java.io.File;
-
 import javax.faces.context.ExternalContext;
 import javax.servlet.ServletContext;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import system.dao.DataItemsDAO;
-import system.dao.OSsDAOMySQL;
+import system.dao.DataIconsDAOMySQL;
 import system.daoInterface.DataIconsDAO;
-import system.daoInterface.OSsDAO;
 import system.model.OS;
 import system.model.User;
 
@@ -28,6 +21,10 @@ public class DesktopManager {
 	}
 
 	public void init() {
+		this.dataIconsDAO = new DataIconsDAOMySQL(os);
+		this.dataIconsDAO.load();
+		System.out.println(this.dataIconsDAO.getJSONArray());
+		/*
 		this.contextPath = this.externalContext.getApplicationContextPath();
 		this.context = (ServletContext) externalContext.getContext();
 		this.desktopPath = this.context.getRealPath(".").replace(this.contextPath.substring(1), "");
@@ -36,7 +33,12 @@ public class DesktopManager {
 		this.dataIconsDAO.load();
 		for(Object obj : this.dataIconsDAO.getJSONArray())
 			System.out.println(obj);
+		*/
 	}
+	public void update() {
+		
+	}
+	/*
 	private void update(){
 		File file = new File(this.desktopPath);
 		if (!file.exists())
@@ -86,7 +88,7 @@ public class DesktopManager {
 			}
 		}
 	}
-
+	*/
 	public String getDesktopPath() {
 		return desktopPath;
 	}

@@ -9,15 +9,15 @@
 		<title></title>
 	</h:head>
 	<h:body style="background-image: url(data:image/jpg;base64,#{bgImg})">
-			<h:panelGroup id="header" layout="block">
+			<header>
 				<ui:insert name="header"/>
-			</h:panelGroup>
-			<h:panelGroup id="section" layout="block">
+			</header>
+			<section>
 				<ui:insert name="section"/>
-			</h:panelGroup>
-			<h:panelGroup id="footer" layout="block">
+			</section>
+			<footer>
 				<ui:insert name="footer"/>
-			</h:panelGroup>
+			</footer>
 			<h:panelGroup id="script" layout="block">
 				<ui:insert name="script"/>
 				<h:messages style="display:none;"/>

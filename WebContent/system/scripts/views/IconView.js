@@ -2,6 +2,8 @@ guiLib.views.IconView = function(icon) {
 	this.__proto__ = icon;
 	this.zIndex = 0;
 	this.outerLayer = "";
+	this.tagClass = "iconDiv";
+	this.imgClass = "iconImg";
 	this.iconTdBorderWidth = 0;
 	this.iconTdBorderHeight = 0;
 	this.iconLayer = function() {
@@ -25,8 +27,8 @@ guiLib.views.IconView = function(icon) {
 			gui.dblclick.icon(event);
 		});
 
-		var tmpImg = $("<img>").attr("src", this.contextPath + this.iconURL);
-		tmpImg.addClass("iconImg");
+		var tmpImg = $("<img>").attr("src", this.contextPath + this.imgURL);
+		tmpImg.addClass(this.imgClass);
 		tmpTag.prepend(tmpImg)
 		this.outerSelector = tmpTag;
 	}

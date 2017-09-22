@@ -6,7 +6,7 @@ guiLib.models.Window = function() {
 	this.view = new WindowView(this);
 	this.appendWindow = function(){
 		if(this.view.isOnScreen)
-			this.bgSelector.append(this.view.windowSelector);
+			this.windowZoneSelector.append(this.view.windowSelector);
 		this.tag = this.view.windowSelector[0];
 		this.selector = this.view.windowSelector;
 	}
