@@ -11,7 +11,7 @@ guiLib.views.BackgroundView = function(background) {
 		tmpTag.css("z-index", this.zIndex);
 		tmpTag.addClass(this.tagClass);
 		tmpTag.contextmenu(function() {
-			gui.contextmenu.cButton(event);
+			gui.contextmenu.background(event);
 		});
 		tmpTag.click(function() {
 			gui.click.eButton(event);

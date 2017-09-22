@@ -26,7 +26,10 @@ guiLib.views.IconView = function(icon) {
 		tmpTag.dblclick(function(event) {
 			gui.dblclick.icon(event);
 		});
-
+		tmpTag.contextmenu(function(event) {
+			event.stopPropagation();
+			gui.contextmenu.icon(event);
+		});
 		var tmpImg = $("<img>").attr("src", this.contextPath + this.imgURL);
 		tmpImg.addClass(this.imgClass);
 		tmpTag.prepend(tmpImg)

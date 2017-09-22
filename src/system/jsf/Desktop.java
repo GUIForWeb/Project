@@ -34,7 +34,7 @@ import system.modules.EssentialJSLib;
 public class Desktop extends SystemJSF {
 	private String bgImg;
 	private EssentialJSLib essentialJSLib;
-
+	private OS os;
 	public Desktop() {
 		this.viewArray[IN] = "background";
 		this.viewArray[OUT] = "login";
@@ -52,7 +52,7 @@ public class Desktop extends SystemJSF {
 		if (null != this.user && null == this.session.getAttribute("os")) {
 			OSsDAO osDAO = new OSsDAOMySQL(this.user);
 			osDAO.load();
-			OS os = osDAO.getOS();
+			this.os = osDAO.getOS();
 
 			GUISettingsInOSDAO guisInOSDAO = new GUISettingsInOSDAOMySQL(os);
 			guisInOSDAO.load();
@@ -66,18 +66,12 @@ public class Desktop extends SystemJSF {
 			bgPathDAO.load();
 			BgPath bgPath = bgPathDAO.getBgPath();
 
-			IconsInOSDAO iconsInOSDAO = new IconsInOSDAOMySQL(os);
+			IconsInOSDAO iconsInOSDAO = new IconsInOSDAOMySQL(this.os);
 			iconsInOSDAO.load();
 			IconsDAO iconDAO = new IconsDAOMySQL(iconsInOSDAO.getIconsInOSList());
 			iconDAO.load();
-			/*	
-			DesktopManager desktopManager = new DesktopManager();
-			desktopManager.setUser(this.user);
-			desktopManager.setExternalContext(this.externalContext);
-			desktopManager.setOS(os);
-			desktopManager.init();
-			*/
-			this.session.setAttribute("os", os);
+			
+			//this.session.setAttribute("os", os);
 			// this.session.setAttribute("desktopManager", desktopManager);
 			if (null != bgPath.getBgPath()) {
 				this.bgImg = this.context.getRealPath(".").replace(this.contextPath.substring(1), "");
@@ -90,7 +84,6 @@ public class Desktop extends SystemJSF {
 			}
 			this.externalContext.getApplicationMap().put("guiSetting", guiSetting);
 			this.externalContext.getApplicationMap().put("iconJSONArray", iconDAO.getIconJSONArray());
-			this.externalContext.getApplicationMap().put("dataIconJSONArray", "[]");
 			this.externalContext.getApplicationMap().put("bgImg", this.bgImg);
 			this.externalContext.getApplicationMap().put("port", this.port);
 			this.externalContext.getApplicationMap().put("contextURL", this.contextUrl);
@@ -98,5 +91,11 @@ public class Desktop extends SystemJSF {
 			this.externalContext.getApplicationMap().put("serverName", this.serverName);
 			this.externalContext.getApplicationMap().put("libs", this.essentialJSLib);
 		}
+		DesktopManager desktopManager = new DesktopManager();
+		desktopManager.setUser(this.user);
+		desktopManager.setExternalContext(this.externalContext);
+		desktopManager.setOS(this.os);
+		desktopManager.init();
+		this.externalContext.getApplicationMap().put("dataIconJSONArray", desktopManager.getDataIconsDAO().getJSONArray());
 	}
 }

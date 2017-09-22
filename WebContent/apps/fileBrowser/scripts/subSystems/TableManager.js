@@ -23,5 +23,4 @@ fileBrowser.subsystem.TableManager = function() {
 		json.isChosen = false;
 		this.jsonArray.push(json);
 	}
-	
 }

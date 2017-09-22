@@ -1,13 +1,14 @@
 var models = guiLib.models
 var Background = guiLib.models.Background;
 var Bar = guiLib.models.Bar;
-var ContextMenu = guiLib.models.ContextMenu;
+var BackgroundContextMenu = guiLib.models.BackgroundContextMenu;
 var Icon = guiLib.models.Icon;
 var DataIcon = guiLib.models.DataIcon;
 var Model = guiLib.models.Model;
 var Taskbar = guiLib.models.Taskbar;
 var WinAndBarNode = guiLib.models.WinAndBarNode;
 var Window = guiLib.models.Window;
+var IconContextMenu = guiLib.models.IconContextMenu;
 
 var BarManager = guiLib.subsystem.BarManager;
 var EnumEngine = guiLib.subsystem.EnumEngine;
@@ -45,7 +46,9 @@ var Dragover = guiLib.controllers.subControllers.Dragover;
 var view = guiLib.views;
 var BackgroundView = guiLib.views.BackgroundView;
 var BarView = guiLib.views.BarView;
-var ContextMenuView = guiLib.views.ContextMenuView;
+var BackgroundContextMenuView = guiLib.views.BackgroundContextMenuView;
 var IconView = guiLib.views.IconView;
 var TaskbarView = guiLib.views.TaskbarView;
 var WindowView = guiLib.views.WindowView;
+var IconContextMenuView = guiLib.views.IconContextMenuView;
+

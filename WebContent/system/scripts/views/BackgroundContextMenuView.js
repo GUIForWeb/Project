@@ -1,8 +1,7 @@
-guiLib.views.ContextMenuView = function(contextMenuModel) {
-	this.__proto__ = contextMenuModel;
+guiLib.views.BackgroundContextMenuView = function(backgroundContextMenuView) {
+	this.__proto__ = backgroundContextMenuView;
 	this.outerLayerTagClass = "contextMenuOuterLayer";
 	this.contentLayerTagClass = "contextMenuContentLayer";
-	this.contentPath = "";
 	this.contextMenuLayer = function() {
 		this.outerSelector.append(this.contentSelector);
 		this.contextMenuSelector = this.outerSelector;

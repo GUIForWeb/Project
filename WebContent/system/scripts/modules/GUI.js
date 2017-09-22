@@ -124,6 +124,7 @@ function GUI(guiVariableName) {
 		this.request.__proto__ = this.controller;
 		this.initBackground();
 		this.initBgContextMenu();
+		this.initIconContextMenu();
 		this.initIcon();
 		this.initWindowZone();
 		this.initTaskbar();
@@ -143,19 +144,20 @@ function GUI(guiVariableName) {
 		this.background.appendBackgroundView();
 		this.bgSelector = this.background.view.backgroundSelector;
 		this.sectionSelector = this.bgSelector.parent();
-		console.log(this.sectionSelector);
-		/*
-		this.tableWrapSelector = this.background.view.tableWrapSelector;
-		this.tableWrapSelector;
-		*/
 		this.background.appendIconTd();
 	}
 	this.initBgContextMenu = function() {
-		var contextMenuObj = new models.ContextMenu();
+		var contextMenuObj = new BackgroundContextMenu();
 		contextMenuObj.bgSelector = this.bgSelector;
 		contextMenuObj.tagId = "bgContextMenu";
 		this.bgContextMenu = contextMenuObj;
 		taskArray["contextMenu"] = this.bgContextMenu;
+	}
+	this.initIconContextMenu = function() {
+		var contextMenuObj = new IconContextMenu();
+		contextMenuObj.bgSelector = this.bgSelector;
+		contextMenuObj.tagId = "iconContextMenu";
+		this.iconContextMenu = contextMenuObj;
 	}
 	this.reinitIcon = function(iconTdBorderWidth, iconTdBorderHeight) {
 		for (ci = 0; ci < this.iconDataList.length; ci++) {
