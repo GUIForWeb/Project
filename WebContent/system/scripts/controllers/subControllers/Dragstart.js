@@ -1,4 +1,4 @@
-guiLib.controllers.subControllers.Dragstart = function() {
+system.controllers.subControllers.Dragstart = function() {
 	this.head = function(event) {
 		var winTag = event.currentTarget.parentNode.parentNode;
 		var winAndBarNode = this.gm.moveWinToTop(winTag);

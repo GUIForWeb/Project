@@ -1,4 +1,4 @@
-guiLib.models.BackgroundContextMenu = function(){
+system.models.BackgroundContextMenu = function(){
 	this.__proto__ = new Model;
 	this.view = new BackgroundContextMenuView(this);
 	this.isOnTheScreen = false;

@@ -78,7 +78,7 @@ function GUI(guiVariableName) {
 		this.api.__proto__ = this;
 		this.controller = new Controller();
 		this.controller.__proto__ = this;
-		this.ws = new GUIWebSocket(this.valueArray["ip"]);
+		this.ws = new webSockets.WebSocket(this.valueArray["ip"]);
 		this.gm = new GUIManager();
 		this.gm.__proto__ = this.controller;
 		this.gr = new GUIRepository(this.ws);

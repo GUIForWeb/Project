@@ -1,4 +1,4 @@
-guiLib.controllers.Resize = function() {
+system.controllers.Resize = function() {
 	this.va = [];
 	this.start = new Resizestart();
 	this.start.__proto__ = this;

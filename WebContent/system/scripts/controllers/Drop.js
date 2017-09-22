@@ -1,4 +1,4 @@
-guiLib.controllers.Drop = function() {
+system.controllers.Drop = function() {
 	this.icon = function(event) {
 		var tmpText = event.originalEvent.dataTransfer.getData("text");
 		tmpText = tmpText.substring(0,4);

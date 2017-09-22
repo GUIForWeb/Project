@@ -1,4 +1,4 @@
-guiLib.views.WindowView = function(windowModel) {
+system.views.WindowView = function(windowModel) {
 	this.__proto__ = windowModel;
 	this.isFullScreen = false;
 	this.isOnScreen = true;

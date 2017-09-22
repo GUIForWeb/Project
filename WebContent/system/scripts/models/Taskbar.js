@@ -1,4 +1,4 @@
-guiLib.models.Taskbar = function(){
+system.models.Taskbar = function(){
 	this.__proto__ = new Model;
 	this.guiName = "";
 	this.tagIdRule = "taskbar";

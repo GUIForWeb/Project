@@ -2,6 +2,7 @@ package system.webSockets;
 
 
 import java.lang.reflect.InvocationTargetException;
+import java.nio.ByteBuffer;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -37,6 +38,11 @@ public class WebSocket{
 		this.config = config;
 		this.session = (HttpSession) config.getUserProperties().get("httpSession");
 		this.servletContext = this.session.getServletContext();
+	}
+	
+	@OnMessage
+    public void processUpload(ByteBuffer msg, boolean last, Session session) {
+		this.wsi.processUpload(msg,last,session);
 	}
 	
 	@OnMessage

@@ -24,7 +24,7 @@ fileBrowser.subsystem.FBManager = function() {
 			this.va["path"] = json.path;
 			break;
 		case "%":
-			this.receive.byteCount(json.data);
+			this.receive.byteCount(json.byteCount);
 			break;
 		case "download":
 			this.receive.download(json.data);

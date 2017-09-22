@@ -1,4 +1,4 @@
-guiLib.subsystem.EventListener = function() {
+system.subsystem.EventListener = function() {
 	this.xTrigger = false;
 	this.event = function() {
 	};

@@ -1,4 +1,4 @@
-guiLib.controllers.Mouseover = function() {
+system.controllers.Mouseover = function() {
 	this.li = function(tag) {
 		var width = $(tag).width();
 		var height = $(tag).height();

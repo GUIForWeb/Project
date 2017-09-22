@@ -1,4 +1,4 @@
-guiLib.models.Window = function() {
+system.models.Window = function() {
 	this.tagIdRule = "window";
 	this.numId = 0;
 	this.tagId = "";

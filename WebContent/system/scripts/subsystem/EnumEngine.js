@@ -1,4 +1,4 @@
-guiLib.subsystem.EnumEngine = function() {
+system.subsystem.EnumEngine = function() {
 	this.moveBarToTop = function(winAndBarNode) {
 		var position = winAndBarNode.bar.view.position;
 		var tmpNode = this.nodeArray["winAndBar"];

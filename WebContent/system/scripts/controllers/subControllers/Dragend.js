@@ -1,4 +1,4 @@
-guiLib.controllers.subControllers.Dragend = function() {
+system.controllers.subControllers.Dragend = function() {
 	this.icon = function(event) {
 		/*
 		var tag = event.currentTarget;

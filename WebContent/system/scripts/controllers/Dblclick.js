@@ -1,4 +1,4 @@
-guiLib.controllers.Dblclick = function() {
+system.controllers.Dblclick = function() {
 	this.icon = function(event) {
 		var id = event.currentTarget.id;
 		console.log(id);

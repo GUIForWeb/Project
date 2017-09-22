@@ -19,6 +19,7 @@ fileBrowser.subsystem.FileSort = function() {
 			tmpTr.append(tmpTd1);
 			tmpTr.append(tmpTd2);
 			tmpTr.append(tmpTd3);
+			tmpTr.css("background-color","white")
 			this.va["data"][i].isChosen = false;
 			this.va["data"][i].isChangeable = true;
 			if(this.va["data"][i]["type"] == "directory"){

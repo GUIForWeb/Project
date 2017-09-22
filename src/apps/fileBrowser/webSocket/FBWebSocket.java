@@ -1,9 +1,13 @@
 package apps.fileBrowser.webSocket;
 
 
+import java.io.IOException;
+import java.nio.ByteBuffer;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.websocket.EndpointConfig;
+import javax.websocket.OnMessage;
 import javax.websocket.Session;
 
 import org.json.JSONObject;
@@ -25,12 +29,34 @@ public class FBWebSocket implements WebSocketInterface{
 	public FBWebSocket(){
 		this.fbm = new FBManager();
 	}
-	
+	@OnMessage
+    public void processUpload(ByteBuffer msg, boolean last, Session session) {
+		JSONObject be = new JSONObject();
+		JSONObject json = new JSONObject();
+		JSONObject data0 = new JSONObject();
+		JSONObject data1 = new JSONObject();
+		be.put("receiving", json);
+		json.put("app", "taskArray.fileBrowser["+this.fbm.getId()+"].fbm");
+		json.put("id", this.fbm.getId());
+		json.put("data", data0);
+		data0.put("status", "%");
+		while(msg.hasRemaining()) {
+			if(this.fbm.uploading(msg)){
+				data0.put("byteCount", this.fbm.getFileOutputStream().getByteCount());
+	        	try {
+					session.getBasicRemote().sendText(be.toString());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+        }
+	}
 	@Override
 	public JSONObject onMessage(String message){
 		JSONObject json = new JSONObject(message);
 		String status = json.getString("status");
-		json = json.getJSONObject("data");
+		json.remove("status");
 		this.fbm.setServletContext(this.servletContext);
 		this.fbm.setSession(this.session);
 		this.fbm.setJson(json);
@@ -40,6 +66,12 @@ public class FBWebSocket implements WebSocketInterface{
 		switch (status) {
 			case "open":
 				this.fbm.open();
+				break;
+			case "uploadDone":
+				this.fbm.uploadDone();
+				break;
+			case "uploadStart":
+				this.fbm.uploadStart();
 				break;
 			case "isNotInWindow":
 				this.fbm.isNotInWindow();
@@ -68,6 +100,7 @@ public class FBWebSocket implements WebSocketInterface{
 		json = new JSONObject();
 		if(null != this.fbm.getJson()) {
 			json.put("app", "taskArray.fileBrowser["+id+"].fbm");
+			System.out.println(this.fbm.getJson());
 			json.put("data", this.fbm.getJson());
 		}
 		return json;
@@ -75,6 +108,7 @@ public class FBWebSocket implements WebSocketInterface{
 
 	@Override
 	public void onError(Throwable exception){
+		exception.printStackTrace();
 	}
 	
 

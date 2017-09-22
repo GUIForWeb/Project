@@ -1,4 +1,4 @@
-guiLib.subsystem.NodeManager = function() {
+system.subsystem.NodeManager = function() {
 	this.removeLastNode = function() {
 		this.nodeArray["winAndBar"].winCount--;
 		this.nodeArray["winAndBar"].barCount--;

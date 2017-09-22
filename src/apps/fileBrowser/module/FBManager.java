@@ -35,10 +35,11 @@ public class FBManager {
 	private HttpSession session;
 	private Browser browser;
 	private ServletContext servletContext;
-	private FBFileOutputStream fos;
+	private FBFileOutputStream fileOutputStream;
 	private Session websocketSession;
 	private HttpServletResponse response;
 	private DesktopManager desktopManager;
+	private int per;
 
 	public FBManager() {
 		this.dataItemDAO = new DataItemsDAO();
@@ -106,66 +107,72 @@ public class FBManager {
 	}
 
 	public void download() {
-		JSONArray dataArray = this.json.getJSONArray("data");
-		JSONObject data;
+		JSONObject data = this.json.getJSONObject("data");
 		File tmpFile;
 		String name;
 		String type;
-		for (int ji = 0; ji < dataArray.length(); ji++) {
-			data = dataArray.getJSONObject(ji);
-			name = data.getString("name");
-			type = data.getString("type");
-			tmpFile = new File(this.path + "/" + name);
-			byte[] outputByte = new byte[4096];
-			this.response.setCharacterEncoding("ISO-8859-1");
-			this.response.setContentType(type);
-			this.response.setHeader("Content-Disposition", "attachment;filename=\"" + name + "\"");
-			try {
-				ServletOutputStream out = this.response.getOutputStream();
-				FileInputStream fis = new FileInputStream(tmpFile);
-				int size = (int) tmpFile.length();
-				if (size > 4096)
-					size = 4096;
-				while (fis.read(outputByte, 0, size) != -1) {
-					out.write(outputByte, 0, size);
-				}
-				fis.close();
-				out.flush();
-				out.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		name = data.getString("name");
+		type = data.getString("type");
+		tmpFile = new File(this.path + "/" + name);
+		byte[] outputByte = new byte[4096];
+		this.response.setCharacterEncoding("ISO-8859-1");
+		this.response.setContentType(type);
+		this.response.setHeader("Content-Disposition", "attachment;filename=\"" + name + "\"");
+		try {
+			ServletOutputStream out = this.response.getOutputStream();
+			FileInputStream fis = new FileInputStream(tmpFile);
+			int size = (int) tmpFile.length();
+			if (size > 4096)
+				size = 4096;
+			while (fis.read(outputByte, 0, size) != -1) {
+				out.write(outputByte, 0, size);
 			}
+			fis.close();
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	public void uploadDone() {
 		try {
-			fos.flush();
-			fos.close();
+			if(null != this.fileOutputStream) {
+				this.fileOutputStream.flush();
+				this.fileOutputStream.close();
+			}
 			this.multiReloadForUpload();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void fileUploading(ByteBuffer msg) {
+	public boolean uploading(ByteBuffer msg) {
 		try {
-			fos.write(msg.get());
+			this.fileOutputStream.write(msg.get());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return (this.fileOutputStream.getByteCount() % this.per == 0);
 	}
 
-	public void fileUploadStart() {
+	public void uploadStart() {
+		int size = json.getInt("size");
+		String sizeStr = String.valueOf(size);
+		int sizeLen = String.valueOf(size).length();
+		this.per = (Integer.valueOf(String.valueOf(sizeStr.charAt(0))) + 1);
+		this.per = (int) (this.per * Math.pow(10, sizeLen));
+		this.per = ((this.per / 100000000) + 1) * 3;
+		this.per = size / this.per;
 		String name = this.json.getString("name");
-		File uploadedFile = new File(this.path + "/" + name);
+		File file = new File(this.path + "/" + name);
 		String ext = name.substring(name.lastIndexOf(".") + 1, name.length());
 		name = name.substring(0, name.lastIndexOf("."));
-		if (uploadedFile.exists())
-			uploadedFile = this.checkDest(this.path, name, 0, ext);
+		if (file.exists())
+			file = this.checkDest(this.path, name, 0, ext);
 		try {
-			fos = new FBFileOutputStream(uploadedFile);
+			this.fileOutputStream = new FBFileOutputStream(file);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -421,13 +428,12 @@ public class FBManager {
 			// file process
 		}
 	}
+
 	/*
-	public void getJSONArray(){
-		this.dataItemDAO.setFilePath(this.path);
-		this.dataItemDAO.load();
-		this.jsonArray = this.dataItemDAO.getJSONArray();
-	}
-	*/
+	 * public void getJSONArray(){ this.dataItemDAO.setFilePath(this.path);
+	 * this.dataItemDAO.load(); this.jsonArray =
+	 * this.dataItemDAO.getJSONArray(); }
+	 */
 	public void newFBFrom(String path) {
 		this.setNewId();
 		Browser tmpBrowser = new Browser();
@@ -469,7 +475,7 @@ public class FBManager {
 		this.session.setAttribute("root", this.root);
 	}
 
-	public JSONObject getJson() {			
+	public JSONObject getJson() {
 		return json;
 	}
 
@@ -530,12 +536,12 @@ public class FBManager {
 		this.servletContext = servletContext;
 	}
 
-	public FBFileOutputStream getFos() {
-		return fos;
+	public FBFileOutputStream getFileOutputStream() {
+		return fileOutputStream;
 	}
 
-	public void setFos(FBFileOutputStream fos) {
-		this.fos = fos;
+	public void setFileOutputStream(FBFileOutputStream fileOutputStream) {
+		this.fileOutputStream = fileOutputStream;
 	}
 
 	public Session getWebsocketSession() {

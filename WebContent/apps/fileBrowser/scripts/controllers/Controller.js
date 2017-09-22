@@ -6,7 +6,6 @@ fileBrowser.controllers.Controller = function() {
 	this.va["dropable"] = false;
 	this.va["selectedData"] = [];
 	this.va["path"] = "";
-	this.va["isData"] = "";
 	this.va["data"] = [];
 	// tagArray
 	this.ta = [];

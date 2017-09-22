@@ -1,7 +1,9 @@
 fileBrowser.subsystem.FBSender = function() {
 	this.isNotInWindow = function() {
-		this.json.data = {"status" : "isNotInWindow"}
-		this.json.data.data = {"id" : this.id};
+		this.json.data = {
+				"status" : "isNotInWindow",
+				"id" : this.id
+		}
 		var data = this.json;
 		this.ws.onopen(function(){
 			var be = {};
@@ -13,17 +15,25 @@ fileBrowser.subsystem.FBSender = function() {
 		this.json = {
 			"id" : this.id,
 			"data" : this.va["selectedData"]
-		};
+		}
 		var req = new XMLHttpRequest();
 		req.open("POST", "/WebGUI/fileJSP", true);
 		req.setRequestHeader("Content-type",
 				"application/x-www-form-urlencoded");
 		req.onload = function() {
 			if (req.readyState == 4 && req.status == 200) {
-				window.open(req.response, "_blank")
+				var json = JSON.parse(req.response);
+				var times = json.times;
+				var url = json.url;
+				var tmpURL = null;
+				for(ti=0; ti<times.length; ti++){
+					tmpURL = url+"?data="+times[ti].time;
+					window.open(tmpURL, "_blank")
+				}
 			}
 		}
 		req.send("json=" + JSON.stringify(this.json));
+		this.va["selectedData"] = [];
 	}
 	this.upload = function() {
 		this.status.infoHtml("Status");
@@ -31,85 +41,75 @@ fileBrowser.subsystem.FBSender = function() {
 		var files = this.va["selectedData"];
 		for (i = 0; i < files.length; i++) {
 			var reader = new FileReader();
-			reader.onload = (function(file, fws, id) {
+			reader.onload = (function(json, file, ws, id) {
 				return function(event) {
-					console.log(file)
-					var json = {
-						"status" : "fileUpload",
+					json.data = {
+						"status" : "uploadStart",
 						"id" : id,
 						"name" : file.name,
 						"size" : file.size
 					};
-					fws.send(JSON.stringify(json));
-					fws.byteLength = this.result.byteLength;
-					fws.send(this.result);
-					json = {
-						"status" : "end"
+					ws.send(json);
+					
+					json.data = this.result;
+					ws.byteLength = this.result.byteLength;
+					ws.send(json);
+					json.data = {
+						"status" : "uploadDone",
+						"id" : id
 					};
-					fws.send(JSON.stringify(json));
+					ws.send(json);
 				}
-			})(files[i], this.fws, this.id);
-			reader.readAsArrayBuffer(files[i], this.fws, this.id);
+			})(this.json, files[i], this.ws, this.id);
+			reader.readAsArrayBuffer(files[i], this.ws, this.id);
 		}
 	}
 	this.x = function() {
 		this.json.data = {
 			"status" : "x",
-			"data" : {
-				"id" : this.id
-			}
-		};
+			"id" : this.id
+		}
 		this.ws.send(this.json);
 	}
 	this.open = function() {
 		this.json.data = {
 			"status" : "open",
-			"data" : {
-				"id" : this.id,
-				"name" : this.va["selectedData"][0].name,
-				"type" : this.va["selectedData"][0].type
-			}
-		};
+			"id" : this.id,
+			"name" : this.va["selectedData"][0].name,
+			"type" : this.va["selectedData"][0].type
+		}
 		this.ws.send(this.json);
 	}
 	this.newFolder = function() {
 		this.json.data = {
 			"status" : "newFolder",
-			"data" : {
-				"id" : this.id
-			}
-		};
+			"id" : this.id
+		}
 		this.ws.send(this.json);
 	}
 	this.rename = function() {
 		this.json.data = {
 			"status" : "rename",
-			"data" : {
-				"id" : this.id,
-				"src" : this.va["prevData"][0].name,
-				"dest" : this.va["selectedData"][0].name
-			}
-		};
+			"id" : this.id,
+			"src" : this.va["prevData"][0].name,
+			"dest" : this.va["selectedData"][0].name
+		}
 		this.ws.send(this.json);
 	}
 	this.del = function() {
 		this.json.data = {
 			"status" : "del",
-			"data" : {
-				"id" : this.id,
-				"data" : this.va["selectedData"]
-			}
-		};
+			"id" : this.id,
+			"data" : this.va["selectedData"]
+		}
 		this.ws.send(this.json);
 	}
 	this.cut = function() {
 		this.json.data = {
 			"status" : "cut",
-			"data" : {
-				"id" : this.id,
-				"data" : this.va["selectedData"]
-			}
-		};
+			"id" : this.id,
+			"data" : this.va["selectedData"]
+		}
 		this.ws.send(this.json);
 		this.va["selectedData"] = [];
 		this.pasteFlag = true;
@@ -117,11 +117,9 @@ fileBrowser.subsystem.FBSender = function() {
 	this.copy = function() {
 		this.json.data = {
 			"status" : "copy",
-			"data" : {
-				"id" : this.id,
-				"data" : this.va["selectedData"]
-			}
-		};
+			"id" : this.id,
+			"data" : this.va["selectedData"]
+		}
 		this.ws.send(this.json);
 		this.va["selectedData"] = [];
 		this.pasteFlag = true;
@@ -130,10 +128,8 @@ fileBrowser.subsystem.FBSender = function() {
 		if(this.pasteFlag){
 			this.json.data = {
 				"status" : "paste",
-				"data" : {
-					"id" : this.id
-				}
-			};
+				"id" : this.id
+			}
 			this.ws.send(this.json);
 			this.pasteFlag = false;
 		}

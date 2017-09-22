@@ -1,4 +1,4 @@
-guiLib.controllers.ContextMenu = function() {
+system.controllers.ContextMenu = function() {
 	this.background = function(event) {
 		/*
 		 if (taskArray["contextMenu"].isOnTheScreen)

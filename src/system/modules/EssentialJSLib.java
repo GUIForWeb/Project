@@ -12,13 +12,15 @@ public class EssentialJSLib {
 		this.libList();
 	}
 	private void libList(){
-		this.list.add(this.contextPath+"/system/scripts/webSocket/GUIWebSocket.js");
+		this.list.add(this.contextPath+"/system/scripts/inits/bootScripts/EssentialPackage.js");
 		this.list.add(this.contextPath+"/system/scripts/api/complement/Sort.js");
 		this.list.add(this.contextPath+"/system/scripts/api/complement/Bottom.js");
 		this.list.add(this.contextPath+"/system/scripts/api/complement/Filter.js");
 		this.list.add(this.contextPath+"/system/scripts/api/settlor/Set.js");
 		this.list.add(this.contextPath+"/system/scripts/api/settlor/Has.js");
 		this.list.add(this.contextPath+"/system/scripts/api/API.js");
+		this.list.add(this.contextPath+"/system/scripts/webSockets/WebSocket.js");
+		this.list.add(this.contextPath+"/system/scripts/inits/bootScripts/EssentialImport.js");
 	}
 	public List<String> getList() {
 		return list;

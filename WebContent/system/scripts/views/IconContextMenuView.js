@@ -1,4 +1,4 @@
-guiLib.views.IconContextMenuView = function(iconContextMenuModel) {
+system.views.IconContextMenuView = function(iconContextMenuModel) {
 	this.__proto__ = iconContextMenuModel;
 	this.outerLayerTagClass = "contextMenuOuterLayer";
 	this.contentLayerTagClass = "contextMenuContentLayer";

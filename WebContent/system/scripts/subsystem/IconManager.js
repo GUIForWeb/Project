@@ -1,4 +1,4 @@
-guiLib.subsystem.IconManager = function() {
+system.subsystem.IconManager = function() {
 	this.json = {
 		"app" : "system.webSockets.IconWebSocket",
 		"data" : {}

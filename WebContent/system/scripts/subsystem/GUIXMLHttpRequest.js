@@ -1,4 +1,4 @@
-guiLib.subsystem.GUIXMLHttpRequest = function() {
+system.subsystem.GUIXMLHttpRequest = function() {
 	this.getData = function(address) {
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", address, false);

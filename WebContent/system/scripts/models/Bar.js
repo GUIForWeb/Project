@@ -1,4 +1,4 @@
-guiLib.models.Bar = function(){
+system.models.Bar = function(){
 	this.name;
 	this.guiName = "";
 	this.tagIdRule = "bar";

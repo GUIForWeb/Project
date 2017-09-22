@@ -13,7 +13,7 @@
 		taskArray = [];
 		taskArray["fileBrowser"] = [];
 		taskArray["fileBrowser"][fbId] = new FileBrowser(fbId);
-		taskArray["fileBrowser"][fbId].ws = new GUIWebSocket("#{serverName}");
+		taskArray["fileBrowser"][fbId].ws = new essentialLibrary.webSockets.WebSocket("#{serverName}");
 		taskArray["fileBrowser"][fbId].ip = "#{serverName}";
 		taskArray["fileBrowser"][fbId].contextURL = "#{contextURL}";
 		taskArray["fileBrowser"][fbId].init();

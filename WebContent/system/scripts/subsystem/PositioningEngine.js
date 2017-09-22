@@ -1,4 +1,4 @@
-guiLib.subsystem.PositioningEngine = function() {
+system.subsystem.PositioningEngine = function() {
 	this.oLeft = 0;
 	this.oTop = 0;
 	this.forMovement = {

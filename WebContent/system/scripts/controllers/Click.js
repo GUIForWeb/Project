@@ -1,4 +1,4 @@
-guiLib.controllers.Click = function() {
+system.controllers.Click = function() {
 	this.xButton = function(event) {
 		var winTag = event.currentTarget.parentNode.parentNode;
 		var winAndBarNode = this.gm.xWinAndBar(winTag);

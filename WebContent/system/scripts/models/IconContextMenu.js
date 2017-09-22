@@ -1,4 +1,4 @@
-guiLib.models.IconContextMenu = function(){
+system.models.IconContextMenu = function(){
 	this.__proto__ = new Model;
 	this.view = new IconContextMenuView(this);
 	this.isOnTheScreen = false;

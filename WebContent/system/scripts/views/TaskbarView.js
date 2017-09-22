@@ -1,4 +1,4 @@
-guiLib.views.TaskbarView = function(BarModel) {
+system.views.TaskbarView = function(BarModel) {
 	this.__proto__ = BarModel;
 	this.outerLayerTagClass = "taskbarOuterLayer";
 	this.logoutouterTagClass = "logoutOuterLayer";

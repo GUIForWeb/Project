@@ -1,7 +1,7 @@
 fileBrowser.subsystem.FBReceiver = function() {
 	this.byteCount = function(json) {
-		var bLen = this.fws.byteLength;
-		var bCnt = json.byteCount;
+		var bLen = this.ws.byteLength;
+		var bCnt = json;
 		this.status.infoHtml("Upload");
 		var gLen = bCnt/bLen*100
 		this.status.detailGraph(gLen,parseInt(gLen)+"%");

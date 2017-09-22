@@ -1,4 +1,4 @@
-guiLib.controllers.Drag = function() {
+system.controllers.Drag = function() {
 	this.start = new Dragstart();
 	this.start.__proto__ = this;
 	this.ing = new Draging();

@@ -1,4 +1,4 @@
-guiLib.views.BackgroundContextMenuView = function(backgroundContextMenuView) {
+system.views.BackgroundContextMenuView = function(backgroundContextMenuView) {
 	this.__proto__ = backgroundContextMenuView;
 	this.outerLayerTagClass = "contextMenuOuterLayer";
 	this.contentLayerTagClass = "contextMenuContentLayer";

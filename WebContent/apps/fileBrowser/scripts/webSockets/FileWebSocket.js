@@ -1,4 +1,5 @@
 fileBrowser.webSockets.FileWebSocket = function(ip) {
+	/*
 	this.ip = ip;
 	this.socket = new WebSocket("ws://" + this.ip + "/WebGUI/fs");
 	this.socket.binaryType = "arraybuffer";
@@ -36,4 +37,5 @@ fileBrowser.webSockets.FileWebSocket = function(ip) {
 		this.socket.onclose = null;
 		this.socket.close();
 	}
+	*/
 }

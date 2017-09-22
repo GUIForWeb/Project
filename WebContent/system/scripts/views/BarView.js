@@ -1,4 +1,4 @@
-guiLib.views.BarView = function(BarModel) {
+system.views.BarView = function(BarModel) {
 	this.__proto__ = BarModel;
 	this.position = 0;
 	this.outerLayerTagClass = "barOuterLayer";

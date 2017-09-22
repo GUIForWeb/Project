@@ -1,13 +1,12 @@
 fileBrowser.controllers.Click = function() {
 	this.button = function(event) {
 		if(event.ctrlKey)
-			this.select.ctrl.choose(event);
+			this.select.ctrl.click(event);
 		else {
 			this.select.cancle();
-			var selector = $(event.target.parentNode);
-			if(selector.prop("tagName") == "TR")
-				$(event.target.parentNode).css("background-color","dimgray");
+			this.select.click.button(event);
 		}
+		this.select.end.data(event);
 		if (taskArray["contextMenu"].isOnTheScreen) {
 			taskArray["contextMenu"].disappear();
 		}
@@ -41,12 +40,10 @@ fileBrowser.controllers.Click = function() {
 		}
 	}
 	this.downlaod = function(event) {
-		if (this.ds.isWorking)
-			this.va["selectedData"] = this.ds.fileList();
 		if (this.va["validation"] && this.va["selectedData"].length > 0
 				&& this.va["selectedData"][0].type != "directory") {
-			this.contextMenu.disappear();
 			this.fbm.send.download();
+			this.contextMenu.disappear();
 		}
 	}
 	this.copy = function() {

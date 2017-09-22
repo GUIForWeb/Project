@@ -1,4 +1,4 @@
-guiLib.views.BackgroundView = function(background) {
+system.views.BackgroundView = function(background) {
 	this.__proto__ = background;
 	this.zIndex = 0;
 	this.guiHeight = $(document).height();

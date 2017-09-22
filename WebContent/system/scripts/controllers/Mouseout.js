@@ -1,4 +1,4 @@
-guiLib.controllers.Mouseout = function() {
+system.controllers.Mouseout = function() {
 	this.li = function(tag) {
 		var width = $(tag).width();
 		var bgC = $(tag).css("background-color");

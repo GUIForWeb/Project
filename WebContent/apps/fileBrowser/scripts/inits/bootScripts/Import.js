@@ -35,6 +35,7 @@ var ContextMenuSelect = fileBrowser.subsystem.select.ContextMenuSelect;
 var DragSelect = fileBrowser.subsystem.select.DragSelect;
 var CtrlSelect = fileBrowser.subsystem.select.CtrlSelect;
 var SelectEnd = fileBrowser.subsystem.select.SelectEnd;
+var ClickSelect = fileBrowser.subsystem.select.ClickSelect
 var FBManager = fileBrowser.subsystem.FBManager;
 var FBReceiver = fileBrowser.subsystem.FBReceiver;
 var FBSender = fileBrowser.subsystem.FBSender;

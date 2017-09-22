@@ -1,4 +1,4 @@
-guiLib.subsystem.WindowManager = function() {
+system.subsystem.WindowManager = function() {
 	this.remove = function(winAndBarNode) {
 
 		winAndBarNode.win.tag.remove();

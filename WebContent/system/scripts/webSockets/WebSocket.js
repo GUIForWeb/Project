@@ -1,5 +1,6 @@
-function GUIWebSocket(ip) {
+essentialLibrary.webSockets.WebSocket = function (ip) {
 	this.socket = new WebSocket("ws://" + ip + ":8080/WebGUI/ws");
+	this.socket.binaryType = "arraybuffer";
 	this.socket.onopen = function(message) {
 		console.log("ws-open");
 	};
@@ -32,7 +33,9 @@ function GUIWebSocket(ip) {
 	};
 	this.send = function(data) {
 		var be = {};
-		if (data != "object") {
+		if(data.data instanceof ArrayBuffer){
+			this.socket.send(data.data);
+		} else {
 			be.sending = data;
 			this.socket.send(JSON.stringify(be));
 		}

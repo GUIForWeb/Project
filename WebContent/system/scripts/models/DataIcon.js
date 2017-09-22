@@ -1,4 +1,4 @@
-guiLib.models.DataIcon = function(){
+system.models.DataIcon = function(){
 	this.__proto__ = new Model;
 	this.guiName = "";
 	this.tagIdRule = "dataIcon";

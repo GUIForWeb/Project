@@ -1,4 +1,4 @@
-guiLib.views.IconView = function(icon) {
+system.views.IconView = function(icon) {
 	this.__proto__ = icon;
 	this.zIndex = 0;
 	this.outerLayer = "";

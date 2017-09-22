@@ -1,4 +1,4 @@
-guiLib.models.Background = function() {
+system.models.Background = function() {
 	this.__proto__ = new Model();
 	this.view = new BackgroundView(this);
 	this.setIconTableValues = function(iconTableValueArray) {

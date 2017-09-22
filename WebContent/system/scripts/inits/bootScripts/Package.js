@@ -1,7 +1,6 @@
-var guiLib = {};
-guiLib.models = {};
-guiLib.subsystem = {};
-guiLib.controllers = {}
-guiLib.controllers.subControllers = {}
-guiLib.views = {};
-guiLib.webSockets = {};
+var system = {};
+system.models = {};
+system.subsystem = {};
+system.controllers = {}
+system.controllers.subControllers = {}
+system.views = {};

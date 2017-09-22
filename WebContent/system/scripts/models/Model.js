@@ -1,4 +1,4 @@
-guiLib.models.Model = function(){
+system.models.Model = function(){
 	this.getIconTdSelector = function(x,y) {
 		return $("#iconTdX"+x+"Y"+y);
 	}

@@ -266,20 +266,21 @@ fileBrowser.subsystem.select.DragSelect = function() {
 		div.css({"background-color":"blue"});
 		div.css({"opacity":"0.3"});
 		div.css({"border":"1px solid black"});
-		var x = event.clientX;
-		var y = event.clientY;
+		var x = event.clientX - this.section.offset().left;
+		var y = event.clientY - this.section.offset().top;
 		div.css({
 			position:"absolute",
-			top:y+"px",
-			left:x+"px"
+			left:x,
+			top:y
 		});
+		this.section.append(div);
 		this.dataItemArray = $("#fbTable"+this.id).find(".dataItem");
-		$("#fbTable"+this.id).parent().append(div);
 		if(this.stdX == 0 && this.stdY == 0){
 			var offset = $("#selection").offset();
 			this.stdX = offset.left;
 			this.stdY = offset.top;
 		}
+		if(this.dataItemArray.length > 0)
 		if($(this.dataItemArray[0]).offset().top > this.stdY){
 			this.case = 0;
 		}

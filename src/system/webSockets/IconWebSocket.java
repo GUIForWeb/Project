@@ -1,5 +1,7 @@
 package system.webSockets;
 
+import java.nio.ByteBuffer;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.websocket.EndpointConfig;
@@ -322,4 +324,10 @@ public class IconWebSocket implements WebSocketInterface {
 		this.winNum = winNum;
 	}
 	*/
+
+	@Override
+	public void processUpload(ByteBuffer msg, boolean last, Session session) {
+		// TODO Auto-generated method stub
+		
+	}
 }

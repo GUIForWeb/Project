@@ -1,4 +1,4 @@
-guiLib.subsystem.GUIRepository = function() {
+system.subsystem.GUIRepository = function() {
 	this.json = {
 		"app" : "system.webSockets.GUIWebSocket",
 		"data" : {}

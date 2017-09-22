@@ -1,0 +1,2 @@
+var essentialLibrary = {};
+essentialLibrary.webSockets = {};

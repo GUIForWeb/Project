@@ -1,4 +1,4 @@
-guiLib.subsystem.WindowSizingEngine = function() {
+system.subsystem.WindowSizingEngine = function() {
 	this.resizing = function(tag) {
 		this.tag = tag;
 		this.winTag = this.tag.parentNode;

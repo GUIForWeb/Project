@@ -1,4 +1,4 @@
-guiLib.controllers.Controller = function() {
+system.controllers.Controller = function() {
 	this.getIconNumId = function(tag) {
 		return parseInt(tag.id.replace(this.iconTagIdRule, ""));
 	}

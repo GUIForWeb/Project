@@ -8,9 +8,4 @@
 	    <managed-bean-class>system.authentication.Parameter</managed-bean-class>
 	    <managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
-	<managed-bean>
-	    <managed-bean-name>fileBrowser</managed-bean-name>
-	    <managed-bean-class>apps.fileBrowser.controllers.FileBrowser</managed-bean-class>
-	    <managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
 </faces-config>

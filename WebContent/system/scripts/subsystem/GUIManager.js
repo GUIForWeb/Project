@@ -1,4 +1,4 @@
-guiLib.subsystem.GUIManager = function() {
+system.subsystem.GUIManager = function() {
 	this.resizeend = function(tag) {
 		this.wse.setSize(tag);
 	}
