@@ -27,7 +27,6 @@ function GUI(guiVariableName) {
 		this.dataIconJSONArray = dataIconJSONArray;
 	}
 	this.initDesktopDataItems = function() {
-		console.log(this.dataIconJSONArray);
 		var rowNum = this.background.view.tableSelector.find("tr").length;
 		var dNum = this.dataIconJSONArray.length;
 		var iNum = this.iconArray.length;

@@ -123,12 +123,13 @@ fileBrowser.subsystem.FBSender = function() {
 		this.va["selectedData"] = [];
 	}
 	this.paste = function() {
-		this.json.data = {
-			"status" : "paste",
-			"id" : this.id
+		if(confirm('Paste it?')){
+			this.json.data = {
+				"status" : "paste",
+				"id" : this.id
+			}
+			this.ws.send(this.json);
+			this.va["pasteFlag"] = false;
 		}
-		console.log(this.json);
-		this.ws.send(this.json);
-		this.va["pasteFlag"] = false;
 	}
 }

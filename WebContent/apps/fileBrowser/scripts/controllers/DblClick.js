@@ -1,6 +1,5 @@
 fileBrowser.controllers.DblClick = function() {
 	this.row = function(event) {
-		console.log("db");
 		if (!this.select.mousemove.isWorking) {
 			var tr = event.currentTarget;
 			var td = $(tr).find("td");

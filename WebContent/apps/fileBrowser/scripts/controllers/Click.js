@@ -61,18 +61,18 @@ fileBrowser.controllers.Click = function() {
 	}
 	this.nameHead = function(){
 		this.fs.string.sort("name");
-		this.appendFunction();
+		this.appendFunctionForTable();
 	}
 	this.dateHead = function() {
 		this.fs.date.sort("dateModified");
-		this.appendFunction();
+		this.appendFunctionForTable();
 	}
 	this.typeHead = function() {
 		this.fs.string.sort("type");
-		this.appendFunction();
+		this.appendFunctionForTable();
 	}
 	this.sizeHead = function() {
 		this.fs.int.sort("size");
-		this.appendFunction();
+		this.appendFunctionForTable();
 	}
 }

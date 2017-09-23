@@ -104,7 +104,7 @@ system.views.WindowView = function(windowModel) {
 			left : this.cLeft,
 			top : this.cTop
 		});
-		tmpS.click(function(event) {
+		tmpS.on("mousedown",function(event) {
 			gui.click.content(event);
 		});
 		tmpS.contextmenu(function(event) {

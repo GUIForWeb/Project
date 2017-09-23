@@ -9,7 +9,6 @@ fileBrowser.controllers.drag.Drop = function() {
 			this.va["dropable"] = false;
 		}
 		else if (this.va["dropable"]) {
-			console.log(event.originalEvent.dataTransfer.getData("dataItem"));
 			this.fbm.send.paste();
 			this.va["dropable"] = false;
 		} 

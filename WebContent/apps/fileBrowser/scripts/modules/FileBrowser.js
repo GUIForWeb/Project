@@ -103,6 +103,7 @@ function FileBrowser(id){
 			taskArray['fileBrowser'][id].drag.drop.dataItem(event);
 		});
 		var trs = this.fbTable.find("tr");
+		trs = trs.slice(2,trs.length)
 		trs.attr("draggable","true");
 		trs.dblclick(function(event){
 			event.stopPropagation();

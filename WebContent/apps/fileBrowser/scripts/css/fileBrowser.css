@@ -6,13 +6,18 @@
 	}
 	.fb-footer{
 		width: 100%;
+		cursor:default;
 	}
 	.fb-table {
     	border-collapse: collapse;
 		table-layout:fixed;
-    }
-    .fb-table > tr > th, td{
 		font-family: Arial;
+    }
+    .fb-table > tr > th{
+		cursor:pointer;
+	}
+    .fb-table > tr > td{
+		cursor:default;
 	}
     .fb-table-header{
     	text-align:center;
