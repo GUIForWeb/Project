@@ -138,7 +138,7 @@ public class FBManager {
 
 	public void uploadDone() {
 		try {
-			if(null != this.fileOutputStream) {
+			if (null != this.fileOutputStream) {
 				this.fileOutputStream.flush();
 				this.fileOutputStream.close();
 			}
@@ -273,13 +273,21 @@ public class FBManager {
 		}
 	}
 
+	public void setClipboard(String status) {
+		this.json.put("path", this.path);
+		this.json.put("status", status);
+		this.session.setAttribute("clipboard", this.json);
+	}
+	
 	public void paste() {
 		JSONObject clipboard = (JSONObject) this.session.getAttribute("clipboard");
-		String status = clipboard.getString("status");
-		String path = clipboard.getString("path");
-		int prevId = clipboard.getInt("id");
-		JSONArray data = clipboard.getJSONArray("data");
+		System.out.println(clipboard);
+		System.out.println(this.json);
 		if (clipboard != null) {
+			String status = clipboard.getString("status");
+			String path = clipboard.getString("path");
+			int prevId = clipboard.getInt("id");
+			JSONArray data = clipboard.getJSONArray("data");
 			this.checkExistence(status, data, path, this.path);
 			this.session.removeAttribute("clipboard");
 			this.multiplexReload(prevId, path);
@@ -326,12 +334,6 @@ public class FBManager {
 			data.put(json);
 			this.json.put("data", data);
 		}
-	}
-
-	public void setClipboard(String status) {
-		this.json.put("path", this.path);
-		this.json.put("status", status);
-		this.session.setAttribute("clipboard", this.json);
 	}
 
 	public void del() {

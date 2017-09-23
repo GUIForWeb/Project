@@ -60,11 +60,6 @@ system.views.WindowView = function(windowModel) {
 		this.windowSelector = this.outerSelector;
 	}
 	this.outerLayer = function() {
-		// "<div id='" + this.ids["o"] + "' tabindex='0' style='z-index:1;
-		// outline:1px solid transparent; position:absolute; left:" + this.oLeft
-		// + "px; top:" + this.oTop + "px; width:" + this.oWidth + "px; height:"
-		// + this.oHeight + "px; background-color:" + this.oBgC + ";' onfocus='"
-		// + this.ids["id"] + ".incZIndex();'>";
 		var tmpS = $("<div></div>");
 		tmpS.attr("id", this.tagId);
 		tmpS.attr("draggable", "true");

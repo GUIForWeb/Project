@@ -48,14 +48,6 @@ function FileBrowser(id){
 		this.dragover.__proto__ = this.controller;
 		this.select = new Select();
 		this.select.__proto__ = this.controller;
-		/*
-		this.ks = new ClickSelect();
-		this.ks.__proto__ = this.controller;
-		this.ds = new DragSelect();
-		this.ds.__proto__ = this.controller;
-		this.cs = new CtrlSelect();
-		this.cs.__proto__ = this.controller;
-		*/
 		this.fbm = new FBManager();
 		this.fbm.__proto__ = this.controller;
 		this.fws = new FileWebSocket(this.ip+":8081");

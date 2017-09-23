@@ -1,5 +1,6 @@
 fileBrowser.controllers.subControllers.Dragend = function() {
 	this.selection = function() {
-		this.select.drag.end();
+		if(this.select.drag.isWorking)
+			this.select.drag.end();
 	}
 }

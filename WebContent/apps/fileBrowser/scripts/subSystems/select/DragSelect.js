@@ -259,6 +259,7 @@ fileBrowser.subsystem.select.DragSelect = function() {
 		}
 	}
 	this.start = function(event){
+		this.va["validation"] = false;
 		this.stdX = 0;
 		this.stdY = 0;
 		this.isWorking = true;
