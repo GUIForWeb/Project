@@ -62,7 +62,7 @@ system.views.WindowView = function(windowModel) {
 	this.outerLayer = function() {
 		var tmpS = $("<div></div>");
 		tmpS.attr("id", this.tagId);
-		tmpS.attr("draggable", "true");
+		tmpS.attr("draggable", "false");
 		tmpS.css("z-index", parseInt(this.zIndex));
 		tmpS.css("position", "absolute");
 		tmpS.addClass(this.outerLayerTagClass);
@@ -93,7 +93,7 @@ system.views.WindowView = function(windowModel) {
 	this.contentLayer = function() {
 		var tmpS = $("<div></div>");
 		tmpS.attr("id", this.tagIds["c"]);
-		tmpS.attr("draggable", "true");
+		tmpS.attr("draggable", "false");
 		tmpS.html(this.content);
 		tmpS.css("position", "absolute");
 		tmpS.css("overflow", "auto");

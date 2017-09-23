@@ -112,7 +112,6 @@ fileBrowser.subsystem.FBSender = function() {
 		}
 		this.ws.send(this.json);
 		this.va["selectedData"] = [];
-		this.va["pasteFlag"] = true;
 	}
 	this.copy = function() {
 		this.json.data = {
@@ -121,21 +120,15 @@ fileBrowser.subsystem.FBSender = function() {
 			"data" : this.va["selectedData"]
 		}
 		this.ws.send(this.json);
-		console.log("copy");
 		this.va["selectedData"] = [];
-		this.va["pasteFlag"] = true;
 	}
 	this.paste = function() {
-		console.log("pasteFlag");
-		console.log(this.va["pasteFlag"]);
-		if(this.va["pasteFlag"]){
-			this.json.data = {
-				"status" : "paste",
-				"id" : this.id
-			}
-			console.log(this.json);
-			this.ws.send(this.json);
-			this.va["pasteFlag"] = false;
+		this.json.data = {
+			"status" : "paste",
+			"id" : this.id
 		}
+		console.log(this.json);
+		this.ws.send(this.json);
+		this.va["pasteFlag"] = false;
 	}
 }

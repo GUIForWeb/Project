@@ -281,7 +281,9 @@ public class FBManager {
 	
 	public void paste() {
 		JSONObject clipboard = (JSONObject) this.session.getAttribute("clipboard");
+		System.out.print("clipboard");
 		System.out.println(clipboard);
+		System.out.print("this.json");
 		System.out.println(this.json);
 		if (clipboard != null) {
 			String status = clipboard.getString("status");

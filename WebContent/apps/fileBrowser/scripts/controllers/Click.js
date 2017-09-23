@@ -1,14 +1,11 @@
 fileBrowser.controllers.Click = function() {
 	this.button = function(event) {
-		if(event.ctrlKey)
-			this.select.ctrl.click(event);
-		else {
+		if(!event.ctrlKey){
 			this.select.cancle();
-			this.select.click.button(event);
-		}
-		this.select.end.data(event);
-		if (taskArray["contextMenu"].isOnTheScreen) {
-			taskArray["contextMenu"].disappear();
+			if (taskArray["contextMenu"].isOnTheScreen) {
+				taskArray["contextMenu"].disappear();
+			}
+			this.select.click(event);
 		}
 	}
 	this.newFolder = function(event) {
@@ -16,7 +13,7 @@ fileBrowser.controllers.Click = function() {
 		this.contextMenu.disappear();
 	}
 	this.rename = function(event) {
-		if (this.va["validation"] && !this.select.drag.isWorking
+		if (this.va["validation"] && !this.select.mousemove.isWorking
 				&& Object.keys(this.va["selectedData"][0]).length == 2) {
 			var nameTd = this.tag["s"].children().first();
 			nameTd.attr("contenteditable", true);
@@ -64,14 +61,18 @@ fileBrowser.controllers.Click = function() {
 	}
 	this.nameHead = function(){
 		this.fs.string.sort("name");
+		this.appendFunction();
 	}
 	this.dateHead = function() {
 		this.fs.date.sort("dateModified");
+		this.appendFunction();
 	}
 	this.typeHead = function() {
 		this.fs.string.sort("type");
+		this.appendFunction();
 	}
 	this.sizeHead = function() {
 		this.fs.int.sort("size");
+		this.appendFunction();
 	}
 }

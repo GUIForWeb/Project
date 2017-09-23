@@ -9,12 +9,12 @@ fileBrowser.subsystem.FBReceiver = function() {
 	this.reload = function(json) {
 		this.va["data"] = json;
 		this.fs.display();
-		this.appendFunction();
+		this.appendFunctionForTable();
 	}
 	this.displayData = function(idx, id, data){
 		taskArray["fileBrowser"][id[idx]].controller.va["data"] = data;
 		taskArray["fileBrowser"][id[idx]].fs.display();
-		taskArray["fileBrowser"][id[idx]].appendFunction();
+		taskArray["fileBrowser"][id[idx]].appendFunctionForTable();
 	}
 	this.multiReloadForUpload = function(json){
 		for(ii=0; ii<json.id.length; ii++){

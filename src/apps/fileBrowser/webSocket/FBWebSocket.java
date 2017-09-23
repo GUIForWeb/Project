@@ -100,7 +100,6 @@ public class FBWebSocket implements WebSocketInterface{
 		json = new JSONObject();
 		if(null != this.fbm.getJson()) {
 			json.put("app", "taskArray.fileBrowser["+id+"].fbm");
-			System.out.println(this.fbm.getJson());
 			json.put("data", this.fbm.getJson());
 		}
 		return json;

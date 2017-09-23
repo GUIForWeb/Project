@@ -9,6 +9,8 @@ fileBrowser.controllers.Drag = function() {
 	this.over.__proto__ = this;
 	this.start = new Dragstart();
 	this.start.__proto__ = this;
+	this.leave = new Dragleave();
+	this.leave.__proto__ = this;
 	this.drop = new Drop();
 	this.drop.__proto__ = this;
 }

@@ -1,4 +1,4 @@
-fileBrowser.controllers.subControllers.Drop = function() {
+fileBrowser.controllers.drag.Drop = function() {
 	this.dataItem = function(event) {
 		if(this.va["validation"])
 		if (this.va["dropable"]
@@ -9,10 +9,9 @@ fileBrowser.controllers.subControllers.Drop = function() {
 			this.va["dropable"] = false;
 		}
 		else if (this.va["dropable"]) {
-			console.log("drop");
+			console.log(event.originalEvent.dataTransfer.getData("dataItem"));
 			this.fbm.send.paste();
 			this.va["dropable"] = false;
-			console.log(this.va["selectedData"]);
 		} 
 	}
 }

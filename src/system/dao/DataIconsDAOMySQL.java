@@ -49,9 +49,6 @@ public class DataIconsDAOMySQL implements DataIconsDAO {
 		query0 = query0.substring(0, query0.length()-1);
 		query0 += " ON DUPLICATE KEY UPDATE name=VALUES(name),dateModified=VALUES(dateModified),size=VALUES(size),type=VALUES(type)";
 		
-		if(isDuplicated)
-			System.out.println(query0);
-		
 		String query1 = "call newDataIcon(?,?,?,?,?)";
 		String[] infoStr = new String[5];
 		String names = "";

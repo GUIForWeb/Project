@@ -1,7 +1,6 @@
 function FileBrowser(id){
 	this.ws = function(){}
 	this.id = id;
-	this.data = [];
 	this.setJSONArray = function(data) {
 		this.controller.va["data"] = data;
 	}
@@ -36,30 +35,22 @@ function FileBrowser(id){
 		this.click.__proto__ = this.controller;
 		this.contextmenu = new ContextMenu();
 		this.contextmenu.__proto__ = this.controller;	
-		this.dragstart = new Dragstart();
-		this.dragstart.__proto__ = this.controller;
 		this.drag = new Drag();
 		this.drag.__proto__ = this.controller;
-		this.drop = new Drop();
-		this.drop.__proto__ = this.controller;
-		this.dragend = new Dragend(); 
-		this.dragend.__proto__ = this.controller;
-		this.dragover = new Dragover(); 
-		this.dragover.__proto__ = this.controller;
-		this.select = new Select();
-		this.select.__proto__ = this.controller;
-		this.fbm = new FBManager();
-		this.fbm.__proto__ = this.controller;
-		this.fws = new FileWebSocket(this.ip+":8081");
-		this.fws.__proto__ = this.controller;
+		this.mouse = new Mouse();
+		this.mouse.__proto__ = this.controller;
 		this.focusout = new Focusout();
 		this.focusout.__proto__ = this.controller;
 		this.keydown = new Keydown();
 		this.keydown.__proto__ = this.controller;
-		this.mouseover = new Mouseover();
-		this.mouseover.__proto__ = this.controller;
-		this.mouseout = new Mouseout();
-		this.mouseout.__proto__ = this.controller;
+		this.fws = new FileWebSocket(this.ip+":8081");
+		this.fws.__proto__ = this.controller;
+		
+		this.select = new Select();
+		this.select.__proto__ = this.controller;
+		this.fbm = new FBManager();
+		this.fbm.__proto__ = this.controller;
+		
 		this.section = $("#fbTable"+this.id).parent();
 		this.footer = this.section.parent().find("footer");
 		this.path = this.footer.find(".path");
@@ -80,68 +71,86 @@ function FileBrowser(id){
 		if(sessionStorage.wMode !== undefined)
 			this.InitForWMode();
 	}
-	this.appendFunction = function(){
+	this.appendFunctionForSection = function(){
+		this.section.attr("draggable","false");
+		this.section.mousedown(function(event){
+			taskArray['fileBrowser'][id].mouse.down.button(event);
+		});
+		this.section.bind("mousedown",function(){
+			taskArray['fileBrowser'][id].mouse.down.selection(event);
+		});
+		this.section.click(function(event){
+			taskArray['fileBrowser'][id].click.button(event);
+		});
+		
+		this.section.mousemove(function(event){
+			taskArray['fileBrowser'][id].mouse.move.selection(event);
+		});
+		this.section.mouseup(function(event){
+			taskArray['fileBrowser'][id].mouse.up.selection(event);
+		});
+	}
+	this.appendFunctionForTable = function(){
 		if(this.controller.va["data"].length == 0)
 			this.fm.getData();
 		
 		var id = this.id;
 		
-		this.section.click(function(event){
-			taskArray['fileBrowser'][id].click.button(event);
-		});
 		this.fbTable.on("dragover",function(event){
 			taskArray['fileBrowser'][id].drag.over.dataItem(event);
 		});
 		this.fbTable.on("drop",function(event){
 			taskArray['fileBrowser'][id].drag.drop.dataItem(event);
 		});
-		var tr = this.fbTable.find("tr"); 
-		tr.dblclick(function(event){
+		var trs = this.fbTable.find("tr");
+		trs.attr("draggable","true");
+		trs.dblclick(function(event){
+			event.stopPropagation();
 			taskArray['fileBrowser'][id].dblclick.row(event);
 		});
-		tr.contextmenu(function(event){
+		
+		trs.contextmenu(function(event){
 			taskArray['fileBrowser'][id].contextmenu.button(event);
 		});
-		tr.mouseover(function(event){
-			taskArray['fileBrowser'][id].mouseover.row(event);
+		
+		trs.mouseover(function(event){
+			event.stopPropagation();
+			taskArray['fileBrowser'][id].mouse.over.row(event);
 		});
-		tr.mouseout(function(event){
-			taskArray['fileBrowser'][id].mouseout.row(event);
+		trs.mouseout(function(event){
+			event.stopPropagation();
+			taskArray['fileBrowser'][id].mouse.out.row(event);
 		});
-		tr.on("dragstart",function(event){
+		trs.on("dragstart",function(event){
+			event.stopPropagation();
 			taskArray['fileBrowser'][id].drag.start.dataItem(event)
 		});
-		
-		tr.attr("draggable","true");
-		this.section.attr("draggable","true");
-		this.section.on("dragstart",function(event){
-			taskArray["fileBrowser"][id].drag.start.selection(event);
-		});
-		this.section.on("drag",function(event){
-			taskArray["fileBrowser"][id].drag.ing.selection(event);
-		});
-		this.section.on("dragend",function(event){
-			taskArray["fileBrowser"][id].drag.end.selection(event);
+		trs.on("dragleave",function(event){
+			taskArray['fileBrowser'][id].drag.leave.dataItem(event);
 		});
 		
 		$(this.fbTable.find("tr")[0]).dblclick(null);
 		
 		var trS = this.fbTable.find("tr");
 		var thS = $(trS[0]).find("th");
-		this.nameHead = $(thS[0]);
-		this.dateHead = $(thS[1]);
-		this.typeHead = $(thS[2]);
-		this.sizeHead = $(thS[3]);
-		this.nameHead.click(function(){
+		var nameHead = $(thS[0]);
+		var dateHead = $(thS[1]);
+		var typeHead = $(thS[2]);
+		var sizeHead = $(thS[3]);
+		nameHead.click(function(){
+			event.stopPropagation();
 			taskArray["fileBrowser"][id].click.nameHead();
 		});
-		this.dateHead.click(function(){
+		dateHead.click(function(){
+			event.stopPropagation();
 			taskArray["fileBrowser"][id].click.dateHead();
 		});
-		this.typeHead.click(function(){
+		typeHead.click(function(){
+			event.stopPropagation();
 			taskArray["fileBrowser"][id].click.typeHead();
 		});
-		this.sizeHead.click(function(){
+		sizeHead.click(function(){
+			event.stopPropagation();
 			taskArray["fileBrowser"][id].click.sizeHead();
 		});
 		if(sessionStorage.wMode !== undefined){

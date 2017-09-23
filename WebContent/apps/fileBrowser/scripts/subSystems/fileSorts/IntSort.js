@@ -50,7 +50,6 @@ fileBrowser.subsystem.fileSorts.IntSort = function() {
 			}
 			this.sort(option);
 		}
-		this.appendFunction();
 	}
 	this.sortFromHighToLow = function() {
 		var dArr = [];

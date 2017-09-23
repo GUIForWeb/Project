@@ -5,16 +5,24 @@ var DblClick = fileBrowser.controllers.DblClick;
 var Drag = fileBrowser.controllers.Drag;
 var Focusout = fileBrowser.controllers.Focusout;
 var Keydown = fileBrowser.controllers.Keydown;
-var Mouseout = fileBrowser.controllers.Mouseout;
-var Mouseover = fileBrowser.controllers.Mouseover;
 
-var subControllers = fileBrowser.controllers.subControllers;
-var Dragend = fileBrowser.controllers.subControllers.Dragend;
-var Dragenter = fileBrowser.controllers.subControllers.Dragenter;
-var Draging = fileBrowser.controllers.subControllers.Draging;
-var Dragover = fileBrowser.controllers.subControllers.Dragover;
-var Dragstart = fileBrowser.controllers.subControllers.Dragstart;
-var Drop = fileBrowser.controllers.subControllers.Drop;
+var mouse = fileBrowser.controllers.mouse;
+var Mouse = fileBrowser.controllers.Mouse;
+var Mousemove = fileBrowser.controllers.mouse.Mousemove;
+var Mouseout = fileBrowser.controllers.mouse.Mouseout;
+var Mouseover = fileBrowser.controllers.mouse.Mouseover;
+var Mouseup = fileBrowser.controllers.mouse.Mouseup;
+var Mousedown = fileBrowser.controllers.mouse.Mousedown;
+
+var drag = fileBrowser.controllers.drag;
+var Dragend = fileBrowser.controllers.drag.Dragend;
+var Dragenter = fileBrowser.controllers.drag.Dragenter;
+var Draging = fileBrowser.controllers.drag.Draging;
+var Dragover = fileBrowser.controllers.drag.Dragover;
+var Dragstart = fileBrowser.controllers.drag.Dragstart;
+var Dragleave = fileBrowser.controllers.drag.Dragleave;
+var Drop = fileBrowser.controllers.drag.Drop;
+
 
 var views = fileBrowser.views;
 var FileBrowserContextMenuView= fileBrowser.views.FileBrowserContextMenuView;
@@ -32,7 +40,7 @@ var StringSort = fileBrowser.subsystem.fileSorts.StringSort;
 var subsystem = fileBrowser.subsystem;
 var Select = fileBrowser.subsystem.Select;
 var ContextMenuSelect = fileBrowser.subsystem.select.ContextMenuSelect;
-var DragSelect = fileBrowser.subsystem.select.DragSelect;
+var MousemoveSelect = fileBrowser.subsystem.select.MousemoveSelect;
 var CtrlSelect = fileBrowser.subsystem.select.CtrlSelect;
 var SelectEnd = fileBrowser.subsystem.select.SelectEnd;
 var ClickSelect = fileBrowser.subsystem.select.ClickSelect

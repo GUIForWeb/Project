@@ -1,6 +1,7 @@
-fileBrowser.subsystem.select.DragSelect = function() {
+fileBrowser.subsystem.select.MousemoveSelect = function() {
 	this.stdX = 0;
 	this.stdY = 0;
+	this.isOnGoing = false;
 	this.isWorking = false;
 	this.ctrlKey = false;
 	this.isChoosing = false;
@@ -259,10 +260,10 @@ fileBrowser.subsystem.select.DragSelect = function() {
 		}
 	}
 	this.start = function(event){
-		this.va["validation"] = false;
 		this.stdX = 0;
 		this.stdY = 0;
 		this.isWorking = true;
+		this.isOnGoing = true;
 		var div = $("<div></div>").attr("id","selection");
 		div.css({"background-color":"blue"});
 		div.css({"opacity":"0.3"});
@@ -301,8 +302,16 @@ fileBrowser.subsystem.select.DragSelect = function() {
 		}
 	}
 	this.end = function(){
-		for(di=0; di<this.va["data"].length; di++)
+		var flag = false
+		for(di=0; di<this.va["data"].length; di++) {
 			this.va["data"][di].isChangeable = true;
+			if(this.va["data"][di].isChosen == true){
+				flag = true;
+			}
+		}
 		$("#selection").remove();
+		this.isOnGoing = false;
+		if(!flag)
+			this.isWorking = false;
 	}
 }

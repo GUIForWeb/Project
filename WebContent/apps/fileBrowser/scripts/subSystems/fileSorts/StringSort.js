@@ -52,7 +52,6 @@ fileBrowser.subsystem.fileSorts.StringSort = function() {
 			}
 			this.sort(option);
 		}
-		this.appendFunction();
 	}
 	this.sortFromHighToLow = function() {
 		var dArr = [];
