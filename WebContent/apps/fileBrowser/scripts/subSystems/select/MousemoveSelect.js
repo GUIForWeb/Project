@@ -42,13 +42,6 @@ fileBrowser.subsystem.select.MousemoveSelect = function() {
 		this.preHeight = $("#selection").height();
 		$("#selection").width(sizeX);
 		$("#selection").height(sizeY);
-		/*
-		if(this.fbTable.width() > $("#selection").offset().left)
-		if(this.preHeight <= $("#selection").height())
-			this.isWiding = true;
-		else
-			this.isWiding = false;
-		*/
 		for(fi=0; fi<this.dataItemArray.length; fi++){
 			var dataItem = $(this.dataItemArray[fi]);
 			var data = this.va["data"][fi];

@@ -79,10 +79,6 @@ function FileBrowser(id){
 		this.section.bind("mousedown",function(){
 			taskArray['fileBrowser'][id].mouse.down.selection(event);
 		});
-		this.section.click(function(event){
-			taskArray['fileBrowser'][id].click.button(event);
-		});
-		
 		this.section.mousemove(function(event){
 			taskArray['fileBrowser'][id].mouse.move.selection(event);
 		});
