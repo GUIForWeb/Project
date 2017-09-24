@@ -104,6 +104,10 @@ function FileBrowser(id){
 		var trs = this.fbTable.find("tr");
 		trs = trs.slice(2,trs.length)
 		trs.attr("draggable","true");
+		trs.click(function(event){
+			event.stopPropagation();
+			taskArray['fileBrowser'][id].click.row(event);
+		});
 		trs.dblclick(function(event){
 			event.stopPropagation();
 			taskArray['fileBrowser'][id].dblclick.row(event);

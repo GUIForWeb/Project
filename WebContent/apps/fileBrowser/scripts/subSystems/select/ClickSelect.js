@@ -5,6 +5,7 @@ fileBrowser.subsystem.select.ClickSelect = function() {
 			&& this.tag["s"].prop("tagName") == "TR") {
 			var rIdx = this.tag["t"].rowIndex;
 			this.va["data"][rIdx-2].isChosen = true;
+			this.va["data"][rIdx-2].isChangeable = false;
 			this.tag["s"].css("background-color","dimgray");
 		}
 	}	

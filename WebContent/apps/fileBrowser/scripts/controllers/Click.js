@@ -1,6 +1,5 @@
 fileBrowser.controllers.Click = function() {
-	this.button = function(event) {
-		console.log("click");
+	this.row = function(event) {
 		if(!event.ctrlKey){
 			this.select.cancle();
 			if (taskArray["contextMenu"].isOnTheScreen) {

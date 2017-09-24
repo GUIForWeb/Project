@@ -131,22 +131,15 @@ fileBrowser.subsystem.select.MousemoveSelect = function() {
 	}
 	this.end = function(event){
 		var flag = false
-		if(event.ctrlKey){
-			for(di=0; di<this.va["data"].length; di++) {
-				if(this.va["data"][di].isChosen == true){
-					flag = true;
-					this.va["data"][di].isChangeable = false;
-				}
-				else {
-					this.va["data"][di].isChangeable = true;
-				}
+		var data = null;
+		for(di=0; di<this.va["data"].length; di++) {
+			data = this.va["data"][di];
+			if(data.isChosen == true){
+				flag = true;
+				data.isChangeable = false;
 			}
-		}else{
-			for(di=0; di<this.va["data"].length; di++) {
-				this.va["data"][di].isChangeable = true;
-				if(this.va["data"][di].isChosen == true){
-					flag = true;
-				}
+			else {
+				data.isChangeable = true;
 			}
 		}
 		$("#selection").remove();
