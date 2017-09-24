@@ -3,6 +3,7 @@ fileBrowser.subsystem.select.SelectEnd = function() {
 		this.va["selectedData"] = [];
 		this.filter(this.va["selectedData"]);
 		this.validation();
+		console.log(this.va["selectedData"]);
 	}
 	this.validation = function() {
 		if(this.va["selectedData"].length != 0){

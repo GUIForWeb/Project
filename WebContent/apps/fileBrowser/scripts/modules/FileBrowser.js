@@ -89,6 +89,9 @@ function FileBrowser(id){
 		this.section.mouseup(function(event){
 			taskArray['fileBrowser'][id].mouse.up.selection(event);
 		});
+		this.section.mouseout(function(event){
+			taskArray['fileBrowser'][id].mouse.out.selection(event);
+		});
 	}
 	this.appendFunctionForTable = function(){
 		if(this.controller.va["data"].length == 0)
@@ -119,7 +122,6 @@ function FileBrowser(id){
 			taskArray['fileBrowser'][id].mouse.over.row(event);
 		});
 		trs.mouseout(function(event){
-			event.stopPropagation();
 			taskArray['fileBrowser'][id].mouse.out.row(event);
 		});
 		trs.on("dragstart",function(event){

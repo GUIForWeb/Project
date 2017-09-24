@@ -7,6 +7,7 @@ fileBrowser.controllers.drag.Dragstart = function(){
 		if(this.va["validation"]){
 			event.originalEvent.dataTransfer.setData("dataItem", this.id);
 			this.fbm.send.copy();
+			taskArray["clipboard"] = true;
 		}
 	}
 }

@@ -10,4 +10,13 @@ fileBrowser.controllers.mouse.Mouseout = function() {
 			}
 		}
 	}
+	this.selection = function(event) {
+		var len = !this.fbTable.children().find($(event.toElement)).length;
+		var elm = event.toElement;
+		if(elm != $("#selection")[0] && elm != this.section[0] && elm != this.fbTable[0] && len){
+			if(this.select.mousemove.isOnGoing){
+				this.select.mousemove.end(event);
+			}
+		}
+	}
 }

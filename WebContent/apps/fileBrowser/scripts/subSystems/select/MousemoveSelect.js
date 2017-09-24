@@ -4,7 +4,7 @@ fileBrowser.subsystem.select.MousemoveSelect = function() {
 	this.isOnGoing = false;
 	this.isWorking = false;
 	this.ctrlKey = false;
-	this.isChoosing = false;
+	this.isWiding = false;
 	this.preWidth = 0;
 	this.preHeight = 0;
 	this.onGoingWtihCtrl = function(event){
@@ -42,140 +42,124 @@ fileBrowser.subsystem.select.MousemoveSelect = function() {
 		this.preHeight = $("#selection").height();
 		$("#selection").width(sizeX);
 		$("#selection").height(sizeY);
+		/*
 		if(this.fbTable.width() > $("#selection").offset().left)
 		if(this.preHeight <= $("#selection").height())
-			this.isChoosing = true;
+			this.isWiding = true;
 		else
-			this.isChoosing = false;
-		
-		if(this.isChoosing) {
-			for(fi=0; fi<this.dataItemArray.length; fi++){
-				var dataItem = $(this.dataItemArray[fi]);
-				if(event.clientY != 0) 
+			this.isWiding = false;
+		*/
+		for(fi=0; fi<this.dataItemArray.length; fi++){
+			var dataItem = $(this.dataItemArray[fi]);
+			var data = this.va["data"][fi];
+			var isChosen = this.va["data"][fi].isChosen = true;
+			if(event.clientY != 0)
+			if(data.isChangeable) {
 				if(this.case == 0){
-					if(event.clientY > ((dataItem.offset().top*2 + dataItem.height())/2)){
-						if(this.va["data"][fi].isChangeable)
-						if(this.va["data"][fi].isChosen){
-							this.va["data"][fi].isChosen = false;
-							this.hover(false, dataItem);
-						}
-						else{
-							this.va["data"][fi].isChosen = true;
-							this.hover(true, dataItem);
-						}
-						this.va["data"][fi].isChangeable = false;
-					}
-				}
-				else if(this.case == 1){
-					if(event.clientY < ((dataItem.offset().top*2 + dataItem.height())/2)){
-						if(this.va["data"][fi].isChangeable)
-						if(this.va["data"][fi].isChosen){
-							this.va["data"][fi].isChosen = false;
-							this.hover(false, dataItem);
-						}
-						else{
-							this.va["data"][fi].isChosen = true;
-							this.hover(true, dataItem);
-						}
-						this.va["data"][fi].isChangeable = false;
-					}
-				}
-				else if(this.case == 2){
-					if(event.clientY < this.stdY){
-						if(event.clientY < ((dataItem.offset().top*2 + dataItem.height())/2) && ((dataItem.offset().top*2 + dataItem.height())/2) < this.stdY){
-							if(this.va["data"][fi].isChangeable)
-							if(this.va["data"][fi].isChosen){
-								this.va["data"][fi].isChosen = false;
-								this.hover(false, dataItem);
-							}
-							else{
-								this.va["data"][fi].isChosen = true;
-								this.hover(true, dataItem);
-							}
-							this.va["data"][fi].isChangeable = false;
-						}
+					var con0 = (event.clientX - dataItem.offset().left) < dataItem.width();
+					var con1 = event.clientY > ((dataItem.offset().top*2 + dataItem.height())/2)
+					if(con0 && con1){
+						data.isChosen = true;
+						this.hover(true, dataItem);
 					}
 					else{
-						if(event.clientY > ((dataItem.offset().top*2 + dataItem.height())/2) && ((dataItem.offset().top*2 + dataItem.height())/2) > this.stdY){
-							if(this.va["data"][fi].isChangeable)
-							if(this.va["data"][fi].isChosen){
-								this.va["data"][fi].isChosen = false;
-								this.hover(false, dataItem);
-							}
-							else{
-								this.va["data"][fi].isChosen = true;
-								this.hover(true, dataItem);
-							}
-							this.va["data"][fi].isChangeable = false;
-						}
+						data.isChosen = false;
+						this.hover(false, dataItem);
+					} 
+				}
+				else if(this.case == 1){
+					var con0 = (event.clientX - dataItem.offset().left) < dataItem.width();
+					var con1 = event.clientX > this.stdX
+					var con2 = event.clientY < ((dataItem.offset().top*2 + dataItem.height())/2);
+					if((con0 || con1) && con2){
+						data.isChosen = true;
+						this.hover(true, dataItem);
+					}
+					else{
+						data.isChosen = false;
+						this.hover(false, dataItem);
+					} 
+				}
+				else if(this.case == 2){
+					var con0 = (event.clientX - dataItem.offset().left) < dataItem.width();
+					var con1 = event.clientY < ((dataItem.offset().top*2 + dataItem.height())/2);
+					var con2 = ((dataItem.offset().top*2 + dataItem.height())/2) < this.stdY;
+					var con3 = event.clientY > ((dataItem.offset().top*2 + dataItem.height())/2);
+					var con4 = ((dataItem.offset().top*2 + dataItem.height())/2) > this.stdY;
+					if(con0 && con1 && con2){
+						data.isChosen = true;
+						this.hover(true, dataItem);
+					}
+					else if(con0 && con3 && con4){
+						data.isChosen = true;
+						this.hover(true, dataItem);
+					}
+					else{
+						data.isChosen = false;
+						this.hover(false, dataItem);
 					}
 				}
 			}
-		}
-		else {
-			for(fi=0; fi<this.dataItemArray.length; fi++){
-				var dataItem = $(this.dataItemArray[fi]);
-				if(event.clientY != 0) 
+			else if(!data.isChangeable){
 				if(this.case == 0){
-					if(event.clientY < ((dataItem.offset().top*2 + dataItem.height())/2)){
-						if(!this.va["data"][fi].isChangeable)
-						if(this.va["data"][fi].isChosen){
-							this.va["data"][fi].isChosen = false;
-							this.hover(false, dataItem);
-						}
-						else{
-							this.va["data"][fi].isChosen = true;
-							this.hover(true, dataItem);
-						}
-						this.va["data"][fi].isChangeable = true;
+					var con0 = (event.clientX - dataItem.offset().left) < dataItem.width();
+					var con1 = event.clientY > ((dataItem.offset().top*2 + dataItem.height())/2)
+					if(con0 && con1){
+						data.isChosen = false;
+						this.hover(false, dataItem);
 					}
 				}
 				else if(this.case == 1){
-					if(event.clientY > ((dataItem.offset().top*2 + dataItem.height())/2)){
-						if(!this.va["data"][fi].isChangeable)
-						if(this.va["data"][fi].isChosen){
-							this.va["data"][fi].isChosen = false;
-							this.hover(false, dataItem);
-						}
-						else{
-							this.va["data"][fi].isChosen = true;
-							this.hover(true, dataItem);
-						}
-						this.va["data"][fi].isChangeable = true;
+					var con0 = (event.clientX - dataItem.offset().left) < dataItem.width();
+					var con1 = event.clientX > this.stdX
+					var con2 = event.clientY < ((dataItem.offset().top*2 + dataItem.height())/2);
+					if((con0 || con1) && con2){
+						data.isChosen = false;
+						this.hover(false, dataItem);
 					}
 				}
 				else if(this.case == 2){
-					if(event.clientY > this.stdY){
-						if(event.clientY > ((dataItem.offset().top*2 + dataItem.height())/2) && ((dataItem.offset().top*2 + dataItem.height())/2) < this.stdY){
-							if(!this.va["data"][fi].isChangeable)
-							if(this.va["data"][fi].isChosen){
-								this.va["data"][fi].isChosen = false;
-								this.hover(false, dataItem);
-							}
-							else{
-								this.va["data"][fi].isChosen = true;
-								this.hover(true, dataItem);
-							}
-							this.va["data"][fi].isChangeable = true;
-						}
+					var con0 = (event.clientX - dataItem.offset().left) < dataItem.width();
+					var con1 = event.clientY < ((dataItem.offset().top*2 + dataItem.height())/2);
+					var con2 = ((dataItem.offset().top*2 + dataItem.height())/2) < this.stdY;
+					var con3 = event.clientY > ((dataItem.offset().top*2 + dataItem.height())/2);
+					var con4 = ((dataItem.offset().top*2 + dataItem.height())/2) > this.stdY;
+					if(con0 && con1 && con2){
+						data.isChosen = false;
+						this.hover(false, dataItem);
 					}
-					else{
-						if(event.clientY < ((dataItem.offset().top*2 + dataItem.height())/2) && ((dataItem.offset().top*2 + dataItem.height())/2) > this.stdY){
-							if(!this.va["data"][fi].isChangeable)
-							if(this.va["data"][fi].isChosen){
-								this.va["data"][fi].isChosen = false;
-								this.hover(false, dataItem);
-							}
-							else{
-								this.va["data"][fi].isChosen = true;
-								this.hover(true, dataItem);
-							}
-							this.va["data"][fi].isChangeable = true;
-						}
+					else if(con0 && con3 && con4){
+						data.isChosen = false;
+						this.hover(false, dataItem);
 					}
 				}
 			}
+		}		
+	}
+	this.end = function(event){
+		var flag = false
+		if(event.ctrlKey){
+			for(di=0; di<this.va["data"].length; di++) {
+				if(this.va["data"][di].isChosen == true){
+					flag = true;
+					this.va["data"][di].isChangeable = false;
+				}
+				else {
+					this.va["data"][di].isChangeable = true;
+				}
+			}
+		}else{
+			for(di=0; di<this.va["data"].length; di++) {
+				this.va["data"][di].isChangeable = true;
+				if(this.va["data"][di].isChosen == true){
+					flag = true;
+				}
+			}
 		}
+		$("#selection").remove();
+		this.isOnGoing = false;
+		if(!flag)
+			this.isWorking = false;
 		
 	}
 	this.onGoing = function(event){
@@ -214,47 +198,50 @@ fileBrowser.subsystem.select.MousemoveSelect = function() {
 		$("#selection").height(sizeY);
 		for(fi=0; fi<this.dataItemArray.length; fi++){
 			var dataItem = $(this.dataItemArray[fi]);
+			var data = this.va["data"][fi];
 			if(event.clientY != 0) 
 			if(this.case == 0){
-				if(event.clientY > ((dataItem.offset().top*2 + dataItem.height())/2)){
-					this.va["data"][fi].isChosen = true;
+				var con0 = (event.clientX - dataItem.offset().left) < dataItem.width();
+				var con1 = event.clientY > ((dataItem.offset().top*2 + dataItem.height())/2)
+				if(con0 && con1){
+					data.isChosen = true;
 					this.hover(true, dataItem);
 				}
 				else{
-					this.va["data"][fi].isChosen = false;
+					data.isChosen = false;
 					this.hover(false, dataItem);
 				} 
 			}
 			else if(this.case == 1){
-				if(event.clientY < ((dataItem.offset().top*2 + dataItem.height())/2)){
-					this.va["data"][fi].isChosen = true;
+				var con0 = (event.clientX - dataItem.offset().left) < dataItem.width();
+				var con1 = event.clientX > this.stdX
+				var con2 = event.clientY < ((dataItem.offset().top*2 + dataItem.height())/2);
+				if((con0 || con1) && con2){
+					data.isChosen = true;
 					this.hover(true, dataItem);
 				}
 				else{
-					this.va["data"][fi].isChosen = false;
+					data.isChosen = false;
 					this.hover(false, dataItem);
 				} 
 			}
 			else if(this.case == 2){
-				if(event.clientY < this.stdY){
-					if(event.clientY < ((dataItem.offset().top*2 + dataItem.height())/2) && ((dataItem.offset().top*2 + dataItem.height())/2) < this.stdY){
-						this.va["data"][fi].isChosen = true;
-						this.hover(true, dataItem);
-					}
-					else{
-						this.va["data"][fi].isChosen = false;
-						this.hover(false, dataItem);
-					}
+				var con0 = (event.clientX - dataItem.offset().left) < dataItem.width();
+				var con1 = event.clientY < ((dataItem.offset().top*2 + dataItem.height())/2);
+				var con2 = ((dataItem.offset().top*2 + dataItem.height())/2) < this.stdY;
+				var con3 = event.clientY > ((dataItem.offset().top*2 + dataItem.height())/2);
+				var con4 = ((dataItem.offset().top*2 + dataItem.height())/2) > this.stdY;
+				if(con0 && con1 && con2){
+					data.isChosen = true;
+					this.hover(true, dataItem);
+				}
+				else if(con0 && con3 && con4){
+					data.isChosen = true;
+					this.hover(true, dataItem);
 				}
 				else{
-					if(event.clientY > ((dataItem.offset().top*2 + dataItem.height())/2) && ((dataItem.offset().top*2 + dataItem.height())/2) > this.stdY){
-						this.va["data"][fi].isChosen = true;
-						this.hover(true, dataItem);
-					}
-					else{
-						this.va["data"][fi].isChosen = false;
-						this.hover(false, dataItem);
-					}
+					data.isChosen = false;
+					this.hover(false, dataItem);
 				}
 			}
 		}
@@ -300,18 +287,5 @@ fileBrowser.subsystem.select.MousemoveSelect = function() {
 		else {
 			dataItem.css("background-color","white");
 		}
-	}
-	this.end = function(){
-		var flag = false
-		for(di=0; di<this.va["data"].length; di++) {
-			this.va["data"][di].isChangeable = true;
-			if(this.va["data"][di].isChosen == true){
-				flag = true;
-			}
-		}
-		$("#selection").remove();
-		this.isOnGoing = false;
-		if(!flag)
-			this.isWorking = false;
 	}
 }

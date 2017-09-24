@@ -47,17 +47,22 @@ fileBrowser.controllers.Click = function() {
 		if (this.va["validation"]) {
 			this.fbm.send.copy();
 			this.contextMenu.disappear();
+			taskArray["clipboard"] = true;
 		}
 	}
 	this.cut = function() {
 		if (this.va["validation"]) {
 			this.fbm.send.cut();
 			this.contextMenu.disappear();
+			taskArray["clipboard"] = true;
 		}
 	}
 	this.paste = function() {
-		this.fbm.send.paste();
 		this.contextMenu.disappear();
+		if(taskArray["clipboard"] && confirm("Paste it?")){
+			this.fbm.send.paste();
+			taskArray["clipboard"] = false;
+		}
 	}
 	this.nameHead = function(){
 		this.fs.string.sort("name");
