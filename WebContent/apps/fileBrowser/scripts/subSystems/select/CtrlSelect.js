@@ -3,15 +3,16 @@ fileBrowser.subsystem.select.CtrlSelect = function() {
 		this.setScriptTag(event.target.parentNode);
 		if (this.tag["t"].children[0].innerHTML != ".."
 				&& this.tag["s"].prop("tagName") == "TR") {
+			var data = this.va["data"][rIdx-2];
 			var rIdx = this.tag["t"].rowIndex;
-			if(this.va["data"][rIdx-2].isChosen){
-				this.va["data"][rIdx-2].isChosen= false;
-				this.va["data"][rIdx-2].isChangeable= true;
+			if(data.isChosen){
+				data.isChosen= false;
+				data.isChangeable= true;
 				this.tag["s"].css("background-color", "white");
 			}
 			else {
-				this.va["data"][rIdx-2].isChosen= true;
-				this.va["data"][rIdx-2].isChangeable= false;
+				data.isChosen= true;
+				data.isChangeable= false;
 				this.tag["s"].css("background-color", "dimgray");
 			}
 		}
