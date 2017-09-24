@@ -7,13 +7,10 @@ fileBrowser.subsystem.Select = function() {
 	this.mousemove.__proto__ = this;
 	this.end = new SelectEnd();
 	this.end.__proto__ = this;
-	this.clickSelect = new ClickSelect();
-	this.clickSelect.__proto__ = this;
-	
-	this.click = function(event){
-		this.clickSelect.button(event);
-		return this;
-	} 
+	this.click = new ClickSelect();
+	this.click.__proto__ = this;
+	this.shift = new ShiftSelect();
+	this.shift.__proto__ = this;
 	this.cancle = function(){
 		this.fbTable.find("tr").css("background-color", "white");
 		this.va["selectedData"] = [];

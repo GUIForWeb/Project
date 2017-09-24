@@ -1,11 +1,11 @@
 fileBrowser.controllers.Click = function() {
 	this.row = function(event) {
-		if(!event.ctrlKey){
+		if(!(event.ctrlKey || event.shiftKey)){
 			this.select.cancle();
 			if (taskArray["contextMenu"].isOnTheScreen) {
 				taskArray["contextMenu"].disappear();
 			}
-			this.select.click(event);
+			this.select.click.row(event);
 		}
 	}
 	this.newFolder = function(event) {

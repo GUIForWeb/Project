@@ -8,11 +8,14 @@ fileBrowser.controllers.mouse.Mousedown = function() {
 	this.button = function(event) {
 		if(!this.select.mousemove.isOnGoing && event.button == 0) {
 			if(event.ctrlKey){
-				this.select.ctrl.click(event);
+				this.select.ctrl.row(event);
+			}
+			else if(event.shiftKey){
+				this.select.shift.row(event);
 			}
 			else if(!this.select.mousemove.isWorking){
 				this.select.cancle();
-				this.select.click(event);
+				this.select.click.row(event);
 				this.select.end.data(event);
 			}
 			else if(!this.select.mousemove.isOnGoing){

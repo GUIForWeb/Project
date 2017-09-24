@@ -42,6 +42,7 @@ var Select = fileBrowser.subsystem.Select;
 var ContextMenuSelect = fileBrowser.subsystem.select.ContextMenuSelect;
 var MousemoveSelect = fileBrowser.subsystem.select.MousemoveSelect;
 var CtrlSelect = fileBrowser.subsystem.select.CtrlSelect;
+var ShiftSelect = fileBrowser.subsystem.select.ShiftSelect;
 var SelectEnd = fileBrowser.subsystem.select.SelectEnd;
 var ClickSelect = fileBrowser.subsystem.select.ClickSelect
 var FBManager = fileBrowser.subsystem.FBManager;
