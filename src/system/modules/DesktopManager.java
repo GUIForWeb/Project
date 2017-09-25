@@ -30,7 +30,7 @@ public class DesktopManager {
 		File file = new File(this.desktopPath);
 		if (!file.exists())
 			file.mkdir();
-		this.dataIconsDAO = new DataIconsDAOMySQL(os);
+		this.dataIconsDAO = new DataIconsDAOMySQL(this.os);
 		this.dataIconsDAO.load();
 	}
 	public void load() {

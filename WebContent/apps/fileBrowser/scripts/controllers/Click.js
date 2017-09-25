@@ -1,7 +1,7 @@
 fileBrowser.controllers.Click = function() {
 	this.row = function(event) {
 		if(!(event.ctrlKey || event.shiftKey)){
-			this.select.cancle();
+			this.select.cancle.all();
 			if (taskArray["contextMenu"].isOnTheScreen) {
 				taskArray["contextMenu"].disappear();
 			}

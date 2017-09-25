@@ -62,7 +62,9 @@ public class FBWebSocket implements WebSocketInterface{
 		this.fbm.setJson(json);
 		this.fbm.loadRoot();
 		this.fbm.findBrowser();
-		this.fbm.setDesktopManager(new DesktopManager());
+		System.out.println(this.fbm.getPath());
+		//new DesktopManager()
+		
 		switch (status) {
 			case "open":
 				this.fbm.open();

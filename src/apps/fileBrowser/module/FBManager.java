@@ -38,7 +38,6 @@ public class FBManager {
 	private FBFileOutputStream fileOutputStream;
 	private Session websocketSession;
 	private HttpServletResponse response;
-	private DesktopManager desktopManager;
 	private int per;
 
 	public FBManager() {
@@ -563,12 +562,11 @@ public class FBManager {
 	public void setResponse(HttpServletResponse response) {
 		this.response = response;
 	}
-
-	public DesktopManager getDesktopManager() {
-		return desktopManager;
+	public String getPath() {
+		return path;
 	}
 
-	public void setDesktopManager(DesktopManager desktopManager) {
-		this.desktopManager = desktopManager;
+	public void setPath(String path) {
+		this.path = path;
 	}
 }

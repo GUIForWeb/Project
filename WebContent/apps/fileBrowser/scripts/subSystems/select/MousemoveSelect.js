@@ -7,6 +7,9 @@ fileBrowser.subsystem.select.MousemoveSelect = function() {
 	this.isWiding = false;
 	this.preWidth = 0;
 	this.preHeight = 0;
+	this.cancle = function(){
+		this.mousemove.isWorking = false;
+	}
 	this.onGoingWtihCtrl = function(event){
 		var sizeX = this.stdX - event.clientX;
 		var sizeY = this.stdY - event.clientY;

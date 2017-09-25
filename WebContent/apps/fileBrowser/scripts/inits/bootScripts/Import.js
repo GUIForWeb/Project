@@ -45,6 +45,7 @@ var CtrlSelect = fileBrowser.subsystem.select.CtrlSelect;
 var ShiftSelect = fileBrowser.subsystem.select.ShiftSelect;
 var SelectEnd = fileBrowser.subsystem.select.SelectEnd;
 var ClickSelect = fileBrowser.subsystem.select.ClickSelect
+var SelectCancle = fileBrowser.subsystem.select.SelectCancle
 var FBManager = fileBrowser.subsystem.FBManager;
 var FBReceiver = fileBrowser.subsystem.FBReceiver;
 var FBSender = fileBrowser.subsystem.FBSender;
