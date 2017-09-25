@@ -7,10 +7,10 @@ import javax.websocket.Session;
 
 import org.json.JSONObject;
 
-import system.dao.IconsInOSDAOMySQL;
-import system.daoInterface.IconsInOSDAO;
-import system.model.IconInOS;
-import system.model.OS;
+import system.daoInterfaces.IconsInOSDAO;
+import system.daos.IconsInOSDAOMySQL;
+import system.models.IconInOS;
+import system.models.OS;
 
 public class IconManager {
 	@SuppressWarnings("unused")

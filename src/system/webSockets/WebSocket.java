@@ -17,7 +17,7 @@ import javax.websocket.server.ServerEndpoint;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import system.library.ServletAwareConfig;
+import system.libraries.ServletAwareConfig;
 import system.webSocketInterfaces.WebSocketInterface;
 
 

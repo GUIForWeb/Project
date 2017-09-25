@@ -9,7 +9,7 @@ import javax.websocket.Session;
 
 import org.json.JSONObject;
 
-import system.exception.GUIException;
+import system.exceptions.GUIException;
 import system.modules.GUIRepository;
 import system.webSocketInterfaces.WebSocketInterface;
 

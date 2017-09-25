@@ -14,8 +14,7 @@ fileBrowser.controllers.Click = function() {
 		this.contextMenu.disappear();
 	}
 	this.rename = function(event) {
-		if (this.va["validation"] && !this.select.mousemove.isWorking
-				&& Object.keys(this.va["selectedData"][0]).length == 2) {
+		if (this.va["validation"] && !this.select.mousemove.isWorking) {
 			var nameTd = this.tag["s"].children().first();
 			nameTd.attr("contenteditable", true);
 			var id = this.id;

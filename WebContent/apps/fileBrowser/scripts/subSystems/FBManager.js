@@ -1,6 +1,6 @@
 fileBrowser.subsystem.FBManager = function() {
 	this.json = {};
-	this.json.app = "apps.fileBrowser.webSocket.FBWebSocket";
+	this.json.app = "apps.fileBrowser.webSockets.FBWebSocket";
 	this.send = new FBSender();
 	this.send.__proto__ = this;
 	this.receive = new FBReceiver();

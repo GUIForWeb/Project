@@ -5,28 +5,23 @@ import java.io.File;
 import javax.faces.context.ExternalContext;
 import javax.servlet.ServletContext;
 
-import system.dao.DataIconsDAOMySQL;
-import system.daoInterface.DataIconsDAO;
-import system.model.OS;
-import system.model.User;
+import system.daoInterfaces.DataIconsDAO;
+import system.daos.DataIconsDAOMySQL;
+import system.models.OS;
+import system.models.User;
 
 public class DesktopManager {
 	private String desktopPath;
 	private User user;
-	private ExternalContext externalContext;
-	private String contextPath;
-	private ServletContext context;
+	private String root;
 	private DataIconsDAO dataIconsDAO;
 	private OS os;
 
 	public DesktopManager() {
 	}
-
+	
 	public void init() {
-		this.contextPath = this.externalContext.getApplicationContextPath();
-		this.context = (ServletContext) externalContext.getContext();
-		this.desktopPath = this.context.getRealPath(".").replace(this.contextPath.substring(1), "");
-		this.desktopPath += "driver/home/" + this.user.getEmail() + "/Desktop";
+		this.desktopPath += this.root + "/Desktop";
 		File file = new File(this.desktopPath);
 		if (!file.exists())
 			file.mkdir();
@@ -36,6 +31,10 @@ public class DesktopManager {
 	public void load() {
 		
 	}
+	public void refresh(){
+		System.out.println("refresh");
+	}
+	
 	/*
 	private void update(){
 		File file = new File(this.desktopPath);
@@ -103,14 +102,6 @@ public class DesktopManager {
 		this.user = user;
 	}
 
-	public ExternalContext getExternalContext() {
-		return externalContext;
-	}
-
-	public void setExternalContext(ExternalContext externalContext) {
-		this.externalContext = externalContext;
-	}
-
 	public OS getOS() {
 		return os;
 	}
@@ -125,5 +116,13 @@ public class DesktopManager {
 
 	public void setDataIconsDAO(DataIconsDAO dataIconsDAO) {
 		this.dataIconsDAO = dataIconsDAO;
+	}
+	
+	public String getRoot() {
+		return root;
+	}
+
+	public void setRoot(String root) {
+		this.root = root;
 	}
 }
