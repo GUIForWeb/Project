@@ -17,6 +17,7 @@ fileBrowser.subsystem.Select = function() {
 		for(i=0; i<this.va["data"].length; i++) 
 			this.va["data"][i].isChosen = false;
 		this.mousemove.isWorking = false;
+		this.shift.cancle();
 		this.initAllValues();
 	}
 	

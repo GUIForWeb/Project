@@ -6,6 +6,7 @@ fileBrowser.controllers.Click = function() {
 				taskArray["contextMenu"].disappear();
 			}
 			this.select.click.row(event);
+			this.select.end.data(event);
 		}
 	}
 	this.newFolder = function(event) {

@@ -2,10 +2,10 @@ fileBrowser.controllers.mouse.Mouseout = function() {
 	this.row = function(event) {
 		var tmpClass = this.cssTag["s"].attr("class");
 		if (tmpClass.includes("dataItem") || tmpClass.includes("parent")) {
-			if (!event.shiftKey && !event.ctrlKey && !this.select.mousemove.isWorking && !this.contextMenu.isOnTheScreen) {
+			if (!event.shiftKey && !event.ctrlKey && !this.select.mousemove.isWorking && !this.select.shift.isWorking && !this.contextMenu.isOnTheScreen) {
 				this.cssTag["s"].css("background-color", "white");
 			}
-			else if(!this.select.shift.isOnGoing && (event.ctrlKey || event.shiftKey) && this.cssTag["t"].style.getPropertyValue("background-color") == "lightgrey") {
+			else if((event.ctrlKey || event.shiftKey) && this.cssTag["t"].style.getPropertyValue("background-color") == "lightgrey") {
 				this.cssTag["s"].css("background-color", "white");
 			}
 		}

@@ -6,6 +6,7 @@ fileBrowser.subsystem.select.ClickSelect = function() {
 			var rIdx = this.tag["t"].rowIndex;
 			this.va["data"][rIdx-2].isChosen = true;
 			this.va["data"][rIdx-2].isChangeable = false;
+			this.va["selectedRow"] = rIdx;
 			this.tag["s"].css("background-color","dimgray");
 		}
 	}	

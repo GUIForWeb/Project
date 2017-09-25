@@ -7,7 +7,6 @@ fileBrowser.subsystem.select.SelectEnd = function() {
 			this.va["data"][di].isChosen == false;
 			this.va["data"][di].isChangeable = true;
 		}
-		console.log(this.va["selectedData"]);
 	}
 	this.validation = function() {
 		if(this.va["selectedData"].length != 0){

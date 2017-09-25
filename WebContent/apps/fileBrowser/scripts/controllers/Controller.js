@@ -32,6 +32,7 @@ fileBrowser.controllers.Controller = function() {
 		this.va["selectedData"] = [];
 		this.va["path"] = "";
 		this.va["dataDrag"] = false;
+		this.va["selectedRow"] = null;
 		// tagArray
 		this.ta = [];
 		this.ta["script"] = [];

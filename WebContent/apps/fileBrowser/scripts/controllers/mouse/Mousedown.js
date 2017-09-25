@@ -13,10 +13,9 @@ fileBrowser.controllers.mouse.Mousedown = function() {
 			else if(event.shiftKey){
 				this.select.shift.row(event);
 			}
-			else if(!this.select.mousemove.isWorking){
+			else if(!this.select.shift.isWorking && !this.select.mousemove.isWorking){
 				this.select.cancle();
 				this.select.click.row(event);
-				this.select.end.data(event);
 			}
 			else if(!this.select.mousemove.isOnGoing){
 				this.setScriptTag(event.target);

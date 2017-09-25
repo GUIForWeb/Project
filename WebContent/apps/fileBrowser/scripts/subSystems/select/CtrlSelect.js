@@ -9,6 +9,7 @@ fileBrowser.subsystem.select.CtrlSelect = function() {
 				data.isChosen= false;
 				data.isChangeable= true;
 				this.tag["s"].css("background-color", "white");
+				this.va["selectedRow"] = rIdx;
 			}
 			else {
 				data.isChosen= true;
