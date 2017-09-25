@@ -8,7 +8,7 @@ fileBrowser.subsystem.select.ShiftSelect = function() {
 				&& this.tag["s"].prop("tagName") == "TR") {
 			var rIdx = this.tag["t"].rowIndex;
 			var data = null;
-			if(this.va["validation"]){
+			if(this.va["selectedRow"] != null){
 				this.rIdx0 = this.va["selectedRow"];
 				console.log(this.rIdx0);
 				this.rIdx1 = rIdx;
