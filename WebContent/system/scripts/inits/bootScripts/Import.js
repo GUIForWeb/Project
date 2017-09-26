@@ -16,7 +16,6 @@ var EventListener = system.subsystem.EventListener;
 var GUIXMLHttpRequest = system.subsystem.GUIXMLHttpRequest;
 var GUIManager = system.subsystem.GUIManager;
 var GUIRepository = system.subsystem.GUIRepository;
-var IconManager = system.subsystem.IconManager;
 var NodeManager = system.subsystem.NodeManager;
 var PositioningEngine = system.subsystem.PositioningEngine;
 var WindowManager = system.subsystem.WindowManager;

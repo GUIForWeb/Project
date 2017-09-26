@@ -27,7 +27,7 @@ function GUI(guiVariableName) {
 		this.dataIconJSONArray = dataIconJSONArray;
 	}
 	this.initDesktopDataItems = function() {
-		this.dm.refresh(this.dataIconJSONArray);
+		this.dm.insertDataIcon(this.dataIconJSONArray);
 	}
 	this.coordinateFilter = function(){
 		
@@ -71,8 +71,6 @@ function GUI(guiVariableName) {
 		this.dm.__proto__ = this.controller;
 		this.wm = new WindowManager();
 		this.wm.__proto__ = this.controller;
-		this.im = new IconManager();
-		this.im.__proto__ = this.controller;
 		this.bm = new BarManager();
 		this.bm.__proto__ = this.controller;
 		this.ee = new EnumEngine();

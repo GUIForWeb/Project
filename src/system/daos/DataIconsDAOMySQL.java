@@ -8,10 +8,8 @@ import org.json.JSONObject;
 
 import system.daoInterfaces.DataIconsDAO;
 import system.databases.MySQL;
-import system.helpers.Encryption;
 import system.models.DataIcon;
 import system.models.OS;
-import system.models.User;
 
 public class DataIconsDAOMySQL implements DataIconsDAO {
 	private MySQL db;
@@ -27,13 +25,29 @@ public class DataIconsDAOMySQL implements DataIconsDAO {
 		this.db = new MySQL();
 		this.os = os;
 	}
-	public void delete(JSONArray jsonArray) {
-		System.out.println(jsonArray);
-		String query = "call delDataIcon(?,?,?,?,?)";
-		this.callProcedure(query, jsonArray);
+	
+	public void updateXY(JSONArray jsonArray){
+		// update
 	}
-	private void callProcedure(String query, JSONArray jsonArray){
-		String[] infoStr = new String[5];
+	
+	public String delete(JSONArray jsonArray) {
+		ResultSet rset;
+		String ids = "";
+		String query = "call delDataIcon(?,?,?,?,?)";
+		rset = this.callProcedure(query, jsonArray);
+		try {
+			rset.next();
+			ids = rset.getString(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.db.close();
+		return ids;
+	}
+	private ResultSet callProcedure(String query, JSONArray jsonArray){
+		ResultSet rset;
+		String[] info = new String[5];
 		String names = "";
 		String dateModifieds = "";
 		String sizes = "";
@@ -48,17 +62,18 @@ public class DataIconsDAOMySQL implements DataIconsDAO {
 			types += newJ.getString("type") + ",";
 		}
 		this.db.connect();
-		infoStr[0] = String.valueOf(this.os.getId());
-		infoStr[1] = names.substring(0, names.length()-1);
-		infoStr[2] = dateModifieds.substring(0, dateModifieds.length()-1);
-		infoStr[3] = sizes.substring(0, sizes.length()-1);
-		infoStr[4] = types.substring(0, types.length()-1);
-		this.db.call(query, infoStr);
-		this.db.close();
+		info[0] = String.valueOf(this.os.getId());
+		info[1] = names.substring(0, names.length()-1);
+		info[2] = dateModifieds.substring(0, dateModifieds.length()-1);
+		info[3] = sizes.substring(0, sizes.length()-1);
+		info[4] = types.substring(0, types.length()-1);
+		rset = this.db.call(query, info);
+		return rset;
 	}
 	public void insert(JSONArray jsonArray) {
 		String query = "call newDataIcon(?,?,?,?,?)";
 		this.callProcedure(query, jsonArray);
+		this.db.close();
 	}
 	public void update(JSONArray jsonArray) {
 		boolean isDuplicated = false;
@@ -124,7 +139,7 @@ public class DataIconsDAOMySQL implements DataIconsDAO {
 		try {
 			while (this.rset.next()) {
 				tmpDataIcon = new DataIcon();
-				tmpDataIcon.setId(this.rset.getInt("id"));
+				tmpDataIcon.setId(this.rset.getInt("icon_id"));
 				tmpDataIcon.setName(this.rset.getString("name"));
 				tmpDataIcon.setType(this.rset.getString("type"));
 				tmpDataIcon.setDateModified(this.rset.getString("dateModified"));

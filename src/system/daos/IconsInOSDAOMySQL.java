@@ -35,7 +35,7 @@ public class IconsInOSDAOMySQL implements IconsInOSDAO{
 	}
 	@Override
 	public void updateXY(IconInOS iconInOS){
-		String query = "UPDATE icons_in_os_t SET iconX=?, iconY=? WHERE os_id = ? AND icon_id = ?";
+		String query = "UPDATE icons_in_os_t SET x=?, y=? WHERE os_id = ? AND icon_id = ?";
 		String[] info = new String[4];
 		info[0] = String.valueOf(iconInOS.getX());
 		info[1] = String.valueOf(iconInOS.getY());

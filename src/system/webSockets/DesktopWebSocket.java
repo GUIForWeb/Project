@@ -9,14 +9,11 @@ import javax.websocket.Session;
 
 import org.json.JSONObject;
 
-import system.daoInterfaces.IconsInOSDAO;
-import system.daos.IconsInOSDAOMySQL;
-import system.models.IconInOS;
-import system.models.OS;
+import system.modules.DesktopManager;
 import system.modules.IconManager;
 import system.webSocketInterfaces.WebSocketInterface;
 
-public class IconWebSocket implements WebSocketInterface {
+public class DesktopWebSocket implements WebSocketInterface {
 	@SuppressWarnings("unused")
 	private ServletContext servletContext;
 	@SuppressWarnings("unused")
@@ -24,24 +21,27 @@ public class IconWebSocket implements WebSocketInterface {
 	private HttpSession session;
 	@SuppressWarnings("unused")
 	private EndpointConfig config;
-	private IconManager im = new IconManager();
-	public IconWebSocket(){
-		
+	private DesktopManager dm;
+	public DesktopWebSocket(){
 	}
-	
+	public void init(){
+		this.dm = (DesktopManager) this.session.getAttribute("desktopManager");
+	}
 	@Override
 	public JSONObject onMessage(String message) {
-		// TODO Auto-generated method stub
 		JSONObject json = new JSONObject(message);
 		String status = json.getString("status");
 		json.remove("status");
-		this.im.setJson(json);
-		this.im.setSession(this.session);
+		this.dm.setJSON(json);
 		switch(status){
-		case "iconXY":
-			this.im.iconXY();
-			break;
+			case "iconXY":
+				this.dm.iconXY();
+				break;
+			case "dataIconXY":
+				this.dm.dataIconXY();
+				break;
 		}
+		
 		json = new JSONObject();
 		return json;
 	}

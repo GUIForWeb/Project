@@ -53,13 +53,15 @@ public class FBWebSocket implements WebSocketInterface{
 			}
         }
 	}
+	public void init() {
+		this.fbm.setServletContext(this.servletContext);
+		this.fbm.setSession(this.session);
+	}
 	@Override
 	public JSONObject onMessage(String message){
 		JSONObject json = new JSONObject(message);
 		String status = json.getString("status");
 		json.remove("status");
-		this.fbm.setServletContext(this.servletContext);
-		this.fbm.setSession(this.session);
 		this.fbm.setJson(json);
 		this.fbm.loadRoot();
 		this.fbm.findBrowser();
@@ -78,7 +80,6 @@ public class FBWebSocket implements WebSocketInterface{
 			if(status.equals("newFolder") || status.equals("rename") || status.equals("del") ||	status.equals("paste") || status.equals("uploadStart")){
 				this.dm = (DesktopManager) this.session.getAttribute("desktopManager");
 				this.dm.setJSONArray(this.fbm.getData());
-				
 			}
 			switch (status) {
 				case "del":

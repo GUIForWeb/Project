@@ -22,13 +22,15 @@ public class GUIWebSocket implements WebSocketInterface  {
 	public GUIWebSocket() {
 		this.gr = new GUIRepository();
 	}
-	public JSONObject onMessage(String message){
+	public void init(){
 		this.gr.setConfig(this.config);
 		this.gr.setSession(this.session);
 		this.gr.setWebsocketSession(this.websocketSession);
 		this.gr.setServletContext(this.servletContext);
 		this.gr.setUpdated(false);
 		this.gr.getSession();
+	}
+	public JSONObject onMessage(String message){
 		JSONObject json = new JSONObject(message);
 		//json = json.getJSONObject("data");
 		String status = json.getString("status");

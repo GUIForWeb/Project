@@ -57,6 +57,7 @@ public class WebSocket{
 			this.wsi.setSession(this.session);
 			this.wsi.setWebsocketSession(this.websocketSession);
 			this.wsi.setServletContext(this.servletContext);
+			this.wsi.init();
 			json = this.wsi.onMessage(json.getJSONObject("data").toString());
 			
 		} catch (ClassNotFoundException | JSONException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {

@@ -6,9 +6,7 @@ system.controllers.Drop = function() {
 			var newTd = this.getIconTdXY(event.currentTarget);
 			var tagId = event.originalEvent.dataTransfer.getData("text")
 			var icon = $("#"+tagId);
-			$(event.currentTarget).append(icon); //tmp
 		}
-		/*
 		var id = this.getIconNumId(icon[0])
 		var iconJSON = this.iconJSONArray[this.getIconNumId(icon[0])];
 		if(this.iconCoordinate[newTd.x+","+newTd.y] === undefined){
@@ -19,10 +17,10 @@ system.controllers.Drop = function() {
 					"y" : newTd.y
 			};
 			delete this.iconCoordinate[iconJSON.x+","+iconJSON.y];
+			this.iconCoordinate[newTd.x+","+newTd.y] = true;
 			iconJSON.x = newTd.x
 			iconJSON.y = newTd.y
-			//this.im.iconXY(json);
+			this.dm.iconXY(json);
 		}
-		*/
 	}
 }

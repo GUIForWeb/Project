@@ -17,4 +17,5 @@ public interface WebSocketInterface{
 	public void setWebsocketSession(Session websocketSession);
 	public void setConfig(EndpointConfig config);
 	public void setServletContext(ServletContext servletContext);
+	public void init();
 }
