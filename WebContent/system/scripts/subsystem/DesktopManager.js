@@ -44,6 +44,9 @@ system.subsystem.DesktopManager = function() {
 	this.filter = function(tmpIcon){
 		if(tmpIcon.y >= this.rowNum) 
 			this.xy.push(this.changeCol(tmpIcon,-1,0));
+		else if(this.iconCoordinate[tmpIcon.x + "," + tmpIcon.y]){
+			this.xy.push(this.changeRow(tmpIcon,tmpIcon.x,tmpIcon.y));
+		}
 		else
 			this.iconCoordinate[tmpIcon.x + "," + tmpIcon.y] = true;
 	}

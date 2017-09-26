@@ -39,7 +39,8 @@ public class DesktopManager {
 	}
 	public void dataIconXY(){
 		this.jsonArray = this.json.getJSONArray("data");
-		System.out.println(this.jsonArray);
+		if(this.jsonArray.length() > 0)
+			this.dataIconsDAO.updateXY(this.jsonArray);
 	}
 	public void iconXY() {
 		IconInOS tmpIconInOS = new IconInOS(this.json);
