@@ -10,9 +10,9 @@ system.subsystem.DesktopManager = function() {
 		}, json);
 		this.ws.send(this.json);
 	}
-	this.dataIconXY = function(jsonArray) {
+	this.dataIconXYs = function(jsonArray) {
 		this.json.data = Object.assign({}, {
-			"status" : "dataIconXY"
+			"status" : "dataIconXYs"
 		}, {"data":jsonArray});
 		var json = this.json
 		this.ws.onopen(function(){
@@ -33,7 +33,7 @@ system.subsystem.DesktopManager = function() {
 			tmpIcon.appendIcon();
 			this.dataIconArray.push(tmpIcon);
 		}
-		this.dataIconXY(this.xy);
+		this.dataIconXYs(this.xy);
 	}
 	this.delDataIcon = function(ids){
 		ids = ids.split(",");

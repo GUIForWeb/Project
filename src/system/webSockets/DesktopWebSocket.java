@@ -37,8 +37,8 @@ public class DesktopWebSocket implements WebSocketInterface {
 			case "iconXY":
 				this.dm.iconXY();
 				break;
-			case "dataIconXY":
-				this.dm.dataIconXY();
+			case "dataIconXYs":
+				this.dm.dataIconXYs();
 				break;
 		}
 		

@@ -26,8 +26,8 @@ public class DataIconsDAOMySQL implements DataIconsDAO {
 		this.os = os;
 	}
 	
-	public void updateXY(JSONArray jsonArray){
-		String query = "call updateDataIconXY(?,?,?,?)";
+	public void updateXYs(JSONArray jsonArray){
+		String query = "call updateDataIconXYs(?,?,?,?)";
 		String[] info = new String[4];
 		String id = "";
 		String x = "";

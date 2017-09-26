@@ -37,10 +37,10 @@ public class DesktopManager {
 		this.dataIconsDAO = new DataIconsDAOMySQL(this.os);
 		this.dataIconsDAO.load();
 	}
-	public void dataIconXY(){
+	public void dataIconXYs(){
 		this.jsonArray = this.json.getJSONArray("data");
 		if(this.jsonArray.length() > 0)
-			this.dataIconsDAO.updateXY(this.jsonArray);
+			this.dataIconsDAO.updateXYs(this.jsonArray);
 	}
 	public void iconXY() {
 		IconInOS tmpIconInOS = new IconInOS(this.json);
