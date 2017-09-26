@@ -10,7 +10,7 @@ fileBrowser.controllers.Click = function() {
 		}
 	}
 	this.newFolder = function(event) {
-		this.fbm.send.newFolder();
+		this.fbws.send.newFolder();
 		this.contextMenu.disappear();
 	}
 	this.rename = function(event) {
@@ -31,7 +31,7 @@ fileBrowser.controllers.Click = function() {
 	}
 	this.del = function() {
 		if (this.va["validation"] && confirm('Delete it?')) {
-			this.fbm.send.del();
+			this.fbws.send.del();
 			this.contextMenu.disappear();
 			this.va["selectedData"] = [];
 		}
@@ -39,20 +39,20 @@ fileBrowser.controllers.Click = function() {
 	this.downlaod = function(event) {
 		if (this.va["validation"] && this.va["selectedData"].length > 0
 				&& this.va["selectedData"][0].type != "directory") {
-			this.fbm.send.download();
+			this.fbws.send.download();
 			this.contextMenu.disappear();
 		}
 	}
 	this.copy = function() {
 		if (this.va["validation"]) {
-			this.fbm.send.copy();
+			this.fbws.send.copy();
 			this.contextMenu.disappear();
 			taskArray["clipboard"] = true;
 		}
 	}
 	this.cut = function() {
 		if (this.va["validation"]) {
-			this.fbm.send.cut();
+			this.fbws.send.cut();
 			this.contextMenu.disappear();
 			taskArray["clipboard"] = true;
 		}
@@ -60,7 +60,7 @@ fileBrowser.controllers.Click = function() {
 	this.paste = function() {
 		this.contextMenu.disappear();
 		if(taskArray["clipboard"] && confirm("Paste it?")){
-			this.fbm.send.paste();
+			this.fbws.send.paste();
 			taskArray["clipboard"] = false;
 		}
 	}

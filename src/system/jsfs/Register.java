@@ -18,7 +18,7 @@ public class Register extends SystemJSF {
     		Authentication.AUTHRULE,
     		Authentication.PROCEDURE	
 		});
-		this.auth.getProcedureMap().put("UserDAOMySQL", "register");
+		this.auth.getProcedureMap().put("UsersDAOMySQL", "register");
 	}
 	public String register(){
 		this.redirect(IN);

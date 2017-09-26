@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.file.Files;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,13 +23,13 @@ import org.json.JSONObject;
 import apps.fileBrowser.libraries.FBFileOutputStream;
 import apps.fileBrowser.models.Browser;
 import system.daos.DataItemsDAO;
-import system.models.OS;
-import system.modules.DesktopManager;
+import system.models.DataItem;
 
 public class FBManager {
 	private int id;
 	private String root;
 	private String path = "";
+	private String desktopPath = "";
 	private JSONObject json;
 	private List<Browser> browserList;
 	private DataItemsDAO dataItemDAO;
@@ -39,6 +41,7 @@ public class FBManager {
 	private Session websocketSession;
 	private HttpServletResponse response;
 	private int per;
+	private JSONArray data;
 
 	public FBManager() {
 		this.dataItemDAO = new DataItemsDAO();
@@ -195,7 +198,21 @@ public class FBManager {
 		}
 		return dest;
 	}
-
+	
+	public void paste() {
+		JSONObject clipboard = (JSONObject) this.session.getAttribute("clipboard");
+		if (clipboard != null) {
+			this.data = new JSONArray();
+			String status = clipboard.getString("status");
+			String path = clipboard.getString("path");
+			int prevId = clipboard.getInt("id");
+			JSONArray data = clipboard.getJSONArray("data"); 
+			this.checkExistence(status, data, path, this.path);
+			this.session.removeAttribute("clipboard");
+			this.multiplexReload(prevId, path);
+		}
+	}
+	
 	private void checkExistence(String status, JSONArray data, String srcPath, String destPath) {
 		if (data.length() != 0) {
 			JSONObject tmpJSON = data.getJSONObject(0);
@@ -220,6 +237,7 @@ public class FBManager {
 					if (status.equals("copy")) {
 						try {
 							FileUtils.copyFile(src, dest);
+							this.putDataItem(dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -227,6 +245,7 @@ public class FBManager {
 					} else if (status.equals("cut")) {
 						try {
 							FileUtils.moveFile(src, dest);
+							this.putDataItem(dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -255,6 +274,7 @@ public class FBManager {
 					if (status.equals("copy")) {
 						try {
 							FileUtils.copyFile(src, dest);
+							this.putDataItem(dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -262,6 +282,7 @@ public class FBManager {
 					} else if (status.equals("cut")) {
 						try {
 							FileUtils.moveFile(src, dest);
+							this.putDataItem(dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -271,26 +292,29 @@ public class FBManager {
 			}
 		}
 	}
-
+	private void putDataItem(File file){
+		if(this.path.equals(this.desktopPath)){
+			DataItem tmpDI = new DataItem();
+			try {
+				tmpDI.setType(Files.probeContentType(file.toPath()));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			tmpDI.setName(file.getName());
+			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+			tmpDI.setLastModified(file.lastModified());
+			tmpDI.setDateModified(sdf.format(file.lastModified()));
+			tmpDI.setSize(file.length());
+			this.data.put(tmpDI.getJSON());
+		}
+	}
 	public void setClipboard(String status) {
 		this.json.put("path", this.path);
 		this.json.put("status", status);
 		this.session.setAttribute("clipboard", this.json);
 	}
 	
-	public void paste() {
-		JSONObject clipboard = (JSONObject) this.session.getAttribute("clipboard");
-		if (clipboard != null) {
-			String status = clipboard.getString("status");
-			String path = clipboard.getString("path");
-			int prevId = clipboard.getInt("id");
-			JSONArray data = clipboard.getJSONArray("data");
-			this.checkExistence(status, data, path, this.path);
-			this.session.removeAttribute("clipboard");
-			this.multiplexReload(prevId, path);
-		}
-	}
-
 	private void multiplexReload(int prevId, String path) {
 		if (this.browser.isWeb()) {
 			this.reload();
@@ -399,6 +423,7 @@ public class FBManager {
 
 	public void loadRoot() {
 		this.root = (String) this.session.getAttribute("root");
+		this.desktopPath += this.root + "/Desktop";
 	}
 
 	@SuppressWarnings("unchecked")
@@ -564,5 +589,21 @@ public class FBManager {
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+	
+	public JSONArray getData() {
+		return data;
+	}
+
+	public void setData(JSONArray data) {
+		this.data = data;
+	}
+	
+	public String getDesktopPath() {
+		return desktopPath;
+	}
+
+	public void setDesktopPath(String desktopPath) {
+		this.desktopPath = desktopPath;
 	}
 }

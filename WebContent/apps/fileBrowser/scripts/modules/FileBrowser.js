@@ -43,13 +43,11 @@ function FileBrowser(id){
 		this.focusout.__proto__ = this.controller;
 		this.keydown = new Keydown();
 		this.keydown.__proto__ = this.controller;
-		this.fws = new FileWebSocket(this.ip+":8081");
-		this.fws.__proto__ = this.controller;
 		
 		this.select = new Select();
 		this.select.__proto__ = this.controller;
-		this.fbm = new FBManager();
-		this.fbm.__proto__ = this.controller;
+		this.fbws = new FBWebSocket();
+		this.fbws.__proto__ = this.controller;
 		
 		this.section = $("#fbTable"+this.id).parent();
 		this.footer = this.section.parent().find("footer");
@@ -65,8 +63,8 @@ function FileBrowser(id){
 		this.fs.__proto__ = this.controller;
 		this.fs.option = "name";
 		this.fs.string.arrayPrototype();
-		this.fm = new TableManager();
-		this.fm.__proto__ = this.controller;
+		this.tm = new TableManager();
+		this.tm.__proto__ = this.controller;
 		
 		if(sessionStorage.wMode !== undefined)
 			this.InitForWMode();
@@ -91,7 +89,7 @@ function FileBrowser(id){
 	}
 	this.appendFunctionForTable = function(){
 		if(this.controller.va["data"].length == 0)
-			this.fm.getData();
+			this.tm.getData();
 		
 		var id = this.id;
 		
@@ -161,10 +159,10 @@ function FileBrowser(id){
 		}
 		else {
 			this.section.height(window.innerHeight - this.footer.height());
-			this.fbm.send.isNotInWindow();
-			var fbm = this.fbm;
+			this.fbws.send.isNotInWindow();
+			var fbws = this.fbws;
 			window.onbeforeunload = function () {
-				fbm.send.x();
+				fbws.send.x();
 		    }
 		}
 		if($("#fbCSS").length == 0 ){

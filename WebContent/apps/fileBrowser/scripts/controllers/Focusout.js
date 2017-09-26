@@ -15,7 +15,7 @@ fileBrowser.controllers.Focusout = function() {
 					break;
 				}
 			}
-			this.fbm.send.rename();
+			this.fbws.send.rename();
 		}
 	}
 }

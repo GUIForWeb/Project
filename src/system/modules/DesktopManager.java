@@ -5,6 +5,9 @@ import java.io.File;
 import javax.faces.context.ExternalContext;
 import javax.servlet.ServletContext;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import system.daoInterfaces.DataIconsDAO;
 import system.daos.DataIconsDAOMySQL;
 import system.models.OS;
@@ -16,8 +19,12 @@ public class DesktopManager {
 	private String root;
 	private DataIconsDAO dataIconsDAO;
 	private OS os;
+	private JSONObject json;
+	private JSONArray jsonArray;
+	private boolean isUpdated; 
 
 	public DesktopManager() {
+		this.isUpdated = false;
 	}
 	
 	public void init() {
@@ -28,13 +35,44 @@ public class DesktopManager {
 		this.dataIconsDAO = new DataIconsDAOMySQL(this.os);
 		this.dataIconsDAO.load();
 	}
-	public void load() {
-		
+	public void paste(){
+		this.dataIconsDAO.insert(this.jsonArray);
+		this.dataIconsDAO.load();
+		JSONArray newIconArray = this.dataComparison(new JSONArray(),this.dataIconsDAO.getJSONArray(),this.jsonArray,0,0);
+		this.jsonArray = newIconArray;
+		this.isUpdated = true;
 	}
-	public void refresh(){
-		System.out.println("refresh");
+	private JSONArray dataComparison(JSONArray newIconArray, JSONArray iconArray, JSONArray dataArray, int iNum, int dNum) {
+		boolean flag = false;
+		int iLen = iconArray.length();
+		int dLen = dataArray.length();
+		JSONObject icon = null;
+		JSONObject data = null;
+		if (!iconArray.isNull(iNum) && !dataArray.isNull(dNum)) {
+			icon = (JSONObject) iconArray.get(iNum);
+			data = (JSONObject) dataArray.get(dNum);
+			if (!icon.toString().equals("{}") && !data.toString().equals("{}")) {
+				if (icon.getString("dateModified").equals(data.getString("dateModified"))) {
+					if (icon.getLong("size") == icon.getLong("size"))
+						if (icon.getString("type").equals(data.getString("type")))
+							if (icon.getString("name").equals(data.getString("name"))) {
+								newIconArray.put(iconArray.getJSONObject(iNum));
+								flag = true;
+							}
+				}
+			}
+		}
+		if (iNum < iLen) {
+			if (flag) {
+				this.dataComparison(newIconArray, iconArray, dataArray, ++iNum, 0);
+			} else if (iNum < iLen && dNum < dLen) {
+				this.dataComparison(newIconArray, iconArray, dataArray, iNum, ++dNum);
+			} else if (!flag && dNum == dLen) {
+				this.dataComparison(newIconArray, iconArray, dataArray, ++iNum, 0);
+			}
+		}
+		return newIconArray;
 	}
-	
 	/*
 	private void update(){
 		File file = new File(this.desktopPath);
@@ -124,5 +162,29 @@ public class DesktopManager {
 
 	public void setRoot(String root) {
 		this.root = root;
+	}
+	
+	public JSONObject getJSON() {
+		return json;
+	}
+
+	public void setJSON(JSONObject json) {
+		this.json = json;
+	}
+	
+	public JSONArray getJSONArray() {
+		return jsonArray;
+	}
+
+	public void setJSONArray(JSONArray jsonArray) {
+		this.jsonArray = jsonArray;
+	}
+	
+	public boolean isUpdated() {
+		return isUpdated;
+	}
+
+	public void setUpdated(boolean isUpdated) {
+		this.isUpdated = isUpdated;
 	}
 }

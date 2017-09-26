@@ -27,7 +27,31 @@ public class DataIconsDAOMySQL implements DataIconsDAO {
 		this.db = new MySQL();
 		this.os = os;
 	}
-
+	public void insert(JSONArray jsonArray) {
+		String query1 = "call newDataIcon(?,?,?,?,?)";
+		String[] infoStr = new String[5];
+		String names = "";
+		String dateModifieds = "";
+		String sizes = "";
+		String types = "";
+		JSONObject newJ = null;
+		int jLen = jsonArray.length();
+		for(int ji=0; ji < jLen; ji++){
+			newJ = (JSONObject) jsonArray.get(ji);
+			names += newJ.getString("name") + ",";
+			dateModifieds += newJ.getString("dateModified") + ",";
+			sizes += newJ.getInt("size") + ",";
+			types += newJ.getString("type") + ",";
+		}
+		this.db.connect();
+		infoStr[0] = String.valueOf(this.os.getId());
+		infoStr[1] = names.substring(0, names.length()-1);
+		infoStr[2] = dateModifieds.substring(0, dateModifieds.length()-1);
+		infoStr[3] = sizes.substring(0, sizes.length()-1);
+		infoStr[4] = types.substring(0, types.length()-1);
+		this.db.call(query1, infoStr);
+		this.db.close();
+	}
 	public void update(JSONArray jsonArray) {
 		boolean isDuplicated = false;
 		boolean isNew = false;

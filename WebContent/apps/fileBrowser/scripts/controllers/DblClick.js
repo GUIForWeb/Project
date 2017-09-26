@@ -10,7 +10,7 @@ fileBrowser.controllers.DblClick = function() {
 					"name" : name,
 					"type" : type
 				} ];
-				this.fbm.send.open();
+				this.fbws.send.open();
 				if(type == "directory"){
 					if(this.path[0].value === undefined)
 						this.path[0].value = "/"+name;

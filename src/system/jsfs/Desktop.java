@@ -35,7 +35,6 @@ public class Desktop extends SystemJSF {
 	public Desktop() {
 		this.viewArray[IN] = "background";
 		this.viewArray[OUT] = "login";
-		this.session.setAttribute("User", this.user);
 		this.bgImg = "";
 		this.essentialJSLib = new EssentialJSLib(this.contextPath);
 	}

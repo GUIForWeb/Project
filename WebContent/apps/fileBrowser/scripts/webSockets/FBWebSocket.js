@@ -1,4 +1,4 @@
-fileBrowser.subsystem.FBManager = function() {
+fileBrowser.webSockets.FBWebSocket = function() {
 	this.json = {};
 	this.json.app = "apps.fileBrowser.webSockets.FBWebSocket";
 	this.send = new FBSender();

@@ -21,6 +21,7 @@ var NodeManager = system.subsystem.NodeManager;
 var PositioningEngine = system.subsystem.PositioningEngine;
 var WindowManager = system.subsystem.WindowManager;
 var WindowSizingEngine = system.subsystem.WindowSizingEngine;
+var DesktopManager = system.subsystem.DesktopManager;
 
 var controllers = system.controllers
 var Change = system.controllers.Change;
@@ -52,4 +53,4 @@ var TaskbarView = system.views.TaskbarView;
 var WindowView = system.views.WindowView;
 var IconContextMenuView = system.views.IconContextMenuView;
 
-
+var DesktopWebSocket = system.webSockets.DesktopWebSocket;

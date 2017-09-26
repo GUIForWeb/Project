@@ -36,9 +36,8 @@ public class FBWebSocket implements WebSocketInterface{
 		JSONObject be = new JSONObject();
 		JSONObject json = new JSONObject();
 		JSONObject data0 = new JSONObject();
-		JSONObject data1 = new JSONObject();
 		be.put("receiving", json);
-		json.put("app", "taskArray.fileBrowser["+this.fbm.getId()+"].fbm");
+		json.put("app", "taskArray.fileBrowser["+this.fbm.getId()+"].fbws");
 		json.put("id", this.fbm.getId());
 		json.put("data", data0);
 		data0.put("status", "%");
@@ -64,54 +63,82 @@ public class FBWebSocket implements WebSocketInterface{
 		this.fbm.setJson(json);
 		this.fbm.loadRoot();
 		this.fbm.findBrowser();
-		switch (status) {
-			case "open":
-				this.fbm.open();
-				break;
-			case "uploadDone":
-				this.fbm.uploadDone();
-				break;
-			case "uploadStart":
-				this.fbm.uploadStart();
-				break;
-			case "isNotInWindow":
-				this.fbm.isNotInWindow();
-				break;
-			case "newFolder":
-				this.fbm.newFolder();
-				break;
-			case "rename":
-				this.fbm.rename();
-				break;
-			case "del":
-				this.fbm.del();
-				break;
-			case "copy":
-			case "cut":
-				this.fbm.setClipboard(status);
-				break;
-			case "paste":
-				this.fbm.paste();
-				break;
-			case "x":
-				this.fbm.x();
-				break;
-		}
-		if((this.fbm.getRoot() + "/Desktop").equals(this.fbm.getPath())){
-			if(status.equals("newFolder") || status.equals("rename") || status.equals("del") ||	status.equals("paste") || status.equals("uploadDone")){
-				this.dm = (DesktopManager) this.session.getAttribute("desktopManager");
-				this.dm.refresh();
-			}
-		}
+		this.fbmSwitchCase(status);
+		this.dmSwitchCase(status);
 		int id = this.fbm.getId();
 		json = new JSONObject();
 		if(null != this.fbm.getJson()) {
-			json.put("app", "taskArray.fileBrowser["+id+"].fbm");
+			json.put("app", "taskArray.fileBrowser["+id+"].fbws");
 			json.put("data", this.fbm.getJson());
 		}
 		return json;
 	}
-
+	private void dmSwitchCase(String status){
+		if((this.fbm.getRoot() + "/Desktop").equals(this.fbm.getPath())){
+			if(status.equals("newFolder") || status.equals("rename") || status.equals("del") ||	status.equals("paste") || status.equals("uploadDone")){
+				this.dm = (DesktopManager) this.session.getAttribute("desktopManager");
+				this.dm.setJSONArray(this.fbm.getData());
+			}
+			switch (status) {
+			case "paste":
+				this.dm.paste();
+				break;
+			}
+			//make a client side websocket for desktop update
+			if(this.dm.isUpdated()){
+				this.dm.setUpdated(false);
+				JSONObject be = new JSONObject();
+				JSONObject json = new JSONObject();
+				JSONObject data = new JSONObject();
+				be.put("receiving", json);
+				json.put("app", "gui.dws");
+				json.put("data", data);
+				data.put("status", "update");
+				data.put("data", this.dm.getJSONArray());
+				try {
+					this.websocketSession.getBasicRemote().sendText(be.toString());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	private void fbmSwitchCase(String status){
+		switch (status) {
+		case "open":
+			this.fbm.open();
+			break;
+		case "uploadDone":
+			this.fbm.uploadDone();
+			break;
+		case "uploadStart":
+			this.fbm.uploadStart();
+			break;
+		case "isNotInWindow":
+			this.fbm.isNotInWindow();
+			break;
+		case "newFolder":
+			this.fbm.newFolder();
+			break;
+		case "rename":
+			this.fbm.rename();
+			break;
+		case "del":
+			this.fbm.del();
+			break;
+		case "copy":
+		case "cut":
+			this.fbm.setClipboard(status);
+			break;
+		case "paste":
+			this.fbm.paste();
+			break;
+		case "x":
+			this.fbm.x();
+			break;
+	}
+	}
 	@Override
 	public void onError(Throwable exception){
 		exception.printStackTrace();

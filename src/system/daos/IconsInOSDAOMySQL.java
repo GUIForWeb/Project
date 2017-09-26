@@ -59,8 +59,8 @@ public class IconsInOSDAOMySQL implements IconsInOSDAO{
 				tmpUserIcon = new IconInOS();
 				tmpUserIcon.setOSId(this.rset.getInt("os_id"));
 				tmpUserIcon.setId(this.rset.getInt("icon_id"));
-				tmpUserIcon.setX(this.rset.getInt("iconX"));
-				tmpUserIcon.setY(this.rset.getInt("iconY"));
+				tmpUserIcon.setX(this.rset.getInt("x"));
+				tmpUserIcon.setY(this.rset.getInt("y"));
 				this.iconsInOSList.add(tmpUserIcon);
 			}
 		} catch (SQLException e) {

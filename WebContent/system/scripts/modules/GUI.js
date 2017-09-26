@@ -30,9 +30,6 @@ function GUI(guiVariableName) {
 		var rowNum = this.background.view.tableSelector.find("tr").length;
 		var dNum = this.dataIconJSONArray.length;
 		var iNum = this.iconArray.length;
-		//new one
-		//old one
-		/*
 		for(di=0; di < this.dataIconJSONArray.length; di++) {
 			var tmpIcon = new DataIcon();
 			tmpIcon.contextPath = this.contextPath;
@@ -44,7 +41,6 @@ function GUI(guiVariableName) {
 			tmpIcon.appendIcon();
 			this.dataIconArray[di] = tmpIcon;
 		}
-		*/
 	}
 	this.coordinateFilter = function(){
 		
@@ -78,10 +74,14 @@ function GUI(guiVariableName) {
 		this.controller = new Controller();
 		this.controller.__proto__ = this;
 		this.ws = new webSockets.WebSocket(this.valueArray["ip"]);
+		this.dws = new DesktopWebSocket();
+		this.dws.__proto__ = this.controller;
 		this.gm = new GUIManager();
 		this.gm.__proto__ = this.controller;
-		this.gr = new GUIRepository(this.ws);
+		this.gr = new GUIRepository();
 		this.gr.__proto__ = this.controller;
+		this.dm = new DesktopManager();
+		this.dm.__proto__ = this.controller;
 		this.wm = new WindowManager();
 		this.wm.__proto__ = this.controller;
 		this.im = new IconManager();

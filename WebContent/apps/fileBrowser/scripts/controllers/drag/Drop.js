@@ -7,12 +7,12 @@ fileBrowser.controllers.drag.Drop = function() {
 			this.va["selectedData"] = event.originalEvent.dataTransfer.files;
 			this.va["dropable"] = false;
 			if(confirm("Upload it?"))
-				this.fbm.send.upload();
+				this.fbws.send.upload();
 		}
 		else if (this.va["validation"] && this.va["dropable"]) {
 			this.va["dropable"] = false;
 			if(taskArray["clipboard"] && confirm("Paste it?"))
-			this.fbm.send.paste();
+			this.fbws.send.paste();
 		} 
 	}
 }

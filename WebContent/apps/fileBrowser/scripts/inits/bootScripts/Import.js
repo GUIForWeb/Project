@@ -52,4 +52,4 @@ var FBSender = fileBrowser.subsystem.FBSender;
 var FileSort = fileBrowser.subsystem.FileSort;
 var TableManager = fileBrowser.subsystem.TableManager;
 	
-var FileWebSocket = fileBrowser.webSockets.FileWebSocket;
+var FBWebSocket = fileBrowser.webSockets.FBWebSocket;

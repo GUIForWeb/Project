@@ -13,5 +13,5 @@ import org.json.JSONArray;
 public interface DataIconsDAO {
 	public void load(); 
 	public JSONArray getJSONArray();
-	public void update(JSONArray jsonArray);
+	public void insert(JSONArray jsonArray);
 }
