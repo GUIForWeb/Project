@@ -75,14 +75,21 @@ public class FBWebSocket implements WebSocketInterface{
 	}
 	private void dmSwitchCase(String status){
 		if((this.fbm.getRoot() + "/Desktop").equals(this.fbm.getPath())){
-			if(status.equals("newFolder") || status.equals("rename") || status.equals("del") ||	status.equals("paste") || status.equals("uploadDone")){
+			if(status.equals("newFolder") || status.equals("rename") || status.equals("del") ||	status.equals("paste") || status.equals("uploadStart")){
 				this.dm = (DesktopManager) this.session.getAttribute("desktopManager");
 				this.dm.setJSONArray(this.fbm.getData());
+				
 			}
 			switch (status) {
-			case "paste":
-				this.dm.paste();
-				break;
+				case "del":
+					this.dm.delDataIcon();
+					break;
+				case "uploadStart":
+					this.dm.insertDataIcon();
+					break;
+				case "paste":
+					this.dm.insertDataIcon();
+					break;
 			}
 			//make a client side websocket for desktop update
 			if(this.dm.isUpdated()){
@@ -92,9 +99,7 @@ public class FBWebSocket implements WebSocketInterface{
 				JSONObject data = new JSONObject();
 				be.put("receiving", json);
 				json.put("app", "gui.dws");
-				json.put("data", data);
-				data.put("status", "update");
-				data.put("data", this.dm.getJSONArray());
+				json.put("data", this.dm.getJSON());
 				try {
 					this.websocketSession.getBasicRemote().sendText(be.toString());
 				} catch (IOException e) {

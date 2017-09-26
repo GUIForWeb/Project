@@ -27,8 +27,12 @@ public class DataIconsDAOMySQL implements DataIconsDAO {
 		this.db = new MySQL();
 		this.os = os;
 	}
-	public void insert(JSONArray jsonArray) {
-		String query1 = "call newDataIcon(?,?,?,?,?)";
+	public void delete(JSONArray jsonArray) {
+		System.out.println(jsonArray);
+		String query = "call delDataIcon(?,?,?,?,?)";
+		this.callProcedure(query, jsonArray);
+	}
+	private void callProcedure(String query, JSONArray jsonArray){
 		String[] infoStr = new String[5];
 		String names = "";
 		String dateModifieds = "";
@@ -49,8 +53,12 @@ public class DataIconsDAOMySQL implements DataIconsDAO {
 		infoStr[2] = dateModifieds.substring(0, dateModifieds.length()-1);
 		infoStr[3] = sizes.substring(0, sizes.length()-1);
 		infoStr[4] = types.substring(0, types.length()-1);
-		this.db.call(query1, infoStr);
+		this.db.call(query, infoStr);
 		this.db.close();
+	}
+	public void insert(JSONArray jsonArray) {
+		String query = "call newDataIcon(?,?,?,?,?)";
+		this.callProcedure(query, jsonArray);
 	}
 	public void update(JSONArray jsonArray) {
 		boolean isDuplicated = false;

@@ -20,7 +20,7 @@ system.models.Icon = function(){
 		this.contentURL = iconJSON.contentURL;
 		this.imgURL = iconJSON.imgURL;
 	}
-	this.appendIcon = function(){
+	this.appear = function(){
 		this.selector = this.view.iconSelector;
 		this.tag = this.view.iconSelector[0];
 		this.getIconTdSelector(this.x,this.y).append(this.selector);

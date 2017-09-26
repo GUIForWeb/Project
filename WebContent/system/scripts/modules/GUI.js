@@ -27,20 +27,7 @@ function GUI(guiVariableName) {
 		this.dataIconJSONArray = dataIconJSONArray;
 	}
 	this.initDesktopDataItems = function() {
-		var rowNum = this.background.view.tableSelector.find("tr").length;
-		var dNum = this.dataIconJSONArray.length;
-		var iNum = this.iconArray.length;
-		for(di=0; di < this.dataIconJSONArray.length; di++) {
-			var tmpIcon = new DataIcon();
-			tmpIcon.contextPath = this.contextPath;
-			tmpIcon.init(this.dataIconJSONArray[di]);
-			this.iconCoordinate[tmpIcon.x + "," + tmpIcon.y] = true;
-			tmpIcon.view.iconTdBorderWidth = this.iconTdValueArray["iconTdBorderWidth"];
-			tmpIcon.view.iconTdBorderHeight = this.iconTdValueArray["iconTdBorderHeight"];
-			tmpIcon.view.getView();
-			tmpIcon.appendIcon();
-			this.dataIconArray[di] = tmpIcon;
-		}
+		this.dm.refresh(this.dataIconJSONArray);
 	}
 	this.coordinateFilter = function(){
 		
@@ -54,7 +41,7 @@ function GUI(guiVariableName) {
 			tmpIcon.view.iconTdBorderWidth = this.iconTdValueArray["iconTdBorderWidth"];
 			tmpIcon.view.iconTdBorderHeight = this.iconTdValueArray["iconTdBorderHeight"];
 			tmpIcon.view.getView();
-			tmpIcon.appendIcon();
+			tmpIcon.appear();
 			this.iconArray[tmpIcon.tagId] = tmpIcon;
 		}
 		this.iconTagIdRule = tmpIcon.tagIdRule;
@@ -144,6 +131,7 @@ function GUI(guiVariableName) {
 		this.bgSelector = this.background.view.backgroundSelector;
 		this.sectionSelector = this.bgSelector.parent();
 		this.background.appendIconTd();
+		this.iconTable = this.background.view.tableSelector;
 	}
 	this.initBgContextMenu = function() {
 		var contextMenuObj = new BackgroundContextMenu();
@@ -163,12 +151,11 @@ function GUI(guiVariableName) {
 			var tmpIcon = new Icon();
 			tmpIcon.contextPath = this.contextPath;
 			tmpIcon.guiName = this.guiName;
-			tmpIcon.tableWrapTag = this.tableWrapTag;
 			tmpIcon.init(this.iconDataList[ci]);
 			tmpIcon.view.getView();
 			tmpIcon.view.iconTdBorderWidth = iconTdBorderWidth;
 			tmpIcon.view.iconTdBorderHeight = iconTdBorderHeight;
-			tmpIcon.appendIcon();
+			tmpIcon.appear();
 		}
 	}
 	this.setIconTdValues = function(iconTdValueArray) {

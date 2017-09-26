@@ -14,4 +14,5 @@ public interface DataIconsDAO {
 	public void load(); 
 	public JSONArray getJSONArray();
 	public void insert(JSONArray jsonArray);
+	public void delete(JSONArray jsonArray);
 }

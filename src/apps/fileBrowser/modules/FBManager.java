@@ -171,8 +171,11 @@ public class FBManager {
 		File file = new File(this.path + "/" + name);
 		String ext = name.substring(name.lastIndexOf(".") + 1, name.length());
 		name = name.substring(0, name.lastIndexOf("."));
+		this.data = new JSONArray();
 		if (file.exists())
 			file = this.checkDest(this.path, name, 0, ext);
+			System.out.println(file);
+			this.putData(file);
 		try {
 			this.fileOutputStream = new FBFileOutputStream(file);
 		} catch (FileNotFoundException e) {
@@ -237,7 +240,7 @@ public class FBManager {
 					if (status.equals("copy")) {
 						try {
 							FileUtils.copyFile(src, dest);
-							this.putDataItem(dest);
+							this.putData(dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -245,7 +248,7 @@ public class FBManager {
 					} else if (status.equals("cut")) {
 						try {
 							FileUtils.moveFile(src, dest);
-							this.putDataItem(dest);
+							this.putData(dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -274,7 +277,7 @@ public class FBManager {
 					if (status.equals("copy")) {
 						try {
 							FileUtils.copyFile(src, dest);
-							this.putDataItem(dest);
+							this.putData(dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -282,7 +285,7 @@ public class FBManager {
 					} else if (status.equals("cut")) {
 						try {
 							FileUtils.moveFile(src, dest);
-							this.putDataItem(dest);
+							this.putData(dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -292,7 +295,7 @@ public class FBManager {
 			}
 		}
 	}
-	private void putDataItem(File file){
+	private void putData(File file){
 		if(this.path.equals(this.desktopPath)){
 			DataItem tmpDI = new DataItem();
 			try {
@@ -363,11 +366,13 @@ public class FBManager {
 		boolean success = false;
 		String path;
 		String type;
+		this.data = new JSONArray();
 		for (int di = 0; di < data.length(); di++) {
 			tmpJSON = data.getJSONObject(di);
 			path = this.path + "/" + tmpJSON.getString("name");
 			type = tmpJSON.getString("type");
 			File dest = new File(path);
+			this.putData(dest);
 			if (type.equals("directory")) {
 				try {
 					FileUtils.deleteDirectory(dest);
