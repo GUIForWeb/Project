@@ -18,7 +18,6 @@ function GUI(guiVariableName) {
 	this.iconDataList = null;
 	this.barTagIdRule = new Bar().tagIdRule;
 	this.winTagIdRule = new Window().tagIdRule;
-	this.dataIconArray = [];
 	//html scroll for windows
 	this.dynamicMode = false;
 	this.init = function() {
@@ -27,24 +26,13 @@ function GUI(guiVariableName) {
 		this.dataIconJSONArray = dataIconJSONArray;
 	}
 	this.initDesktopDataItems = function() {
-		this.dm.insertDataIcon(this.dataIconJSONArray);
+		this.dm.appendDataIcon(this.dataIconJSONArray);
 	}
 	this.coordinateFilter = function(){
 		
 	}
 	this.initIcon = function() {
-		for (ci = 0; ci < this.iconJSONArray.length; ci++) {
-			var tmpIcon = new Icon();
-			tmpIcon.contextPath = this.contextPath;
-			tmpIcon.init(this.iconJSONArray[ci]);
-			this.iconCoordinate[tmpIcon.x + "," + tmpIcon.y] = true;
-			tmpIcon.view.iconTdBorderWidth = this.iconTdValueArray["iconTdBorderWidth"];
-			tmpIcon.view.iconTdBorderHeight = this.iconTdValueArray["iconTdBorderHeight"];
-			tmpIcon.view.getView();
-			tmpIcon.appear();
-			this.iconArray[tmpIcon.tagId] = tmpIcon;
-		}
-		this.iconTagIdRule = tmpIcon.tagIdRule;
+		this.dm.appendIcon();
 	}
 	this.start = function() {
 		sessionStorage.wMode = true;

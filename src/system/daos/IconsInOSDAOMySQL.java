@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import system.daoInterfaces.IconsInOSDAO;
 import system.databases.MySQL;
 import system.models.IconInOS;
@@ -34,13 +36,13 @@ public class IconsInOSDAOMySQL implements IconsInOSDAO{
 		this.os = os;
 	}
 	@Override
-	public void updateXY(IconInOS iconInOS){
+	public void updateXY(JSONObject json){
 		String query = "UPDATE icons_in_os_t SET x=?, y=? WHERE os_id = ? AND icon_id = ?";
-		String[] info = new String[4];
-		info[0] = String.valueOf(iconInOS.getX());
-		info[1] = String.valueOf(iconInOS.getY());
-		info[2] = String.valueOf(iconInOS.getOSId());
-		info[3] = String.valueOf(iconInOS.getId());
+		int[] info = new int[4];
+		info[0] = json.getInt("x");
+		info[1] = json.getInt("y");
+		info[2] = json.getInt("os_id");
+		info[3] = json.getInt("id");
 		this.db.connect();
 		this.db.update(query,info);
 		this.db.close();

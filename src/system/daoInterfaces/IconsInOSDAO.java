@@ -10,10 +10,12 @@ package system.daoInterfaces;
 
 import java.util.List;
 
+import org.json.JSONObject;
+
 import system.models.IconInOS;
 
 public interface IconsInOSDAO {
 	public void load(); 
 	public List<IconInOS> getIconsInOSList();
-	public void updateXY(IconInOS iconInOS);
+	public void updateXY(JSONObject json);
 }

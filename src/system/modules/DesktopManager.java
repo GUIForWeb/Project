@@ -1,8 +1,7 @@
 package system.modules;
 
 import java.io.File;
-
-import javax.servlet.http.HttpSession;
+import java.util.Iterator;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,7 +10,6 @@ import system.daoInterfaces.DataIconsDAO;
 import system.daoInterfaces.IconsInOSDAO;
 import system.daos.DataIconsDAOMySQL;
 import system.daos.IconsInOSDAOMySQL;
-import system.models.IconInOS;
 import system.models.OS;
 import system.models.User;
 
@@ -24,16 +22,19 @@ public class DesktopManager {
 	private JSONObject json;
 	private JSONArray jsonArray;
 	private boolean isUpdated;
-
+	private IconsInOSDAO iconsInOSDAO;
 	public DesktopManager() {
 		this.isUpdated = false;
 	}
 
 	public void init() {
+		this.json = new JSONObject();
+		this.json.put("os_id", this.os.getId());
 		this.desktopPath += this.root + "/Desktop";
 		File file = new File(this.desktopPath);
 		if (!file.exists())
 			file.mkdir();
+		this.iconsInOSDAO = new IconsInOSDAOMySQL();
 		this.dataIconsDAO = new DataIconsDAOMySQL(this.os);
 		this.dataIconsDAO.load();
 	}
@@ -43,10 +44,10 @@ public class DesktopManager {
 			this.dataIconsDAO.updateXYs(this.jsonArray);
 	}
 	public void iconXY() {
-		IconInOS tmpIconInOS = new IconInOS(this.json);
-		tmpIconInOS.setOSId(this.os.getId());
-		IconsInOSDAO iconsInOSDAO = new IconsInOSDAOMySQL();
-		iconsInOSDAO.updateXY(tmpIconInOS);
+		this.iconsInOSDAO.updateXY(this.json);
+	}
+	public void dataIconXY() {
+		this.dataIconsDAO.updateXY(this.json);
 	}
 	public void delDataIcon() {
 		String ids = this.dataIconsDAO.delete(this.jsonArray);
@@ -64,7 +65,7 @@ public class DesktopManager {
 		this.jsonArray = newIconArray;
 		this.isUpdated = true;
 		this.json = new JSONObject();
-		this.json.put("status", "insertDataIcon");
+		this.json.put("status", "appendDataIcon");
 		this.json.put("data", this.jsonArray);
 	}
 
@@ -176,6 +177,7 @@ public class DesktopManager {
 	}
 
 	public void setJSON(JSONObject json) {
+		json.put("os_id", this.json.get("os_id"));
 		this.json = json;
 	}
 

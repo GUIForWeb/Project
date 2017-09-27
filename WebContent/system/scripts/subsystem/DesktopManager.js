@@ -4,6 +4,12 @@ system.subsystem.DesktopManager = function() {
 		"app" : "system.webSockets.DesktopWebSocket",
 		"data" : {}
 	}
+	this.dataIconXY = function(json) {
+		this.json.data = Object.assign({}, {
+			"status" : "dataIconXY"
+		}, json);
+		this.ws.send(this.json);
+	}
 	this.iconXY = function(json) {
 		this.json.data = Object.assign({}, {
 			"status" : "iconXY"
@@ -15,11 +21,25 @@ system.subsystem.DesktopManager = function() {
 			"status" : "dataIconXYs"
 		}, {"data":jsonArray});
 		var json = this.json
+		if(jsonArray.length != 0)
 		this.ws.onopen(function(){
 			gui.ws.send(json);
 		});
 	}
-	this.insertDataIcon = function(jsonArray){
+	this.appendIcon = function(){
+		for (ci = 0; ci < this.iconJSONArray.length; ci++) {
+			var tmpIcon = new Icon();
+			tmpIcon.contextPath = this.contextPath;
+			tmpIcon.init(this.iconJSONArray[ci]);
+			this.iconCoordinate[tmpIcon.x + "," + tmpIcon.y] = true;
+			tmpIcon.view.iconTdBorderWidth = this.iconTdValueArray["iconTdBorderWidth"];
+			tmpIcon.view.iconTdBorderHeight = this.iconTdValueArray["iconTdBorderHeight"];
+			tmpIcon.view.getView();
+			tmpIcon.appear();
+			this.iconArray[tmpIcon.tagId] = tmpIcon;
+		}
+	}
+	this.appendDataIcon = function(jsonArray){
 		var dNum = jsonArray.length;
 		this.rowNum = this.iconTable.children().length;
 		for(di=0; di < jsonArray.length; di++) {
@@ -30,8 +50,8 @@ system.subsystem.DesktopManager = function() {
 			tmpIcon.view.iconTdBorderWidth = this.iconTdValueArray["iconTdBorderWidth"];
 			tmpIcon.view.iconTdBorderHeight = this.iconTdValueArray["iconTdBorderHeight"];
 			tmpIcon.view.getView();
-			tmpIcon.appendIcon();
-			this.dataIconArray.push(tmpIcon);
+			tmpIcon.appear();
+			this.iconArray[tmpIcon.tagId] = tmpIcon;
 		}
 		this.dataIconXYs(this.xy);
 	}

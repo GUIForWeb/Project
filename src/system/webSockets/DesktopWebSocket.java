@@ -10,7 +10,6 @@ import javax.websocket.Session;
 import org.json.JSONObject;
 
 import system.modules.DesktopManager;
-import system.modules.IconManager;
 import system.webSocketInterfaces.WebSocketInterface;
 
 public class DesktopWebSocket implements WebSocketInterface {
@@ -36,6 +35,9 @@ public class DesktopWebSocket implements WebSocketInterface {
 		switch(status){
 			case "iconXY":
 				this.dm.iconXY();
+				break;
+			case "dataIconXY":
+				this.dm.dataIconXY();
 				break;
 			case "dataIconXYs":
 				this.dm.dataIconXYs();

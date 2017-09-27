@@ -157,7 +157,18 @@ public class MySQL{
 			e.printStackTrace();
 		}
 	}
-	
+	public int update(String query, int[] info){
+		int result = 0;
+		try {
+			this.pstmt = this.conn.prepareStatement(query);
+			for(int ii=0; ii<info.length; ii++)
+				this.pstmt.setInt(ii+1, info[ii]);
+			result = this.pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	public int update(String query, String[] info){
 		int result = 0;
 		try {

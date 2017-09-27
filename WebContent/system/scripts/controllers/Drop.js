@@ -2,25 +2,26 @@ system.controllers.Drop = function() {
 	this.icon = function(event) {
 		var tmpText = event.originalEvent.dataTransfer.getData("text");
 		tmpText = tmpText.substring(0,4);
-		if(tmpText == "icon") {
+		if(tmpText == "icon" || tmpText == "data") {
 			var newTd = this.getIconTdXY(event.currentTarget);
 			var tagId = event.originalEvent.dataTransfer.getData("text")
-			var icon = $("#"+tagId);
-		}
-		var id = this.getIconNumId(icon[0])
-		var iconJSON = this.iconJSONArray[this.getIconNumId(icon[0])];
-		if(this.iconCoordinate[newTd.x+","+newTd.y] === undefined){
-			$(event.currentTarget).append(icon);
-			var json = {
-					"id" : id,
-					"x" : newTd.x,
-					"y" : newTd.y
-			};
-			delete this.iconCoordinate[iconJSON.x+","+iconJSON.y];
-			this.iconCoordinate[newTd.x+","+newTd.y] = true;
-			iconJSON.x = newTd.x
-			iconJSON.y = newTd.y
-			this.dm.iconXY(json);
+			var icon = this.iconArray[tagId];
+			if(this.iconCoordinate[newTd.x+","+newTd.y] === undefined){
+				var json = {
+						"id" : icon.id,
+						"x" : newTd.x,
+						"y" : newTd.y
+				};
+				delete this.iconCoordinate[icon.x+","+icon.y];
+				this.iconCoordinate[newTd.x+","+newTd.y] = true;
+				icon.x = newTd.x;
+				icon.y = newTd.y;
+				icon.appear();
+				if(tmpText == "icon")
+					this.dm.iconXY(json);
+				if(tmpText == "data")
+					this.dm.dataIconXY(json);
+			}
 		}
 	}
 }

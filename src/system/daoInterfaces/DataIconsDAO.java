@@ -9,6 +9,7 @@
 package system.daoInterfaces;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 public interface DataIconsDAO {
 	public void load(); 
@@ -16,4 +17,5 @@ public interface DataIconsDAO {
 	public void insert(JSONArray jsonArray);
 	public String delete(JSONArray jsonArray);
 	public void updateXYs(JSONArray jsonArray);
+	public void updateXY(JSONObject json);
 }

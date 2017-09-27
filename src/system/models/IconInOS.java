@@ -45,8 +45,8 @@ public class IconInOS{
 		String str = "";
 		str += "(Icon ID = " + this.id + ", ";
 		str += "OS ID = " + this.osId + ", ";
-		str += "iconX = " + this.x + ", ";
-		str += "iconY = " + this.y + ")";
+		str += "x = " + this.x + ", ";
+		str += "y = " + this.y + ")";
 		return str;
 	}
 }

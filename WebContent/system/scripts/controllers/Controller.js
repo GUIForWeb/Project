@@ -1,6 +1,11 @@
 system.controllers.Controller = function() {
 	this.getIconNumId = function(tag) {
-		return parseInt(tag.id.replace(this.iconTagIdRule, ""));
+		var icon = new Icon();
+		return parseInt(tag.id.replace(icon.tagIdRule, ""));
+	}
+	this.getDataIconNumId = function(tag) {
+		var dataIcon = new DataIcon();
+		return parseInt(tag.id.replace(dataIcon.tagIdRule, ""));
 	}
 	this.getWinNumId = function(tag) {
 		return parseInt(tag.id.replace(this.winTagIdRule, ""));
@@ -14,6 +19,6 @@ system.controllers.Controller = function() {
 	this.getIconTdXY = function(tag){
 		var xy = tag.id.replace("iconTdX","");
 		xy = xy.split("Y");
-		return {"x":xy[0],"y":xy[1]};
+		return {"x":parseInt(xy[0]),"y":parseInt(xy[1])};
 	}
 }

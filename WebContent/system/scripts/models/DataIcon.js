@@ -17,7 +17,7 @@ system.models.DataIcon = function(){
 		this.y = dataJSON.y;
 		this.imgURL = "/system/comps/icons/"+this.type.replace("/","_")+".png";
 	}
-	this.appendIcon = function(){
+	this.appear = function(){
 		this.selector = this.view.iconSelector;
 		this.tag = this.view.iconSelector[0];
 		this.getIconTdSelector(this.x,this.y).append(this.selector);
