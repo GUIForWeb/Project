@@ -1,7 +1,7 @@
 fileBrowser.controllers.mouse.Mousedown = function() {
 	this.selection = function(event){
 		this.setScriptTag(event.target);
-		if(this.tag["t"] == this.section[0]) {
+		if(this.tag["t"] == this.section[0] && event.button == 0) {
 			this.select.mousemove.start(event);
 		}
 	}

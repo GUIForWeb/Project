@@ -6,6 +6,7 @@ fileBrowser.controllers.ContextMenu = function() {
 			this.contextMenu.appear();
 			this.select.contextmenu.click(event);
 			this.select.end.data();
+			event.preventDefault();
 		}
 	}
 }

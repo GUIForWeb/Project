@@ -121,7 +121,7 @@ system.views.WindowView = function(windowModel) {
 	}
 	this.alam = function() {
 		var win = this.__proto__;
-		var time = 500;
+		var time = 1000;
 		var args = arguments;
 		var winTag = this;
 		if (this.clock === undefined)

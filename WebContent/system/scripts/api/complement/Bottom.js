@@ -14,14 +14,15 @@ function Bottom() {
 		this.sectionHeight();
 		var ss = this.va["s"];
 		var c = this.c;
-
+		var api = this;
 		this.c.scroll(function(event) {
 			var sTop = c.scrollTop();
 			var height = c.height();
 			ss.css("position", "absolute");
 			ss.css("top", height - ss.height() + sTop);
+			section = c.find("section");
+			section.height(height - ss.height() + c.scrollTop());
 		});
-		var api = this;
 		fB.bind("click", function() {
 			api.complement.positioning();
 			api.complement.sectionHeight();
@@ -63,6 +64,7 @@ function Bottom() {
 		var height = this.c.height();
 		this.section = this.c.find("section");
 		this.section.height(height - this.va["s"].height());
+		console.log(this.section.height())
 	}
 	this.positioning = function() {
 		var height = this.c.height();

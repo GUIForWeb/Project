@@ -3,7 +3,7 @@ fileBrowser.controllers.mouse.Mousemove = function() {
 		if(this.select.mousemove.isOnGoing)
 		if (event.ctrlKey)
 			this.select.mousemove.onGoingWtihCtrl(event);
-		else
+		else 
 			this.select.mousemove.onGoing(event);
 	}
 }

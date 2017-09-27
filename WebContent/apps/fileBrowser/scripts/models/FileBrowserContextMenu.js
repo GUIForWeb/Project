@@ -11,7 +11,6 @@ fileBrowser.models.FileBrowserContextMenu = function() {
 		this.setOnTheScreen(true);
 		this.view.getView();
 		this.bgSelector.append(this.view.outerSelector);
-		event.preventDefault();
 	}
 	this.disappear = function() {
 		this.view.outerSelector.remove();
