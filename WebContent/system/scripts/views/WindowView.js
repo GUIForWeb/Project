@@ -121,14 +121,14 @@ system.views.WindowView = function(windowModel) {
 	}
 	this.alam = function() {
 		var win = this.__proto__;
-		var time = 1000;
+		var time = 600;
 		var args = arguments;
 		var winTag = this;
 		if (this.clock === undefined)
 			this.clock = 0;
 		clearTimeout(this.clock);
 		this.clock = setTimeout(function() {
-			gui.winAndBar.gr.updateContent(win);
+			gui.winAndBar.repo.updateContent(win);
 		}, time);
 	}
 	this.movementHandleLayer = function() {

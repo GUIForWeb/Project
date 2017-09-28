@@ -16,22 +16,22 @@ system.views.IconView = function(icon) {
 		outerSelector.addClass(this.tagClass);
 		outerSelector.attr("dragable", "true");
 		outerSelector.on("drag", function(event) {
-			gui.winAndBar.drag.ing.icon(event);
+			gui.desktop.drag.ing.icon(event);
 		});
 		outerSelector.on("dragstart", function(event) {
-			gui.winAndBar.drag.start.icon(event);
+			gui.desktop.drag.start.icon(event);
 		});
 		outerSelector.dblclick(function(event) {
-			gui.winAndBar.dblclick.icon(event);
+			gui.desktop.dblclick.icon(event);
 		});
 		outerSelector.contextmenu(function(event) {
 			event.stopPropagation();
 		});
 		outerSelector.mouseover(function(event) {
-			gui.winAndBar.desktop.mouse.over.icon(event);
+			gui.desktop.mouse.over.icon(event);
 		});
 		outerSelector.mouseout(function(event) {
-			gui.winAndBar.desktop.mouse.out.icon(event);
+			gui.desktop.mouse.out.icon(event);
 		});
 		var imgSelector = $("<img>").attr("src", this.contextPath + this.imgURL);
 		imgSelector.addClass(this.imgClass);

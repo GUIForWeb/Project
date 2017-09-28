@@ -30,22 +30,22 @@ system.views.IconContextMenuView = function(iconContextMenuModel) {
 		var downloadSelector = $("<li>Download</li>");
 		
 		renameSelector.click(function(event){
-			gui.winAndBar.click.rename(event);
+			gui.desktop.click.rename(event);
 		});
 		copySelector.click(function(){
-			gui.winAndBar.click.copy(event);
+			gui.desktop.click.copy(event);
 		});
 		cutSelector.click(function(){
-			gui.winAndBar.click.cut(event);
+			gui.desktop.click.cut(event);
 		});
 		pasteSelector.click(function(){
-			gui.winAndBar.click.paste(event);
+			gui.desktop.click.paste(event);
 		});
 		deleteSelector.click(function(){
-			gui.winAndBar.click.del(event);
+			gui.desktop.click.del(event);
 		});
 		downloadSelector.click(function(){
-			gui.winAndBar.click.download(event);
+			gui.desktop.click.download(event);
 		});
 		tmpSelector.append(ulSelector);
 		ulSelector.append(renameSelector);

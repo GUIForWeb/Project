@@ -11,10 +11,19 @@ system.views.BackgroundView = function(background) {
 		tmpTag.css("z-index", this.zIndex);
 		tmpTag.addClass(this.tagClass);
 		tmpTag.contextmenu(function() {
-			gui.winAndBar.contextmenu.background(event);
+			gui.desktop.contextmenu.background(event);
 		});
 		tmpTag.click(function() {
-			gui.winAndBar.click.eButton(event);
+			gui.desktop.click.button(event);
+		});
+		tmpTag.mousedown(function() {
+			gui.desktop.mouse.down.selection(event);
+		});
+		tmpTag.mousemove(function() {
+			gui.desktop.mouse.move.selection(event);
+		});
+		tmpTag.mouseup(function() {
+			gui.desktop.mouse.up.selection(event);
 		});
 		this.backgroundSelector = tmpTag;
 	}
@@ -33,10 +42,10 @@ system.views.BackgroundView = function(background) {
 		tmpTag.attr("id", this.getIconTdTagId(x, y));
 		tmpTag.addClass(this.iconTdTagClass);
 		tmpTag.on("drop",function(event){
-			gui.winAndBar.drag.drop.icon(event);
+			gui.desktop.drag.drop.icon(event);
 		});
 		tmpTag.on("dragover",function(event){
-			gui.winAndBar.drag.over.icon();
+			gui.desktop.drag.over.icon();
 		});
 		return tmpTag;
 	}

@@ -17,17 +17,17 @@ system.views.DataIconView = function(icon) {
 		outerSelector.addClass(this.tagClass);
 		outerSelector.attr("dragable", "true");
 		outerSelector.on("drag", function(event) {
-			gui.winAndBar.drag.ing.icon(event);
+			gui.desktop.drag.ing.icon(event);
 		});
 		outerSelector.on("dragstart", function(event) {
-			gui.winAndBar.drag.start.icon(event);
+			gui.desktop.drag.start.icon(event);
 		});
 		outerSelector.dblclick(function(event) {
-			gui.winAndBar.dblclick.icon(event);
+			gui.desktop.dblclick.icon(event);
 		});
 		outerSelector.contextmenu(function(event) {
 			event.stopPropagation();
-			gui.winAndBar.contextmenu.icon(event);
+			gui.desktop.contextmenu.icon(event);
 		});
 		outerSelector.mouseover(function(event) {
 			gui.desktop.mouse.over.icon(event);

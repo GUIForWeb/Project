@@ -27,10 +27,10 @@ system.views.BackgroundContextMenuView = function(backgroundContextMenuView) {
 		var background = $("<li>Background</li>");
 		var icon = $("<li>Icon</li>");
 		theme.mouseover(function(){
-			gui.winAndBar.mouse.over.li(this)
+			gui.desktop.mouse.over.li(this)
 		});
 		theme.mouseout(function(){
-			gui.winAndBar.mouse.out.li(this)
+			gui.desktop.mouse.out.li(this)
 		});
 		window.click(function(){
 			gui.winAndBar.click.theme(event)

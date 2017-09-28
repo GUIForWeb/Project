@@ -23,46 +23,75 @@
 	<script src="#{contextPath}/system/scripts/views/BackgroundContextMenuView.js" />
 	<script src="#{contextPath}/system/scripts/views/IconContextMenuView.js" />
 	<script src="#{contextPath}/system/scripts/views/DataIconView.js" />
+	<script src="#{contextPath}/system/scripts/webSockets/DesktopWebSocket.js" />
 	
 	<script src="#{contextPath}/system/scripts/modules/WinAndBar.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/controllers/Change.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/controllers/Controller.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/controllers/ContextMenu.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/controllers/Click.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/controllers/Dblclick.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/controllers/Mouse.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/controllers/mouses/Mouseover.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/controllers/mouses/Mouseout.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/controllers/Resize.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/controllers/resizes/Resizestart.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/controllers/resizes/Resizing.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/controllers/resizes/Resizeend.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/controllers/Drag.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/controllers/drags/Drop.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/controllers/drags/Dragstart.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/controllers/drags/Draging.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/controllers/drags/Dragend.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/controllers/drags/Dragover.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/subsystems/GUIXMLHttpRequest.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/subsystems/GUIManager.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/subsystems/GUIRepository.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/subsystems/WindowManager.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/subsystems/NodeManager.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/subsystems/BarManager.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/subsystems/AppManager.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/subsystems/EnumEngine.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/subsystems/WindowSizingEngine.js" />
-	<script src="#{contextPath}/system/scripts/winsAndBars/subsystems/PositioningEngine.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/controllers/WinAndBarChange.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/controllers/WinAndBarController.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/controllers/WinAndBarContextMenu.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/controllers/WinAndBarClick.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/controllers/WinAndBarDblclick.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/controllers/WinAndBarMouse.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/controllers/mouses/WinAndBarMouseover.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/controllers/mouses/WinAndBarMouseout.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/controllers/WinAndBarResize.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/controllers/resizes/WinAndBarResizestart.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/controllers/resizes/WinAndBarResizing.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/controllers/resizes/WinAndBarResizeend.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/controllers/WinAndBarDrag.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/controllers/drags/WinAndBarDrop.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/controllers/drags/WinAndBarDragstart.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/controllers/drags/WinAndBarDraging.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/controllers/drags/WinAndBarDragend.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/controllers/drags/WinAndBarDragover.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/subsystems/WinAndBarXMLHttpRequest.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/subsystems/WinAndBarManager.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/subsystems/WinAndBarRepository.js" />
+	
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/subsystems/managers/WindowManager.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/subsystems/managers/BarManager.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/subsystems/managers/NodeManager.js" />
+	
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/subsystems/engines/EnumEngine.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/subsystems/engines/WindowSizingEngine.js" />
+	<script src="#{contextPath}/system/scripts/elements/winAndBars/subsystems/engines/PositioningEngine.js" />
+
+	<script src="#{contextPath}/system/scripts/modules/Configure.js" />
+	<script src="#{contextPath}/system/scripts/elements/configures/subsystems/ConfigureManager.js" />
+	<script src="#{contextPath}/system/scripts/elements/configures/subsystems/managers/ExecutionManager.js" />	
 	
 	<script src="#{contextPath}/system/scripts/modules/Desktop.js" />
-	<script src="#{contextPath}/system/scripts/desktops/subsystems/DesktopManager.js" />
-	<script src="#{contextPath}/system/scripts/desktops/subsystems/DesktopSender.js" />
-	<script src="#{contextPath}/system/scripts/desktops/subsystems/DesktopFunction.js" />
-	<script src="#{contextPath}/system/scripts/desktops/controllers/DesktopController.js" />
-	<script src="#{contextPath}/system/scripts/desktops/controllers/DesktopMouse.js" />
-	<script src="#{contextPath}/system/scripts/desktops/controllers/mouses/DesktopMouseover.js" />
-	<script src="#{contextPath}/system/scripts/desktops/controllers/mouses/DesktopMouseout.js" />
-	<script src="#{contextPath}/system/scripts/webSockets/DesktopWebSocket.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/subsystems/DesktopManager.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/subsystems/DesktopSender.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/subsystems/DesktopSelect.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/subsystems/selects/DesktopClickSelect.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/subsystems/selects/DesktopContextMenuSelect.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/subsystems/selects/DesktopCtrlSelect.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/subsystems/selects/DesktopMousemoveSelect.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/subsystems/selects/DesktopSelectCancle.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/subsystems/selects/DesktopSelectEnd.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/subsystems/selects/DesktopShiftSelect.js" />
+	
+	
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/DesktopController.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/DesktopDblclick.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/DesktopClick.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/DesktopContextMenu.js" />
+	
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/DesktopMouse.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/mouses/DesktopMouseover.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/mouses/DesktopMouseout.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/mouses/DesktopMousedown.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/mouses/DesktopMousemove.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/mouses/DesktopMouseup.js" />
+	
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/DesktopDrag.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/drags/DesktopDrop.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/drags/DesktopDragstart.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/drags/DesktopDraging.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/drags/DesktopDragend.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/drags/DesktopDragover.js" />
+	
 	<script src="#{contextPath}/system/scripts/inits/bootScripts/Import.js" />
 	<ui:repeat value="#{libs.list}" var="value">
     	<script src="#{value}" /> 

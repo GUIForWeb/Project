@@ -1,7 +1,6 @@
 package system.modules;
 
 import java.io.File;
-import java.util.Iterator;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

@@ -26,13 +26,13 @@ function GUI(guiVariableName) {
 		this.dataIconJSONArray = dataIconJSONArray;
 	}
 	this.initDesktopDataItems = function() {
-		this.desktop.dm.appendDataIcon(this.dataIconJSONArray);
+		this.desktop.manager.appendDataIcon(this.dataIconJSONArray);
 	}
 	this.coordinateFilter = function(){
 		
 	}
 	this.initIcon = function() {
-		this.desktop.dm.appendIcon();
+		this.desktop.manager.appendIcon();
 	}
 	this.start = function() {
 		sessionStorage.wMode = true;
@@ -48,12 +48,11 @@ function GUI(guiVariableName) {
 		this.desktop.__proto__ = this;
 		this.winAndBar = new WinAndBar();
 		this.winAndBar.__proto__ = this;
-		
+		this.configure = new Configure();
+		this.configure.__proto__ = this;
 		this.api = new API();
 		this.api.__proto__ = this;
 		this.ws = new webSockets.WebSocket(this.valueArray["ip"]);
-		this.dws = new DesktopWebSocket();
-		this.dws.__proto__ = this.controller;
 		
 		this.model = new Model();
 		this.model.__proto__ = this;
@@ -145,8 +144,8 @@ function GUI(guiVariableName) {
 			this.nodeArray["winAndBar"].winCount = this.winCount;
 			this.nodeArray["winAndBar"].barCount = winAndBarJSONArray.length;
 			var tmpNode = new WinAndBarNode();
-			this.winAndBar.gr.restoreNodes(winAndBarJSONArray);
-			this.winAndBar.gr.restoreWinOrder();
+			this.winAndBar.repo.restoreNodes(winAndBarJSONArray);
+			this.winAndBar.repo.restoreWinOrder();
 			if (this.nodeArray["winAndBar"].barCount != 0)
 				this.valueArray["newId"] = this.nodeArray["winAndBar"].lastBar.bar.numId + 1;
 			else
@@ -218,7 +217,7 @@ function GUI(guiVariableName) {
 	this.getWinInfo = function(section) {
 		var cOfWindow = section.parent();
 		var window = cOfWindow.parent();
-		var winAndBarNode = this.winAndBar.nm.getNodeWithWinTag(window[0]);
+		var winAndBarNode = this.winAndBar.manager.nm.getNodeWithWinTag(window[0]);
 		var win = winAndBarNode.win;
 
 		var json = {

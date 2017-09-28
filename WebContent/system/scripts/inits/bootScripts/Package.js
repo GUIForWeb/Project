@@ -1,18 +1,26 @@
 var system = {};
 system.models = {};
 system.modules = {};
-
+system.elements = {};
 system.views = {};
 system.webSockets = {};
 
-system.winsAndBars = {};
-system.winsAndBars.subsystems = {};
-system.winsAndBars.controllers = {}
-system.winsAndBars.controllers.drags = {}
-system.winsAndBars.controllers.resizes = {}
-system.winsAndBars.controllers.mouses = {}
+system.elements.configures = {};
+system.elements.configures.subsystems = {};
+system.elements.configures.subsystems.managers = {};
 
-system.desktops = {};
-system.desktops.subsystems = {};
-system.desktops.controllers = {};
-system.desktops.controllers.mouses = {};
+system.elements.desktops = {};
+system.elements.desktops.subsystems = {};
+system.elements.desktops.subsystems.selects = {};
+system.elements.desktops.controllers = {};
+system.elements.desktops.controllers.mouses = {};
+system.elements.desktops.controllers.drags = {};
+
+system.elements.winAndBars = {};
+system.elements.winAndBars.subsystems = {};
+system.elements.winAndBars.subsystems.managers = {};
+system.elements.winAndBars.subsystems.engines = {};
+system.elements.winAndBars.controllers = {}
+system.elements.winAndBars.controllers.drags = {}
+system.elements.winAndBars.controllers.resizes = {}
+system.elements.winAndBars.controllers.mouses = {}

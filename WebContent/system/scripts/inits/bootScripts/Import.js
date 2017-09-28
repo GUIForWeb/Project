@@ -25,51 +25,75 @@ var DesktopWebSocket = system.webSockets.DesktopWebSocket;
 //Window
 var WinAndBar = system.modules.WinAndBar;
 
-var BarManager = system.winsAndBars.subsystems.BarManager;
-var EnumEngine = system.winsAndBars.subsystems.EnumEngine;
-var GUIXMLHttpRequest = system.winsAndBars.subsystems.GUIXMLHttpRequest;
-var GUIManager = system.winsAndBars.subsystems.GUIManager;
-var GUIRepository = system.winsAndBars.subsystems.GUIRepository;
-var NodeManager = system.winsAndBars.subsystems.NodeManager;
-var PositioningEngine = system.winsAndBars.subsystems.PositioningEngine;
-var WindowManager = system.winsAndBars.subsystems.WindowManager;
-var WindowSizingEngine = system.winsAndBars.subsystems.WindowSizingEngine;
-var AppManager = system.winsAndBars.subsystems.AppManager;
+var WinAndBarXMLHttpRequest = system.elements.winAndBars.subsystems.WinAndBarXMLHttpRequest;
+var WinAndBarRepository = system.elements.winAndBars.subsystems.WinAndBarRepository;
+var WinAndBarManager = system.elements.winAndBars.subsystems.WinAndBarManager;
+var BarManager = system.elements.winAndBars.subsystems.managers.BarManager;
+var WindowManager = system.elements.winAndBars.subsystems.managers.WindowManager;
+var NodeManager = system.elements.winAndBars.subsystems.managers.NodeManager;
+var EnumEngine = system.elements.winAndBars.subsystems.engines.EnumEngine;
+var PositioningEngine = system.elements.winAndBars.subsystems.engines.PositioningEngine;
+var WindowSizingEngine = system.elements.winAndBars.subsystems.engines.WindowSizingEngine;
 
-var controllers = system.winsAndBars.controllers
-var Change = system.winsAndBars.controllers.Change;
-var Click = system.winsAndBars.controllers.Click;
-var Controller = system.winsAndBars.controllers.Controller;
-var Dblclick = system.winsAndBars.controllers.Dblclick;
-var Drag = system.winsAndBars.controllers.Drag;
-var Mouseout = system.winsAndBars.controllers.Mouseout;
-var Mouseover = system.winsAndBars.controllers.Mouseover;
-var Resize = system.winsAndBars.controllers.Resize;
+var WinAndBarChange = system.elements.winAndBars.controllers.WinAndBarChange;
+var WinAndBarClick = system.elements.winAndBars.controllers.WinAndBarClick;
+var WinAndBarController = system.elements.winAndBars.controllers.WinAndBarController;
+var WinAndBarDblclick = system.elements.winAndBars.controllers.WinAndBarDblclick;
 
-var drags = system.winsAndBars.controllers.drags
-var Dragend = system.winsAndBars.controllers.drags.Dragend;
-var Draging = system.winsAndBars.controllers.drags.Draging;
-var Dragstart = system.winsAndBars.controllers.drags.Dragstart;
-var Dragover = system.winsAndBars.controllers.drags.Dragover;
-var Drop = system.winsAndBars.controllers.drags.Drop;
+var WinAndBarMouseout = system.elements.winAndBars.controllers.WinAndBarMouseout;
+var WinAndBarMouseover = system.elements.winAndBars.controllers.WinAndBarMouseover;
+var WinAndBarResize = system.elements.winAndBars.controllers.WinAndBarResize;
+var WinAndBarContextMenu = system.elements.winAndBars.controllers.WinAndBarContextMenu;
 
-var Mouse = system.winsAndBars.controllers.Mouse;
-var mouses = system.winsAndBars.controllers.mouses;
-var Mouseout = system.winsAndBars.controllers.mouses.Mouseout;
-var Mouseover = system.winsAndBars.controllers.mouses.Mouseover;
+var WinAndBarDrag = system.elements.winAndBars.controllers.WinAndBarDrag;
+var WinAndBarDragend = system.elements.winAndBars.controllers.drags.WinAndBarDragend;
+var WinAndBarDraging = system.elements.winAndBars.controllers.drags.WinAndBarDraging;
+var WinAndBarDragstart = system.elements.winAndBars.controllers.drags.WinAndBarDragstart;
+var WinAndBarDragover = system.elements.winAndBars.controllers.drags.WinAndBarDragover;
+var WinAndBarDrop = system.elements.winAndBars.controllers.drags.WinAndBarDrop;
 
-var resizes = system.winsAndBars.controllers.resizes
-var Resizeend = system.winsAndBars.controllers.resizes.Resizeend;
-var Resizestart = system.winsAndBars.controllers.resizes.Resizestart;
-var Resizing = system.winsAndBars.controllers.resizes.Resizing;
+var WinAndBarMouse = system.elements.winAndBars.controllers.WinAndBarMouse;
+var WinAndBarMouseout = system.elements.winAndBars.controllers.mouses.WinAndBarMouseout;
+var WinAndBarMouseover = system.elements.winAndBars.controllers.mouses.WinAndBarMouseover;
+
+var WinAndBarResizeend = system.elements.winAndBars.controllers.resizes.WinAndBarResizeend;
+var WinAndBarResizestart = system.elements.winAndBars.controllers.resizes.WinAndBarResizestart;
+var WinAndBarResizing = system.elements.winAndBars.controllers.resizes.WinAndBarResizing;
+
+//Configure
+var Configure = system.modules.Configure;
+var ConfigureManager = system.elements.configures.subsystems.ConfigureManager;
+var ExecutionManager = system.elements.configures.subsystems.managers.ExecutionManager;
 
 //Desktop
 var Desktop = system.modules.Desktop;
+var DesktopManager = system.elements.desktops.subsystems.DesktopManager;
+var DesktopSender = system.elements.desktops.subsystems.DesktopSender;
+var DesktopSelect = system.elements.desktops.subsystems.DesktopSelect;
 
-var DesktopManager = system.desktops.subsystems.DesktopManager;
-var DesktopSender = system.desktops.subsystems.DesktopSender;
-var DesktopFunction = system.desktops.subsystems.DesktopFunction;
-var DesktopController = system.desktops.subsystems.DesktopController;
-var DesktopMouse = system.desktops.controllers.DesktopMouse;
-var DesktopMouseout = system.desktops.controllers.mouses.DesktopMouseout;
-var DesktopMouseover = system.desktops.controllers.mouses.DesktopMouseover;
+var DesktopClickSelect = system.elements.desktops.subsystems.selects.DesktopClickSelect;
+var DesktopContextMenuSelect = system.elements.desktops.subsystems.selects.DesktopContextMenuSelect;
+var DesktopCtrlSelect = system.elements.desktops.subsystems.selects.DesktopCtrlSelect;
+var DesktopMousemoveSelect = system.elements.desktops.subsystems.selects.DesktopMousemoveSelect;
+var DesktopSelectCancle = system.elements.desktops.subsystems.selects.DesktopSelectCancle;
+var DesktopSelectEnd = system.elements.desktops.subsystems.selects.DesktopSelectEnd;
+var DesktopShiftSelect = system.elements.desktops.subsystems.selects.DesktopShiftSelect;
+
+var DesktopController = system.elements.desktops.controllers.DesktopController;
+var DesktopContextMenu = system.elements.desktops.controllers.DesktopContextMenu;
+var DesktopDblclick = system.elements.desktops.controllers.DesktopDblclick;
+var DesktopClick = system.elements.desktops.controllers.DesktopClick;
+
+var DesktopMouse = system.elements.desktops.controllers.DesktopMouse;
+var DesktopMouseout = system.elements.desktops.controllers.mouses.DesktopMouseout;
+var DesktopMouseover = system.elements.desktops.controllers.mouses.DesktopMouseover;
+var DesktopMousedown = system.elements.desktops.controllers.mouses.DesktopMousedown;
+var DesktopMousemove = system.elements.desktops.controllers.mouses.DesktopMousemove;
+var DesktopMouseup = system.elements.desktops.controllers.mouses.DesktopMouseup;
+
+var DesktopDrag = system.elements.desktops.controllers.DesktopDrag;
+var DesktopDragend = system.elements.desktops.controllers.drags.DesktopDragend;
+var DesktopDraging = system.elements.desktops.controllers.drags.DesktopDraging;
+var DesktopDragstart = system.elements.desktops.controllers.drags.DesktopDragstart;
+var DesktopDragover = system.elements.desktops.controllers.drags.DesktopDragover;
+var DesktopDrop = system.elements.desktops.controllers.drags.DesktopDrop;
