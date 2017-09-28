@@ -1,10 +1,10 @@
 var fileBrowser = {};
 fileBrowser.models = {};
-fileBrowser.subsystem = {};
-fileBrowser.subsystem.select = {};
-fileBrowser.subsystem.fileSorts = {};
+fileBrowser.subsystems = {};
+fileBrowser.subsystems.selects = {};
+fileBrowser.subsystems.fileSorts = {};
 fileBrowser.controllers = {}
-fileBrowser.controllers.drag = {}
-fileBrowser.controllers.mouse = {}
+fileBrowser.controllers.drags = {}
+fileBrowser.controllers.mouses = {}
 fileBrowser.views = {};
 fileBrowser.webSockets = {};

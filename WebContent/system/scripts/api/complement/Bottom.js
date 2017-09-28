@@ -64,7 +64,6 @@ function Bottom() {
 		var height = this.c.height();
 		this.section = this.c.find("section");
 		this.section.height(height - this.va["s"].height());
-		console.log(this.section.height())
 	}
 	this.positioning = function() {
 		var height = this.c.height();

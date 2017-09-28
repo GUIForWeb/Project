@@ -1,4 +1,4 @@
-fileBrowser.subsystem.FBReceiver = function() {
+fileBrowser.subsystems.FBReceiver = function() {
 	this.byteCount = function(json) {
 		var bLen = this.ws.byteLength;
 		var bCnt = json;

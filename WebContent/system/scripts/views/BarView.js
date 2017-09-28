@@ -48,7 +48,7 @@ system.views.BarView = function(BarModel) {
 			top : this.nTop
 		});
 		tmpS.click(function(evnet) {
-			gui.click.bar(event);
+			gui.winAndBar.click.bar(event);
 		});
 		this.nameSelector = tmpS;
 	}

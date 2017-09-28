@@ -105,10 +105,10 @@ system.views.WindowView = function(windowModel) {
 			top : this.cTop
 		});
 		tmpS.on("mousedown",function(event) {
-			gui.click.content(event);
+			gui.winAndBar.click.content(event);
 		});
 		tmpS.contextmenu(function(event) {
-			gui.click.cButton(event);
+			gui.winAndBar.click.cButton(event);
 		});
 		tmpS.bind("DOMSubtreeModified", function(event) {
 			var winTag = event.currentTarget.parentNode;
@@ -128,7 +128,7 @@ system.views.WindowView = function(windowModel) {
 			this.clock = 0;
 		clearTimeout(this.clock);
 		this.clock = setTimeout(function() {
-			gui.gr.updateContent(win);
+			gui.winAndBar.gr.updateContent(win);
 		}, time);
 	}
 	this.movementHandleLayer = function() {
@@ -144,16 +144,16 @@ system.views.WindowView = function(windowModel) {
 		});
 		tmpS.attr("draggable", "true");
 		tmpS.on("dragstart", function(event) {
-			gui.drag.start.head(event);
+			gui.winAndBar.drag.start.head(event);
 		});
 		tmpS.on("drag", function(event) {
-			gui.drag.ing.head(event);
+			gui.winAndBar.drag.ing.head(event);
 		});
 		tmpS.on("dragend", function(event) {
-			gui.drag.end.head(event);
+			gui.winAndBar.drag.end.head(event);
 		});
 		tmpS.click(function(event) {
-			gui.click.head(event)
+			gui.winAndBar.click.head(event)
 		});
 		this.movementHandleSelector = tmpS;
 	}
@@ -170,7 +170,7 @@ system.views.WindowView = function(windowModel) {
 		tmpS.width(this.bWidth);
 		tmpS.height(this.bHeight);
 		tmpS.click(function(event) {
-			gui.click.hButton(event)
+			gui.winAndBar.click.hButton(event)
 		});
 		this.hButtonSelector = tmpS;
 	}
@@ -187,7 +187,7 @@ system.views.WindowView = function(windowModel) {
 		tmpS.width(this.bWidth);
 		tmpS.height(this.bHeight);
 		tmpS.click(function(event) {
-			gui.click.fButton(event)
+			gui.winAndBar.click.fButton(event)
 		});
 		this.fButtonSelector = tmpS;
 	}
@@ -204,7 +204,7 @@ system.views.WindowView = function(windowModel) {
 		tmpS.width(this.bWidth);
 		tmpS.height(this.bHeight);
 		tmpS.click(function(event) {
-			gui.click.xButton(event);
+			gui.winAndBar.click.xButton(event);
 		});
 		this.xButtonSelector = tmpS;
 	}
@@ -221,13 +221,13 @@ system.views.WindowView = function(windowModel) {
 		tmpS.height(this.resizeHeight);
 		tmpS.attr("draggable", "true");
 		tmpS.on("dragstart", function(event) {
-			gui.resize.start.window(event);
+			gui.winAndBar.resize.start.window(event);
 		});
 		tmpS.on("drag", function(event) {
-			gui.resize.ing.window(event);
+			gui.winAndBar.resize.ing.window(event);
 		});
 		tmpS.on("dragend", function(event) {
-			gui.resize.end.window(event);
+			gui.winAndBar.resize.end.window(event);
 		});
 		this.northWestSelector = tmpS;
 	}
@@ -244,13 +244,13 @@ system.views.WindowView = function(windowModel) {
 		tmpS.height(this.resizeHeight);
 		tmpS.attr("draggable", "true");
 		tmpS.on("dragstart", function(event) {
-			gui.resize.start.window(event);
+			gui.winAndBar.resize.start.window(event);
 		});
 		tmpS.on("drag", function(event) {
-			gui.resize.ing.window(event);
+			gui.winAndBar.resize.ing.window(event);
 		});
 		tmpS.on("dragend", function(event) {
-			gui.resize.end.window(event);
+			gui.winAndBar.resize.end.window(event);
 		});
 		this.northEastSelector = tmpS;
 	}
@@ -267,13 +267,13 @@ system.views.WindowView = function(windowModel) {
 		tmpS.height(this.resizeHeight);
 		tmpS.attr("draggable", "true");
 		tmpS.on("dragstart", function(event) {
-			gui.resize.start.window(event);
+			gui.winAndBar.resize.start.window(event);
 		});
 		tmpS.on("drag", function(event) {
-			gui.resize.ing.window(event);
+			gui.winAndBar.resize.ing.window(event);
 		});
 		tmpS.on("dragend", function(event) {
-			gui.resize.end.window(event);
+			gui.winAndBar.resize.end.window(event);
 		});
 		this.southWestSelector = tmpS;
 	}
@@ -290,13 +290,13 @@ system.views.WindowView = function(windowModel) {
 		tmpS.height(this.resizeHeight);
 		tmpS.attr("draggable", "true");
 		tmpS.on("dragstart", function(event) {
-			gui.resize.start.window(event);
+			gui.winAndBar.resize.start.window(event);
 		});
 		tmpS.on("drag", function(event) {
-			gui.resize.ing.window(event);
+			gui.winAndBar.resize.ing.window(event);
 		});
 		tmpS.on("dragend", function(event) {
-			gui.resize.end.window(event);
+			gui.winAndBar.resize.end.window(event);
 		});
 		this.southEastSelector = tmpS;
 	}
@@ -314,13 +314,13 @@ system.views.WindowView = function(windowModel) {
 		tmpS.height(this.nHeight);
 		tmpS.attr("draggable", "true");
 		tmpS.on("dragstart", function(event) {
-			gui.resize.start.window(event);
+			gui.winAndBar.resize.start.window(event);
 		});
 		tmpS.on("drag", function(event) {
-			gui.resize.ing.window(event);
+			gui.winAndBar.resize.ing.window(event);
 		});
 		tmpS.on("dragend", function(event) {
-			gui.resize.end.window(event);
+			gui.winAndBar.resize.end.window(event);
 		});
 		this.northSelector = tmpS;
 	}
@@ -337,13 +337,13 @@ system.views.WindowView = function(windowModel) {
 		tmpS.height(this.eHeight);
 		tmpS.attr("draggable", "true");
 		tmpS.on("dragstart", function(event) {
-			gui.resize.start.window(event);
+			gui.winAndBar.resize.start.window(event);
 		});
 		tmpS.on("drag", function(event) {
-			gui.resize.ing.window(event);
+			gui.winAndBar.resize.ing.window(event);
 		});
 		tmpS.on("dragend", function(event) {
-			gui.resize.end.window(event);
+			gui.winAndBar.resize.end.window(event);
 		});
 		this.eastSelector = tmpS;
 	}
@@ -360,13 +360,13 @@ system.views.WindowView = function(windowModel) {
 		tmpS.height(this.sHeight);
 		tmpS.attr("draggable", "true");
 		tmpS.on("dragstart", function(event) {
-			gui.resize.start.window(event);
+			gui.winAndBar.resize.start.window(event);
 		});
 		tmpS.on("drag", function(event) {
-			gui.resize.ing.window(event);
+			gui.winAndBar.resize.ing.window(event);
 		});
 		tmpS.on("dragend", function(event) {
-			gui.resize.end.window(event);
+			gui.winAndBar.resize.end.window(event);
 		});
 		this.southSelector = tmpS;
 	}
@@ -383,13 +383,13 @@ system.views.WindowView = function(windowModel) {
 		tmpS.height(this.wHeight);
 		tmpS.attr("draggable", "true");
 		tmpS.on("dragstart", function(event) {
-			gui.resize.start.window(event);
+			gui.winAndBar.resize.start.window(event);
 		});
 		tmpS.on("drag", function(event) {
-			gui.resize.ing.window(event);
+			gui.winAndBar.resize.ing.window(event);
 		});
 		tmpS.on("dragend", function(event) {
-			gui.resize.end.window(event);
+			gui.winAndBar.resize.end.window(event);
 		});
 		this.westSelector = tmpS;
 	}

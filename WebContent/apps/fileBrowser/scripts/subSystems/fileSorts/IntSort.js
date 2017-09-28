@@ -1,4 +1,4 @@
-fileBrowser.subsystem.fileSorts.IntSort = function() {
+fileBrowser.subsystems.fileSorts.IntSort = function() {
 	this.flag = false;
 	this.arrayPrototype = function() {
 		Array.prototype.lowToHigh = function(data, num, option) {

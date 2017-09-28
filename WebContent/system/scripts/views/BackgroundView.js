@@ -11,10 +11,10 @@ system.views.BackgroundView = function(background) {
 		tmpTag.css("z-index", this.zIndex);
 		tmpTag.addClass(this.tagClass);
 		tmpTag.contextmenu(function() {
-			gui.contextmenu.background(event);
+			gui.winAndBar.contextmenu.background(event);
 		});
 		tmpTag.click(function() {
-			gui.click.eButton(event);
+			gui.winAndBar.click.eButton(event);
 		});
 		this.backgroundSelector = tmpTag;
 	}
@@ -33,10 +33,10 @@ system.views.BackgroundView = function(background) {
 		tmpTag.attr("id", this.getIconTdTagId(x, y));
 		tmpTag.addClass(this.iconTdTagClass);
 		tmpTag.on("drop",function(event){
-			gui.drop.icon(event);
+			gui.winAndBar.drag.drop.icon(event);
 		});
 		tmpTag.on("dragover",function(event){
-			gui.drag.over.icon();
+			gui.winAndBar.drag.over.icon();
 		});
 		return tmpTag;
 	}

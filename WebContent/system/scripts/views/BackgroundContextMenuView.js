@@ -26,11 +26,21 @@ system.views.BackgroundContextMenuView = function(backgroundContextMenuView) {
 		var window = $("<li>Window</li>");
 		var background = $("<li>Background</li>");
 		var icon = $("<li>Icon</li>");
-		theme.attr("onmouseover", "gui.mouseover.li(this)");
-		theme.attr("onmouseout", "gui.mouseout.li(this)");
-		window.attr("onclick", "gui.click.theme(this)");
-		background.attr("onclick", "gui.click.theme(this)");
-		icon.attr("onclick", "gui.click.theme(this)");
+		theme.mouseover(function(){
+			gui.winAndBar.mouse.over.li(this)
+		});
+		theme.mouseout(function(){
+			gui.winAndBar.mouse.out.li(this)
+		});
+		window.click(function(){
+			gui.winAndBar.click.theme(event)
+		});
+		background.click(function(){
+			gui.winAndBar.click.theme(event)
+		});
+		icon.click(function(){
+			gui.winAndBar.click.theme(event)
+		});
 		tmpTag.append(ulTag);
 		ulTag.append(theme);
 		theme.append(themeUlTag);

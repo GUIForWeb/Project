@@ -1,4 +1,4 @@
-fileBrowser.subsystem.fileSorts.DateSort = function() {
+fileBrowser.subsystems.fileSorts.DateSort = function() {
 	this.flag = false;
 	this.arrayPrototype = function() {
 		Array.prototype.lowToHigh = function(data, num, option) {

@@ -20,26 +20,42 @@ system.views.IconContextMenuView = function(iconContextMenuModel) {
 		this.outerSelector = tmpTag;
 	}
 	this.contentLayer = function() {
-		var tmpTag = $("<div></div>");
-		var ulTag = $("<ul></ul>");
-		var theme = $("<li>Icon</li>");
-		var themeUlTag = $("<ul></ul>");
-		var window = $("<li>Window</li>");
-		var background = $("<li>Background</li>");
-		var icon = $("<li>Icon</li>");
-		theme.attr("onmouseover", "gui.mouseover.li(this)");
-		theme.attr("onmouseout", "gui.mouseout.li(this)");
-		window.attr("onclick", "gui.click.theme(this)");
-		background.attr("onclick", "gui.click.theme(this)");
-		icon.attr("onclick", "gui.click.theme(this)");
-		tmpTag.append(ulTag);
-		ulTag.append(theme);
-		theme.append(themeUlTag);
-		themeUlTag.append(window);
-		themeUlTag.append(background);
-		themeUlTag.append(icon);
-		tmpTag.addClass(this.contentLayerTagClass);
-		this.contentSelector = tmpTag;
+		var tmpSelector = $("<div></div>");
+		var ulSelector = $("<ul></ul>");
+		var renameSelector = $("<li>Rename</li>");
+		var copySelector = $("<li>Copy</li>");
+		var cutSelector = $("<li>Cut</li>");
+		var pasteSelector = $("<li>Paste</li>");
+		var deleteSelector = $("<li>Delete</li>");
+		var downloadSelector = $("<li>Download</li>");
+		
+		renameSelector.click(function(event){
+			gui.winAndBar.click.rename(event);
+		});
+		copySelector.click(function(){
+			gui.winAndBar.click.copy(event);
+		});
+		cutSelector.click(function(){
+			gui.winAndBar.click.cut(event);
+		});
+		pasteSelector.click(function(){
+			gui.winAndBar.click.paste(event);
+		});
+		deleteSelector.click(function(){
+			gui.winAndBar.click.del(event);
+		});
+		downloadSelector.click(function(){
+			gui.winAndBar.click.download(event);
+		});
+		tmpSelector.append(ulSelector);
+		ulSelector.append(renameSelector);
+		ulSelector.append(copySelector);
+		ulSelector.append(cutSelector);
+		ulSelector.append(pasteSelector);
+		ulSelector.append(deleteSelector);
+		ulSelector.append(downloadSelector);
+		tmpSelector.addClass(this.contentLayerTagClass);
+		this.contentSelector = tmpSelector;
 	}
 	this.getView = function() {
 		this.contentLayer();

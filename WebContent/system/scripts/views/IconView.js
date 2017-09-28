@@ -10,30 +10,35 @@ system.views.IconView = function(icon) {
 		this.iconSelector = this.outerSelector;
 	}
 	this.outerLayer = function() {
-		var tmpTag = $("<div></div>");
-		tmpTag = tmpTag.attr("id", this.tagId);
-		tmpTag.css("z-index", this.zIndex);
-		tmpTag.addClass(this.tagClass);
-		tmpTag.attr("dragable", "true");
-		tmpTag.on("drag", function(event) {
-			gui.drag.ing.icon(event);
+		var outerSelector = $("<div></div>");
+		outerSelector.attr("id", this.tagId);
+		outerSelector.css("z-index", this.zIndex);
+		outerSelector.addClass(this.tagClass);
+		outerSelector.attr("dragable", "true");
+		outerSelector.on("drag", function(event) {
+			gui.winAndBar.drag.ing.icon(event);
 		});
-		
-		tmpTag.on("dragstart", function(event) {
-			gui.drag.start.icon(event);
+		outerSelector.on("dragstart", function(event) {
+			gui.winAndBar.drag.start.icon(event);
 		});
-		
-		tmpTag.dblclick(function(event) {
-			gui.dblclick.icon(event);
+		outerSelector.dblclick(function(event) {
+			gui.winAndBar.dblclick.icon(event);
 		});
-		tmpTag.contextmenu(function(event) {
+		outerSelector.contextmenu(function(event) {
 			event.stopPropagation();
-			gui.contextmenu.icon(event);
 		});
-		var tmpImg = $("<img>").attr("src", this.contextPath + this.imgURL);
-		tmpImg.addClass(this.imgClass);
-		tmpTag.prepend(tmpImg)
-		this.outerSelector = tmpTag;
+		outerSelector.mouseover(function(event) {
+			gui.winAndBar.desktop.mouse.over.icon(event);
+		});
+		outerSelector.mouseout(function(event) {
+			gui.winAndBar.desktop.mouse.out.icon(event);
+		});
+		var imgSelector = $("<img>").attr("src", this.contextPath + this.imgURL);
+		imgSelector.addClass(this.imgClass);
+		imgSelector.attr("title",this.name);
+		outerSelector.prepend(imgSelector)
+		
+		this.outerSelector = outerSelector;
 	}
 	this.getView = function() {
 		this.outerLayer();

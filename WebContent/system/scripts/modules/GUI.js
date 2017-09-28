@@ -26,13 +26,13 @@ function GUI(guiVariableName) {
 		this.dataIconJSONArray = dataIconJSONArray;
 	}
 	this.initDesktopDataItems = function() {
-		this.dm.appendDataIcon(this.dataIconJSONArray);
+		this.desktop.dm.appendDataIcon(this.dataIconJSONArray);
 	}
 	this.coordinateFilter = function(){
 		
 	}
 	this.initIcon = function() {
-		this.dm.appendIcon();
+		this.desktop.dm.appendIcon();
 	}
 	this.start = function() {
 		sessionStorage.wMode = true;
@@ -44,56 +44,20 @@ function GUI(guiVariableName) {
 		this.nodeArray["winAndBar"] = new WinAndBarNode();
 		this.nodeArray["winAndBar"].lastWin = this.nodeArray["winAndBar"];
 		this.nodeArray["winAndBar"].lastBar = this.nodeArray["winAndBar"];
+		this.desktop = new Desktop();
+		this.desktop.__proto__ = this;
+		this.winAndBar = new WinAndBar();
+		this.winAndBar.__proto__ = this;
+		
 		this.api = new API();
 		this.api.__proto__ = this;
-		this.controller = new Controller();
-		this.controller.__proto__ = this;
 		this.ws = new webSockets.WebSocket(this.valueArray["ip"]);
 		this.dws = new DesktopWebSocket();
 		this.dws.__proto__ = this.controller;
-		this.gm = new GUIManager();
-		this.gm.__proto__ = this.controller;
-		this.gr = new GUIRepository();
-		this.gr.__proto__ = this.controller;
-		this.dm = new DesktopManager();
-		this.dm.__proto__ = this.controller;
-		this.wm = new WindowManager();
-		this.wm.__proto__ = this.controller;
-		this.bm = new BarManager();
-		this.bm.__proto__ = this.controller;
-		this.ee = new EnumEngine();
-		this.ee.__proto__ = this.controller;
-		this.wse = new WindowSizingEngine();
-		this.wse.__proto__ = this.controller;
-		this.pe = new PositioningEngine();
-		this.pe.__proto__ = this.controller;
-		this.nm = new NodeManager();
-		this.nm.__proto__ = this.controller;
-
-		this.eventListener = new EventListener();
-		this.eventListener.__proto__ = this.controller;
+		
 		this.model = new Model();
 		this.model.__proto__ = this;
-		this.dblclick = new Dblclick();
-		this.dblclick.__proto__ = this.controller;
-		this.change = new Change();
-		this.change.__proto__ = this.controller;
-		this.click = new Click();
-		this.click.__proto__ = this.controller;
-		this.contextmenu = new controllers.ContextMenu();
-		this.contextmenu.__proto__ = this.controller;
-		this.drag = new Drag();
-		this.drag.__proto__ = this.controller;
-		this.drop = new Drop();
-		this.drop.__proto__ = this.controller;
-		this.mouseover = new Mouseover();
-		this.mouseover.__proto__ = this.controller;
-		this.mouseout = new Mouseout();
-		this.mouseout.__proto__ = this.controller;
-		this.resize = new Resize();
-		this.resize.__proto__ = this.controller;
-		this.request = new GUIXMLHttpRequest();
-		this.request.__proto__ = this.controller;
+		
 		this.initBackground();
 		this.initBgContextMenu();
 		this.initIconContextMenu();
@@ -181,8 +145,8 @@ function GUI(guiVariableName) {
 			this.nodeArray["winAndBar"].winCount = this.winCount;
 			this.nodeArray["winAndBar"].barCount = winAndBarJSONArray.length;
 			var tmpNode = new WinAndBarNode();
-			this.gr.restoreNodes(winAndBarJSONArray);
-			this.gr.restoreWinOrder();
+			this.winAndBar.gr.restoreNodes(winAndBarJSONArray);
+			this.winAndBar.gr.restoreWinOrder();
 			if (this.nodeArray["winAndBar"].barCount != 0)
 				this.valueArray["newId"] = this.nodeArray["winAndBar"].lastBar.bar.numId + 1;
 			else
@@ -254,7 +218,7 @@ function GUI(guiVariableName) {
 	this.getWinInfo = function(section) {
 		var cOfWindow = section.parent();
 		var window = cOfWindow.parent();
-		var winAndBarNode = this.nm.getNodeWithWinTag(window[0]);
+		var winAndBarNode = this.winAndBar.nm.getNodeWithWinTag(window[0]);
 		var win = winAndBarNode.win;
 
 		var json = {
