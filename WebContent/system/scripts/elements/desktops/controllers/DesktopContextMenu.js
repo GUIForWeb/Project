@@ -13,6 +13,9 @@ system.elements.desktops.controllers.DesktopContextMenu = function() {
 		if (!taskArray["contextMenu"].isOnTheScreen) {
 			this.iconContextMenu.view.zIndex = this.nodeArray["winAndBar"].winCount;
 			this.iconContextMenu.appear();
+			this.select.contextmenu.click(event);
+			this.select.end.data();
+			event.preventDefault();
 		}
 	}
 }

@@ -91,6 +91,9 @@ public class FBWebSocket implements WebSocketInterface{
 				case "paste":
 					this.dm.insertDataIcon();
 					break;
+				case "rename":
+					this.dm.rename();
+					break;
 			}
 			//make a client side websocket for desktop update
 			if(this.dm.isUpdated()){

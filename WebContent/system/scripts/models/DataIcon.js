@@ -18,9 +18,13 @@ system.models.DataIcon = function(){
 		this.imgURL = "/system/comps/icons/"+this.type.replace("/","_")+".png";
 	}
 	this.appear = function(){
+		this.view.getView();
 		this.selector = this.view.iconSelector;
 		this.tag = this.view.iconSelector[0];
 		this.getIconTdSelector(this.x,this.y).append(this.selector);
+	}
+	this.disappear = function(){
+		this.selector.remove();
 	}
 }
 

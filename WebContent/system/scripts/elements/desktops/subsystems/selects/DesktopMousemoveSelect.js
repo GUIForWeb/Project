@@ -45,88 +45,88 @@ system.elements.desktops.subsystems.selects.DesktopMousemoveSelect = function() 
 		this.preHeight = $("#selection").height();
 		$("#selection").width(sizeX);
 		$("#selection").height(sizeY);
-		for(fi=0; fi<this.dataItemArray.length; fi++){
-			var dataItem = $(this.dataItemArray[fi]);
-			var data = this.va["data"][fi];
-			var isChosen = this.va["data"][fi].isChosen = true;
+		for(fi=0; fi<this.iconDivArray.length; fi++){
+			var iconDiv = $(this.iconDivArray[fi]);
+			var data = this.manager.jsonArray[fi];
+			var isChosen = data.isChosen = true;
 			if(event.clientY != 0)
 			if(data.isChangeable) {
 				if(this.case == 0){
-					var con0 = (event.clientX - dataItem.offset().left) < dataItem.width();
-					var con1 = event.clientY > ((dataItem.offset().top*2 + dataItem.height())/2)
+					var con0 = (event.clientX - iconDiv.offset().left) < iconDiv.width();
+					var con1 = event.clientY > ((iconDiv.offset().top*2 + iconDiv.height())/2)
 					if(con0 && con1){
 						data.isChosen = true;
-						this.hover(true, dataItem);
+						this.hover(true, iconDiv);
 					}
 					else{
 						data.isChosen = false;
-						this.hover(false, dataItem);
+						this.hover(false, iconDiv);
 					} 
 				}
 				else if(this.case == 1){
-					var con0 = (event.clientX - dataItem.offset().left) < dataItem.width();
+					var con0 = (event.clientX - iconDiv.offset().left) < iconDiv.width();
 					var con1 = event.clientX > this.stdX
-					var con2 = event.clientY < ((dataItem.offset().top*2 + dataItem.height())/2);
+					var con2 = event.clientY < ((iconDiv.offset().top*2 + iconDiv.height())/2);
 					if((con0 || con1) && con2){
 						data.isChosen = true;
-						this.hover(true, dataItem);
+						this.hover(true, iconDiv);
 					}
 					else{
 						data.isChosen = false;
-						this.hover(false, dataItem);
+						this.hover(false, iconDiv);
 					} 
 				}
 				else if(this.case == 2){
-					var con0 = (event.clientX - dataItem.offset().left) < dataItem.width();
-					var con1 = event.clientY < ((dataItem.offset().top*2 + dataItem.height())/2);
-					var con2 = ((dataItem.offset().top*2 + dataItem.height())/2) < this.stdY;
-					var con3 = event.clientY > ((dataItem.offset().top*2 + dataItem.height())/2);
-					var con4 = ((dataItem.offset().top*2 + dataItem.height())/2) > this.stdY;
+					var con0 = (event.clientX - iconDiv.offset().left) < iconDiv.width();
+					var con1 = event.clientY < ((iconDiv.offset().top*2 + iconDiv.height())/2);
+					var con2 = ((iconDiv.offset().top*2 + iconDiv.height())/2) < this.stdY;
+					var con3 = event.clientY > ((iconDiv.offset().top*2 + iconDiv.height())/2);
+					var con4 = ((iconDiv.offset().top*2 + iconDiv.height())/2) > this.stdY;
 					if(con0 && con1 && con2){
 						data.isChosen = true;
-						this.hover(true, dataItem);
+						this.hover(true, iconDiv);
 					}
 					else if(con0 && con3 && con4){
 						data.isChosen = true;
-						this.hover(true, dataItem);
+						this.hover(true, iconDiv);
 					}
 					else{
 						data.isChosen = false;
-						this.hover(false, dataItem);
+						this.hover(false, iconDiv);
 					}
 				}
 			}
 			else if(!data.isChangeable){
 				if(this.case == 0){
-					var con0 = (event.clientX - dataItem.offset().left) < dataItem.width();
-					var con1 = event.clientY > ((dataItem.offset().top*2 + dataItem.height())/2)
+					var con0 = (event.clientX - iconDiv.offset().left) < iconDiv.width();
+					var con1 = event.clientY > ((iconDiv.offset().top*2 + iconDiv.height())/2)
 					if(con0 && con1){
 						data.isChosen = false;
-						this.hover(false, dataItem);
+						this.hover(false, iconDiv);
 					}
 				}
 				else if(this.case == 1){
-					var con0 = (event.clientX - dataItem.offset().left) < dataItem.width();
+					var con0 = (event.clientX - iconDiv.offset().left) < iconDiv.width();
 					var con1 = event.clientX > this.stdX
-					var con2 = event.clientY < ((dataItem.offset().top*2 + dataItem.height())/2);
+					var con2 = event.clientY < ((iconDiv.offset().top*2 + iconDiv.height())/2);
 					if((con0 || con1) && con2){
 						data.isChosen = false;
-						this.hover(false, dataItem);
+						this.hover(false, iconDiv);
 					}
 				}
 				else if(this.case == 2){
-					var con0 = (event.clientX - dataItem.offset().left) < dataItem.width();
-					var con1 = event.clientY < ((dataItem.offset().top*2 + dataItem.height())/2);
-					var con2 = ((dataItem.offset().top*2 + dataItem.height())/2) < this.stdY;
-					var con3 = event.clientY > ((dataItem.offset().top*2 + dataItem.height())/2);
-					var con4 = ((dataItem.offset().top*2 + dataItem.height())/2) > this.stdY;
+					var con0 = (event.clientX - iconDiv.offset().left) < iconDiv.width();
+					var con1 = event.clientY < ((iconDiv.offset().top*2 + iconDiv.height())/2);
+					var con2 = ((iconDiv.offset().top*2 + iconDiv.height())/2) < this.stdY;
+					var con3 = event.clientY > ((iconDiv.offset().top*2 + iconDiv.height())/2);
+					var con4 = ((iconDiv.offset().top*2 + iconDiv.height())/2) > this.stdY;
 					if(con0 && con1 && con2){
 						data.isChosen = false;
-						this.hover(false, dataItem);
+						this.hover(false, iconDiv);
 					}
 					else if(con0 && con3 && con4){
 						data.isChosen = false;
-						this.hover(false, dataItem);
+						this.hover(false, iconDiv);
 					}
 				}
 			}
@@ -135,8 +135,8 @@ system.elements.desktops.subsystems.selects.DesktopMousemoveSelect = function() 
 	this.end = function(event){
 		var flag = false
 		var data = null;
-		for(di=0; di<this.va["data"].length; di++) {
-			data = this.va["data"][di];
+		for(di=0; di<this.manager.jsonArray.length; di++) {
+			data = this.manager.jsonArray[di];
 			if(data.isChosen == true){
 				flag = true;
 				data.isChangeable = false;
@@ -185,52 +185,52 @@ system.elements.desktops.subsystems.selects.DesktopMousemoveSelect = function() 
 		}
 		$("#selection").width(sizeX);
 		$("#selection").height(sizeY);
-		for(fi=0; fi<this.dataItemArray.length; fi++){
-			var dataItem = $(this.dataItemArray[fi]);
-			var data = this.va["data"][fi];
+		for(fi=0; fi<this.iconDivArray.length; fi++){
+			var iconDiv = $(this.iconDivArray[fi]);
+			var data = this.manager.jsonArray[fi];
 			if(event.clientY != 0) 
 			if(this.case == 0){
-				var con0 = (event.clientX - dataItem.offset().left) < dataItem.width();
-				var con1 = event.clientY > ((dataItem.offset().top*2 + dataItem.height())/2)
+				var con0 = (event.clientX - iconDiv.offset().left) < iconDiv.width();
+				var con1 = event.clientY > ((iconDiv.offset().top*2 + iconDiv.height())/2)
 				if(con0 && con1){
 					data.isChosen = true;
-					this.hover(true, dataItem);
+					this.hover(true, iconDiv);
 				}
 				else{
 					data.isChosen = false;
-					this.hover(false, dataItem);
+					this.hover(false, iconDiv);
 				} 
 			}
 			else if(this.case == 1){
-				var con0 = (event.clientX - dataItem.offset().left) < dataItem.width();
+				var con0 = (event.clientX - iconDiv.offset().left) < iconDiv.width();
 				var con1 = event.clientX > this.stdX
-				var con2 = event.clientY < ((dataItem.offset().top*2 + dataItem.height())/2);
+				var con2 = event.clientY < ((iconDiv.offset().top*2 + iconDiv.height())/2);
 				if((con0 || con1) && con2){
 					data.isChosen = true;
-					this.hover(true, dataItem);
+					this.hover(true, iconDiv);
 				}
 				else{
 					data.isChosen = false;
-					this.hover(false, dataItem);
+					this.hover(false, iconDiv);
 				} 
 			}
 			else if(this.case == 2){
-				var con0 = (event.clientX - dataItem.offset().left) < dataItem.width();
-				var con1 = event.clientY < ((dataItem.offset().top*2 + dataItem.height())/2);
-				var con2 = ((dataItem.offset().top*2 + dataItem.height())/2) < this.stdY;
-				var con3 = event.clientY > ((dataItem.offset().top*2 + dataItem.height())/2);
-				var con4 = ((dataItem.offset().top*2 + dataItem.height())/2) > this.stdY;
+				var con0 = (event.clientX - iconDiv.offset().left) < iconDiv.width();
+				var con1 = event.clientY < ((iconDiv.offset().top*2 + iconDiv.height())/2);
+				var con2 = ((iconDiv.offset().top*2 + iconDiv.height())/2) < this.stdY;
+				var con3 = event.clientY > ((iconDiv.offset().top*2 + iconDiv.height())/2);
+				var con4 = ((iconDiv.offset().top*2 + iconDiv.height())/2) > this.stdY;
 				if(con0 && con1 && con2){
 					data.isChosen = true;
-					this.hover(true, dataItem);
+					this.hover(true, iconDiv);
 				}
 				else if(con0 && con3 && con4){
 					data.isChosen = true;
-					this.hover(true, dataItem);
+					this.hover(true, iconDiv);
 				}
 				else{
 					data.isChosen = false;
-					this.hover(false, dataItem);
+					this.hover(false, iconDiv);
 				}
 			}
 		}
@@ -244,37 +244,37 @@ system.elements.desktops.subsystems.selects.DesktopMousemoveSelect = function() 
 		div.css({"background-color":"blue"});
 		div.css({"opacity":"0.3"});
 		div.css({"border":"1px solid black"});
-		var x = event.clientX - this.section.offset().left;
-		var y = event.clientY - this.section.offset().top;
+		var x = event.clientX - this.background.selector.offset().left;
+		var y = event.clientY - this.background.selector.offset().top;
 		div.css({
 			position:"absolute",
 			left:x,
 			top:y
 		});
-		this.section.append(div);
-		this.dataItemArray = $("#fbTable"+this.id).find(".dataItem");
+		this.background.selector.append(div);
+		this.iconDivArray = this.background.view.tableSelector.find(".iconDiv");
 		if(this.stdX == 0 && this.stdY == 0){
 			var offset = $("#selection").offset();
 			this.stdX = offset.left;
 			this.stdY = offset.top;
 		}
-		if(this.dataItemArray.length > 0)
-		if($(this.dataItemArray[0]).offset().top > this.stdY){
+		if(this.iconDivArray.length > 0)
+		if($(this.iconDivArray[0]).offset().top > this.stdY){
 			this.case = 0;
 		}
-		else if($(this.dataItemArray[this.dataItemArray.length-1]).offset().top < this.stdY){
+		else if($(this.iconDivArray[this.iconDivArray.length-1]).offset().top < this.stdY){
 			this.case = 1;
 		}
 		else {
 			this.case = 2;
 		}
 	}
-	this.hover = function(hover, dataItem){
+	this.hover = function(hover, iconDiv){
 		if(hover){
-			dataItem.css("background-color","dimgray");
+			iconDiv.css("background-color","dimgray");
 		}
 		else {
-			dataItem.css("background-color","white");
+			iconDiv.css("background-color","white");
 		}
 	}
 }

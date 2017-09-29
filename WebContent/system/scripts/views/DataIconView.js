@@ -23,6 +23,7 @@ system.views.DataIconView = function(icon) {
 			gui.desktop.drag.start.icon(event);
 		});
 		outerSelector.dblclick(function(event) {
+			event.stopPropagation()
 			gui.desktop.dblclick.icon(event);
 		});
 		outerSelector.contextmenu(function(event) {
@@ -38,10 +39,10 @@ system.views.DataIconView = function(icon) {
 		var imgSelector = $("<img>").attr("src", this.contextPath + this.imgURL);
 		imgSelector.attr("title",this.name);
 		imgSelector.addClass(this.imgClass);
-		var nameSelector = $("<p></p>").html(this.name);
-		nameSelector.addClass(this.nameClass);
+		this.nameSelector = $("<p></p>").html(this.name);
+		this.nameSelector.addClass(this.nameClass);
 		outerSelector.prepend(imgSelector);
-		outerSelector.append(nameSelector);
+		outerSelector.append(this.nameSelector);
 		this.outerSelector = outerSelector;
 	}
 	this.getView = function() {

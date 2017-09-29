@@ -25,6 +25,23 @@ public class DataIconsDAOMySQL implements DataIconsDAO {
 		this.db = new MySQL();
 		this.os = os;
 	}
+	public void rename(JSONObject json){
+		String query = "call renameDataIcon(?,?,?)";
+		String[] info = new String[3];
+		info[0] = String.valueOf(json.getInt("os_id"));
+		info[1] = json.getString("src");
+		info[2] = json.getString("dest");
+		this.db.connect();
+		this.rset = this.db.call(query, info);
+		try {
+			this.rset.next();
+			json.put("id",rset.getString(1));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.db.close();
+	}
 	public void updateXY(JSONObject json){
 		String query = "UPDATE dataicons_t SET x=?, y=? WHERE os_id = ? AND icon_id = ?";
 		int[] info = new int[4];
@@ -60,12 +77,11 @@ public class DataIconsDAOMySQL implements DataIconsDAO {
 	}
 	
 	public String delete(JSONArray jsonArray) {
-		ResultSet rset;
 		String ids = "";
 		String query = "call delDataIcon(?,?,?,?,?)";
-		rset = this.callProcedure(query, jsonArray);
+		this.callProcedure(query, jsonArray);
 		try {
-			rset.next();
+			this.rset.next();
 			ids = rset.getString(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -74,8 +90,7 @@ public class DataIconsDAOMySQL implements DataIconsDAO {
 		this.db.close();
 		return ids;
 	}
-	private ResultSet callProcedure(String query, JSONArray jsonArray){
-		ResultSet rset;
+	private void callProcedure(String query, JSONArray jsonArray){
 		String[] info = new String[5];
 		String names = "";
 		String dateModifieds = "";
@@ -96,8 +111,7 @@ public class DataIconsDAOMySQL implements DataIconsDAO {
 		info[2] = dateModifieds.substring(0, dateModifieds.length()-1);
 		info[3] = sizes.substring(0, sizes.length()-1);
 		info[4] = types.substring(0, types.length()-1);
-		rset = this.db.call(query, info);
-		return rset;
+		this.rset = this.db.call(query, info);
 	}
 	public void insert(JSONArray jsonArray) {
 		String query = "call newDataIcon(?,?,?,?,?)";

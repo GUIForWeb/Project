@@ -394,6 +394,8 @@ public class FBManager {
 	}
 
 	public void rename() {
+		this.data = new JSONArray();
+		this.data.put(this.json);
 		String srcStr = this.browser.getPath() + "/" + this.json.getString("src");
 		String destStr = this.browser.getPath() + "/" + this.json.getString("dest");
 		File src = new File(srcStr);

@@ -7,6 +7,9 @@ system.webSockets.DesktopWebSocket = function (ip) {
 			case "delDataIcon":
 				this.manager.delDataIcon(json.data);
 				break;
+			case "rename":
+				this.manager.rename(json.data);
+				break;
 		}
 	}
 }

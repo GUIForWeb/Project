@@ -14,9 +14,10 @@ system.elements.desktops.subsystems.DesktopSelect = function() {
 	this.cancle = new DesktopSelectCancle();
 	this.cancle.__proto__ = this;
 	this.filter = function(selectedData){
-		return this.va["data"].filter(function( element ) {
+		return this.manager.jsonArray.filter(function( element ) {
 			if(element.isChosen){
-				selectedData.push({"name":element.name,"type":element.type});
+				if(element.type !== undefined)
+					selectedData.push({"name":element.name,"type":element.type});
 			}
 		});
 	}

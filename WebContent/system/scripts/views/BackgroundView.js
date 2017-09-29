@@ -17,6 +17,9 @@ system.views.BackgroundView = function(background) {
 			gui.desktop.click.button(event);
 		});
 		tmpTag.mousedown(function() {
+			gui.desktop.mouse.down.button(event);
+		});
+		tmpTag.bind("mousedown",function() {
 			gui.desktop.mouse.down.selection(event);
 		});
 		tmpTag.mousemove(function() {

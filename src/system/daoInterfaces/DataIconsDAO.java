@@ -18,4 +18,5 @@ public interface DataIconsDAO {
 	public String delete(JSONArray jsonArray);
 	public void updateXYs(JSONArray jsonArray);
 	public void updateXY(JSONObject json);
+	public void rename(JSONObject json);
 }

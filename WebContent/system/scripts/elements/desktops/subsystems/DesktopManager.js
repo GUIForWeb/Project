@@ -2,6 +2,11 @@ system.elements.desktops.subsystems.DesktopManager = function() {
 	this.ds = new DesktopSender();
 	this.ds.__proto__ = this;
 	this.xy = [];
+	this.jsonArray = [];
+	this.rename = function(json){
+		var tmpIcon = this.iconArray["dataIcon"+json.id];
+		tmpIcon.view.nameSelector.html(json.dest);
+	}
 	this.appendIcon = function(){
 		for (ci = 0; ci < this.iconJSONArray.length; ci++) {
 			var tmpIcon = new Icon();
@@ -10,7 +15,6 @@ system.elements.desktops.subsystems.DesktopManager = function() {
 			this.iconCoordinate[tmpIcon.x + "," + tmpIcon.y] = true;
 			tmpIcon.view.iconTdBorderWidth = this.iconTdValueArray["iconTdBorderWidth"];
 			tmpIcon.view.iconTdBorderHeight = this.iconTdValueArray["iconTdBorderHeight"];
-			tmpIcon.view.getView();
 			tmpIcon.appear();
 			this.iconArray[tmpIcon.tagId] = tmpIcon;
 		}
@@ -25,17 +29,26 @@ system.elements.desktops.subsystems.DesktopManager = function() {
 			this.filter(tmpIcon);
 			tmpIcon.view.iconTdBorderWidth = this.iconTdValueArray["iconTdBorderWidth"];
 			tmpIcon.view.iconTdBorderHeight = this.iconTdValueArray["iconTdBorderHeight"];
-			tmpIcon.view.getView();
 			tmpIcon.appear();
 			this.iconArray[tmpIcon.tagId] = tmpIcon;
 		}
 		this.ds.dataIconXYs(this.xy);
+		this.enumIconArrays();
+	}
+	this.enumIconArrays = function() {
+		this.jsonArray = [];
+		for(var key in this.iconArray){
+			var icon = this.iconArray[key];
+			this.jsonArray.push({"id": icon.id,"x": icon.x,"y": icon.y,"name": icon.name,"dateModified": icon.dateModified,"size": icon.size,"type": icon.type, "isChosen": false, "isChangeable": true});
+		}
 	}
 	this.delDataIcon = function(ids){
 		ids = ids.split(",");
 		for(ii=0; ii<ids.length; ii++){
 			$("#dataIcon"+ids[ii]).remove();
+			delete this.iconArray["dataIcon"+ids[ii]];
 		}
+		this.enumIconArrays();
 	}
 	this.filter = function(tmpIcon){
 		if(tmpIcon.y >= this.rowNum) 

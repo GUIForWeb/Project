@@ -5,7 +5,6 @@ fileBrowser.controllers.Focusout = function() {
 			"name" : this.tag["t"].children[0].innerHTML,
 			"type" : this.tag["t"].children[2].innerHTML
 		} ];
-		console.log(this.va["selectedData"])
 		this.tag["s"].children().first().removeAttr("contenteditable");
 		if (JSON.stringify(this.va["selectedData"][0]) != JSON
 				.stringify(this.va["prevData"][0])) {

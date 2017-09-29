@@ -13,6 +13,7 @@ system.models.Background = function() {
 				+ "px");
 		this.view.tableSelector
 				.css("height", (this.view.guiHeight - 40) + "px");
+		this.selector = this.view.backgroundSelector;
 	}
 	this.appendIconTd = function() {
 		this.view.iconTableWidth = this.view.tableSelector.width();

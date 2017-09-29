@@ -25,10 +25,7 @@ public class DesktopManager {
 	public DesktopManager() {
 		this.isUpdated = false;
 	}
-
 	public void init() {
-		this.json = new JSONObject();
-		this.json.put("os_id", this.os.getId());
 		this.desktopPath += this.root + "/Desktop";
 		File file = new File(this.desktopPath);
 		if (!file.exists())
@@ -36,6 +33,18 @@ public class DesktopManager {
 		this.iconsInOSDAO = new IconsInOSDAOMySQL();
 		this.dataIconsDAO = new DataIconsDAOMySQL(this.os);
 		this.dataIconsDAO.load();
+	}
+	public void rename() {
+		JSONObject json = this.jsonArray.getJSONObject(0); 
+		json.put("os_id", os.getId());
+		json.remove("id");
+		this.dataIconsDAO.rename(json);
+		json.remove("os_id");
+		json.remove("src");
+		this.json = new JSONObject();
+		this.json.put("status","rename");
+		this.json.put("data",json);
+		this.isUpdated = true;
 	}
 	public void dataIconXYs(){
 		this.jsonArray = this.json.getJSONArray("data");

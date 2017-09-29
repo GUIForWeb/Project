@@ -1,22 +1,21 @@
 system.elements.desktops.subsystems.selects.DesktopContextMenuSelect = function() {
 	this.click = function() {
-		this.setScriptTag(event.target.parentNode);
-		if(this.tag["t"].children[0].innerHTML != ".."
-			&& this.tag["s"].prop("tagName") == "TR") {
-			var rIdx = this.tag["t"].rowIndex;
-			var data = this.va["data"][rIdx-2];
-			if(!data.isChosen){
-				var trs = this.fbTable.find("tr");
-				for( di=0; di<this.va["data"].length; di++){
-					data = this.va["data"][di];
-					if(di != rIdx-2) {
-						data.isChosen = false;
-						data.isChangeable = true;
-						$(trs[di+2]).css("background-color","white");
-					} else {
-						data.isChosen = true;
-						data.isChangeable = false;
-						this.tag["s"].css("background-color","dimgray");
+		if(!event.shiftKey && !event.ctrlKey && !this.select.ctrl.isWorking && !this.select.mousemove.isWorking && !this.select.shift.isWorking && !this.iconContextMenu.isOnTheScreen){
+			this.setScriptTag(event.target);
+			if(this.tag["s"].prop("tagName") == "IMG") {
+				var name = this.tag["s"].siblings().html();
+				for(ji=0; ji<this.manager.jsonArray.length; ji++) {
+					var json = this.manager.jsonArray[ji];
+					if(json.name == name){
+						json.isChosen = true;
+						json.isChangeable = false;
+						console.log(this.tag["s"].parent());
+						this.tag["s"].parent().css("background-color","dimgray");
+						this.tag["s"].parent().css("opacity","1");
+					}
+					else if(json.name != name){
+						json.isChosen = false;
+						json.isChangeable = true;
 					}
 				}
 			}

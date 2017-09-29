@@ -3,10 +3,11 @@ system.elements.desktops.subsystems.selects.DesktopSelectEnd = function() {
 		this.va["selectedData"] = [];
 		this.filter(this.va["selectedData"]);
 		this.validation();
-		for(di=0; di<this.va["data"].length; di++) {
-			this.va["data"][di].isChosen == false;
-			this.va["data"][di].isChangeable = true;
+		for(di=0; di<this.manager.jsonArray.length; di++) {
+			this.manager.jsonArray[di].isChosen == false;
+			this.manager.jsonArray[di].isChangeable = true;
 		}
+		console.log(this.va["selectedData"]);
 	}
 	this.validation = function() {
 		if(this.va["selectedData"].length != 0){

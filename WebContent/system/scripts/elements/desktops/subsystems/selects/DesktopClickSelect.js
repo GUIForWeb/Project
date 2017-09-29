@@ -1,5 +1,6 @@
 system.elements.desktops.subsystems.selects.DesktopClickSelect = function() {
 	this.row = function(event){
+		/*
 		this.setScriptTag(event.target.parentNode);
 		if(this.tag["s"].find("th").length == 0 && this.tag["t"].children[0].innerHTML != ".."
 			&& this.tag["s"].prop("tagName") == "TR") {
@@ -9,5 +10,6 @@ system.elements.desktops.subsystems.selects.DesktopClickSelect = function() {
 			this.va["selectedRow"] = rIdx;
 			this.tag["s"].css("background-color","dimgray");
 		}
+		*/
 	}	
 }

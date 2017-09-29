@@ -65,6 +65,7 @@ function GUI(guiVariableName) {
 		this.initTaskbar();
 		this.initDesktopDataItems();
 	}
+	
 	this.initWindowZone = function() {
 		this.windowZoneSelector = $("<div></div>");
 		this.windowZoneSelector.attr("id","windowZone");
@@ -219,7 +220,6 @@ function GUI(guiVariableName) {
 		var window = cOfWindow.parent();
 		var winAndBarNode = this.winAndBar.manager.nm.getNodeWithWinTag(window[0]);
 		var win = winAndBarNode.win;
-
 		var json = {
 			"id" : win.numId,
 			"window" : window,
@@ -227,7 +227,6 @@ function GUI(guiVariableName) {
 			"x" : win.view.xButtonSelector,
 			"m" : win.view.movementHandleSelector
 		};
-
 		return json;
 	}
 }
