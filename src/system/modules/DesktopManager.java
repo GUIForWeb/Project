@@ -34,12 +34,26 @@ public class DesktopManager {
 		this.dataIconsDAO = new DataIconsDAOMySQL(this.os);
 		this.dataIconsDAO.load();
 	}
+	public void newFolder() {
+		this.jsonArray = new JSONArray();
+		this.jsonArray.put(this.json);
+		this.insertDataIcon();
+	}
+	public void insertDataIcon() {
+		this.dataIconsDAO.insert(this.jsonArray);
+		this.dataIconsDAO.load();
+		JSONArray newIconArray = this.dataComparison(new JSONArray(), this.dataIconsDAO.getJSONArray(), this.jsonArray,	0, 0);
+		this.jsonArray = newIconArray;
+		this.isUpdated = true;
+		this.json = new JSONObject();
+		this.json.put("status", "appendDataIcon");
+		this.json.put("data", this.jsonArray);
+	}
 	public void rename() {
 		JSONObject json = this.jsonArray.getJSONObject(0); 
-		json.put("os_id", os.getId());
 		json.remove("id");
 		this.dataIconsDAO.rename(json);
-		json.remove("os_id");
+		System.out.println(json);
 		json.remove("src");
 		this.json = new JSONObject();
 		this.json.put("status","rename");
@@ -64,17 +78,6 @@ public class DesktopManager {
 		this.json = new JSONObject();
 		this.json.put("status", "delDataIcon");
 		this.json.put("data", ids.substring(0,ids.length()-1));
-	}
-
-	public void insertDataIcon() {
-		this.dataIconsDAO.insert(this.jsonArray);
-		this.dataIconsDAO.load();
-		JSONArray newIconArray = this.dataComparison(new JSONArray(), this.dataIconsDAO.getJSONArray(), this.jsonArray,	0, 0);
-		this.jsonArray = newIconArray;
-		this.isUpdated = true;
-		this.json = new JSONObject();
-		this.json.put("status", "appendDataIcon");
-		this.json.put("data", this.jsonArray);
 	}
 
 	private JSONArray dataComparison(JSONArray newIconArray, JSONArray iconArray, JSONArray dataArray, int iNum, int dNum) {
@@ -185,7 +188,6 @@ public class DesktopManager {
 	}
 
 	public void setJSON(JSONObject json) {
-		json.put("os_id", this.json.get("os_id"));
 		this.json = json;
 	}
 

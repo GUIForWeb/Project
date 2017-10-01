@@ -122,6 +122,18 @@ public class MySQL{
 		}
 		return result;
 	}
+	public int executeUpdate(String query, String[] info){
+		int result = 0;
+		try {
+			this.pstmt = this.conn.prepareStatement(query);
+			for(int ii=0; ii<info.length; ii++)
+				this.pstmt.setString(ii+1, info[ii]);
+			result = this.pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	public int executeUpdate(String query){
 		int result = 0;
 		try {

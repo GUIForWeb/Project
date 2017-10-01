@@ -28,7 +28,7 @@ public class DataIconsDAOMySQL implements DataIconsDAO {
 	public void rename(JSONObject json){
 		String query = "call renameDataIcon(?,?,?)";
 		String[] info = new String[3];
-		info[0] = String.valueOf(json.getInt("os_id"));
+		info[0] = String.valueOf(this.os.getId());
 		info[1] = json.getString("src");
 		info[2] = json.getString("dest");
 		this.db.connect();

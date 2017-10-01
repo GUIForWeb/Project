@@ -19,9 +19,25 @@ system.elements.configures.subsystems.managers.ExecutionManager = function() {
 			case "text/plain":
 				this.text();
 			break;
+			case "directory":
+				this.directory();
+			break;
 		}
 	}
 	this.text = function(){
 		console.log(this.iconObj);
+	}
+	this.directory = function(){
+		var name = this.iconObj.name;
+		var path = "/Desktop/"+this.iconObj.name;
+		var contentURL = "/apps/fileBrowser/comps/views/fileBrowser.jsf";
+		this.iconObj.contentURL = contentURL+"?path="+encodeURIComponent(path);
+		this.iconObj.name = "File Browser";
+		this.icon();
+		var win = this.nodeArray["winAndBar"].lastWin.win;
+		win.contentURL = contentURL;
+		var inputPath = win.view.contentSelector.find(".path");
+		inputPath.val(path);
+		this.iconObj.name = name;
 	}
 }

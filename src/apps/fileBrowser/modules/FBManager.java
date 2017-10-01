@@ -41,7 +41,8 @@ public class FBManager {
 	private Session websocketSession;
 	private HttpServletResponse response;
 	private int per;
-	private JSONArray data;
+	private JSONArray dataArray;
+	private JSONObject data;
 
 	public FBManager() {
 		this.dataItemDAO = new DataItemsDAO();
@@ -171,7 +172,7 @@ public class FBManager {
 		File file = new File(this.path + "/" + name);
 		String ext = name.substring(name.lastIndexOf(".") + 1, name.length());
 		name = name.substring(0, name.lastIndexOf("."));
-		this.data = new JSONArray();
+		this.dataArray = new JSONArray();
 		if (file.exists())
 			file = this.checkDest(this.path, name, 0, ext);
 			System.out.println(file);
@@ -205,7 +206,7 @@ public class FBManager {
 	public void paste() {
 		JSONObject clipboard = (JSONObject) this.session.getAttribute("clipboard");
 		if (clipboard != null) {
-			this.data = new JSONArray();
+			this.dataArray = new JSONArray();
 			String status = clipboard.getString("status");
 			String path = clipboard.getString("path");
 			int prevId = clipboard.getInt("id");
@@ -309,7 +310,7 @@ public class FBManager {
 			tmpDI.setLastModified(file.lastModified());
 			tmpDI.setDateModified(sdf.format(file.lastModified()));
 			tmpDI.setSize(file.length());
-			this.data.put(tmpDI.getJSON());
+			this.dataArray.put(tmpDI.getJSON());
 		}
 	}
 	public void setClipboard(String status) {
@@ -366,7 +367,7 @@ public class FBManager {
 		boolean success = false;
 		String path;
 		String type;
-		this.data = new JSONArray();
+		this.dataArray = new JSONArray();
 		for (int di = 0; di < data.length(); di++) {
 			tmpJSON = data.getJSONObject(di);
 			path = this.path + "/" + tmpJSON.getString("name");
@@ -394,14 +395,19 @@ public class FBManager {
 	}
 
 	public void rename() {
-		this.data = new JSONArray();
-		this.data.put(this.json);
 		String srcStr = this.browser.getPath() + "/" + this.json.getString("src");
 		String destStr = this.browser.getPath() + "/" + this.json.getString("dest");
 		File src = new File(srcStr);
 		File dest = new File(destStr);
 		if (!src.equals(dest) && src.renameTo(dest)) {
 			this.multiReload();
+		}
+		if(this.path.equals(this.desktopPath)){
+			JSONObject json = new JSONObject();
+			json.put("src",src.getName());
+			json.put("dest",dest.getName());
+			this.dataArray = new JSONArray();
+			this.dataArray.put(json);
 		}
 	}
 
@@ -411,21 +417,30 @@ public class FBManager {
 		if (!newFolder.exists()) {
 			newFolder.mkdirs();
 		} else {
-			this.mkDir(this.browser, name, 0);
+			newFolder = this.mkDir(this.browser, name, 0);
 		}
 		this.dataItemDAO.setFilePath(this.path);
 		this.dataItemDAO.load();
 		this.jsonArray = this.dataItemDAO.getJSONArray();
 		this.multiReload();
+		if(this.path.equals(this.desktopPath)){
+			this.data = new JSONObject();
+			this.data.put("name", newFolder.getName());
+			this.data.put("size", newFolder.length());
+			this.data.put("type", "directory");
+			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+			this.data.put("dateModified", sdf.format(newFolder.lastModified()));
+		}
 	}
 
-	private void mkDir(Browser browser, String name, int num) {
+	private File mkDir(Browser browser, String name, int num) {
 		File newFolder = new File(browser.getPath() + "/" + name + " " + num);
 		if (!newFolder.exists()) {
 			newFolder.mkdirs();
 		} else {
-			this.mkDir(browser, name, num + 1);
+			newFolder = this.mkDir(browser, name, num + 1);
 		}
+		return newFolder;
 	}
 
 	public void loadRoot() {
@@ -598,12 +613,12 @@ public class FBManager {
 		this.path = path;
 	}
 	
-	public JSONArray getData() {
-		return data;
+	public JSONArray getDataArray() {
+		return dataArray;
 	}
 
-	public void setData(JSONArray data) {
-		this.data = data;
+	public void setDataArray(JSONArray dataArray) {
+		this.dataArray = dataArray;
 	}
 	
 	public String getDesktopPath() {
@@ -612,5 +627,13 @@ public class FBManager {
 
 	public void setDesktopPath(String desktopPath) {
 		this.desktopPath = desktopPath;
+	}
+
+	public JSONObject getData() {
+		return data;
+	}
+
+	public void setData(JSONObject data) {
+		this.data = data;
 	}
 }

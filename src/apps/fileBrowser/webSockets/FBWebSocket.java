@@ -79,7 +79,8 @@ public class FBWebSocket implements WebSocketInterface{
 		if((this.fbm.getRoot() + "/Desktop").equals(this.fbm.getPath())){
 			if(status.equals("newFolder") || status.equals("rename") || status.equals("del") ||	status.equals("paste") || status.equals("uploadStart")){
 				this.dm = (DesktopManager) this.session.getAttribute("desktopManager");
-				this.dm.setJSONArray(this.fbm.getData());
+				this.dm.setJSONArray(this.fbm.getDataArray());
+				this.dm.setJSON(this.fbm.getData());
 			}
 			switch (status) {
 				case "del":
@@ -94,13 +95,15 @@ public class FBWebSocket implements WebSocketInterface{
 				case "rename":
 					this.dm.rename();
 					break;
+				case "newFolder":
+					this.dm.newFolder();
+					break;
 			}
 			//make a client side websocket for desktop update
 			if(this.dm.isUpdated()){
 				this.dm.setUpdated(false);
 				JSONObject be = new JSONObject();
 				JSONObject json = new JSONObject();
-				JSONObject data = new JSONObject();
 				be.put("receiving", json);
 				json.put("app", "gui.desktop.socket");
 				json.put("data", this.dm.getJSON());
