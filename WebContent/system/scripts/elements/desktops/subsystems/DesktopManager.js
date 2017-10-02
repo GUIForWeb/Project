@@ -17,6 +17,7 @@ system.elements.desktops.subsystems.DesktopManager = function() {
 			tmpIcon.view.iconTdBorderHeight = this.iconTdValueArray["iconTdBorderHeight"];
 			tmpIcon.appear();
 			this.iconArray[tmpIcon.tagId] = tmpIcon;
+			this.iconArray.push(this.iconJSONArray[ci]);
 		}
 	}
 	this.appendDataIcon = function(jsonArray){
@@ -31,16 +32,10 @@ system.elements.desktops.subsystems.DesktopManager = function() {
 			tmpIcon.view.iconTdBorderHeight = this.iconTdValueArray["iconTdBorderHeight"];
 			tmpIcon.appear();
 			this.iconArray[tmpIcon.tagId] = tmpIcon;
+			this.iconArray.push(jsonArray[di]);
 		}
 		this.ds.dataIconXYs(this.xy);
-		this.enumIconArrays();
-	}
-	this.enumIconArrays = function() {
-		this.jsonArray = [];
-		for(var key in this.iconArray){
-			var icon = this.iconArray[key];
-			this.jsonArray.push({"id": icon.id,"x": icon.x,"y": icon.y,"name": icon.name,"dateModified": icon.dateModified,"size": icon.size,"type": icon.type, "isChosen": false, "isChangeable": true});
-		}
+		
 	}
 	this.delDataIcon = function(ids){
 		ids = ids.split(",");

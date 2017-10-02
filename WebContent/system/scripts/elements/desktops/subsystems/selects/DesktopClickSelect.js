@@ -1,15 +1,22 @@
 system.elements.desktops.subsystems.selects.DesktopClickSelect = function() {
-	this.row = function(event){
-		/*
+	this.icon = function(event){
 		this.setScriptTag(event.target.parentNode);
-		if(this.tag["s"].find("th").length == 0 && this.tag["t"].children[0].innerHTML != ".."
-			&& this.tag["s"].prop("tagName") == "TR") {
-			var rIdx = this.tag["t"].rowIndex;
-			this.va["data"][rIdx-2].isChosen = true;
-			this.va["data"][rIdx-2].isChangeable = false;
-			this.va["selectedRow"] = rIdx;
-			this.tag["s"].css("background-color","dimgray");
+		if (this.tag["s"].prop("class").includes("iconDiv")) {
+			var id = this.tag["s"].attr("id");
+			this.isWorking = true;
+			var data = this.iconArray[id].json;
+			if(data.isChosen){
+				data.isChosen= false;
+				data.isChangeable= true;
+				this.tag["s"].css("background-color", "white");
+			}
+			else {
+				data.isChosen= true;
+				data.isChangeable= false;
+				this.tag["s"].css("background-color", "dimgray");
+				this.tag["s"].css("opacity", "1");
+				this.va["selectedIcon"] = this.tag["s"];
+			}
 		}
-		*/
 	}	
 }

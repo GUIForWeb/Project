@@ -47,7 +47,7 @@ public class DataIconsDAOMySQL implements DataIconsDAO {
 		int[] info = new int[4];
 		info[0] = json.getInt("x");
 		info[1] = json.getInt("y");
-		info[2] = json.getInt("os_id");
+		info[2] = this.os.getId();
 		info[3] = json.getInt("id");
 		this.db.connect();
 		this.db.update(query,info);

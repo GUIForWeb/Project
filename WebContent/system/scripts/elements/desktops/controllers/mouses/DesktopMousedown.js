@@ -13,14 +13,14 @@ system.elements.desktops.controllers.mouses.DesktopMousedown = function() {
 	this.button = function(event) {
 		if(!this.select.mousemove.isOnGoing && event.button == 0) {
 			if(event.ctrlKey){
-				this.select.ctrl.row(event);
+				this.select.ctrl.icon(event);
 			}
 			else if(event.shiftKey){
-				this.select.shift.row(event);
+				this.select.shift.icon(event);
 			}
 			else if(!this.select.shift.isWorking && !this.select.mousemove.isWorking){
 				this.select.cancle.all();
-				this.select.click.row(event);
+				this.select.click.icon(event);
 			}
 			else if(!this.select.mousemove.isOnGoing){
 				this.setScriptTag(event.currentTarget);

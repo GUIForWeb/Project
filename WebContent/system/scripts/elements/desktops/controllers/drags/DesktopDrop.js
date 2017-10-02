@@ -14,6 +14,7 @@ system.elements.desktops.controllers.drags.DesktopDrop = function() {
 				};
 				delete this.iconCoordinate[icon.x+","+icon.y];
 				this.iconCoordinate[newTd.x+","+newTd.y] = true;
+				icon.disappear();
 				icon.x = newTd.x;
 				icon.y = newTd.y;
 				icon.appear();

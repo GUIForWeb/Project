@@ -3,9 +3,9 @@ system.elements.desktops.subsystems.selects.DesktopSelectEnd = function() {
 		this.va["selectedData"] = [];
 		this.filter(this.va["selectedData"]);
 		this.validation();
-		for(di=0; di<this.manager.jsonArray.length; di++) {
-			this.manager.jsonArray[di].isChosen == false;
-			this.manager.jsonArray[di].isChangeable = true;
+		for(di=0; di<this.iconArray.length; di++) {
+			this.iconArray[di].isChosen == false;
+			this.iconArray[di].isChangeable = true;
 		}
 		console.log(this.va["selectedData"]);
 	}

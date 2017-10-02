@@ -19,6 +19,7 @@ system.models.Icon = function(){
 		this.name = iconJSON.name;
 		this.contentURL = iconJSON.contentURL;
 		this.imgURL = iconJSON.imgURL;
+		this.json = iconJSON;
 	}
 	this.appear = function(){
 		this.view.getView();

@@ -47,7 +47,7 @@ system.elements.desktops.subsystems.selects.DesktopMousemoveSelect = function() 
 		$("#selection").height(sizeY);
 		for(fi=0; fi<this.iconDivArray.length; fi++){
 			var iconDiv = $(this.iconDivArray[fi]);
-			var data = this.manager.jsonArray[fi];
+			var data = this.iconArray[fi];
 			var isChosen = data.isChosen = true;
 			if(event.clientY != 0)
 			if(data.isChangeable) {
@@ -55,11 +55,11 @@ system.elements.desktops.subsystems.selects.DesktopMousemoveSelect = function() 
 					var con0 = (event.clientX - iconDiv.offset().left) < iconDiv.width();
 					var con1 = event.clientY > ((iconDiv.offset().top*2 + iconDiv.height())/2)
 					if(con0 && con1){
-						data.isChosen = true;
+						this.selectData(data,true);
 						this.hover(true, iconDiv);
 					}
 					else{
-						data.isChosen = false;
+						this.selectData(data,false);
 						this.hover(false, iconDiv);
 					} 
 				}
@@ -68,11 +68,11 @@ system.elements.desktops.subsystems.selects.DesktopMousemoveSelect = function() 
 					var con1 = event.clientX > this.stdX
 					var con2 = event.clientY < ((iconDiv.offset().top*2 + iconDiv.height())/2);
 					if((con0 || con1) && con2){
-						data.isChosen = true;
+						this.selectData(data,true);
 						this.hover(true, iconDiv);
 					}
 					else{
-						data.isChosen = false;
+						this.selectData(data,false);
 						this.hover(false, iconDiv);
 					} 
 				}
@@ -83,15 +83,15 @@ system.elements.desktops.subsystems.selects.DesktopMousemoveSelect = function() 
 					var con3 = event.clientY > ((iconDiv.offset().top*2 + iconDiv.height())/2);
 					var con4 = ((iconDiv.offset().top*2 + iconDiv.height())/2) > this.stdY;
 					if(con0 && con1 && con2){
-						data.isChosen = true;
+						this.selectData(data,true);
 						this.hover(true, iconDiv);
 					}
 					else if(con0 && con3 && con4){
-						data.isChosen = true;
+						this.selectData(data,true);
 						this.hover(true, iconDiv);
 					}
 					else{
-						data.isChosen = false;
+						this.selectData(data,false);
 						this.hover(false, iconDiv);
 					}
 				}
@@ -101,7 +101,7 @@ system.elements.desktops.subsystems.selects.DesktopMousemoveSelect = function() 
 					var con0 = (event.clientX - iconDiv.offset().left) < iconDiv.width();
 					var con1 = event.clientY > ((iconDiv.offset().top*2 + iconDiv.height())/2)
 					if(con0 && con1){
-						data.isChosen = false;
+						this.selectData(data,false);
 						this.hover(false, iconDiv);
 					}
 				}
@@ -110,7 +110,7 @@ system.elements.desktops.subsystems.selects.DesktopMousemoveSelect = function() 
 					var con1 = event.clientX > this.stdX
 					var con2 = event.clientY < ((iconDiv.offset().top*2 + iconDiv.height())/2);
 					if((con0 || con1) && con2){
-						data.isChosen = false;
+						this.selectData(data,false);
 						this.hover(false, iconDiv);
 					}
 				}
@@ -121,11 +121,11 @@ system.elements.desktops.subsystems.selects.DesktopMousemoveSelect = function() 
 					var con3 = event.clientY > ((iconDiv.offset().top*2 + iconDiv.height())/2);
 					var con4 = ((iconDiv.offset().top*2 + iconDiv.height())/2) > this.stdY;
 					if(con0 && con1 && con2){
-						data.isChosen = false;
+						this.selectData(data,false);
 						this.hover(false, iconDiv);
 					}
 					else if(con0 && con3 && con4){
-						data.isChosen = false;
+						this.selectData(data,false);
 						this.hover(false, iconDiv);
 					}
 				}
@@ -135,14 +135,11 @@ system.elements.desktops.subsystems.selects.DesktopMousemoveSelect = function() 
 	this.end = function(event){
 		var flag = false
 		var data = null;
-		for(di=0; di<this.manager.jsonArray.length; di++) {
-			data = this.manager.jsonArray[di];
+		for(di=0; di<this.iconArray.length; di++) {
+			data = this.iconArray[di];
 			if(data.isChosen == true){
 				flag = true;
-				data.isChangeable = false;
-			}
-			else {
-				data.isChangeable = true;
+				break;
 			}
 		}
 		$("#selection").remove();
@@ -187,17 +184,17 @@ system.elements.desktops.subsystems.selects.DesktopMousemoveSelect = function() 
 		$("#selection").height(sizeY);
 		for(fi=0; fi<this.iconDivArray.length; fi++){
 			var iconDiv = $(this.iconDivArray[fi]);
-			var data = this.manager.jsonArray[fi];
+			var data = this.iconArray[fi];
 			if(event.clientY != 0) 
 			if(this.case == 0){
 				var con0 = (event.clientX - iconDiv.offset().left) < iconDiv.width();
 				var con1 = event.clientY > ((iconDiv.offset().top*2 + iconDiv.height())/2)
 				if(con0 && con1){
-					data.isChosen = true;
+					this.selectData(data,true);
 					this.hover(true, iconDiv);
 				}
 				else{
-					data.isChosen = false;
+					this.selectData(data,false);
 					this.hover(false, iconDiv);
 				} 
 			}
@@ -206,11 +203,11 @@ system.elements.desktops.subsystems.selects.DesktopMousemoveSelect = function() 
 				var con1 = event.clientX > this.stdX
 				var con2 = event.clientY < ((iconDiv.offset().top*2 + iconDiv.height())/2);
 				if((con0 || con1) && con2){
-					data.isChosen = true;
+					this.selectData(data,true);
 					this.hover(true, iconDiv);
 				}
 				else{
-					data.isChosen = false;
+					this.selectData(data,false);
 					this.hover(false, iconDiv);
 				} 
 			}
@@ -221,15 +218,15 @@ system.elements.desktops.subsystems.selects.DesktopMousemoveSelect = function() 
 				var con3 = event.clientY > ((iconDiv.offset().top*2 + iconDiv.height())/2);
 				var con4 = ((iconDiv.offset().top*2 + iconDiv.height())/2) > this.stdY;
 				if(con0 && con1 && con2){
-					data.isChosen = true;
+					this.selectData(data,true);
 					this.hover(true, iconDiv);
 				}
 				else if(con0 && con3 && con4){
-					data.isChosen = true;
+					this.selectData(data,true);
 					this.hover(true, iconDiv);
 				}
 				else{
-					data.isChosen = false;
+					this.selectData(data,false);
 					this.hover(false, iconDiv);
 				}
 			}
@@ -267,14 +264,6 @@ system.elements.desktops.subsystems.selects.DesktopMousemoveSelect = function() 
 		}
 		else {
 			this.case = 2;
-		}
-	}
-	this.hover = function(hover, iconDiv){
-		if(hover){
-			iconDiv.css("background-color","dimgray");
-		}
-		else {
-			iconDiv.css("background-color","white");
 		}
 	}
 }

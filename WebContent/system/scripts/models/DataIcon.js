@@ -16,6 +16,7 @@ system.models.DataIcon = function(){
 		this.x = dataJSON.x;
 		this.y = dataJSON.y;
 		this.imgURL = "/system/comps/icons/"+this.type.replace("/","_")+".png";
+		this.json = dataJSON;
 	}
 	this.appear = function(){
 		this.view.getView();

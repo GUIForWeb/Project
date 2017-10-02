@@ -2,8 +2,8 @@ system.elements.desktops.subsystems.selects.DesktopSelectCancle = function() {
 	this.all = function(){
 		this.background.view.tableSelector.find(".iconDiv").css("background-color", "white");
 		this.va["selectedData"] = [];
-		for(i=0; i<this.manager.jsonArray.length; i++) 
-			this.manager.jsonArray[i].isChosen = false;
+		for(ii=0; ii<this.iconArray.length; ii++) 
+			this.iconArray[ii].isChosen = false;
 		this.mousemove.cancle();
 		this.shift.cancle();
 		this.select.ctrl.cancle();

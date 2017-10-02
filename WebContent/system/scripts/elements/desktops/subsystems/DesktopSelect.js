@@ -14,11 +14,24 @@ system.elements.desktops.subsystems.DesktopSelect = function() {
 	this.cancle = new DesktopSelectCancle();
 	this.cancle.__proto__ = this;
 	this.filter = function(selectedData){
-		return this.manager.jsonArray.filter(function( element ) {
+		return this.iconArray.filter(function( element ) {
 			if(element.isChosen){
-				if(element.type !== undefined)
+				if(element.dateModified !== undefined)
 					selectedData.push({"name":element.name,"type":element.type});
 			}
 		});
+	}
+	this.selectData = function(data,flag){
+		data.isChosen = flag;
+		data.isChangeable = !flag;
+	}
+	this.hover = function(ishover, iconDiv){
+		if(ishover){
+			iconDiv.css("background-color","dimgray");
+		}
+		else {
+			iconDiv.css("background-color","white");
+		}
+		iconDiv.css("opacity","1");
 	}
 }
