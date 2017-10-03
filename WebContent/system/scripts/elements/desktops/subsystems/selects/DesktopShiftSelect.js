@@ -5,21 +5,17 @@ system.elements.desktops.subsystems.selects.DesktopShiftSelect = function() {
 	this.rIdx1 = null;
 	this.icon = function(event){
 		this.setScriptTag(event.target.parentNode);
-		console.log(this.tag["s"].parent().prop("id"));
 		var rowTag = this.tag["t"].parentNode.parentNode;
-		
-		console.log(this.background.view.tableSelector);
-		console.log();
 		var rIdx = rowTag.rowIndex;
 		var data = null;
 		if(this.va["selectedIcon"] != null){
-			console.log(this.va["selectedIcon"]);
-			/*
-			this.rIdx0 = this.va["selectedIcon"];
+			var icon = this.va["selectedIcon"];
+			this.tagId0 = icon.prop("id");
+			this.tagId1 = this.tag["s"].prop("id");
+			this.rIdx0 = icon[0].parentNode.parentNode.rowIndex;
 			this.rIdx1 = rIdx;
 			this.init();
 			this.widing();
-			*/
 		}
 		else if(this.rIdx0 === null) {
 			this.rIdx0 = rIdx;

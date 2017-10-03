@@ -16,6 +16,8 @@ system.elements.desktops.subsystems.DesktopManager = function() {
 			tmpIcon.view.iconTdBorderWidth = this.iconTdValueArray["iconTdBorderWidth"];
 			tmpIcon.view.iconTdBorderHeight = this.iconTdValueArray["iconTdBorderHeight"];
 			tmpIcon.appear();
+			this.iconJSONArray[ci].isChosen = false;
+			this.iconJSONArray[ci].isChangeable = true;
 			this.iconArray[tmpIcon.tagId] = tmpIcon;
 			this.iconArray.push(this.iconJSONArray[ci]);
 		}
@@ -31,6 +33,8 @@ system.elements.desktops.subsystems.DesktopManager = function() {
 			tmpIcon.view.iconTdBorderWidth = this.iconTdValueArray["iconTdBorderWidth"];
 			tmpIcon.view.iconTdBorderHeight = this.iconTdValueArray["iconTdBorderHeight"];
 			tmpIcon.appear();
+			jsonArray[di].isChosen = false;
+			jsonArray[di].isChangeable = true;
 			this.iconArray[tmpIcon.tagId] = tmpIcon;
 			this.iconArray.push(jsonArray[di]);
 		}
