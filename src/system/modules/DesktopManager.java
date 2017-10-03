@@ -50,6 +50,8 @@ public class DesktopManager {
 		this.json.put("data", this.jsonArray);
 	}
 	public void rename() {
+		System.out.println(this.json);
+		/*
 		JSONObject json = this.jsonArray.getJSONObject(0); 
 		json.remove("id");
 		this.dataIconsDAO.rename(json);
@@ -59,6 +61,7 @@ public class DesktopManager {
 		this.json.put("status","rename");
 		this.json.put("data",json);
 		this.isUpdated = true;
+		*/
 	}
 	public void dataIconXYs(){
 		this.jsonArray = this.json.getJSONArray("data");

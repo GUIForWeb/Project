@@ -1,4 +1,4 @@
-system.webSockets.DesktopWebSocket = function (ip) {
+system.elements.desktops.communications.webSockets.DesktopReceiver = function() {
 	this.onMessage = function(json){
 		switch (json.status) {
 			case "appendDataIcon":

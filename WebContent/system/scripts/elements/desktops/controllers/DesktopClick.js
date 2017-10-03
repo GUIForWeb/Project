@@ -5,8 +5,14 @@ system.elements.desktops.controllers.DesktopClick = function() {
 		if(icon.prop("class").includes("dataIcon")){
 			var nameP = icon.find("p");
 			nameP.attr("contenteditable", true);
+			nameP.focusout(function(event) {
+				gui.desktop.focus.out.rename(event);
+			});
+			nameP.keydown(function(event) {
+				gui.desktop.key.down.rename(event);
+			});
 			nameP.focus();
-			//complete rename func
+			this.va["prevData"] = this.va["selectedData"];
 		}
 	}
 	this.copy = function(event) {

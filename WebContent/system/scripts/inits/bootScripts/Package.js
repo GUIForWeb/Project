@@ -15,6 +15,10 @@ system.elements.desktops.subsystems.selects = {};
 system.elements.desktops.controllers = {};
 system.elements.desktops.controllers.mouses = {};
 system.elements.desktops.controllers.drags = {};
+system.elements.desktops.controllers.focuses = {};
+system.elements.desktops.controllers.keys = {};
+system.elements.desktops.communications = {};
+system.elements.desktops.communications.webSockets = {};
 
 system.elements.winAndBars = {};
 system.elements.winAndBars.subsystems = {};

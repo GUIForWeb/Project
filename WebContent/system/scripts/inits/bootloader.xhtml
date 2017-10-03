@@ -23,7 +23,6 @@
 	<script src="#{contextPath}/system/scripts/views/BackgroundContextMenuView.js" />
 	<script src="#{contextPath}/system/scripts/views/IconContextMenuView.js" />
 	<script src="#{contextPath}/system/scripts/views/DataIconView.js" />
-	<script src="#{contextPath}/system/scripts/webSockets/DesktopWebSocket.js" />
 	
 	<script src="#{contextPath}/system/scripts/modules/WinAndBar.js" />
 	<script src="#{contextPath}/system/scripts/elements/winAndBars/controllers/WinAndBarChange.js" />
@@ -92,6 +91,18 @@
 	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/drags/DesktopDragend.js" />
 	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/drags/DesktopDragover.js" />
 	
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/DesktopFocus.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/focuses/DesktopFocusout.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/focuses/DesktopFocusin.js" />
+	
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/DesktopKey.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/keys/DesktopKeydown.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/keys/DesktopKeyup.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/controllers/keys/DesktopKeypress.js" />
+	
+	<script src="#{contextPath}/system/scripts/elements/desktops/communications/DesktopWebSocket.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/communications/webSockets/DesktopReceiver.js" />
+	<script src="#{contextPath}/system/scripts/elements/desktops/communications/webSockets/DesktopSender.js" />
 	<script src="#{contextPath}/system/scripts/inits/bootScripts/Import.js" />
 	<ui:repeat value="#{libs.list}" var="value">
     	<script src="#{value}" /> 

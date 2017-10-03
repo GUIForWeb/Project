@@ -20,8 +20,6 @@ var WindowView = system.views.WindowView;
 var IconContextMenuView = system.views.IconContextMenuView;
 var DataIconView = system.views.DataIconView;
 
-var DesktopWebSocket = system.webSockets.DesktopWebSocket;
-
 //Window
 var WinAndBar = system.modules.WinAndBar;
 
@@ -97,3 +95,18 @@ var DesktopDraging = system.elements.desktops.controllers.drags.DesktopDraging;
 var DesktopDragstart = system.elements.desktops.controllers.drags.DesktopDragstart;
 var DesktopDragover = system.elements.desktops.controllers.drags.DesktopDragover;
 var DesktopDrop = system.elements.desktops.controllers.drags.DesktopDrop;
+
+var DesktopFocus = system.elements.desktops.controllers.DesktopFocus;
+var DesktopFocusout = system.elements.desktops.controllers.focuses.DesktopFocusout;
+var DesktopFocusin = system.elements.desktops.controllers.focuses.DesktopFocusin;
+
+var DesktopKey = system.elements.desktops.controllers.DesktopKey;
+var DesktopKeydown = system.elements.desktops.controllers.keys.DesktopKeydown;
+var DesktopKeyup = system.elements.desktops.controllers.keys.DesktopKeyup;
+var DesktopKeypress = system.elements.desktops.controllers.keys.DesktopKeypress;
+
+var DesktopWebSocket = system.elements.desktops.communications.DesktopWebSocket;
+var DesktopSender = system.elements.desktops.communications.webSockets.DesktopSender;
+var DesktopReceiver = system.elements.desktops.communications.webSockets.DesktopReceiver;
+
+

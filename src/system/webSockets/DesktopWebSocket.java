@@ -33,6 +33,9 @@ public class DesktopWebSocket implements WebSocketInterface {
 		json.remove("status");
 		this.dm.setJSON(json);
 		switch(status){
+			case "rename":
+				this.dm.rename();
+				break;
 			case "iconXY":
 				this.dm.iconXY();
 				break;

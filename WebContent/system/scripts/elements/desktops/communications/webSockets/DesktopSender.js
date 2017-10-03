@@ -1,4 +1,4 @@
-system.elements.desktops.subsystems.DesktopSender = function() {
+system.elements.desktops.communications.webSockets.DesktopSender = function() {
 	this.json = {
 		"app" : "system.webSockets.DesktopWebSocket",
 		"data" : {}
@@ -9,19 +9,19 @@ system.elements.desktops.subsystems.DesktopSender = function() {
 			"src" : this.va["prevData"][0].name,
 			"dest" : this.va["selectedData"][0].name
 		}
-		this.ws.send(this.json);
+		gui.ws.send(this.json);
 	}
 	this.dataIconXY = function(json) {
 		this.json.data = Object.assign({}, {
 			"status" : "dataIconXY"
 		}, json);
-		this.ws.send(this.json);
+		gui.ws.send(this.json);
 	}
 	this.iconXY = function(json) {
 		this.json.data = Object.assign({}, {
 			"status" : "iconXY"
 		}, json);
-		this.ws.send(this.json);
+		gui.ws.send(this.json);
 	}
 	this.dataIconXYs = function(jsonArray) {
 		this.json.data = Object.assign({}, {
@@ -31,7 +31,7 @@ system.elements.desktops.subsystems.DesktopSender = function() {
 		});
 		var json = this.json
 		if (jsonArray.length != 0)
-			this.ws.onopen(function() {
+			gui.ws.onopen(function() {
 				gui.ws.send(json);
 			});
 	}

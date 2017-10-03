@@ -105,7 +105,7 @@ public class FBWebSocket implements WebSocketInterface{
 				JSONObject be = new JSONObject();
 				JSONObject json = new JSONObject();
 				be.put("receiving", json);
-				json.put("app", "gui.desktop.socket");
+				json.put("app", "gui.desktop.socket.receiver");
 				json.put("data", this.dm.getJSON());
 				try {
 					this.websocketSession.getBasicRemote().sendText(be.toString());
