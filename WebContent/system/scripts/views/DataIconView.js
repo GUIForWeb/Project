@@ -23,11 +23,9 @@ system.views.DataIconView = function(icon) {
 			gui.desktop.drag.start.icon(event);
 		});
 		outerSelector.dblclick(function(event) {
-			event.stopPropagation()
 			gui.desktop.dblclick.icon(event);
 		});
 		outerSelector.contextmenu(function(event) {
-			event.stopPropagation();
 			gui.desktop.contextmenu.icon(event);
 		});
 		outerSelector.mouseover(function(event) {

@@ -28,9 +28,6 @@ system.elements.desktops.controllers.mouses.DesktopMousedown = function() {
 					this.select.cancle.all();
 				}
 			}
-			if (taskArray["contextMenu"].isOnTheScreen) {
-				taskArray["contextMenu"].disappear();
-			}
 		}
 	}
 }

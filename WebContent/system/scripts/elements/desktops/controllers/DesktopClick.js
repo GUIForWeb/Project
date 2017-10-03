@@ -1,6 +1,13 @@
 system.elements.desktops.controllers.DesktopClick = function() {
 	this.rename = function(event) {
-		
+		this.setScriptTag(event.target);
+		var icon = this.va["selectedIcon"];
+		if(icon.prop("class").includes("dataIcon")){
+			var nameP = icon.find("p");
+			nameP.attr("contenteditable", true);
+			nameP.focus();
+			//complete rename func
+		}
 	}
 	this.copy = function(event) {
 			

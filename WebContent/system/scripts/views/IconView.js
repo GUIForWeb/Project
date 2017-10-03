@@ -25,7 +25,7 @@ system.views.IconView = function(icon) {
 			gui.desktop.dblclick.icon(event);
 		});
 		outerSelector.contextmenu(function(event) {
-			event.stopPropagation();
+			gui.desktop.contextmenu.icon(event);
 		});
 		outerSelector.mouseover(function(event) {
 			gui.desktop.mouse.over.icon(event);

@@ -4,7 +4,7 @@ system.views.IconContextMenuView = function(iconContextMenuModel) {
 	this.contentLayerTagClass = "contextMenuContentLayer";
 	this.contentPath = "";
 	this.contextMenuLayer = function() {
-		this.outerSelector.append(this.contentSelector);
+		this.outerSelector.append(this.menuSelector);
 		this.contextMenuSelector = this.outerSelector;
 	}
 	this.outerLayer = function() {
@@ -19,7 +19,7 @@ system.views.IconContextMenuView = function(iconContextMenuModel) {
 		tmpTag.addClass(this.outerLayerTagClass);
 		this.outerSelector = tmpTag;
 	}
-	this.contentLayer = function() {
+	this.menuLayer = function() {
 		var tmpSelector = $("<div></div>");
 		var ulSelector = $("<ul></ul>");
 		var renameSelector = $("<li>Rename</li>");
@@ -55,10 +55,10 @@ system.views.IconContextMenuView = function(iconContextMenuModel) {
 		ulSelector.append(deleteSelector);
 		ulSelector.append(downloadSelector);
 		tmpSelector.addClass(this.contentLayerTagClass);
-		this.contentSelector = tmpSelector;
+		this.menuSelector = tmpSelector;
 	}
 	this.getView = function() {
-		this.contentLayer();
+		this.menuLayer();
 		this.outerLayer();
 		this.contextMenuLayer();
 	}

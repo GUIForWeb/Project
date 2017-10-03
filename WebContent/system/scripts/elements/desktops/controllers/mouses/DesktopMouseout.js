@@ -7,7 +7,7 @@ system.elements.desktops.controllers.mouses.DesktopMouseout = function() {
 				this.cssTag["s"].css("background-color", "white");
 				this.cssTag["s"].css("opacity", "1");
 			}
-			else if((event.ctrlKey || event.shiftKey) && this.cssTag["t"].style.getPropertyValue("background-color") == "lightgrey") {
+			else if((event.ctrlKey || event.shiftKey) && this.cssTag["t"].style.getPropertyValue("background-color") == "skyblue") {
 				this.cssTag["s"].css("background-color", "white");
 				this.cssTag["s"].css("opacity", "1");
 			}
