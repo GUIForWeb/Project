@@ -15,7 +15,6 @@ system.elements.desktops.controllers.DesktopContextMenu = function() {
 			this.select.contextmenu.click(event);
 			this.iconContextMenu.appear();
 			this.select.end.data();
-			event.preventDefault();
 		}
 	}
 }

@@ -206,17 +206,66 @@ public class FBManager {
 	public void paste() {
 		JSONObject clipboard = (JSONObject) this.session.getAttribute("clipboard");
 		if (clipboard != null) {
+			int prevId = 0;
 			this.desktopJSONArray = new JSONArray();
 			String status = clipboard.getString("status");
 			String path = clipboard.getString("path");
-			int prevId = clipboard.getInt("id");
-			JSONArray data = clipboard.getJSONArray("data"); 
-			this.checkExistence(status, data, path, this.path);
+			JSONArray data = clipboard.getJSONArray("data");
+			if(!(path.equals(this.path) && status.equals("cut")))
+				this.checkExistence(status, data, path, this.path);
+			if(clipboard.has("id")){
+				prevId = clipboard.getInt("id");
+				this.multiplexReload(prevId, path);
+			}
+			else
+				this.multiReload();
+			if(status.equals("cut") && path.equals(this.desktopPath) && this.path.equals(this.desktopPath)) {
+				this.path = "";
+			}
 			this.session.removeAttribute("clipboard");
-			this.multiplexReload(prevId, path);
 		}
 	}
-	
+	private void multiplexReload(int prevId, String path) {
+		if (this.browser.isWeb()) {
+			this.reload();
+		} else {
+			JSONObject json;
+			JSONArray data = new JSONArray();
+			JSONArray ids = new JSONArray();
+			this.json = new JSONObject();
+			this.json.put("status", "multiplexReload");
+
+			this.dataItemDAO.setFilePath(this.path);
+			this.dataItemDAO.load();
+			this.jsonArray = this.dataItemDAO.getJSONArray();
+			for (Browser b : this.browserList) {
+				if (b.getPath().equals(this.path) && !b.isWeb()) {
+					ids.put(b.getId());
+				}
+			}
+			json = new JSONObject();
+			json.put("id", ids);
+			json.put("data", this.jsonArray);
+			data.put(json);
+
+			ids = new JSONArray();
+			this.dataItemDAO.setFilePath(path);
+			this.dataItemDAO.load();
+			this.jsonArray = this.dataItemDAO.getJSONArray();
+			for (Browser b : this.browserList) {
+				if (b.getPath().equals(path)) {
+					ids.put(b.getId());
+				}
+			}
+			json = new JSONObject();
+			json.put("id", id);
+			json.put("data", this.jsonArray);
+			path = this.path.replace(this.root, "");
+			json.put("path", path);
+			data.put(json);
+			this.json.put("data", data);
+		}
+	}
 	private void checkExistence(String status, JSONArray data, String srcPath, String destPath) {
 		if (data.length() != 0) {
 			JSONObject tmpJSON = data.getJSONObject(0);
@@ -319,47 +368,7 @@ public class FBManager {
 		this.session.setAttribute("clipboard", this.json);
 	}
 	
-	private void multiplexReload(int prevId, String path) {
-		if (this.browser.isWeb()) {
-			this.reload();
-		} else {
-			JSONObject json;
-			JSONArray data = new JSONArray();
-			JSONArray ids = new JSONArray();
-			this.json = new JSONObject();
-			this.json.put("status", "multiplexReload");
-
-			this.dataItemDAO.setFilePath(this.path);
-			this.dataItemDAO.load();
-			this.jsonArray = this.dataItemDAO.getJSONArray();
-			for (Browser b : this.browserList) {
-				if (b.getPath().equals(this.path) && !b.isWeb()) {
-					ids.put(b.getId());
-				}
-			}
-			json = new JSONObject();
-			json.put("id", ids);
-			json.put("data", this.jsonArray);
-			data.put(json);
-
-			ids = new JSONArray();
-			this.dataItemDAO.setFilePath(path);
-			this.dataItemDAO.load();
-			this.jsonArray = this.dataItemDAO.getJSONArray();
-			for (Browser b : this.browserList) {
-				if (b.getPath().equals(path)) {
-					ids.put(b.getId());
-				}
-			}
-			json = new JSONObject();
-			json.put("id", id);
-			json.put("data", this.jsonArray);
-			path = this.path.replace(this.root, "");
-			json.put("path", path);
-			data.put(json);
-			this.json.put("data", data);
-		}
-	}
+	
 
 	public void del() {
 		JSONObject tmpJSON;

@@ -66,7 +66,6 @@ var ExecutionManager = system.elements.configures.subsystems.managers.ExecutionM
 //Desktop
 var Desktop = system.modules.Desktop;
 var DesktopManager = system.elements.desktops.subsystems.DesktopManager;
-var DesktopSender = system.elements.desktops.subsystems.DesktopSender;
 var DesktopSelect = system.elements.desktops.subsystems.DesktopSelect;
 
 var DesktopClickSelect = system.elements.desktops.subsystems.selects.DesktopClickSelect;

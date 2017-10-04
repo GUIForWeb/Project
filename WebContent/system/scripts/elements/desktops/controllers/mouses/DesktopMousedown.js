@@ -12,20 +12,25 @@ system.elements.desktops.controllers.mouses.DesktopMousedown = function() {
 	}
 	this.button = function(event) {
 		if(!this.select.mousemove.isOnGoing && event.button == 0) {
-			if(event.ctrlKey){
-				this.select.ctrl.icon(event);
-			}
-			else if(event.shiftKey){
-				this.select.shift.icon(event);
-			}
-			else if(!this.select.shift.isWorking && !this.select.mousemove.isWorking){
-				this.select.cancle.all();
-				this.select.click.icon(event);
-			}
-			else if(!this.select.mousemove.isOnGoing){
-				this.setScriptTag(event.currentTarget);
-				if(this.tag["t"] == this.background.selector[0]) {
+			if($(event.target).prop("tagName") != "LI"){
+				if(event.ctrlKey){
+					this.select.ctrl.icon(event);
+				}
+				else if(event.shiftKey){
+					this.select.shift.icon(event);
+				}
+				else if(!this.select.shift.isWorking && !this.select.mousemove.isWorking){
 					this.select.cancle.all();
+					this.select.click.icon(event);
+				}
+				else if(!this.select.mousemove.isOnGoing){
+					this.setScriptTag(event.currentTarget);
+					if(this.tag["t"] == this.background.selector[0]) {
+						this.select.cancle.all();
+					}
+				}
+				if (event.button == 0 && taskArray["contextMenu"].isOnTheScreen) {
+					taskArray["contextMenu"].disappear();
 				}
 			}
 		}

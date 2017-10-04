@@ -32,7 +32,12 @@ public class DesktopWebSocket implements WebSocketInterface {
 		String status = json.getString("status");
 		json.remove("status");
 		this.dm.setJSON(json);
+		this.dm.setSession(this.session);
 		switch(status){
+			case "cut":
+			case "copy":
+				this.dm.setClipboard(status);
+				break;
 			case "renameOnDesktop":
 				this.dm.renameOnDesktop();
 				break;
@@ -47,6 +52,9 @@ public class DesktopWebSocket implements WebSocketInterface {
 				break;
 			case "dataIconXYs":
 				this.dm.dataIconXYs();
+				break;
+			case "paste":
+				this.dm.paste();
 				break;
 		}
 		

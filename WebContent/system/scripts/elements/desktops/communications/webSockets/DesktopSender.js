@@ -3,6 +3,29 @@ system.elements.desktops.communications.webSockets.DesktopSender = function() {
 		"app" : "system.webSockets.DesktopWebSocket",
 		"data" : {}
 	}
+	this.paste = function() {
+		this.json.data = {
+			"status" : "paste"
+		}
+		this.ws.send(this.json);
+		this.va["pasteFlag"] = false;
+	}
+	this.cut = function() {
+		this.json.data = {
+			"status" : "cut",
+			"data" : this.va["selectedData"]
+		}
+		this.ws.send(this.json);
+		this.va["selectedData"] = [];
+	}
+	this.copy = function() {
+		this.json.data = {
+			"status" : "copy",
+			"data" : this.va["selectedData"]
+		}
+		this.ws.send(this.json);
+		this.va["selectedData"] = [];
+	}
 	this.rename = function(json) {
 		this.json.data = {
 			"status" : "renameOnDesktop",

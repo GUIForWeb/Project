@@ -1,5 +1,6 @@
 system.elements.desktops.controllers.DesktopClick = function() {
 	this.rename = function(event) {
+		taskArray["contextMenu"].disappear();
 		this.setScriptTag(event.target);
 		var icon = this.va["selectedIcon"];
 		if(icon.prop("class").includes("dataIcon")){
@@ -16,13 +17,21 @@ system.elements.desktops.controllers.DesktopClick = function() {
 		}
 	}
 	this.copy = function(event) {
-			
+		taskArray["contextMenu"].disappear();
+		taskArray["clipboard"] = true;
+		this.socket.sender.copy();
 	}
 	this.cut = function(event) {
-		
+		taskArray["contextMenu"].disappear();
+		taskArray["clipboard"] = true;
+		this.socket.sender.cut();
 	}
 	this.paste = function(event) {
-		
+		taskArray["contextMenu"].disappear();
+		if(taskArray["clipboard"] && confirm("Paste it?")){
+			this.socket.sender.paste();
+			taskArray["clipboard"] = false;
+		}
 	}
 	this.del = function(event) {
 		

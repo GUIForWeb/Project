@@ -2,6 +2,8 @@ package system.modules;
 
 import java.io.File;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -24,6 +26,8 @@ public class DesktopManager {
 	private JSONArray jsonArray;
 	private boolean isUpdated;
 	private IconsInOSDAO iconsInOSDAO;
+	private HttpSession session;
+	
 	public DesktopManager() {
 		this.isUpdated = false;
 	}
@@ -42,6 +46,27 @@ public class DesktopManager {
 		JSONArray dataJSONArray = this.dataItemsDAO.getJSONArray();
 		this.assembleData(iconJSONArray,dataJSONArray,0,0);
 		System.out.println(iconJSONArray);
+	}
+	public void paste() {
+		JSONObject clipboard = (JSONObject) this.session.getAttribute("clipboard");
+		if (clipboard != null) {
+			String status = clipboard.getString("status");
+			String path = clipboard.getString("path");
+			JSONArray data = clipboard.getJSONArray("data");
+			System.out.println(clipboard);
+			//from other folder
+			//desktop to desktop
+			
+			if(status.equals("cut")) {
+			
+			}
+			this.session.removeAttribute("clipboard");
+		}
+	}
+	public void setClipboard(String status) {
+		this.json.put("path", this.desktopPath);
+		this.json.put("status", status);
+		this.session.setAttribute("clipboard", this.json);
 	}
 	
 	private void assembleData(JSONArray iconArray, JSONArray dataArray, int iNum, int dNum ){
@@ -223,5 +248,13 @@ public class DesktopManager {
 
 	public void setUpdated(boolean isUpdated) {
 		this.isUpdated = isUpdated;
+	}
+	
+	public HttpSession getSession() {
+		return session;
+	}
+	
+	public void setSession(HttpSession session) {
+		this.session = session;
 	}
 }
