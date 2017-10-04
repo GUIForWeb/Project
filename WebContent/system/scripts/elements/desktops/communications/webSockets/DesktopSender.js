@@ -5,7 +5,7 @@ system.elements.desktops.communications.webSockets.DesktopSender = function() {
 	}
 	this.rename = function(json) {
 		this.json.data = {
-			"status" : "rename",
+			"status" : "renameOnDesktop",
 			"src" : this.va["prevData"][0].name,
 			"dest" : this.va["selectedData"][0].name
 		}

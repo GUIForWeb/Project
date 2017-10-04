@@ -26,11 +26,12 @@ public class DesktopManager {
 		this.isUpdated = false;
 	}
 	public void init() {
+		this.desktopPath = "";
 		this.desktopPath += this.root + "/Desktop";
 		File file = new File(this.desktopPath);
 		if (!file.exists())
 			file.mkdir();
-		this.iconsInOSDAO = new IconsInOSDAOMySQL();
+		this.iconsInOSDAO = new IconsInOSDAOMySQL(this.os);
 		this.dataIconsDAO = new DataIconsDAOMySQL(this.os);
 		this.dataIconsDAO.load();
 	}
@@ -49,19 +50,27 @@ public class DesktopManager {
 		this.json.put("status", "appendDataIcon");
 		this.json.put("data", this.jsonArray);
 	}
+	public void renameOnDesktop() {
+		String srcStr = this.desktopPath + "/" + this.json.getString("src");
+		String destStr = this.desktopPath + "/" + this.json.getString("dest");
+		File src = new File(srcStr);
+		File dest = new File(destStr);
+		if (!src.equals(dest) ) {
+			src.renameTo(dest);
+		}
+		else {
+			this.json.put("dest", this.json.getString("src"));
+		}
+		this.rename();
+	}
 	public void rename() {
-		System.out.println(this.json);
-		/*
-		JSONObject json = this.jsonArray.getJSONObject(0); 
-		json.remove("id");
-		this.dataIconsDAO.rename(json);
-		System.out.println(json);
-		json.remove("src");
-		this.json = new JSONObject();
-		this.json.put("status","rename");
-		this.json.put("data",json);
+		this.dataIconsDAO.rename(this.json);
+		this.json.remove("src");
+		JSONObject json = new JSONObject();
+		json.put("status","rename");
+		json.put("data",this.json);
+		this.json = json;
 		this.isUpdated = true;
-		*/
 	}
 	public void dataIconXYs(){
 		this.jsonArray = this.json.getJSONArray("data");
@@ -75,12 +84,14 @@ public class DesktopManager {
 		this.dataIconsDAO.updateXY(this.json);
 	}
 	public void delDataIcon() {
-		String ids = this.dataIconsDAO.delete(this.jsonArray);
-		this.dataIconsDAO.load();
-		this.isUpdated = true;
-		this.json = new JSONObject();
-		this.json.put("status", "delDataIcon");
-		this.json.put("data", ids.substring(0,ids.length()-1));
+		if(this.jsonArray.length() != 0) {
+			String ids = this.dataIconsDAO.delete(this.jsonArray);
+			this.dataIconsDAO.load();
+			this.isUpdated = true;
+			this.json = new JSONObject();
+			this.json.put("status", "delDataIcon");
+			this.json.put("data", ids.substring(0,ids.length()-1));
+		}
 	}
 
 	private JSONArray dataComparison(JSONArray newIconArray, JSONArray iconArray, JSONArray dataArray, int iNum, int dNum) {
@@ -93,14 +104,11 @@ public class DesktopManager {
 			icon = (JSONObject) iconArray.get(iNum);
 			data = (JSONObject) dataArray.get(dNum);
 			if (!icon.toString().equals("{}") && !data.toString().equals("{}")) {
-				if (icon.getString("dateModified").equals(data.getString("dateModified"))) {
-					if (icon.getLong("size") == icon.getLong("size"))
 						if (icon.getString("type").equals(data.getString("type")))
 							if (icon.getString("name").equals(data.getString("name"))) {
 								newIconArray.put(iconArray.getJSONObject(iNum));
 								flag = true;
 							}
-				}
 			}
 		}
 		if (iNum < iLen) {
@@ -114,37 +122,6 @@ public class DesktopManager {
 		}
 		return newIconArray;
 	}
-
-	/*
-	 * private void update(){ File file = new File(this.desktopPath); if
-	 * (!file.exists()) file.mkdir(); long lastModified; lastModified =
-	 * file.lastModified(); if (lastModified !=
-	 * this.os.getLastModifiedDesktop()) { OSsDAO ossDAO = new OSsDAOMySQL();
-	 * ossDAO.setOS(this.os); ossDAO.setUser(this.user); DataItemsDAO
-	 * desktopDataDAO = new DataItemsDAO();
-	 * desktopDataDAO.setFilePath(this.desktopPath); desktopDataDAO.load();
-	 * this.dataComparison(this.dataIconsDAO.getJSONArray(),
-	 * desktopDataDAO.getJSONArray(), 0, 0);
-	 * this.dataIconsDAO.update(desktopDataDAO.getJSONArray());
-	 * ossDAO.updateLastModified(lastModified); } } private void
-	 * dataComparison(JSONArray iconArray, JSONArray dataArray, int iNum, int
-	 * dNum) { boolean flag = false; int iLen = iconArray.length(); int dLen =
-	 * dataArray.length(); JSONObject icon = null; JSONObject data = null; if
-	 * (!iconArray.isNull(iNum) && !dataArray.isNull(dNum)) { icon =
-	 * (JSONObject) iconArray.get(iNum); data = (JSONObject)
-	 * dataArray.get(dNum); if (!icon.toString().equals("{}") &&
-	 * !data.toString().equals("{}")) { if
-	 * (icon.getString("dateModified").equals(data.getString("dateModified"))) {
-	 * if (icon.getLong("size") == icon.getLong("size")) if
-	 * (icon.getString("type").equals(data.getString("type"))) if
-	 * (icon.getString("name").equals(data.getString("name"))) {
-	 * iconArray.remove(iNum); dataArray.remove(dNum); flag = true; } } } } if
-	 * (iNum < iLen) { if (flag) { this.dataComparison(iconArray, dataArray,
-	 * iNum, 0); } else if (iNum < iLen && dNum < dLen) {
-	 * this.dataComparison(iconArray, dataArray, iNum, ++dNum); } else if (!flag
-	 * && dNum == dLen) { this.dataComparison(iconArray, dataArray, ++iNum, 0);
-	 * } } }
-	 */
 	
 	public String getDesktopPath() {
 		return desktopPath;

@@ -18,4 +18,12 @@ system.elements.desktops.subsystems.selects.DesktopSelectEnd = function() {
 		}
 			
 	}
+	this.filter = function(selectedData){
+		return this.iconArray.filter(function( element ) {
+			if(element.isChosen){
+				if(element.type != "public")
+					selectedData.push({"name":element.name,"type":element.type});
+			}
+		});
+	}
 }

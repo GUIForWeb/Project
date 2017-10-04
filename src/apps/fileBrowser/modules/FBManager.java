@@ -18,6 +18,7 @@ import javax.websocket.Session;
 
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import apps.fileBrowser.libraries.FBFileOutputStream;
@@ -41,8 +42,8 @@ public class FBManager {
 	private Session websocketSession;
 	private HttpServletResponse response;
 	private int per;
-	private JSONArray dataArray;
-	private JSONObject data;
+	private JSONArray desktopJSONArray;
+	private JSONObject desktopJSON;
 
 	public FBManager() {
 		this.dataItemDAO = new DataItemsDAO();
@@ -172,11 +173,10 @@ public class FBManager {
 		File file = new File(this.path + "/" + name);
 		String ext = name.substring(name.lastIndexOf(".") + 1, name.length());
 		name = name.substring(0, name.lastIndexOf("."));
-		this.dataArray = new JSONArray();
+		this.desktopJSONArray = new JSONArray();
 		if (file.exists())
 			file = this.checkDest(this.path, name, 0, ext);
-			System.out.println(file);
-			this.putData(file);
+			this.makeDesktopArray(file);
 		try {
 			this.fileOutputStream = new FBFileOutputStream(file);
 		} catch (FileNotFoundException e) {
@@ -206,7 +206,7 @@ public class FBManager {
 	public void paste() {
 		JSONObject clipboard = (JSONObject) this.session.getAttribute("clipboard");
 		if (clipboard != null) {
-			this.dataArray = new JSONArray();
+			this.desktopJSONArray = new JSONArray();
 			String status = clipboard.getString("status");
 			String path = clipboard.getString("path");
 			int prevId = clipboard.getInt("id");
@@ -241,7 +241,7 @@ public class FBManager {
 					if (status.equals("copy")) {
 						try {
 							FileUtils.copyFile(src, dest);
-							this.putData(dest);
+							this.makeDesktopArray(dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -249,7 +249,7 @@ public class FBManager {
 					} else if (status.equals("cut")) {
 						try {
 							FileUtils.moveFile(src, dest);
-							this.putData(dest);
+							this.makeDesktopArray(dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -278,7 +278,7 @@ public class FBManager {
 					if (status.equals("copy")) {
 						try {
 							FileUtils.copyFile(src, dest);
-							this.putData(dest);
+							this.makeDesktopArray(dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -286,7 +286,7 @@ public class FBManager {
 					} else if (status.equals("cut")) {
 						try {
 							FileUtils.moveFile(src, dest);
-							this.putData(dest);
+							this.makeDesktopArray(dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -296,7 +296,7 @@ public class FBManager {
 			}
 		}
 	}
-	private void putData(File file){
+	private void makeDesktopArray(File file){
 		if(this.path.equals(this.desktopPath)){
 			DataItem tmpDI = new DataItem();
 			try {
@@ -310,7 +310,7 @@ public class FBManager {
 			tmpDI.setLastModified(file.lastModified());
 			tmpDI.setDateModified(sdf.format(file.lastModified()));
 			tmpDI.setSize(file.length());
-			this.dataArray.put(tmpDI.getJSON());
+			this.desktopJSONArray.put(tmpDI.getJSON());
 		}
 	}
 	public void setClipboard(String status) {
@@ -367,14 +367,16 @@ public class FBManager {
 		boolean success = false;
 		String path;
 		String type;
-		this.dataArray = new JSONArray();
+		File dest = null;
+		this.desktopJSONArray = new JSONArray();
 		for (int di = 0; di < data.length(); di++) {
 			tmpJSON = data.getJSONObject(di);
 			path = this.path + "/" + tmpJSON.getString("name");
 			type = tmpJSON.getString("type");
-			File dest = new File(path);
-			this.putData(dest);
-			if (type.equals("directory")) {
+			dest = new File(path);
+			if(dest.exists())
+				this.makeDesktopArray(dest);
+			if (type.contains("directory")) {
 				try {
 					FileUtils.deleteDirectory(dest);
 					success = true;
@@ -390,8 +392,11 @@ public class FBManager {
 				}
 			}
 		}
-		if (success)
+		if (success){
 			this.multiReload();
+		}else if(this.path.equals(this.desktopPath)){
+			this.multiReload();
+		}
 	}
 
 	public void rename() {
@@ -399,18 +404,16 @@ public class FBManager {
 		String destStr = this.browser.getPath() + "/" + this.json.getString("dest");
 		File src = new File(srcStr);
 		File dest = new File(destStr);
-		if (!src.equals(dest) && src.renameTo(dest)) {
-			this.multiReload();
+		if (!src.equals(dest) ) {
+			src.renameTo(dest);
 		}
+		this.multiReload();
 		if(this.path.equals(this.desktopPath)){
-			JSONObject json = new JSONObject();
-			json.put("src",src.getName());
-			json.put("dest",dest.getName());
-			this.dataArray = new JSONArray();
-			this.dataArray.put(json);
+			this.desktopJSON = new JSONObject();
+			this.desktopJSON.put("src",src.getName());
+			this.desktopJSON.put("dest",dest.getName());
 		}
 	}
-
 	public void newFolder() {
 		String name = "New Folder";
 		File newFolder = new File(this.path + "/" + name);
@@ -424,12 +427,19 @@ public class FBManager {
 		this.jsonArray = this.dataItemDAO.getJSONArray();
 		this.multiReload();
 		if(this.path.equals(this.desktopPath)){
-			this.data = new JSONObject();
-			this.data.put("name", newFolder.getName());
-			this.data.put("size", newFolder.length());
-			this.data.put("type", "directory");
+			this.desktopJSON = new JSONObject();
+			this.desktopJSON.put("name", newFolder.getName());
+			try {
+				this.desktopJSON.put("type", Files.probeContentType(newFolder.toPath()));
+			} catch (JSONException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			/*
+			this.desktopJSON.put("size", newFolder.length());
 			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-			this.data.put("dateModified", sdf.format(newFolder.lastModified()));
+			this.desktopJSON.put("dateModified", sdf.format(newFolder.lastModified()));
+			*/
 		}
 	}
 
@@ -613,12 +623,12 @@ public class FBManager {
 		this.path = path;
 	}
 	
-	public JSONArray getDataArray() {
-		return dataArray;
+	public JSONArray getDesktopJSONArray() {
+		return desktopJSONArray;
 	}
 
-	public void setDataArray(JSONArray dataArray) {
-		this.dataArray = dataArray;
+	public void setDesktopJSONArray(JSONArray desktopJSONArray) {
+		this.desktopJSONArray = desktopJSONArray;
 	}
 	
 	public String getDesktopPath() {
@@ -629,11 +639,11 @@ public class FBManager {
 		this.desktopPath = desktopPath;
 	}
 
-	public JSONObject getData() {
-		return data;
+	public JSONObject getDesktopJSON() {
+		return desktopJSON;
 	}
 
-	public void setData(JSONObject data) {
-		this.data = data;
+	public void setDesktopJSON(JSONObject desktopJSON) {
+		this.desktopJSON = desktopJSON;
 	}
 }

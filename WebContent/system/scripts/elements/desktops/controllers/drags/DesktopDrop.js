@@ -19,9 +19,9 @@ system.elements.desktops.controllers.drags.DesktopDrop = function() {
 				icon.y = newTd.y;
 				icon.appear();
 				if(tmpText == "icon")
-					this.manager.ds.iconXY(json);
+					this.socket.sender.iconXY(json);
 				if(tmpText == "data")
-					this.manager.ds.dataIconXY(json);
+					this.socket.sender.dataIconXY(json);
 			}
 		}
 	}

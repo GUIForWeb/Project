@@ -13,14 +13,6 @@ system.elements.desktops.subsystems.DesktopSelect = function() {
 	this.shift.__proto__ = this;
 	this.cancle = new DesktopSelectCancle();
 	this.cancle.__proto__ = this;
-	this.filter = function(selectedData){
-		return this.iconArray.filter(function( element ) {
-			if(element.isChosen){
-				if(element.dateModified !== undefined)
-					selectedData.push({"name":element.name,"type":element.type});
-			}
-		});
-	}
 	this.selectData = function(data,flag){
 		data.isChosen = flag;
 		data.isChangeable = !flag;

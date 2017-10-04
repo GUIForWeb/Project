@@ -1,6 +1,7 @@
 system.elements.desktops.subsystems.selects.DesktopSelectCancle = function() {
 	this.all = function(){
-		this.background.view.tableSelector.find(".iconDiv").css("background-color", "white");
+		console.log("Yo");
+		this.background.view.tableSelector.find(".iconDiv").css("background-color", "white").css("opacity", "1");
 		this.va["selectedData"] = [];
 		for(ii=0; ii<this.iconArray.length; ii++) 
 			this.iconArray[ii].isChosen = false;

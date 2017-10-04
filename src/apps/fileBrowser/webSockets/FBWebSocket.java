@@ -17,7 +17,6 @@ import system.modules.DesktopManager;
 import system.webSocketInterfaces.WebSocketInterface;
 
 public class FBWebSocket implements WebSocketInterface{
-	@SuppressWarnings("unused")
 	private Session websocketSession;
 	private HttpSession session;
 	@SuppressWarnings("unused")
@@ -79,8 +78,8 @@ public class FBWebSocket implements WebSocketInterface{
 		if((this.fbm.getRoot() + "/Desktop").equals(this.fbm.getPath())){
 			if(status.equals("newFolder") || status.equals("rename") || status.equals("del") ||	status.equals("paste") || status.equals("uploadStart")){
 				this.dm = (DesktopManager) this.session.getAttribute("desktopManager");
-				this.dm.setJSONArray(this.fbm.getDataArray());
-				this.dm.setJSON(this.fbm.getData());
+				this.dm.setJSONArray(this.fbm.getDesktopJSONArray());
+				this.dm.setJSON(this.fbm.getDesktopJSON());
 			}
 			switch (status) {
 				case "del":
@@ -99,19 +98,20 @@ public class FBWebSocket implements WebSocketInterface{
 					this.dm.newFolder();
 					break;
 			}
-			//make a client side websocket for desktop update
 			if(this.dm.isUpdated()){
 				this.dm.setUpdated(false);
 				JSONObject be = new JSONObject();
 				JSONObject json = new JSONObject();
-				be.put("receiving", json);
-				json.put("app", "gui.desktop.socket.receiver");
-				json.put("data", this.dm.getJSON());
-				try {
-					this.websocketSession.getBasicRemote().sendText(be.toString());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if(null != this.dm.getJSON()){
+					be.put("receiving", json);
+					json.put("app", "gui.desktop.socket.receiver");
+					json.put("data", this.dm.getJSON());
+					try {
+						this.websocketSession.getBasicRemote().sendText(be.toString());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 		}

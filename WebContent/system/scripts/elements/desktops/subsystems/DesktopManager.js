@@ -47,7 +47,6 @@ system.elements.desktops.subsystems.DesktopManager = function() {
 			$("#dataIcon"+ids[ii]).remove();
 			delete this.iconArray["dataIcon"+ids[ii]];
 		}
-		this.enumIconArrays();
 	}
 	this.filter = function(tmpIcon){
 		if(tmpIcon.y >= this.rowNum) 

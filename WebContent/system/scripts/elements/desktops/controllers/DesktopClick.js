@@ -12,6 +12,7 @@ system.elements.desktops.controllers.DesktopClick = function() {
 				gui.desktop.key.down.rename(event);
 			});
 			nameP.focus();
+			console.log();
 			this.va["prevData"] = this.va["selectedData"];
 		}
 	}
@@ -29,11 +30,6 @@ system.elements.desktops.controllers.DesktopClick = function() {
 	}
 	this.download = function(event) {
 		
-	}
-	this.button = function(event) {
-		if (taskArray["contextMenu"].isOnTheScreen) {
-			taskArray["contextMenu"].disappear();
-		}
 	}
 	/*
 	this.theme = function(tag) {

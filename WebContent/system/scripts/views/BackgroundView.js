@@ -13,14 +13,14 @@ system.views.BackgroundView = function(background) {
 		tmpTag.contextmenu(function() {
 			gui.desktop.contextmenu.background(event);
 		});
-		tmpTag.click(function() {
-			gui.desktop.click.button(event);
-		});
 		tmpTag.mousedown(function() {
 			gui.desktop.mouse.down.button(event);
 		});
 		tmpTag.bind("mousedown",function() {
 			gui.desktop.mouse.down.selection(event);
+		});
+		tmpTag.mouseup(function() {
+			gui.desktop.mouse.up.background(event);
 		});
 		tmpTag.mousemove(function() {
 			gui.desktop.mouse.move.selection(event);
