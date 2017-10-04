@@ -22,7 +22,7 @@ system.elements.desktops.controllers.mouses.DesktopMousedown = function() {
 				this.select.cancle.all();
 				this.select.click.icon(event);
 			}
-			else if(!taskArray["contextMenu"].isOnTheScreen && !this.select.mousemove.isOnGoing){
+			else if(!this.select.mousemove.isOnGoing){
 				this.setScriptTag(event.currentTarget);
 				if(this.tag["t"] == this.background.selector[0]) {
 					this.select.cancle.all();

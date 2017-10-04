@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import system.daoInterfaces.DataIconsDAO;
 import system.daoInterfaces.IconsInOSDAO;
 import system.daos.DataIconsDAOMySQL;
+import system.daos.DataItemsDAO;
 import system.daos.IconsInOSDAOMySQL;
 import system.models.OS;
 import system.models.User;
@@ -17,6 +18,7 @@ public class DesktopManager {
 	private User user;
 	private String root;
 	private DataIconsDAO dataIconsDAO;
+	private DataItemsDAO dataItemsDAO;
 	private OS os;
 	private JSONObject json;
 	private JSONArray jsonArray;
@@ -34,7 +36,43 @@ public class DesktopManager {
 		this.iconsInOSDAO = new IconsInOSDAOMySQL(this.os);
 		this.dataIconsDAO = new DataIconsDAOMySQL(this.os);
 		this.dataIconsDAO.load();
+		this.dataItemsDAO = new DataItemsDAO(this.desktopPath);
+		this.dataItemsDAO.load();
+		JSONArray iconJSONArray = this.dataIconsDAO.getJSONArray();
+		JSONArray dataJSONArray = this.dataItemsDAO.getJSONArray();
+		this.assembleData(iconJSONArray,dataJSONArray,0,0);
+		System.out.println(iconJSONArray);
 	}
+	
+	private void assembleData(JSONArray iconArray, JSONArray dataArray, int iNum, int dNum ){
+		boolean flag = false;
+		int iLen = iconArray.length();
+		int dLen = dataArray.length();
+		JSONObject icon = null;
+		JSONObject data = null;
+		if (!iconArray.isNull(iNum) && !dataArray.isNull(dNum)) {
+			icon = (JSONObject) iconArray.get(iNum);
+			data = (JSONObject) dataArray.get(dNum);
+			if (!icon.toString().equals("{}") && !data.toString().equals("{}")) {
+						if (icon.getString("type").equals(data.getString("type")))
+							if (icon.getString("name").equals(data.getString("name"))) {
+								icon.put("size", data.getInt("size"));
+								icon.put("dateModified", data.getString("dateModified"));
+								flag = true;
+							}
+			}
+		}
+		if (iNum < iLen) {
+			if (flag) {
+				this.assembleData(iconArray, dataArray, ++iNum, 0);
+			} else if (iNum < iLen && dNum < dLen) {
+				this.assembleData(iconArray, dataArray, iNum, ++dNum);
+			} else if (!flag && dNum == dLen) {
+				this.assembleData(iconArray, dataArray, ++iNum, 0);
+			}
+		}
+	}
+	
 	public void newFolder() {
 		this.jsonArray = new JSONArray();
 		this.jsonArray.put(this.json);

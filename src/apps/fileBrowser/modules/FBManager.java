@@ -462,7 +462,7 @@ public class FBManager {
 	public void open() {
 		String name = this.json.getString("name");
 		String type = this.json.getString("type");
-		if (type.equals("directory") || type.equals("")) {
+		if (type.equals("inode/directory") || type.equals("")) {
 			this.browserList = (List<Browser>) this.session.getAttribute("browserList");
 			// Browser tmpBrowser = this.browser();
 			this.path = this.browser.getPath() + "/" + name;

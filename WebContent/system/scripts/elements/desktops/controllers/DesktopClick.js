@@ -12,7 +12,6 @@ system.elements.desktops.controllers.DesktopClick = function() {
 				gui.desktop.key.down.rename(event);
 			});
 			nameP.focus();
-			console.log();
 			this.va["prevData"] = this.va["selectedData"];
 		}
 	}

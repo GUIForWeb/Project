@@ -5,8 +5,10 @@ system.elements.desktops.controllers.mouses.DesktopMouseup = function() {
 		}
 	}
 	this.background = function(event) {
+		/*
 		if (event.button == 0 && taskArray["contextMenu"].isOnTheScreen) {
 			taskArray["contextMenu"].disappear();
 		}
+		*/
 	}
 }

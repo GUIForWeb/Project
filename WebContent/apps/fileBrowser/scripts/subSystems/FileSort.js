@@ -22,7 +22,7 @@ fileBrowser.subsystems.FileSort = function() {
 			tmpTr.css("background-color","white")
 			this.va["data"][i].isChosen = false;
 			this.va["data"][i].isChangeable = true;
-			if(this.va["data"][i]["type"] == "directory"){
+			if(this.va["data"][i]["type"] == "inode/directory"){
 				tmpTr.css("color","#ffbf00");
 			}
 			this.fbTable.append(tmpTr);

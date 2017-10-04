@@ -19,7 +19,7 @@ system.elements.configures.subsystems.managers.ExecutionManager = function() {
 			case "text/plain":
 				this.text();
 			break;
-			case "directory":
+			case "inode/directory":
 				this.directory();
 			break;
 		}

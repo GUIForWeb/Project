@@ -55,7 +55,7 @@ fileBrowser.subsystems.fileSorts.IntSort = function() {
 		var dArr = [];
 		var fArr = [];
 		for (di = 0; di < this.va["data"].length; di++) {
-			if (this.va["data"][di].type == "directory") {
+			if (this.va["data"][di].type == "inode/directory") {
 				dArr.highToLow(this.va["data"][di], 0, this.option);
 			} else {
 				fArr.highToLow(this.va["data"][di], 0, this.option);
@@ -70,7 +70,7 @@ fileBrowser.subsystems.fileSorts.IntSort = function() {
 		var dArr = [];
 		var fArr = [];
 		for (di = 0; di < this.va["data"].length; di++) {
-			if (this.va["data"][di].type == "directory") {
+			if (this.va["data"][di].type == "inode/directory") {
 				dArr.lowToHigh(this.va["data"][di], 0, this.option);
 			} else {
 				fArr.lowToHigh(this.va["data"][di], 0, this.option);

@@ -30,10 +30,7 @@ public class DataItemsDAO {
 			tmpDI = new DataItem();
 			tmpDI.setName(tmpFile.getName().replace(this.filePath + "/", ""));
 			try {
-	   			if(tmpFile.isDirectory())
-	   				tmpDI.setType("directory");
-	   			else
-	   				tmpDI.setType(Files.probeContentType(tmpFile.toPath()));
+	   			tmpDI.setType(Files.probeContentType(tmpFile.toPath()));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
