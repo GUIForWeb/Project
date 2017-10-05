@@ -34,10 +34,18 @@ system.elements.desktops.controllers.DesktopClick = function() {
 		}
 	}
 	this.del = function(event) {
-		
+		if (this.va["validation"] && confirm('Delete it?')) {
+			this.socket.sender.del();
+			taskArray["contextMenu"].disappear();
+			this.va["selectedData"] = [];
+		}
 	}
 	this.download = function(event) {
-		
+		if (this.va["validation"] && this.va["selectedData"].length > 0
+				&& this.va["selectedData"][0].type != "directory") {
+			this.socket.sender.download();
+			this.contextMenu.disappear();
+		}
 	}
 	/*
 	this.theme = function(tag) {

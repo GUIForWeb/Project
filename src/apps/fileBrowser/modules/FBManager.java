@@ -367,8 +367,6 @@ public class FBManager {
 		this.json.put("status", status);
 		this.session.setAttribute("clipboard", this.json);
 	}
-	
-	
 
 	public void del() {
 		JSONObject tmpJSON;
@@ -544,7 +542,7 @@ public class FBManager {
 		return json;
 	}
 
-	public void setJson(JSONObject json) {
+	public void setJSON(JSONObject json) {
 		this.json = json;
 	}
 

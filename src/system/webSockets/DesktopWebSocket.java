@@ -1,5 +1,6 @@
 package system.webSockets;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
 
 import javax.servlet.ServletContext;
@@ -34,6 +35,9 @@ public class DesktopWebSocket implements WebSocketInterface {
 		this.dm.setJSON(json);
 		this.dm.setSession(this.session);
 		switch(status){
+			case "del":
+				this.dm.del();
+				break;
 			case "cut":
 			case "copy":
 				this.dm.setClipboard(status);
@@ -57,8 +61,16 @@ public class DesktopWebSocket implements WebSocketInterface {
 				this.dm.paste();
 				break;
 		}
-		
 		json = new JSONObject();
+		if(this.dm.isUpdated()){
+			this.dm.setUpdated(false);
+			JSONObject be = new JSONObject();
+			if(null != this.dm.getJSON()){
+				be.put("receiving", json);
+				json.put("app", "gui.desktop.socket.receiver");
+				json.put("data", this.dm.getJSON());
+			}
+		}
 		return json;
 	}
 	@Override

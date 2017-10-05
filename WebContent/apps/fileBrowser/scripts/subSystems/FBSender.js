@@ -14,6 +14,7 @@ fileBrowser.subsystems.FBSender = function() {
 	this.download = function() {
 		this.json = {
 			"id" : this.id,
+			"subject": 1,
 			"data" : this.va["selectedData"]
 		}
 		var req = new XMLHttpRequest();

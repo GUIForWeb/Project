@@ -61,7 +61,7 @@ public class FBWebSocket implements WebSocketInterface{
 		JSONObject json = new JSONObject(message);
 		String status = json.getString("status");
 		json.remove("status");
-		this.fbm.setJson(json);
+		this.fbm.setJSON(json);
 		this.fbm.loadRoot();
 		this.fbm.findBrowser();
 		this.fbmSwitchCase(status);
@@ -118,44 +118,43 @@ public class FBWebSocket implements WebSocketInterface{
 	}
 	private void fbmSwitchCase(String status){
 		switch (status) {
-		case "open":
-			this.fbm.open();
-			break;
-		case "uploadDone":
-			this.fbm.uploadDone();
-			break;
-		case "uploadStart":
-			this.fbm.uploadStart();
-			break;
-		case "isNotInWindow":
-			this.fbm.isNotInWindow();
-			break;
-		case "newFolder":
-			this.fbm.newFolder();
-			break;
-		case "rename":
-			this.fbm.rename();
-			break;
-		case "del":
-			this.fbm.del();
-			break;
-		case "copy":
-		case "cut":
-			this.fbm.setClipboard(status);
-			break;
-		case "paste":
-			this.fbm.paste();
-			break;
-		case "x":
-			this.fbm.x();
-			break;
-	}
+			case "open":
+				this.fbm.open();
+				break;
+			case "uploadDone":
+				this.fbm.uploadDone();
+				break;
+			case "uploadStart":
+				this.fbm.uploadStart();
+				break;
+			case "isNotInWindow":
+				this.fbm.isNotInWindow();
+				break;
+			case "newFolder":
+				this.fbm.newFolder();
+				break;
+			case "rename":
+				this.fbm.rename();
+				break;
+			case "del":
+				this.fbm.del();
+				break;
+			case "copy":
+			case "cut":
+				this.fbm.setClipboard(status);
+				break;
+			case "paste":
+				this.fbm.paste();
+				break;
+			case "x":
+				this.fbm.x();
+				break;
+		}
 	}
 	@Override
 	public void onError(Throwable exception){
 		exception.printStackTrace();
 	}
-	
 
 	@Override
 	public void setSession(HttpSession session) {

@@ -1,9 +1,16 @@
 package system.modules;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.text.SimpleDateFormat;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -12,6 +19,7 @@ import system.daoInterfaces.IconsInOSDAO;
 import system.daos.DataIconsDAOMySQL;
 import system.daos.DataItemsDAO;
 import system.daos.IconsInOSDAOMySQL;
+import system.models.DataItem;
 import system.models.OS;
 import system.models.User;
 
@@ -27,6 +35,7 @@ public class DesktopManager {
 	private boolean isUpdated;
 	private IconsInOSDAO iconsInOSDAO;
 	private HttpSession session;
+	private HttpServletResponse response;
 	
 	public DesktopManager() {
 		this.isUpdated = false;
@@ -45,23 +54,185 @@ public class DesktopManager {
 		JSONArray iconJSONArray = this.dataIconsDAO.getJSONArray();
 		JSONArray dataJSONArray = this.dataItemsDAO.getJSONArray();
 		this.assembleData(iconJSONArray,dataJSONArray,0,0);
-		System.out.println(iconJSONArray);
+	}
+	public void download() {
+		JSONObject data = this.json.getJSONObject("data");
+		File tmpFile;
+		String name;
+		String type;
+		name = data.getString("name");
+		type = data.getString("type");
+		tmpFile = new File(this.desktopPath + "/" + name);
+		byte[] outputByte = new byte[4096];
+		this.response.setCharacterEncoding("ISO-8859-1");
+		this.response.setContentType(type);
+		this.response.setHeader("Content-Disposition", "attachment;filename=\"" + name + "\"");
+		try {
+			ServletOutputStream out = this.response.getOutputStream();
+			FileInputStream fis = new FileInputStream(tmpFile);
+			int size = (int) tmpFile.length();
+			if (size > 4096)
+				size = 4096;
+			while (fis.read(outputByte, 0, size) != -1) {
+				out.write(outputByte, 0, size);
+			}
+			fis.close();
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void del() {
+		JSONObject tmpJSON;
+		JSONArray data = this.json.getJSONArray("data");
+		boolean success = false;
+		String path;
+		String type;
+		File dest = null;
+		this.jsonArray = new JSONArray();
+		for (int di = 0; di < data.length(); di++) {
+			tmpJSON = data.getJSONObject(di);
+			path = this.desktopPath + "/" + tmpJSON.getString("name");
+			type = tmpJSON.getString("type");
+			dest = new File(path);
+			if(dest.exists())
+				this.makeDesktopArray(dest);
+			if (type.contains("directory")) {
+				try {
+					FileUtils.deleteDirectory(dest);
+					success = true;
+				} catch (IOException e) {
+					e.printStackTrace();
+					break;
+				}
+			} else {
+				if (dest.delete()) {
+					success = true;
+				} else {
+					break;
+				}
+			}
+		}
+		if (success)
+			this.delDataIcon();
 	}
 	public void paste() {
 		JSONObject clipboard = (JSONObject) this.session.getAttribute("clipboard");
 		if (clipboard != null) {
+			this.jsonArray = new JSONArray();
 			String status = clipboard.getString("status");
 			String path = clipboard.getString("path");
 			JSONArray data = clipboard.getJSONArray("data");
-			System.out.println(clipboard);
-			//from other folder
-			//desktop to desktop
-			
-			if(status.equals("cut")) {
-			
+			if(!(path.equals(this.desktopPath) && status.equals("cut"))) {
+				this.checkExistence(status, data, path, this.desktopPath);
+				this.insertDataIcon();
 			}
 			this.session.removeAttribute("clipboard");
+			this.isUpdated = true;
 		}
+	}
+	private void checkExistence(String status, JSONArray data, String srcPath, String destPath) {
+		if (data.length() != 0) {
+			JSONObject tmpJSON = data.getJSONObject(0);
+			String name = tmpJSON.getString("name");
+			String type = tmpJSON.getString("type");
+			data.remove(0);
+			this.checkExistence(status, data, srcPath, destPath);
+			File src = new File(srcPath + "/" + name);
+			File dest = new File(destPath + "/" + name);
+			if (dest.exists()) {
+				if (type.equals("directory")) {
+					destPath = destPath + "/" + name;
+					srcPath = srcPath + "/" + name;
+					this.dataItemsDAO.setFilePath(destPath);
+					this.dataItemsDAO.load();
+					JSONArray tmpData = this.dataItemsDAO.getJSONArray();
+					this.checkExistence(status, tmpData, srcPath, destPath);
+				} else {
+					String ext = name.substring(name.lastIndexOf(".") + 1, name.length());
+					name = name.substring(0, name.lastIndexOf("."));
+					dest = this.checkDest(destPath, name, 0, ext);
+					if (status.equals("copy")) {
+						try {
+							FileUtils.copyFile(src, dest);
+							this.makeDesktopArray(dest);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					} else if (status.equals("cut")) {
+						try {
+							FileUtils.moveFile(src, dest);
+							this.makeDesktopArray(dest);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+			} else {
+				if (type.equals("directory")) {
+					dest = new File(destPath);
+					if (status.equals("copy")) {
+						try {
+							FileUtils.copyDirectoryToDirectory(src, dest);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					} else if (status.equals("cut")) {
+						try {
+							FileUtils.moveDirectoryToDirectory(src, dest, true);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				} else {
+					if (status.equals("copy")) {
+						try {
+							FileUtils.copyFile(src, dest);
+							this.makeDesktopArray(dest);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					} else if (status.equals("cut")) {
+						try {
+							FileUtils.moveFile(src, dest);
+							this.makeDesktopArray(dest);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		}
+	}
+	private void makeDesktopArray(File file){
+		DataItem tmpDI = new DataItem();
+		try {
+			tmpDI.setType(Files.probeContentType(file.toPath()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		tmpDI.setName(file.getName());
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+		tmpDI.setLastModified(file.lastModified());
+		tmpDI.setDateModified(sdf.format(file.lastModified()));
+		tmpDI.setSize(file.length());
+		this.jsonArray.put(tmpDI.getJSON());
+	}
+	private File checkDest(String destPath, String name, int num, String ext) {
+		File dest = new File(destPath + "/" + name + "_" + num + "." + ext);
+		if (dest.exists()) {
+			dest = this.checkDest(destPath, name, num + 1, ext);
+		}
+		return dest;
 	}
 	public void setClipboard(String status) {
 		this.json.put("path", this.desktopPath);
@@ -107,6 +278,9 @@ public class DesktopManager {
 		this.dataIconsDAO.insert(this.jsonArray);
 		this.dataIconsDAO.load();
 		JSONArray newIconArray = this.dataComparison(new JSONArray(), this.dataIconsDAO.getJSONArray(), this.jsonArray,	0, 0);
+		this.dataItemsDAO.load();
+		JSONArray dataJSONArray = this.dataItemsDAO.getJSONArray();
+		this.assembleData(newIconArray,dataJSONArray,0,0);
 		this.jsonArray = newIconArray;
 		this.isUpdated = true;
 		this.json = new JSONObject();
@@ -256,5 +430,11 @@ public class DesktopManager {
 	
 	public void setSession(HttpSession session) {
 		this.session = session;
+	}
+	public HttpServletResponse getResponse() {
+		return response;
+	}
+	public void setResponse(HttpServletResponse response) {
+		this.response = response;
 	}
 }
