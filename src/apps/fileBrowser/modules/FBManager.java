@@ -276,7 +276,7 @@ public class FBManager {
 			File src = new File(srcPath + "/" + name);
 			File dest = new File(destPath + "/" + name);
 			if (dest.exists()) {
-				if (type.equals("directory")) {
+				if (type.equals("inode/directory")) {
 					destPath = destPath + "/" + name;
 					srcPath = srcPath + "/" + name;
 					this.dataItemDAO.setFilePath(destPath);

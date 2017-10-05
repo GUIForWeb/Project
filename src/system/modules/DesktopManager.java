@@ -143,7 +143,7 @@ public class DesktopManager {
 			File src = new File(srcPath + "/" + name);
 			File dest = new File(destPath + "/" + name);
 			if (dest.exists()) {
-				if (type.equals("directory")) {
+				if (type.equals("inode/directory")) {
 					destPath = destPath + "/" + name;
 					srcPath = srcPath + "/" + name;
 					this.dataItemsDAO.setFilePath(destPath);
@@ -157,7 +157,7 @@ public class DesktopManager {
 					if (status.equals("copy")) {
 						try {
 							FileUtils.copyFile(src, dest);
-							this.makeDesktopArray(dest);
+							
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -165,12 +165,12 @@ public class DesktopManager {
 					} else if (status.equals("cut")) {
 						try {
 							FileUtils.moveFile(src, dest);
-							this.makeDesktopArray(dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
+					this.makeDesktopArray(dest);
 				}
 			} else {
 				if (type.equals("directory")) {
@@ -194,7 +194,6 @@ public class DesktopManager {
 					if (status.equals("copy")) {
 						try {
 							FileUtils.copyFile(src, dest);
-							this.makeDesktopArray(dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -202,30 +201,36 @@ public class DesktopManager {
 					} else if (status.equals("cut")) {
 						try {
 							FileUtils.moveFile(src, dest);
-							this.makeDesktopArray(dest);
+							
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+						this.makeDesktopArray(dest);
 					}
 				}
 			}
 		}
 	}
 	private void makeDesktopArray(File file){
-		DataItem tmpDI = new DataItem();
-		try {
-			tmpDI.setType(Files.probeContentType(file.toPath()));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		String path = file.getPath();
+		int lIdx = path.lastIndexOf("/");
+		path = path.substring(0,lIdx);
+		if(path.equals(this.desktopPath)) {
+			DataItem tmpDI = new DataItem();
+			try {
+				tmpDI.setType(Files.probeContentType(file.toPath()));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			tmpDI.setName(file.getName());
+			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+			tmpDI.setLastModified(file.lastModified());
+			tmpDI.setDateModified(sdf.format(file.lastModified()));
+			tmpDI.setSize(file.length());
+			this.jsonArray.put(tmpDI.getJSON());
 		}
-		tmpDI.setName(file.getName());
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-		tmpDI.setLastModified(file.lastModified());
-		tmpDI.setDateModified(sdf.format(file.lastModified()));
-		tmpDI.setSize(file.length());
-		this.jsonArray.put(tmpDI.getJSON());
 	}
 	private File checkDest(String destPath, String name, int num, String ext) {
 		File dest = new File(destPath + "/" + name + "_" + num + "." + ext);
@@ -275,17 +280,19 @@ public class DesktopManager {
 		this.insertDataIcon();
 	}
 	public void insertDataIcon() {
-		this.dataIconsDAO.insert(this.jsonArray);
-		this.dataIconsDAO.load();
-		JSONArray newIconArray = this.dataComparison(new JSONArray(), this.dataIconsDAO.getJSONArray(), this.jsonArray,	0, 0);
-		this.dataItemsDAO.load();
-		JSONArray dataJSONArray = this.dataItemsDAO.getJSONArray();
-		this.assembleData(newIconArray,dataJSONArray,0,0);
-		this.jsonArray = newIconArray;
-		this.isUpdated = true;
-		this.json = new JSONObject();
-		this.json.put("status", "appendDataIcon");
-		this.json.put("data", this.jsonArray);
+		if(this.jsonArray.length() != 0) {
+			this.dataIconsDAO.insert(this.jsonArray);
+			this.dataIconsDAO.load();
+			JSONArray newIconArray = this.dataComparison(new JSONArray(), this.dataIconsDAO.getJSONArray(), this.jsonArray,	0, 0);
+			this.dataItemsDAO.load();
+			JSONArray dataJSONArray = this.dataItemsDAO.getJSONArray();
+			this.assembleData(newIconArray,dataJSONArray,0,0);
+			this.jsonArray = newIconArray;
+			this.isUpdated = true;
+			this.json = new JSONObject();
+			this.json.put("status", "appendDataIcon");
+			this.json.put("data", this.jsonArray);
+		}
 	}
 	public void renameOnDesktop() {
 		String srcStr = this.desktopPath + "/" + this.json.getString("src");
