@@ -33,13 +33,13 @@ system.views.BackgroundContextMenuView = function(backgroundContextMenuView) {
 			gui.desktop.mouse.out.li(this)
 		});
 		window.click(function(){
-			gui.winAndBar.click.theme(event)
+			gui.desktop.click.theme(event)
 		});
 		background.click(function(){
-			gui.winAndBar.click.theme(event)
+			gui.desktop.click.theme(event)
 		});
 		icon.click(function(){
-			gui.winAndBar.click.theme(event)
+			gui.desktop.click.theme(event)
 		});
 		tmpTag.append(ulTag);
 		ulTag.append(theme);

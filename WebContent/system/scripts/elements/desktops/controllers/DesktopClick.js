@@ -47,26 +47,20 @@ system.elements.desktops.controllers.DesktopClick = function() {
 			this.contextMenu.disappear();
 		}
 	}
-	/*
-	this.theme = function(tag) {
+	
+	this.theme = function(event) {
 		var iconObj = new Icon();
-		if (tag.innerHTML == "Icon") {
+		if (event.target.innerHTML == "Icon") {
 			iconObj.name = "Icon Theme";
 			iconObj.contentURL = "/apps/theme/comps/views/iconTheme.jsf";
 
-		} else if (tag.innerHTML == "Window") {
+		} else if (event.target.innerHTML == "Window") {
 			iconObj.name = "Window Theme";
 			iconObj.contentURL = "/apps/theme/comps/views/windowTheme.jsf";
-		} else if (tag.innerHTML == "Background") {
+		} else if (event.target.innerHTML == "Background") {
 			iconObj.name = "Background Theme";
 			iconObj.contentURL = "/apps/theme/comps/views/backgroundTheme.jsf";
 		}
-		var winObj = this.wme.newWindow(iconObj);
-		var barObj = this.bme.newBar(iconObj);
-		this.wpe.newPositioning(winObj);
-		this.bind.windowAndBar(winObj, barObj);
-		this.barListener.call("newBar", barObj);
-		this.windowListener.call("newWindow", winObj);
+		this.configure.manager.execute.app(iconObj);
 	}
-	*/
 }

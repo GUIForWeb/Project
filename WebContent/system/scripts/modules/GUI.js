@@ -4,6 +4,7 @@ function GUI(guiVariableName) {
 	this.valueArray = {};
 	this.barArray = [];
 	this.iconArray = [];
+	this.iconIdArray = [];
 	this.winArray = [];
 	this.windowCoordinate = [];
 	this.windowInBarArray = [];
@@ -18,7 +19,6 @@ function GUI(guiVariableName) {
 	this.iconDataList = null;
 	this.barTagIdRule = new Bar().tagIdRule;
 	this.winTagIdRule = new Window().tagIdRule;
-	//html scroll for windows
 	this.dynamicMode = false;
 	this.init = function() {
 	}
@@ -97,12 +97,11 @@ function GUI(guiVariableName) {
 		this.iconContextMenu = contextMenuObj;
 	}
 	this.reinitIcon = function(iconTdBorderWidth, iconTdBorderHeight) {
-		for (ci = 0; ci < this.iconDataList.length; ci++) {
+		for (ci = 0; ci < this.iconArray.length; ci++) {
 			var tmpIcon = new Icon();
 			tmpIcon.contextPath = this.contextPath;
 			tmpIcon.guiName = this.guiName;
-			tmpIcon.init(this.iconDataList[ci]);
-			tmpIcon.view.getView();
+			tmpIcon.init(this.iconArray[ci]);
 			tmpIcon.view.iconTdBorderWidth = iconTdBorderWidth;
 			tmpIcon.view.iconTdBorderHeight = iconTdBorderHeight;
 			tmpIcon.appear();
@@ -163,9 +162,9 @@ function GUI(guiVariableName) {
 		var tmpBHeight = iconThemeVals["iconTdBorderHeight"];
 		var tmpColor = iconThemeVals["iconTdBorderColor"];
 
-		view.tableTag.css("width", $(window).width()
+		view.tableSelector.css("width", $(window).width()
 				- view.iconTableLeftPadding);
-		view.tableTag.css("height", (view.guiHeight - view.iconTableTopPadding)
+		view.tableSelector.css("height", (view.guiHeight - view.iconTableTopPadding)
 				+ "px");
 		view.iconTdWidth = parseInt(tmpWidth);
 		view.iconTdHeight = parseInt(tmpHeight);

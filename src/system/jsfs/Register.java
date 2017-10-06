@@ -10,7 +10,7 @@ import system.jsfs.SystemJSF;
 @RequestScoped
 public class Register extends SystemJSF {
 	public Register() {
-		this.viewArray[IN] = "background";
+		this.viewArray[IN] = "desktop";
 		this.viewArray[OUT] = "register";
 		this.auth.setAuthSeqArray(new Integer[]{
 			Authentication.EMPTY,

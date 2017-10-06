@@ -14,7 +14,7 @@ import system.models.User;
 @RequestScoped
 public class Login extends SystemJSF {
 	public Login(){
-		this.viewArray[IN] = "background";
+		this.viewArray[IN] = "desktop";
         this.viewArray[OUT] = "login";
 		this.auth.setAuthSeqArray(new Integer[]{
 				Authentication.EMPTY,

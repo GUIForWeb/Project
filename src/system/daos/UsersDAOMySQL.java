@@ -83,17 +83,19 @@ public class UsersDAOMySQL implements UsersDAO{
 		User userArray[] = new User[1];
 		try {
 			this.rset.last();
-			userArray = new User[this.rset.getRow()];
+			userArray = new User[this.rset.getRow()-1];
 			this.rset.first();
 			int idx = 0;
 			do {
-				userArray[idx] = new User();
-				userArray[idx].setId(this.rset.getInt("id"));
-				userArray[idx].setEmail(this.rset.getString("email"));
-				userArray[idx].setNickname(this.rset.getString("nickname"));
-				userArray[idx].setRole(this.rset.getString("role"));
-				userArray[idx].setActivation(this.rset.getBoolean("activation"));
-				idx++;
+				if(!this.rset.getString("email").equals("admin")) {
+					userArray[idx] = new User();
+					userArray[idx].setId(this.rset.getInt("id"));
+					userArray[idx].setEmail(this.rset.getString("email"));
+					userArray[idx].setNickname(this.rset.getString("nickname"));
+					userArray[idx].setRole(this.rset.getString("role"));
+					userArray[idx].setActivation(this.rset.getBoolean("activation"));
+					idx++;
+				}
 			}while(this.rset.next());
 		} catch (SQLException e) {
 			e.printStackTrace();

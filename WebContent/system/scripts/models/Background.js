@@ -39,7 +39,7 @@ system.models.Background = function() {
 		}
 	}
 	this.resizeIconTd = function() {
-		this.view.tableTag.html("");
+		this.view.tableSelector.html("");
 		this.appendIconTd();
 		$("." + this.iconTdTagClass).width(this.view.iconTdWidth);
 		$("." + this.iconTdTagClass).height(this.view.iconTdHeight);

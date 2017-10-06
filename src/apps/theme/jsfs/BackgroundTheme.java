@@ -1,4 +1,4 @@
-package apps.theme.controllers;
+package apps.theme.jsfs;
 import java.io.IOException;
 
 import javax.enterprise.context.RequestScoped;
@@ -16,7 +16,7 @@ import system.models.OS;
 @RequestScoped
 public class BackgroundTheme extends ApplicationJSF{
 	public BackgroundTheme() {
-		
+		super();
 	}
 	public void start() {
 		this.redirect();
@@ -39,7 +39,7 @@ public class BackgroundTheme extends ApplicationJSF{
 		bgPathDAO.update();
 		
 		try {
-			this.externalContext.redirect(this.contextPath+"/system/comps/views/background.jsf");
+			this.externalContext.redirect(this.contextPath+"/system/comps/views/desktop.jsf");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

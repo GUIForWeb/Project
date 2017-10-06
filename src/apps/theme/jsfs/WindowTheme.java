@@ -1,4 +1,4 @@
-package apps.theme.controllers;
+package apps.theme.jsfs;
 
 
 
@@ -22,6 +22,7 @@ public class WindowTheme extends ApplicationJSF{
 	private GUISettingsDAO guiSettingDAO;
 	private GUISetting guiSetting;
 	public WindowTheme() {
+		super();
 		OSsDAO osSettingDAO = new OSsDAOMySQL(this.user);
 		osSettingDAO.load();
 		OS osSetting = osSettingDAO.getOS();

@@ -19,6 +19,7 @@ system.elements.desktops.subsystems.DesktopManager = function() {
 			this.iconJSONArray[ci].isChosen = false;
 			this.iconJSONArray[ci].isChangeable = true;
 			this.iconArray[tmpIcon.tagId] = tmpIcon;
+			this.iconIdArray.push(tmpIcon.tagId);
 			this.iconArray.push(this.iconJSONArray[ci]);
 		}
 	}
@@ -36,6 +37,7 @@ system.elements.desktops.subsystems.DesktopManager = function() {
 			jsonArray[di].isChosen = false;
 			jsonArray[di].isChangeable = true;
 			this.iconArray[tmpIcon.tagId] = tmpIcon;
+			this.iconIdArray.push(tmpIcon.tagId);
 			this.iconArray.push(jsonArray[di]);
 		}
 		this.ds.dataIconXYs(this.xy);

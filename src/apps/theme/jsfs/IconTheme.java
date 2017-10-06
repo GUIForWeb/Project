@@ -1,4 +1,4 @@
-package apps.theme.controllers;
+package apps.theme.jsfs;
 
 
 import javax.enterprise.context.RequestScoped;
@@ -25,6 +25,7 @@ public class IconTheme extends ApplicationJSF{
 	private GUISetting guiSetting;
 	private GUISettingsDAO guiSettingDAO;
 	public IconTheme() {
+		super();
 		OSsDAO osSettingDAO = new OSsDAOMySQL(this.user);
 		osSettingDAO.load();
 		GUISettingsInOSDAO guisInOSDAO = new  GUISettingsInOSDAOMySQL(osSettingDAO.getOS());
