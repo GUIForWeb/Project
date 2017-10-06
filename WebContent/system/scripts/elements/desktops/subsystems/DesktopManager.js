@@ -13,6 +13,8 @@ system.elements.desktops.subsystems.DesktopManager = function() {
 			tmpIcon.contextPath = this.contextPath;
 			tmpIcon.init(this.iconJSONArray[ci]);
 			this.iconCoordinate[tmpIcon.x + "," + tmpIcon.y] = true;
+			tmpIcon.view.width = this.iconTdValueArray["iconTdWidth"];
+			tmpIcon.view.height = this.iconTdValueArray["iconTdHeight"];
 			tmpIcon.view.iconTdBorderWidth = this.iconTdValueArray["iconTdBorderWidth"];
 			tmpIcon.view.iconTdBorderHeight = this.iconTdValueArray["iconTdBorderHeight"];
 			tmpIcon.appear();
@@ -31,8 +33,8 @@ system.elements.desktops.subsystems.DesktopManager = function() {
 			tmpIcon.contextPath = this.contextPath;
 			tmpIcon.init(jsonArray[di]);
 			this.filter(tmpIcon);
-			tmpIcon.view.iconTdBorderWidth = this.iconTdValueArray["iconTdBorderWidth"];
-			tmpIcon.view.iconTdBorderHeight = this.iconTdValueArray["iconTdBorderHeight"];
+			tmpIcon.view.width = this.iconTdValueArray["iconTdWidth"];
+			tmpIcon.view.height = this.iconTdValueArray["iconTdHeight"];
 			tmpIcon.appear();
 			jsonArray[di].isChosen = false;
 			jsonArray[di].isChangeable = true;
@@ -41,7 +43,6 @@ system.elements.desktops.subsystems.DesktopManager = function() {
 			this.iconArray.push(jsonArray[di]);
 		}
 		this.ds.dataIconXYs(this.xy);
-		
 	}
 	this.delDataIcon = function(ids){
 		ids = ids.split(",");

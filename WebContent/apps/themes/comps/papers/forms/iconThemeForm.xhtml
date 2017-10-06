@@ -1,0 +1,28 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://xmlns.jcp.org/jsf/html" 
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<h:form id="iconThemeForm">
+		<h:outputLabel value="Theme" /><br/>
+		<h:outputLabel class="iconTheme" value="Icon Width" />
+		<h:inputText dir="width" value="#{iconTheme.iconWidth}" /><br/>
+		<h:outputLabel class="iconTheme" value="Icon Height" />
+		<h:inputText dir="height" value="#{iconTheme.iconHeight}" /><br/>
+		<h:outputLabel class="iconTheme" value="Icon Border Width" />
+		<h:inputText dir="border_width" value="#{iconTheme.iconBorderWidth}" /><br/>
+		<h:outputLabel class="iconTheme" value="Icon Border Height" />
+		<h:inputText dir="border_height" value="#{iconTheme.iconBorderHeight}" /><br/>
+		<h:outputLabel class="iconTheme" value="Icon Border Color" />
+		<h:inputText dir="border_color" value="#{iconTheme.iconBorderColor}" /><br/>
+		<h:commandButton action="#{iconTheme.listen()}" value="Submit" >
+			<f:ajax execute="iconThemeForm" />
+		</h:commandButton>
+	</h:form>
+</ui:composition>
+
+		
+		
+		
+		
+		

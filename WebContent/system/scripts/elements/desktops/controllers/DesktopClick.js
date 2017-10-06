@@ -52,14 +52,14 @@ system.elements.desktops.controllers.DesktopClick = function() {
 		var iconObj = new Icon();
 		if (event.target.innerHTML == "Icon") {
 			iconObj.name = "Icon Theme";
-			iconObj.contentURL = "/apps/theme/comps/views/iconTheme.jsf";
+			iconObj.contentURL = "/apps/themes/comps/views/iconTheme.jsf";
 
 		} else if (event.target.innerHTML == "Window") {
 			iconObj.name = "Window Theme";
-			iconObj.contentURL = "/apps/theme/comps/views/windowTheme.jsf";
+			iconObj.contentURL = "/apps/themes/comps/views/windowTheme.jsf";
 		} else if (event.target.innerHTML == "Background") {
 			iconObj.name = "Background Theme";
-			iconObj.contentURL = "/apps/theme/comps/views/backgroundTheme.jsf";
+			iconObj.contentURL = "/apps/themes/comps/views/backgroundTheme.jsf";
 		}
 		this.configure.manager.execute.app(iconObj);
 	}

@@ -4,8 +4,8 @@ system.views.IconView = function(icon) {
 	this.outerLayer = "";
 	this.tagClass = "iconDiv";
 	this.imgClass = "iconImg";
-	this.iconTdBorderWidth = 0;
-	this.iconTdBorderHeight = 0;
+	this.width = 0;
+	this.height = 0;
 	this.iconLayer = function() {
 		this.iconSelector = this.outerSelector;
 	}
@@ -13,6 +13,8 @@ system.views.IconView = function(icon) {
 		var outerSelector = $("<div></div>");
 		outerSelector.attr("id", this.tagId);
 		outerSelector.css("z-index", this.zIndex);
+		outerSelector.css("width", this.width);
+		outerSelector.css("height", this.height);
 		outerSelector.addClass(this.tagClass);
 		outerSelector.attr("dragable", "true");
 		outerSelector.on("drag", function(event) {
@@ -36,6 +38,8 @@ system.views.IconView = function(icon) {
 		var imgSelector = $("<img>").attr("src", this.contextPath + this.imgURL);
 		imgSelector.addClass(this.imgClass);
 		imgSelector.attr("title",this.name);
+		imgSelector.css("width", this.width);
+		imgSelector.css("height", this.height);
 		outerSelector.prepend(imgSelector)
 		
 		this.outerSelector = outerSelector;

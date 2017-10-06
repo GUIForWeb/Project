@@ -99,6 +99,7 @@ function GUI(guiVariableName) {
 	this.reinitIcon = function(iconTdBorderWidth, iconTdBorderHeight) {
 		for (ci = 0; ci < this.iconArray.length; ci++) {
 			var tmpIcon = new Icon();
+			
 			tmpIcon.contextPath = this.contextPath;
 			tmpIcon.guiName = this.guiName;
 			tmpIcon.init(this.iconArray[ci]);
@@ -152,6 +153,7 @@ function GUI(guiVariableName) {
 				this.valueArray["newId"] = 0;
 		}
 	}
+	/*
 	this.iconTheme = function(iconThemeVals) {
 		var view = this.background.view;
 		var cls = new Icon().tagClass
@@ -171,11 +173,11 @@ function GUI(guiVariableName) {
 		view.iconTdBorderWidth = parseInt(tmpBWidth);
 		view.iconTdBorderHeight = parseInt(tmpBHeight);
 		gui.background.resizeIconTd();
-		$(".iconTd").css("border-left", (tmpBWidth) + "px solid " + tmpColor);
-		$(".iconTd").css("border-right", (tmpBWidth) + "px solid " + tmpColor);
-		$(".iconTd").css("border-top", (tmpBHeight) + "px solid " + tmpColor);
-		$(".iconTd")
-				.css("border-bottom", (tmpBHeight) + "px solid " + tmpColor);
+		//$(".iconTd").css("border-left", (tmpBWidth) + "px solid " + tmpColor);
+		//$(".iconTd").css("border-right", (tmpBWidth) + "px solid " + tmpColor);
+		//$(".iconTd").css("border-top", (tmpBHeight) + "px solid " + tmpColor);
+		//$(".iconTd")
+		//		.css("border-bottom", (tmpBHeight) + "px solid " + tmpColor);
 
 		for (ii = 0; ii < gui.iconIdArray.length; ii++) {
 			$("#" + gui.iconIdArray[ii]).remove();
@@ -199,7 +201,8 @@ function GUI(guiVariableName) {
 		}
 	}
 	this.restoreIconTheme = function() {
-		this.iconTheme(this.iconTdValueArray);
+		console.log(this.iconTdValueArray);
+		//this.iconTheme(this.iconTdValueArray);
 	}
 	this.resetIconTheme = function() {
 		var input = $("#iconThemeForm0").parent().find("input");
@@ -209,6 +212,7 @@ function GUI(guiVariableName) {
 		this.iconTdValueArray["iconTdBorderHeight"] = $(input[4]).val();
 		this.iconTdValueArray["iconTdBorderColor"] = $(input[5]).val();
 	}
+	*/
 	this.length = function(array) {
 		return array.filter(function(element) {
 			return element !== undefined;

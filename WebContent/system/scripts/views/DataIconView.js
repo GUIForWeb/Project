@@ -5,8 +5,8 @@ system.views.DataIconView = function(icon) {
 	this.tagClass = "iconDiv";
 	this.imgClass = "iconImg";
 	this.nameClass = "nameP";
-	this.iconTdBorderWidth = 0;
-	this.iconTdBorderHeight = 0;
+	this.width = 0;
+	this.height = 0;
 	this.iconLayer = function() {
 		this.iconSelector = this.outerSelector;
 	}
@@ -14,6 +14,8 @@ system.views.DataIconView = function(icon) {
 		var outerSelector = $("<div></div>");
 		outerSelector.attr("id", this.tagId);
 		outerSelector.css("z-index", this.zIndex);
+		outerSelector.css("width", this.width);
+		outerSelector.css("height", this.height);
 		outerSelector.addClass(this.tagClass);
 		outerSelector.attr("dragable", "true");
 		outerSelector.on("drag", function(event) {
@@ -37,6 +39,8 @@ system.views.DataIconView = function(icon) {
 		var imgSelector = $("<img>").attr("src", this.contextPath + this.imgURL);
 		imgSelector.attr("title",this.name);
 		imgSelector.addClass(this.imgClass);
+		imgSelector.css("width", this.width);
+		imgSelector.css("height", this.height);
 		this.nameSelector = $("<p></p>").html(this.name);
 		this.nameSelector.addClass(this.nameClass);
 		outerSelector.prepend(imgSelector);
