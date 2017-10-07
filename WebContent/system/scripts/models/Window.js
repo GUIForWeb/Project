@@ -4,7 +4,7 @@ system.models.Window = function() {
 	this.tagId = "";
 	this.name = "";
 	this.view = new WindowView(this);
-	this.appendWindow = function(){
+	this.appear = function(){
 		if(this.view.isOnScreen)
 			this.windowZoneSelector.append(this.view.windowSelector);
 		this.tag = this.view.windowSelector[0];

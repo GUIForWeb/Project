@@ -5,9 +5,9 @@ system.models.Background = function() {
 		this.view.iconTablePaddingLeft = iconTableValueArray["iconTablePaddingLeft"];
 		this.view.iconTablePaddingTop = iconTableValueArray["iconTablePaddingTop"];
 	}
-	this.appendBackgroundView = function() {
+	this.appear = function() {
 		this.view.getView();
-		$("section").append(this.view.backgroundSelector);
+		this.sectionSelector.prepend(this.view.backgroundSelector);
 		this.view.backgroundSelector.append(this.view.tableSelector);
 		this.view.backgroundSelector.css("height", (this.view.guiHeight - 40)
 				+ "px");
@@ -15,16 +15,14 @@ system.models.Background = function() {
 				.css("height", (this.view.guiHeight - 40) + "px");
 		this.selector = this.view.backgroundSelector;
 	}
+	this.disappear = function() {
+		this.selector.remove();
+	}
 	this.appendIconTd = function() {
 		this.view.iconTableWidth = this.view.tableSelector.width();
 		this.view.iconTableHeight = this.view.tableSelector.height();
 		var taskbarWidthSize = 0;
 		var taskbarHeightSize = 0;
-		/*
-		 * if(this.taskbarMode == "horizontal"){ taskbarHeightSize =
-		 * this.view.taskbarHeight; }else if(this.taskbarMode == "vertical"){
-		 * taskbarWidthSize = this.view.taskbarWidth; }
-		 */
 		tableRowNum = parseInt((this.view.iconTableHeight
 				- this.view.taskbarHeight - this.view.iconTablePaddingTop)
 				/ (this.view.iconTdHeight + this.view.iconTdBorderHeight));
@@ -49,6 +47,7 @@ system.models.Background = function() {
 		this.view.iconTdHeight = iconTdValueArray["iconTdHeight"];
 		this.view.iconTdBorderWidth = iconTdValueArray["iconTdBorderWidth"];
 		this.view.iconTdBorderHeight = iconTdValueArray["iconTdBorderHeight"];
+		this.view.iconTdBorderColor = iconTdValueArray["iconTdBorderColor"];
 	}
 	this.setTaskbarValues = function(taskbarValueArray) {
 		this.view.taskbarMode = taskbarValueArray["taskbarMode"];

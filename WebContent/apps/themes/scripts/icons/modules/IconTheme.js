@@ -4,14 +4,19 @@ apps.themes.icons.modules.IconTheme = function() {
 		this.controller = new IconThemeController();
 		this.controller.__proto__ = this;
 		this.focus = new IconThemeFocus();
-		this.focus.__proto__ = this.controller; 
+		this.focus.__proto__ = this.controller;
+		this.trial = new IconThemeTrial();
+		this.trial.__proto__ = this.controller;
 		this.form = $("#iconThemeForm");
 		this.initElementsForTheme();
+		this.initValues();
 		this.initInputSelectorArray();
 	}
 	this.initElementsForTheme = function() {
-		this.table = gui.background.view.tableSelector;
-		this.tds = this.table.children("tr").children("td");
+		this.controller.va["table"] = gui.background.view.tableSelector;
+		this.controller.va["tds"] = this.controller.va["table"].children("tr").children("td");
+	}
+	this.initValues = function() {
 		var tdVals = gui.iconTdValueArray;
 		this.controller.va["prevData"]["width"] = tdVals.iconTdWidth;
 		this.controller.va["prevData"]["height"] = tdVals.iconTdHeight;

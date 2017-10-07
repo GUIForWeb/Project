@@ -26,7 +26,7 @@ function GUI(guiVariableName) {
 		this.dataIconJSONArray = dataIconJSONArray;
 	}
 	this.initDesktopDataItems = function() {
-		this.desktop.manager.appendDataIcon(this.dataIconJSONArray);
+		this.desktop.manager.appendDataIcon();
 	}
 	this.coordinateFilter = function(){
 		
@@ -72,14 +72,15 @@ function GUI(guiVariableName) {
 		this.sectionSelector.append(this.windowZoneSelector);
 	}
 	this.initBackground = function() {
+		this.sectionSelector = $($(document).find("section")[0]);
 		this.background = new Background();
 		this.background.guiName = this.guiName;
+		this.background.sectionSelector = this.sectionSelector;
 		this.background.setTaskbarValues(this.taskbarValueArray);
 		this.background.setIconTdValues(this.iconTdValueArray);
 		this.background.setIconTableValues(this.iconTableValueArray);
-		this.background.appendBackgroundView();
+		this.background.appear();
 		this.bgSelector = this.background.view.backgroundSelector;
-		this.sectionSelector = this.bgSelector.parent();
 		this.background.appendIconTd();
 		this.iconTable = this.background.view.tableSelector;
 	}
@@ -99,7 +100,6 @@ function GUI(guiVariableName) {
 	this.reinitIcon = function(iconTdBorderWidth, iconTdBorderHeight) {
 		for (ci = 0; ci < this.iconArray.length; ci++) {
 			var tmpIcon = new Icon();
-			
 			tmpIcon.contextPath = this.contextPath;
 			tmpIcon.guiName = this.guiName;
 			tmpIcon.init(this.iconArray[ci]);
@@ -201,8 +201,7 @@ function GUI(guiVariableName) {
 		}
 	}
 	this.restoreIconTheme = function() {
-		console.log(this.iconTdValueArray);
-		//this.iconTheme(this.iconTdValueArray);
+		this.iconTheme(this.iconTdValueArray);
 	}
 	this.resetIconTheme = function() {
 		var input = $("#iconThemeForm0").parent().find("input");
@@ -213,6 +212,7 @@ function GUI(guiVariableName) {
 		this.iconTdValueArray["iconTdBorderColor"] = $(input[5]).val();
 	}
 	*/
+	
 	this.length = function(array) {
 		return array.filter(function(element) {
 			return element !== undefined;

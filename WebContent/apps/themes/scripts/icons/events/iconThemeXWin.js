@@ -1,1 +1,1 @@
-//gui.restoreIconTheme();
+taskArray.iconTheme.trial.restore();

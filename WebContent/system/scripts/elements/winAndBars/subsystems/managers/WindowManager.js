@@ -9,7 +9,7 @@ system.elements.winAndBars.subsystems.managers.WindowManager = function() {
 	}
 	this.appear = function(winAndBarNode) {
 		winAndBarNode.win.view.isOnScreen = true;
-		winAndBarNode.win.appendWindow();
+		winAndBarNode.win.appear();
 	}
 	this.append = function(iconObj, winAndBarNode) {
 		var zIndex = this.nodeArray["winAndBar"].winCount;
@@ -17,7 +17,6 @@ system.elements.winAndBars.subsystems.managers.WindowManager = function() {
 		this.winArray[zIndex] = tmpNode;
 		tmpNode.win = new Window();
 		tmpNode.win.name = iconObj.name;
-		tmpNode.win.guiName = this.guiName;
 		tmpNode.win.windowZoneSelector = this.windowZoneSelector;
 		tmpNode.win.view.setDefaultValues(this.winDefaultValueArray);
 		tmpNode.win.view.zIndex = zIndex;
@@ -25,7 +24,7 @@ system.elements.winAndBars.subsystems.managers.WindowManager = function() {
 				+ iconObj.contentURL);
 		tmpNode.win.contentURL = iconObj.contentURL;
 		tmpNode.win.init(this.valueArray["newId"]);
-		tmpNode.win.appendWindow();
+		tmpNode.win.appear();
 
 		this.nodeArray["winAndBar"].lastWin = tmpNode;
 		if ($("<div>" + tmpNode.win.content + "</div>").find(".xWin").length > 0) {

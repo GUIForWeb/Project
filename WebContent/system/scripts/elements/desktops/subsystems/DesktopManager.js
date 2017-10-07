@@ -1,13 +1,10 @@
 system.elements.desktops.subsystems.DesktopManager = function() {
-	this.ds = new DesktopSender();
-	this.ds.__proto__ = this;
 	this.xy = [];
 	this.jsonArray = [];
-	this.rename = function(json){
-		var tmpIcon = this.iconArray["dataIcon"+json.id];
-		tmpIcon.view.nameSelector.html(json.dest);
-	}
+	
 	this.appendIcon = function(){
+		gui.iconArray = [];
+		gui.iconCoordinate = [];
 		for (ci = 0; ci < this.iconJSONArray.length; ci++) {
 			var tmpIcon = new Icon();
 			tmpIcon.contextPath = this.contextPath;
@@ -15,8 +12,6 @@ system.elements.desktops.subsystems.DesktopManager = function() {
 			this.iconCoordinate[tmpIcon.x + "," + tmpIcon.y] = true;
 			tmpIcon.view.width = this.iconTdValueArray["iconTdWidth"];
 			tmpIcon.view.height = this.iconTdValueArray["iconTdHeight"];
-			tmpIcon.view.iconTdBorderWidth = this.iconTdValueArray["iconTdBorderWidth"];
-			tmpIcon.view.iconTdBorderHeight = this.iconTdValueArray["iconTdBorderHeight"];
 			tmpIcon.appear();
 			this.iconJSONArray[ci].isChosen = false;
 			this.iconJSONArray[ci].isChangeable = true;
@@ -25,24 +20,23 @@ system.elements.desktops.subsystems.DesktopManager = function() {
 			this.iconArray.push(this.iconJSONArray[ci]);
 		}
 	}
-	this.appendDataIcon = function(jsonArray){
-		var dNum = jsonArray.length;
+	this.appendDataIcon = function(){
 		this.rowNum = this.iconTable.children().length;
-		for(di=0; di < jsonArray.length; di++) {
+		for(di=0; di < this.dataIconJSONArray.length; di++) {
 			var tmpIcon = new DataIcon();
 			tmpIcon.contextPath = this.contextPath;
-			tmpIcon.init(jsonArray[di]);
+			tmpIcon.init(this.dataIconJSONArray[di]);
 			this.filter(tmpIcon);
 			tmpIcon.view.width = this.iconTdValueArray["iconTdWidth"];
 			tmpIcon.view.height = this.iconTdValueArray["iconTdHeight"];
 			tmpIcon.appear();
-			jsonArray[di].isChosen = false;
-			jsonArray[di].isChangeable = true;
+			this.dataIconJSONArray[di].isChosen = false;
+			this.dataIconJSONArray[di].isChangeable = true;
 			this.iconArray[tmpIcon.tagId] = tmpIcon;
 			this.iconIdArray.push(tmpIcon.tagId);
-			this.iconArray.push(jsonArray[di]);
+			this.iconArray.push(this.dataIconJSONArray[di]);
 		}
-		this.ds.dataIconXYs(this.xy);
+		this.socket.sender.dataIconXYs(this.xy);
 	}
 	this.delDataIcon = function(ids){
 		ids = ids.split(",");
@@ -87,5 +81,10 @@ system.elements.desktops.subsystems.DesktopManager = function() {
 			tmpIcon.y = y;
 			return {"id":tmpIcon.id,"x":x,"y":y};
 		}
+	}
+	
+	this.rename = function(json){
+		var tmpIcon = this.iconArray["dataIcon"+json.id];
+		tmpIcon.view.nameSelector.html(json.dest);
 	}
 }

@@ -12,7 +12,7 @@ system.elements.winAndBars.subsystems.managers.BarManager = function() {
 		tmpNode.bar.taskbarSelector = this.taskbarSelector;
 		tmpNode.bar.view.taskbarOHeight = this.taskbar.view.oHeight;
 		tmpNode.bar.init(this.valueArray["newId"], barCount);
-		tmpNode.bar.appendBar();
+		tmpNode.bar.appear();
 		this.nodeArray["winAndBar"].barCount += 1;
 		return tmpNode;
 	}

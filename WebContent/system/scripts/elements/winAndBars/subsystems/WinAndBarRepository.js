@@ -152,7 +152,7 @@ system.elements.winAndBars.subsystems.WinAndBarRepository = function() {
 			tmpNode = this.winArray[wi];
 			this.manager.pe.append(tmpNode);
 			this.nodeArray["winAndBar"].lastWin = tmpNode;
-			tmpNode.win.appendWindow();
+			tmpNode.win.appear();
 		}
 
 	}
@@ -175,7 +175,7 @@ system.elements.winAndBars.subsystems.WinAndBarRepository = function() {
 		bar.view.taskbarOHeight = this.taskbar.view.oHeight;
 		bar.init(barMap["numId"], barMap["position"]);
 		bar.restoreModel(barMap);
-		bar.appendBar();
+		bar.appear();
 		return bar;
 	}
 }

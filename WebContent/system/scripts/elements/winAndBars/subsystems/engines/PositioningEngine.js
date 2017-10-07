@@ -29,7 +29,6 @@ system.elements.winAndBars.subsystems.engines.PositioningEngine = function() {
 				gapX = -1;
 				gapY = -1;
 			}
-
 			if(this.dynamicMode) window.scrollTo(oLeft, oTop);
 			oLeft = oLeft + (parseInt(gapX) * 2);
 			oTop = oTop + (parseInt(gapY) * 2);
