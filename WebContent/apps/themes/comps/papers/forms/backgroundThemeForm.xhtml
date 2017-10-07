@@ -7,9 +7,9 @@
 		<h:outputLabel value="Theme" /><br/>
 		<h:outputLabel class="backgroundTheme" value="Background" />
 		<h:outputLabel class="backgroundTheme" value="#{fileName}" />
-		<h:commandButton value="change" type="button" onclick="system['backgroundTheme'].click.changeBt()" >
+		<h:commandButton value="change" type="button" onclick="taskArray['backgroundTheme'].click.changeBt()" >
 		</h:commandButton>
-		<h:commandButton value="empty" type="button" onclick="system['backgroundTheme'].click.emptyBt()" >
+		<h:commandButton value="empty" type="button" onclick="taskArray['backgroundTheme'].click.emptyBt()" >
 		</h:commandButton>
 		<h:commandButton id="submit" style="display:none" action="#{backgroundTheme.listen()}">
 			<f:ajax execute="backgroundThemeForm0" />
