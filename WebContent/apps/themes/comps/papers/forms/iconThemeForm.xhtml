@@ -15,8 +15,8 @@
 		<h:inputText dir="border_height" value="#{iconTheme.iconBorderHeight}" /><br/>
 		<h:outputLabel class="iconTheme" value="Icon Border Color" />
 		<h:inputText dir="border_color" value="#{iconTheme.iconBorderColor}" /><br/>
-		<h:commandButton action="#{iconTheme.listen()}" value="Submit" >
-			<f:ajax execute="iconThemeForm" />
+		<h:commandButton action="#{iconTheme.submit()}" value="Submit" >
+			<f:ajax execute="iconThemeForm"/>
 		</h:commandButton>
 	</h:form>
 </ui:composition>
