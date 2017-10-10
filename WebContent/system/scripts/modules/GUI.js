@@ -228,7 +228,8 @@ function GUI(guiVariableName) {
 			"window" : window,
 			"content" : cOfWindow,
 			"x" : win.view.xButtonSelector,
-			"m" : win.view.movementHandleSelector
+			"m" : win.view.movementHandleSelector,
+			"option" : win.option
 		};
 		return json;
 	}

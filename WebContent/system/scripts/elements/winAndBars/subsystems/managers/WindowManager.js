@@ -17,6 +17,8 @@ system.elements.winAndBars.subsystems.managers.WindowManager = function() {
 		this.winArray[zIndex] = tmpNode;
 		tmpNode.win = new Window();
 		tmpNode.win.name = iconObj.name;
+		if(iconObj.option !== undefined)
+			tmpNode.win.option = this.request.getData(this.contextPath + iconObj.option); 
 		tmpNode.win.windowZoneSelector = this.windowZoneSelector;
 		tmpNode.win.view.setDefaultValues(this.winDefaultValueArray);
 		tmpNode.win.view.zIndex = zIndex;

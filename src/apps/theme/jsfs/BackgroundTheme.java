@@ -22,7 +22,7 @@ public class BackgroundTheme extends ApplicationJSF{
 		this.redirect();
 	}
 	
-	public String listen() {
+	public String submit() {
 		String srcPath = (String) this.session.getAttribute("fbOption");
 		if(null != srcPath) {
 			this.session.removeAttribute("fbOption");

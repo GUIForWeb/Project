@@ -7,11 +7,11 @@
 		<h:outputLabel value="Theme" /><br/>
 		<h:outputLabel class="backgroundTheme" value="Background" />
 		<h:outputLabel class="backgroundTheme" value="#{fileName}" />
-		<h:commandButton value="change" type="button" onclick="taskArray['backgroundTheme'].click.changeBt()" >
+		<h:commandButton value="change" type="button" onclick="taskArray['bgTheme'].click.changeBt()" >
 		</h:commandButton>
-		<h:commandButton value="empty" type="button" onclick="taskArray['backgroundTheme'].click.emptyBt()" >
+		<h:commandButton value="empty" type="button" onclick="taskArray['bgTheme'].click.emptyBt()" >
 		</h:commandButton>
-		<h:commandButton id="submit" style="display:none" action="#{backgroundTheme.listen()}">
+		<h:commandButton id="submit" style="display:none" action="#{backgroundTheme.submit()}">
 			<f:ajax execute="backgroundThemeForm0" />
 		</h:commandButton>
 	</h:form>

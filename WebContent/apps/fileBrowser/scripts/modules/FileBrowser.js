@@ -4,16 +4,16 @@ function FileBrowser(id){
 	this.setJSONArray = function(data) {
 		this.controller.va["data"] = data;
 	}
-	this.InitForWMode = function() {
+	this.initForWMode = function() {
 		this.api = new API();
-		var winInfo = gui.getWinInfo(this.section)
-		this.cOfWindow = winInfo.content;
-		this.window = winInfo.window;
-		this.winId = winInfo.id;
-		this.x = winInfo.x;
-		this.m = winInfo.m;
+		this.winInfo = gui.getWinInfo(this.section)
+		this.cOfWindow = this.winInfo.content;
+		//this.window = winInfo.window;
+		//this.winId = winInfo.id;
+		//this.x = winInfo.x;
+		//this.m = winInfo.m;
 		var path = this.path;
-		this.m.bind("dragstart",function(event){
+		this.winInfo.m.bind("dragstart",function(event){
 			var url = event.originalEvent.dataTransfer.getData("text/uri-list");
 			url += "?path="+encodeURIComponent(path.val());
 			if(event.originalEvent.dataTransfer !== undefined){
@@ -67,7 +67,7 @@ function FileBrowser(id){
 		this.tm.__proto__ = this.controller;
 		
 		if(sessionStorage.wMode !== undefined)
-			this.InitForWMode();
+			this.initForWMode();
 	}
 	this.appendFunctionForSection = function(){
 		this.section.attr("draggable","false");

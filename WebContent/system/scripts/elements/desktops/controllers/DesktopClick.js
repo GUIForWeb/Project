@@ -62,5 +62,6 @@ system.elements.desktops.controllers.DesktopClick = function() {
 			iconObj.contentURL = "/apps/themes/comps/views/backgroundTheme.jsf";
 		}
 		this.configure.manager.execute.app(iconObj);
+		taskArray["contextMenu"].disappear();
 	}
 }
