@@ -12,13 +12,13 @@ system.elements.desktops.subsystems.selects.DesktopCtrlSelect = function() {
 			if(data.isChosen){
 				data.isChosen= false;
 				data.isChangeable= true;
-				this.tag["s"].css("background-color", "white");
+				this.tag["s"].css("background-color", this.hs[false]["background-color"]);
 			}
 			else {
 				data.isChosen= true;
 				data.isChangeable= false;
-				this.tag["s"].css("background-color", "dimgray");
-				this.tag["s"].css("opacity", "1");
+				this.tag["s"].css("background-color", this.hs[true]["background-color"]);
+				this.tag["s"].css("opacity", this.hs[true]["opacity"]);
 				this.va["selectedIcon"] = this.tag["s"];
 			}
 		}

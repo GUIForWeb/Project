@@ -32,8 +32,8 @@ system.elements.desktops.subsystems.selects.DesktopShiftSelect = function() {
 		data = this.iconArray[this.tagId0];
 		data.isChosen= true;
 		data.isChangeable= false;
-		this.tag["s"].css("background-color", "dimgray");
-		this.tag["s"].css("opacity", "1");
+		this.tag["s"].css("background-color", this.hs[true]["background-color"]);
+		this.tag["s"].css("opacity", this.hs[true]["opacity"]);
 		this.isOnGoing = true;
 		this.isWorking = true;
 	}
@@ -110,20 +110,6 @@ system.elements.desktops.subsystems.selects.DesktopShiftSelect = function() {
 					}
 				}
 			}
-			/*
-			if(ti >= this.rIdx0 && ti<= this.rIdx1) {
-				data = this.va["data"][ti-2];
-				data.isChosen= true;
-				data.isChangeable= false;
-				$(trs[ti]).css("background-color", "dimgray");
-			}
-			else {
-				data = this.va["data"][ti-2];
-				data.isChosen= false;
-				data.isChangeable= true;
-				$(trs[ti]).css("background-color", "white");
-			}
-			*/
 		}
 		if(isSwiched) {
 			this.rIdx0 = this.rIdx1;

@@ -19,11 +19,11 @@ system.elements.desktops.subsystems.DesktopSelect = function() {
 	}
 	this.hover = function(ishover, iconDiv){
 		if(ishover){
-			iconDiv.css("background-color","dimgray");
+			iconDiv.css("background-color",this.hs[true]["background-color"]);
 		}
 		else {
-			iconDiv.css("background-color","white");
+			iconDiv.css("background-color",this.hs[false]["background-color"]);
 		}
-		iconDiv.css("opacity","1");
+		iconDiv.css("opacity",this.hs[false]["opacity"]);
 	}
 }

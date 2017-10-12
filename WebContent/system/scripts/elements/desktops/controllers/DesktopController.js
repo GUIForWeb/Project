@@ -7,6 +7,24 @@ system.elements.desktops.controllers.DesktopController = function() {
 	this.va["path"] = "";
 	this.va["data"] = [];
 	this.va["dataDrag"] = false;
+	//hover
+	this.va["hover"] = [];
+	this.va["hover"]["mouse"] = [];
+	this.va["hover"]["mouse"][true] = [];
+	this.va["hover"]["mouse"][false] = [];
+	this.va["hover"]["mouse"][true]["background-color"] = "skyblue";
+	this.va["hover"]["mouse"][true]["opacity"] = "0.5";
+	this.va["hover"]["mouse"][false]["background-color"] = "transparent";
+	this.va["hover"]["mouse"][false]["opacity"] = "1";
+	this.hm = this.va["hover"]["mouse"];
+	this.va["hover"]["select"] = [];
+	this.va["hover"]["select"][true] = [];
+	this.va["hover"]["select"][false] = [];
+	this.va["hover"]["select"][true]["background-color"] = "dimgray";
+	this.va["hover"]["select"][true]["opacity"] = "1";
+	this.va["hover"]["select"][false]["background-color"] = "transparent";
+	this.va["hover"]["select"][false]["opacity"] = "1";
+	this.hs = this.va["hover"]["select"];
 	// tagArray
 	this.ta = [];
 	this.ta["script"] = [];

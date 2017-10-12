@@ -4,12 +4,12 @@ system.elements.desktops.controllers.mouses.DesktopMouseout = function() {
 		if (tmpClass.includes("iconDiv")) {
 			if (!event.shiftKey && !event.ctrlKey && !this.select.ctrl.isWorking && !this.select.mousemove.isWorking && !this.select.shift.isWorking && !this.iconContextMenu.isOnTheScreen) {
 				//this.select.cancle.row(this.cssTag["s"]);
-				this.cssTag["s"].css("background-color", "white");
-				this.cssTag["s"].css("opacity", "1");
+				this.cssTag["s"].css("background-color", this.hm[false]["background-color"]);
+				this.cssTag["s"].css("opacity", this.hm[false]["opacity"]);
 			}
 			else if((event.ctrlKey || event.shiftKey) && this.cssTag["t"].style.getPropertyValue("background-color") == "skyblue") {
-				this.cssTag["s"].css("background-color", "white");
-				this.cssTag["s"].css("opacity", "1");
+				this.cssTag["s"].css("background-color", this.hm[false]["background-color"]);
+				this.cssTag["s"].css("opacity", this.hm[false]["opacity"]);
 			}
 		}
 	}
