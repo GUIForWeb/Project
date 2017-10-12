@@ -1,4 +1,4 @@
-fileBrowser.controllers.ContextMenu = function() {
+apps.fileBrowser.controllers.FBContextMenu = function() {
 	this.button = function(event) {
 		if (!taskArray["contextMenu"].isOnTheScreen) {
 			if(sessionStorage.wMode) 

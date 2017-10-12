@@ -1,4 +1,4 @@
-fileBrowser.subsystems.selects.ClickSelect = function() {
+apps.fileBrowser.subsystems.selects.ClickSelect = function() {
 	this.row = function(event){
 		this.setScriptTag(event.target.parentNode);
 		if(this.tag["s"].find("th").length == 0 && this.tag["t"].children[0].innerHTML != ".."

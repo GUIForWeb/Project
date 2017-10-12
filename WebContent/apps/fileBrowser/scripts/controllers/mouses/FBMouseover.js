@@ -1,4 +1,4 @@
-fileBrowser.controllers.mouses.Mouseover = function() {
+apps.fileBrowser.controllers.mouses.FBMouseover = function() {
 	this.row = function(event) {
 		this.setCSSTag(event.currentTarget);
 		var tmpClass = this.cssTag["s"].attr("class");

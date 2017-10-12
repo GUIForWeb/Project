@@ -1,4 +1,4 @@
-fileBrowser.controllers.drags.Dragstart = function(){
+apps.fileBrowser.controllers.drags.FBDragstart = function(){
 	this.dataItem = function(event){
 		event.stopPropagation();
 		this.setScriptTag(event.currentTarget);

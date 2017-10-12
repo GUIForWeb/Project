@@ -1,4 +1,4 @@
-fileBrowser.controllers.Focusout = function() {
+apps.fileBrowser.controllers.focuses.FBFocusout = function() {
 	this.rename = function(event) {
 		this.setScriptTag(event.target.parentNode);
 		this.va["selectedData"] = [ {

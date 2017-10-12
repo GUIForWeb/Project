@@ -1,4 +1,4 @@
-fileBrowser.views.FileBrowserStatusView = function() {
+apps.fileBrowser.views.FBStatusView = function() {
 	this.statusClass = "fb-status";
 	this.fbInfoClass = "fb-info";
 	this.fbDetailClass = "fb-detail";

@@ -1,4 +1,4 @@
-fileBrowser.views.FileBrowserContextMenuView = function() {
+apps.fileBrowser.views.FBContextMenuView = function() {
 	this.outerLayerSelectorClass = "fbContextMenuOuterLayer";
 	this.contentLayerSelectorClass = "fbContextMenuContentLayer";
 	this.contentPath = "";

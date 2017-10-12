@@ -1,4 +1,4 @@
-fileBrowser.controllers.drags.Dragover = function(){
+apps.fileBrowser.controllers.drags.FBDragover = function(){
 	this.dataItem = function(event){
 		event.preventDefault();
 		this.va["dropable"] = true;

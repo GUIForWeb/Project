@@ -1,4 +1,4 @@
-fileBrowser.controllers.Click = function() {
+apps.fileBrowser.controllers.FBClick = function() {
 	this.row = function(event) {
 		if(!(event.ctrlKey || event.shiftKey)){
 			this.select.cancle.all();
@@ -19,10 +19,10 @@ fileBrowser.controllers.Click = function() {
 			nameTd.attr("contenteditable", true);
 			var id = this.id;
 			nameTd.focusout(function(event) {
-				taskArray["fileBrowser"][id].focusout.rename(event);
+				taskArray["fileBrowser"][id].focus.out.rename(event);
 			});
 			nameTd.keydown(function(event) {
-				taskArray["fileBrowser"][id].keydown.rename(event);
+				taskArray["fileBrowser"][id].key.down.rename(event);
 			});
 			this.va["prevData"] = this.va["selectedData"];
 			nameTd.focus();

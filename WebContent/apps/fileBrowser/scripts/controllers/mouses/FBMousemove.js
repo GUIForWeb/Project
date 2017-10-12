@@ -1,4 +1,4 @@
-fileBrowser.controllers.mouses.Mousemove = function() {
+apps.fileBrowser.controllers.mouses.FBMousemove = function() {
 	this.selection = function(event) {
 		if(this.select.mousemove.isOnGoing)
 		if (event.ctrlKey)

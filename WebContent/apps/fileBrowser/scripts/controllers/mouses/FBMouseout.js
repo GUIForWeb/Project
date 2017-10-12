@@ -1,4 +1,4 @@
-fileBrowser.controllers.mouses.Mouseout = function() {
+apps.fileBrowser.controllers.mouses.FBMouseout = function() {
 	this.row = function(event) {
 		var tmpClass = this.cssTag["s"].attr("class");
 		if (tmpClass.includes("dataItem") || tmpClass.includes("parent")) {

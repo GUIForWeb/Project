@@ -1,4 +1,4 @@
-fileBrowser.controllers.drags.Drop = function() {
+apps.fileBrowser.controllers.drags.FBDrop = function() {
 	this.dataItem = function(event) {
 		if (this.va["dropable"]
 				&& event.originalEvent.dataTransfer.files.length != 0) {

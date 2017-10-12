@@ -1,4 +1,4 @@
-fileBrowser.subsystems.selects.SelectEnd = function() {
+apps.fileBrowser.subsystems.selects.SelectEnd = function() {
 	this.data = function() {
 		this.va["selectedData"] = [];
 		this.filter(this.va["selectedData"]);

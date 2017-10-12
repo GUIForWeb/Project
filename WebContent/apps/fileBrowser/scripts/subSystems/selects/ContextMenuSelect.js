@@ -1,4 +1,4 @@
-fileBrowser.subsystems.selects.ContextMenuSelect = function() {
+apps.fileBrowser.subsystems.selects.ContextMenuSelect = function() {
 	this.click = function() {
 		this.setScriptTag(event.target.parentNode);
 		if(this.tag["t"].children[0].innerHTML != ".."

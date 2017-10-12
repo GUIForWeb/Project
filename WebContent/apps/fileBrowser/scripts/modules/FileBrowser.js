@@ -1,4 +1,4 @@
-function FileBrowser(id){
+apps.fileBrowser.modules.FileBrowser = function(id){
 	this.ws = function(){}
 	this.id = id;
 	this.funcArray = [];
@@ -28,22 +28,22 @@ function FileBrowser(id){
 		var id = this.id;
 	}
 	this.init = function() {
-		this.controller = new Controller();
+		this.controller = new FBController();
 		this.controller.__proto__ = this;
-		this.dblclick = new DblClick();
+		this.dblclick = new FBDblClick();
 		this.dblclick.__proto__ = this.controller;
-		this.click = new Click();
+		this.click = new FBClick();
 		this.click.__proto__ = this.controller;
-		this.contextmenu = new ContextMenu();
+		this.contextmenu = new controllers.FBContextMenu();
 		this.contextmenu.__proto__ = this.controller;	
-		this.drag = new Drag();
+		this.drag = new FBDrag();
 		this.drag.__proto__ = this.controller;
-		this.mouse = new Mouse();
+		this.mouse = new FBMouse();
 		this.mouse.__proto__ = this.controller;
-		this.focusout = new Focusout();
-		this.focusout.__proto__ = this.controller;
-		this.keydown = new Keydown();
-		this.keydown.__proto__ = this.controller;
+		this.focus = new FBFocus();
+		this.focus.__proto__ = this.controller;
+		this.key = new FBKey();
+		this.key.__proto__ = this.controller;
 		
 		this.select = new Select();
 		this.select.__proto__ = this.controller;
@@ -55,10 +55,10 @@ function FileBrowser(id){
 		this.path = this.footer.find(".path");
 		this.fbTable = $("#fbTable"+this.id);
 		
-		this.contextMenu = new FileBrowserContextMenu();
+		this.contextMenu = new FBContextMenu();
 		this.contextMenu.__proto__ = this;
 		taskArray["contextMenu"] = this.contextMenu; 
-		this.status = new FileBrowserStatus();
+		this.status = new FBStatus();
 		this.status.__proto__ = this;
 		this.fs = new FileSort();
 		this.fs.__proto__ = this.controller;

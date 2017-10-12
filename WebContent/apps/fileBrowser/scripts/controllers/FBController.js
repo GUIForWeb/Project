@@ -1,4 +1,4 @@
-fileBrowser.controllers.Controller = function() {
+apps.fileBrowser.controllers.FBController = function() {
 	// valueArray
 	this.va = [];
 	this.va["validation"] = false;

@@ -1,4 +1,4 @@
-fileBrowser.subsystems.FBSender = function() {
+apps.fileBrowser.communications.webSockets.FBSender = function() {
 	this.isNotInWindow = function() {
 		this.json.data = {
 				"status" : "isNotInWindow",

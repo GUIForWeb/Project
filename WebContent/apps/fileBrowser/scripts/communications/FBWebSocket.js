@@ -1,4 +1,4 @@
-fileBrowser.webSockets.FBWebSocket = function() {
+apps.fileBrowser.communications.FBWebSocket = function() {
 	this.json = {};
 	this.json.app = "apps.fileBrowser.webSockets.FBWebSocket";
 	this.send = new FBSender();

@@ -1,4 +1,4 @@
-fileBrowser.subsystems.FileSort = function() {
+apps.fileBrowser.subsystems.FileSort = function() {
 	this.string = new StringSort();
 	this.string.__proto__ = this;
 	this.date = new DateSort();

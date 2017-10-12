@@ -1,4 +1,4 @@
-fileBrowser.controllers.mouses.Mousedown = function() {
+apps.fileBrowser.controllers.mouses.FBMousedown = function() {
 	this.selection = function(event){
 		this.setScriptTag(event.target);
 		if(this.tag["t"] == this.section[0] && event.button == 0) {

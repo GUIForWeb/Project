@@ -1,5 +1,5 @@
-fileBrowser.models.FileBrowserStatus = function() {
-	this.view = new FileBrowserStatusView();
+apps.fileBrowser.models.FBStatus = function() {
+	this.view = new FBStatusView();
 	this.view.__proto__ = this;
 	this.appendStatus = function() {
 		this.view.getView();

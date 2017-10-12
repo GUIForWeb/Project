@@ -1,4 +1,4 @@
-fileBrowser.controllers.DblClick = function() {
+apps.fileBrowser.controllers.FBDblClick = function() {
 	this.row = function(event) {
 		if (!this.select.mousemove.isWorking) {
 			var tr = event.currentTarget;

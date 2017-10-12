@@ -1,4 +1,4 @@
-fileBrowser.subsystems.Select = function() {
+apps.fileBrowser.subsystems.Select = function() {
 	this.contextmenu = new ContextMenuSelect();
 	this.contextmenu.__proto__ = this;
 	this.ctrl = new CtrlSelect();

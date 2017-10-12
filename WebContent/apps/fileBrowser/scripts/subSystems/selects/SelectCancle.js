@@ -1,4 +1,4 @@
-fileBrowser.subsystems.selects.SelectCancle = function() {
+apps.fileBrowser.subsystems.selects.SelectCancle = function() {
 	this.all = function(){
 		this.fbTable.find("tr").css("background-color", "white");
 		this.va["selectedData"] = [];

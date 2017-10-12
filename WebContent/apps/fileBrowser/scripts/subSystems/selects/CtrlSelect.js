@@ -1,4 +1,4 @@
-fileBrowser.subsystems.selects.CtrlSelect = function() {
+apps.fileBrowser.subsystems.selects.CtrlSelect = function() {
 	this.isWorking = false;
 	this.cancle = function(){
 		this.select.ctrl.isWorking = false;

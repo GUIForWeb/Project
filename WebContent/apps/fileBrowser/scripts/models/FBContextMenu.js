@@ -1,5 +1,5 @@
-fileBrowser.models.FileBrowserContextMenu = function() {
-	this.view = new FileBrowserContextMenuView();
+apps.fileBrowser.models.FBContextMenu = function() {
+	this.view = new FBContextMenuView();
 	this.view.__proto__ = this;
 	this.isOnTheScreen = false;
 	this.setOnTheScreen = function(flag){
