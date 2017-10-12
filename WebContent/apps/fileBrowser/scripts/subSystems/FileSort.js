@@ -8,6 +8,7 @@ fileBrowser.subsystems.FileSort = function() {
 	this.display = this.string.sortFromLowToHigh;
 	this.isDisplayed = true;
 	this.displayData = function() {
+		var tmpTbody = $("<tbody></tbody>");
 		for(i=0; i<this.va["data"].length; i++) {
 			var tmpTr = $("<tr></tr>");
 			tmpTr.addClass("fb-table-row");
@@ -30,8 +31,10 @@ fileBrowser.subsystems.FileSort = function() {
 				this.isDisplayed = true;
 			}
 			if(this.isDisplayed)
-			this.fbTable.append(tmpTr);
+				tmpTbody.append(tmpTr);
+			
 		}
+		this.fbTable.append(tmpTbody);
 		this.isDisplayed = true;
 		this.va["data"] = this.va["data"].filter(function(data){return data != undefined;});
 	}
