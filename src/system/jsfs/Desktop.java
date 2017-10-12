@@ -45,7 +45,7 @@ public class Desktop extends SystemJSF {
 			OSsDAO osDAO = new OSsDAOMySQL(this.user);
 			osDAO.load();
 			this.os = osDAO.getOS();
-
+			this.session.setAttribute("os", this.os);
 			GUISettingsInOSDAO guisInOSDAO = new GUISettingsInOSDAOMySQL(os);
 			guisInOSDAO.load();
 			GUIsInOS guisInOS = guisInOSDAO.getGUIsInOS();
@@ -64,8 +64,7 @@ public class Desktop extends SystemJSF {
 			iconDAO.load();
 			
 			if (null != bgPath.getBgPath()) {
-				this.bgImg = this.context.getRealPath(".").replace(this.contextPath.substring(1), "");
-				this.bgImg += bgPath.getBgPath();
+				this.bgImg = bgPath.getBgPath();
 				this.bgImg = ImgToBase64.getBase64(this.bgImg);
 			}
 			if (null == this.session.getAttribute("winAndBarJSONArray")) {

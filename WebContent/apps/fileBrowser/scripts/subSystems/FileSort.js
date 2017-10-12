@@ -26,7 +26,7 @@ fileBrowser.subsystems.FileSort = function() {
 			
 			if(this.winInfo.option !== undefined)
 				eval(this.winInfo.option);
-			if(this.va["data"][i]["type"] == "inode/directory"){
+			if(this.va["data"][i] !== undefined && this.va["data"][i]["type"] == "inode/directory"){
 				tmpTr.css("color","#ffbf00");
 				this.isDisplayed = true;
 			}
@@ -34,6 +34,7 @@ fileBrowser.subsystems.FileSort = function() {
 			this.fbTable.append(tmpTr);
 		}
 		this.isDisplayed = true;
+		this.va["data"] = this.va["data"].filter(function(data){return data != undefined;});
 	}
 	this.displayHead = function() {
 		this.fbTable.html("");

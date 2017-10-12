@@ -4,3 +4,4 @@ var BgThemeController = apps.themes.backgrounds.controllers.BgThemeController;
 var BgThemeClick = apps.themes.backgrounds.controllers.BgThemeClick;
 var BgThemeWebSocket = apps.themes.backgrounds.communications.BgThemeWebSocket;
 var BgThemeSender = apps.themes.backgrounds.communications.webSockets.BgThemeSender;
+var BgThemeReceiver = apps.themes.backgrounds.communications.webSockets.BgThemeReceiver;

@@ -5,5 +5,7 @@ if(this.va["data"][i]["type"] == "image/jpeg"){
 	});
 	this.isDisplayed = true;
 }
-else
+else if(this.va["data"][i]["type"] != "inode/directory"){
 	this.isDisplayed = false;
+    delete this.va["data"][i];
+}

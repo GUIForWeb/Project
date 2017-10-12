@@ -1,4 +1,4 @@
-package apps.theme.jsfs;
+package apps.themes.jsfs;
 
 
 import javax.enterprise.context.RequestScoped;
