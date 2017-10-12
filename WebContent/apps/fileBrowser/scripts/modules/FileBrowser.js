@@ -121,8 +121,11 @@ function FileBrowser(id){
 		trs.dblclick(function(event){
 			event.stopPropagation();
 			taskArray['fileBrowser'][id].dblclick.row(event);
-			eval(funcArray[id].dblclick);
 		});
+		if(funcArray[id] !== undefined && funcArray[id].dblclick !== undefined)
+			trs.bind("dblclick",function(event){
+				eval(funcArray[id].dblclick);
+			});
 		
 		trs.contextmenu(function(event){
 			taskArray['fileBrowser'][id].contextmenu.button(event);
