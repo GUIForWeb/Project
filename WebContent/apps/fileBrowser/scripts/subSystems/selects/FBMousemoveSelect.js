@@ -1,4 +1,4 @@
-apps.fileBrowser.subsystems.selects.MousemoveSelect = function() {
+apps.fileBrowser.subsystems.selects.FBMousemoveSelect = function() {
 	this.stdX = 0;
 	this.stdY = 0;
 	this.isOnGoing = false;

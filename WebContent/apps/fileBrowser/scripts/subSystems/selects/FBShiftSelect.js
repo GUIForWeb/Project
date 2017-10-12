@@ -1,4 +1,4 @@
-apps.fileBrowser.subsystems.selects.ShiftSelect = function() {
+apps.fileBrowser.subsystems.selects.FBShiftSelect = function() {
 	this.isOnGoing = false;
 	this.rIdx0 = null;
 	this.rIdx1 = null;

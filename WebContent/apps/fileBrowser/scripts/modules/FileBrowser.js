@@ -45,7 +45,7 @@ apps.fileBrowser.modules.FileBrowser = function(id){
 		this.key = new FBKey();
 		this.key.__proto__ = this.controller;
 		
-		this.select = new Select();
+		this.select = new FBSelect();
 		this.select.__proto__ = this.controller;
 		this.fbws = new FBWebSocket();
 		this.fbws.__proto__ = this.controller;
@@ -60,11 +60,11 @@ apps.fileBrowser.modules.FileBrowser = function(id){
 		taskArray["contextMenu"] = this.contextMenu; 
 		this.status = new FBStatus();
 		this.status.__proto__ = this;
-		this.fs = new FileSort();
+		this.fs = new FBFileSort();
 		this.fs.__proto__ = this.controller;
 		this.fs.option = "name";
 		this.fs.string.arrayPrototype();
-		this.tm = new TableManager();
+		this.tm = new FBTableManager();
 		this.tm.__proto__ = this.controller;
 		
 		if(sessionStorage.wMode !== undefined)

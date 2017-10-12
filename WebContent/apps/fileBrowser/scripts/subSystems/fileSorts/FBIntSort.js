@@ -1,10 +1,10 @@
-apps.fileBrowser.subsystems.fileSorts.DateSort = function() {
+apps.fileBrowser.subsystems.fileSorts.FBIntSort = function() {
 	this.flag = false;
 	this.arrayPrototype = function() {
 		Array.prototype.lowToHigh = function(data, num, option) {
 			if (this[num] === undefined) {
 				this.push(data);
-			} else if (new Date(this[num][option]) > new Date(data[option])) {
+			} else if (parseInt(this[num][option]) > parseInt(data[option])) {
 				var tmpData = this[num];
 				this[num] = data;
 				this.lowToHigh(tmpData, num + 1, option);
@@ -15,7 +15,7 @@ apps.fileBrowser.subsystems.fileSorts.DateSort = function() {
 		Array.prototype.highToLow = function(data, num, option) {
 			if (this[num] === undefined) {
 				this.push(data);
-			} else if (new Date(this[num][option]) < new Date(data[option])) {
+			} else if (parseInt(this[num][option]) < parseInt(data[option])) {
 				var tmpData = this[num];
 				this[num] = data;
 				this.highToLow(tmpData, num + 1, option);

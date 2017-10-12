@@ -34,22 +34,22 @@ var FBContextMenu = apps.fileBrowser.models.FBContextMenu;
 var FBStatus = apps.fileBrowser.models.FBStatus;
 
 var fileSorts = apps.fileBrowser.subsystems.fileSorts;
-var DateSort = apps.fileBrowser.subsystems.fileSorts.DateSort;
-var IntSort = apps.fileBrowser.subsystems.fileSorts.IntSort;
-var StringSort = apps.fileBrowser.subsystems.fileSorts.StringSort;
+var FBFileSort = apps.fileBrowser.subsystems.FBFileSort;
+var FBDateSort = apps.fileBrowser.subsystems.fileSorts.FBDateSort;
+var FBIntSort = apps.fileBrowser.subsystems.fileSorts.FBIntSort;
+var FBStringSort = apps.fileBrowser.subsystems.fileSorts.FBStringSort;
 
 var subsystems = apps.fileBrowser.subsystems;
-var Select = apps.fileBrowser.subsystems.Select;
-var ContextMenuSelect = apps.fileBrowser.subsystems.selects.ContextMenuSelect;
-var MousemoveSelect = apps.fileBrowser.subsystems.selects.MousemoveSelect;
-var CtrlSelect = apps.fileBrowser.subsystems.selects.CtrlSelect;
-var ShiftSelect = apps.fileBrowser.subsystems.selects.ShiftSelect;
-var SelectEnd = apps.fileBrowser.subsystems.selects.SelectEnd;
-var ClickSelect = apps.fileBrowser.subsystems.selects.ClickSelect
-var SelectCancle = apps.fileBrowser.subsystems.selects.SelectCancle
+var FBSelect = apps.fileBrowser.subsystems.FBSelect;
+var FBContextMenuSelect = apps.fileBrowser.subsystems.selects.FBContextMenuSelect;
+var FBMousemoveSelect = apps.fileBrowser.subsystems.selects.FBMousemoveSelect;
+var FBCtrlSelect = apps.fileBrowser.subsystems.selects.FBCtrlSelect;
+var FBShiftSelect = apps.fileBrowser.subsystems.selects.FBShiftSelect;
+var FBSelectEnd = apps.fileBrowser.subsystems.selects.FBSelectEnd;
+var FBClickSelect = apps.fileBrowser.subsystems.selects.FBClickSelect
+var FBSelectCancle = apps.fileBrowser.subsystems.selects.FBSelectCancle
 var FBManager = apps.fileBrowser.subsystems.FBManager;
-var FileSort = apps.fileBrowser.subsystems.FileSort;
-var TableManager = apps.fileBrowser.subsystems.TableManager;
+var FBTableManager = apps.fileBrowser.subsystems.FBTableManager;
 	
 var FBWebSocket = apps.fileBrowser.communications.FBWebSocket;
 var FBReceiver = apps.fileBrowser.communications.webSockets.FBReceiver;

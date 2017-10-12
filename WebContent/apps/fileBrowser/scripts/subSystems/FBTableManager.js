@@ -1,4 +1,4 @@
-apps.fileBrowser.subsystems.TableManager = function() {
+apps.fileBrowser.subsystems.FBTableManager = function() {
 	this.jsonArray = [];
 	this.getData = function() {
 		var rows = this.fbTable.find("tr");

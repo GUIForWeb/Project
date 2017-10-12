@@ -1,9 +1,9 @@
-apps.fileBrowser.subsystems.FileSort = function() {
-	this.string = new StringSort();
+apps.fileBrowser.subsystems.FBFileSort = function() {
+	this.string = new FBStringSort();
 	this.string.__proto__ = this;
-	this.date = new DateSort();
+	this.date = new FBDateSort();
 	this.date.__proto__ = this;
-	this.int = new IntSort();
+	this.int = new FBIntSort();
 	this.int.__proto__ = this;
 	this.display = this.string.sortFromLowToHigh;
 	this.isDisplayed = true;

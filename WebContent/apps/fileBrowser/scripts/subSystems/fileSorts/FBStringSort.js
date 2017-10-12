@@ -1,4 +1,4 @@
-apps.fileBrowser.subsystems.fileSorts.StringSort = function() {
+apps.fileBrowser.subsystems.fileSorts.FBStringSort = function() {
 	this.flag = false;
 	this.arrayPrototype = function() {
 		Array.prototype.lowToHigh = function(data, num, option) {
