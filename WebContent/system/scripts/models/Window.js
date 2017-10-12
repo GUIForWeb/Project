@@ -3,6 +3,7 @@ system.models.Window = function() {
 	this.numId = 0;
 	this.tagId = "";
 	this.name = "";
+	this.options = [];
 	this.view = new WindowView(this);
 	this.appear = function(){
 		if(this.view.isOnScreen)

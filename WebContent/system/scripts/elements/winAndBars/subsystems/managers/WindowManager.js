@@ -1,6 +1,5 @@
 system.elements.winAndBars.subsystems.managers.WindowManager = function() {
 	this.remove = function(winAndBarNode) {
-
 		winAndBarNode.win.tag.remove();
 	}
 	this.disappear = function(winAndBarNode) {
@@ -17,8 +16,13 @@ system.elements.winAndBars.subsystems.managers.WindowManager = function() {
 		this.winArray[zIndex] = tmpNode;
 		tmpNode.win = new Window();
 		tmpNode.win.name = iconObj.name;
-		if(iconObj.option !== undefined)
-			tmpNode.win.option = this.request.getData(this.contextPath + iconObj.option); 
+		if(Object.keys(iconObj.options).length) {
+			tmpNode.win.options = [];
+			var keys = Object.keys(iconObj.options);
+			for(ki=0; ki<keys.length; ki++){
+				tmpNode.win.options[keys[ki]] = this.request.getData(this.contextPath + iconObj.options[keys[ki]]);
+			}
+		}
 		tmpNode.win.windowZoneSelector = this.windowZoneSelector;
 		tmpNode.win.view.setDefaultValues(this.winDefaultValueArray);
 		tmpNode.win.view.zIndex = zIndex;

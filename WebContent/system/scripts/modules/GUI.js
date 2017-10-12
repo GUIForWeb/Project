@@ -229,7 +229,7 @@ function GUI(guiVariableName) {
 			"content" : cOfWindow,
 			"x" : win.view.xButtonSelector,
 			"m" : win.view.movementHandleSelector,
-			"option" : win.option
+			"options" : win.options
 		};
 		return json;
 	}

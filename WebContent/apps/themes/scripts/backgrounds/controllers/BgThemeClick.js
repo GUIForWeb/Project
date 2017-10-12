@@ -5,12 +5,13 @@ apps.themes.backgrounds.controllers.BgThemeClick = function(){
 			var iconObj = new Icon();
 			iconObj.contentURL = "/apps/fileBrowser/comps/views/fileBrowser.jsf";
 			iconObj.name = "File Browser";
-			iconObj.option = "/apps/themes/scripts/backgrounds/events/bgThemeOption.js";
+			iconObj.options["fileSort"] = "/apps/themes/scripts/backgrounds/events/bgThemeFileSortOption.js";
+			iconObj.options["dblclick"] = "/apps/themes/scripts/backgrounds/events/bgThemeDblclickOption.js";
 			var winAndBarNode = gui.winAndBar.manager.newWinAndBar(iconObj);
 			gui.winAndBar.repo.newWinAndBar(winAndBarNode);
 		}
 	}
 	this.emptyBt = function(){
-		this.submit();
+		this.socket.sender.empty();
 	}
 }

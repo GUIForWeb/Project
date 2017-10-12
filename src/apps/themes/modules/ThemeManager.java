@@ -16,25 +16,29 @@ import system.models.OS;
 public class ThemeManager {
 	private HttpSession session;
 	private JSONObject json;
-	public void setBgImg(String srcPath) {
+	private BgPathsDAO bgPathDAO;
+	public ThemeManager(){
+		
+	}
+	public void init(){
 		OS osSetting = (OS)this.session.getAttribute("os");
 		GUISettingsInOSDAO guisInOSDAO = new  GUISettingsInOSDAOMySQL(osSetting);
 		guisInOSDAO.load();
 		GUIsInOS guisInOS = guisInOSDAO.getGUIsInOS();
-		BgPathsDAO bgPathDAO = new BgPathsDAOMySQL();
-		bgPathDAO.setGUIId(guisInOS.getGuiId());
+		this.bgPathDAO = new BgPathsDAOMySQL();
+		this.bgPathDAO.setGUIId(guisInOS.getGuiId());
+	}
+	public void empty(){
+		bgPathDAO.setBgPath("NULL");
+		this.bgPathDAO.update();
+		this.json = new JSONObject();
+		this.json.put("status", "updateBgImg");
+	}
+	public void setBgImg(String srcPath) {
 		bgPathDAO.setBgPath(srcPath);
 		bgPathDAO.update();
 		this.json = new JSONObject();
 		this.json.put("status", "updateBgImg");
-		/*
-		try {
-			this.externalContext.redirect(this.contextPath+"/system/comps/views/desktop.jsf");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
 	}
 	public HttpSession getSession() {
 		return session;

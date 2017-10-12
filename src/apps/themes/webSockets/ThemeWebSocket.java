@@ -38,18 +38,15 @@ public class ThemeWebSocket implements WebSocketInterface{
 		this.fbm.setServletContext(this.servletContext);
 		this.fbm.setSession(this.session);
 		this.tm.setSession(this.session);
+		this.tm.init();
 	}
 	@Override
 	public JSONObject onMessage(String message){
 		JSONObject json = new JSONObject(message);
-		this.data = json.getJSONObject("data");
+		if(json.has("data"))
+			this.data = json.getJSONObject("data");
 		String status = json.getString("status");
-		System.out.println(json);
-		System.out.println(status);
 		json.remove("status");
-		this.fbm.setJSON(this.data);
-		this.fbm.loadRoot();
-		this.fbm.findBrowser();
 		this.themeSwitchCase(status);
 		json = new JSONObject();
 		json.put("app", "taskArray.bgTheme.socket");
@@ -59,9 +56,15 @@ public class ThemeWebSocket implements WebSocketInterface{
 	private void themeSwitchCase(String status){
 		switch (status) {
 			case "imgFileData":
-			String srcPath = this.fbm.getPath()+"/"+this.data.getString("name");
-			this.tm.setBgImg(srcPath);
-			break;
+				this.fbm.setJSON(this.data);
+				this.fbm.loadRoot();
+				this.fbm.findBrowser();
+				String srcPath = this.fbm.getPath()+"/"+this.data.getString("name");
+				this.tm.setBgImg(srcPath);
+				break;
+			case "empty":
+				this.tm.empty();
+				break;
 		}
 	}
 	@Override

@@ -8,6 +8,7 @@ system.models.Icon = function(){
 	this.iconType = "";
 	this.name = "";
 	this.contentURL = "";
+	this.options = [];
 	this.view = new IconView(this);
 	this.init = function(iconJSON){
 		this.id = iconJSON.id;

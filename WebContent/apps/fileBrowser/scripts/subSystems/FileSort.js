@@ -23,9 +23,8 @@ fileBrowser.subsystems.FileSort = function() {
 			tmpTr.css("background-color","white")
 			this.va["data"][i].isChosen = false;
 			this.va["data"][i].isChangeable = true;
-			
-			if(this.winInfo.option !== undefined)
-				eval(this.winInfo.option);
+			if(this.winInfo.options["fileSort"] !== undefined)
+				eval(this.winInfo.options["fileSort"]);
 			if(this.va["data"][i] !== undefined && this.va["data"][i]["type"] == "inode/directory"){
 				tmpTr.css("color","#ffbf00");
 				this.isDisplayed = true;

@@ -1,6 +1,7 @@
 function FileBrowser(id){
 	this.ws = function(){}
 	this.id = id;
+	this.funcArray = [];
 	this.setJSONArray = function(data) {
 		this.controller.va["data"] = data;
 	}
@@ -88,11 +89,22 @@ function FileBrowser(id){
 		});
 	}
 	this.appendFunctionForTable = function(){
+		var winInfo = this.winInfo;
+		
+		if(sessionStorage.fileBrowser === undefined)
+			sessionStorage.fileBrowser = "[]";
+		this.funcArray = JSON.parse(sessionStorage.fileBrowser);
+		if(winInfo.options["dblclick"] !== undefined) {
+			var json = {"dblclick":winInfo.options["dblclick"]};
+			this.funcArray[this.id] = json;
+		}
+		sessionStorage.fileBrowser = JSON.stringify(this.funcArray);
+		
 		if(this.controller.va["data"].length == 0)
 			this.tm.getData();
 		
 		var id = this.id;
-		
+		var funcArray = this.funcArray;
 		this.fbTable.on("dragover",function(event){
 			taskArray['fileBrowser'][id].drag.over.dataItem(event);
 		});
@@ -109,6 +121,7 @@ function FileBrowser(id){
 		trs.dblclick(function(event){
 			event.stopPropagation();
 			taskArray['fileBrowser'][id].dblclick.row(event);
+			eval(funcArray[id].dblclick);
 		});
 		
 		trs.contextmenu(function(event){

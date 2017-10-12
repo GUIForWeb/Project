@@ -24,6 +24,7 @@ system.elements.winAndBars = {};
 system.elements.winAndBars.subsystems = {};
 system.elements.winAndBars.subsystems.managers = {};
 system.elements.winAndBars.subsystems.engines = {};
+system.elements.winAndBars.communications = {};
 system.elements.winAndBars.controllers = {}
 system.elements.winAndBars.controllers.drags = {}
 system.elements.winAndBars.controllers.resizes = {}

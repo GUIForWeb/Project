@@ -10,4 +10,10 @@ apps.themes.backgrounds.communications.webSockets.BgThemeSender = function() {
 		}
 		gui.ws.send(this.json);
 	}
+	this.empty = function() {
+		this.json.data = {
+			"status" : "empty"
+		}
+		gui.ws.send(this.json);
+	}
 }

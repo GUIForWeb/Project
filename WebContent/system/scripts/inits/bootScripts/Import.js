@@ -23,7 +23,7 @@ var DataIconView = system.views.DataIconView;
 //Window
 var WinAndBar = system.modules.WinAndBar;
 
-var WinAndBarXMLHttpRequest = system.elements.winAndBars.subsystems.WinAndBarXMLHttpRequest;
+var WinAndBarXMLHttpRequest = system.elements.winAndBars.communications.WinAndBarXMLHttpRequest;
 var WinAndBarRepository = system.elements.winAndBars.subsystems.WinAndBarRepository;
 var WinAndBarManager = system.elements.winAndBars.subsystems.WinAndBarManager;
 var BarManager = system.elements.winAndBars.subsystems.managers.BarManager;
