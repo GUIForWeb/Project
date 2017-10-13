@@ -23,7 +23,7 @@ system.views.BackgroundContextMenuView = function(backgroundContextMenuView) {
 		var ulTag = $("<ul></ul>");
 		var theme = $("<li>Theme</li>");
 		var themeUlTag = $("<ul></ul>");
-		var window = $("<li>Window</li>");
+		var window = $("<li>Interface</li>");
 		var background = $("<li>Background</li>");
 		var icon = $("<li>Icon</li>");
 		theme.mouseover(function(){

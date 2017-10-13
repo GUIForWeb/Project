@@ -28,11 +28,9 @@ apps.themes.icons.subsystems.trials.IconThemeTdTrial = function() {
 	this.tryToAppendIconTd = function() {
 		this.background.view.iconTableWidth = this.background.view.tableSelector.width();
 		this.background.view.iconTableHeight = this.background.view.tableSelector.height();
-		var taskbarWidthSize = 0;
-		var taskbarHeightSize = 0;
 		var tmpTd = null;
 		tableRowNum = parseInt((this.background.view.iconTableHeight
-				- this.background.view.taskbarHeight - this.background.view.iconTablePaddingTop)
+				- this.background.view.taskbarOHeight - this.background.view.iconTablePaddingTop)
 				/ (this.background.view.iconTdHeight + this.background.view.iconTdBorderHeight));
 		tableColNum = parseInt((this.background.view.iconTableWidth - this.background.view.iconTablePaddingLeft)
 				/ (this.background.view.iconTdWidth + this.background.view.iconTdBorderWidth));

@@ -233,4 +233,7 @@ function GUI(guiVariableName) {
 		};
 		return json;
 	}
+	this.reload = function(){
+		location.reload();
+	}
 }

@@ -9,6 +9,8 @@ public class GUISetting{
 	private double iconBorderHeight;
 	private String iconBorderStyle;
 	private String iconBorderColor;
+	private double iconTableTop;
+	private double iconTableLeft;
 	private double winBBorderWidth;
 	private String winBBorderColor;
 	private String winBBgColor;
@@ -25,8 +27,23 @@ public class GUISetting{
 	private double winBTop;
 	private double winMinWidth;
 	private double winMinHeight;
-	private double iconTableTop;
-	private double iconTableLeft;
+	private String winCBgColor;
+	private String winHFontFamily;
+	private String barOBgColor;
+	private String barNBgColor;
+	private double barOWidth;
+	private double barOHeight;
+	private double barOBorderWidth;
+	private String tbarOBgColor;
+	private double tbarOOpacity;
+	private double tbarOBorderWidth;
+	private String cmenuOFontFamily;
+	private double cmenuOBorderRadius;
+	private String cmenuOBgColor;
+	private String cmenuCColor;
+	private String cmenuCBgColorHover;
+	private String cmenuCColorHover;
+	private double cmenuCBorderRadiusHover;
 	
 	public GUISetting(){
 	}
@@ -120,6 +137,18 @@ public class GUISetting{
 	public void setWinBHeight(double winBHeight) {
 		this.winBHeight = winBHeight;
 	}
+	public String getWinCBgColor() {
+		return winCBgColor;
+	}
+	public void setWinCBgColor(String winCBgColor) {
+		this.winCBgColor = winCBgColor;
+	}
+	public String getWinHFontFamily() {
+		return winHFontFamily;
+	}
+	public void setWinHFontFamily(String winMFontFamily) {
+		this.winHFontFamily = winMFontFamily;
+	}
 	public double getIconWidth() {
 		return iconWidth;
 	}
@@ -186,6 +215,99 @@ public class GUISetting{
 	public void setIconTableLeft(double iconTableLeft) {
 		this.iconTableLeft = iconTableLeft;
 	}
+	public String getBarOBgColor() {
+		return barOBgColor;
+	}
+	public void setBarOBgColor(String barOBgColor) {
+		this.barOBgColor = barOBgColor;
+	}
+	public String getBarNBgColor() {
+		return barNBgColor;
+	}
+	public void setBarNBgColor(String barNBgColor) {
+		this.barNBgColor = barNBgColor;
+	}
+	public String getTbarOBgColor() {
+		return tbarOBgColor;
+	}
+	public void setTbarOBgColor(String tbarOBgColor) {
+		this.tbarOBgColor = tbarOBgColor;
+	}
+	public double getTbarOOpacity() {
+		return tbarOOpacity;
+	}
+	public void setTbarOOpacity(double tbarOOpacity) {
+		this.tbarOOpacity = tbarOOpacity;
+	}
+	public String getCmenuOFontFamily() {
+		return cmenuOFontFamily;
+	}
+	public void setCmenuOFontFamily(String cmenuOFontFamily) {
+		this.cmenuOFontFamily = cmenuOFontFamily;
+	}
+	public String getCmenuCBgColorHover() {
+		return cmenuCBgColorHover;
+	}
+	public void setCmenuCBgColorHover(String cmenuCBgColorHover) {
+		this.cmenuCBgColorHover = cmenuCBgColorHover;
+	}
+	public String getCmenuCColorHover() {
+		return cmenuCColorHover;
+	}
+	public void setCmenuOColorHover(String cmenuCColorHover) {
+		this.cmenuCColorHover = cmenuCColorHover;
+	}
+	public double getCmenuOBorderRadius() {
+		return cmenuOBorderRadius;
+	}
+	public void setCmenuOBorderRadius(double cmenuOBorderRadius) {
+		this.cmenuOBorderRadius = cmenuOBorderRadius;
+	}
+	public double getCmenuCBorderRadiusHover() {
+		return cmenuCBorderRadiusHover;
+	}
+	public void setCmenuCBorderRadiusHover(double cmenuCBorderRadiusHover) {
+		this.cmenuCBorderRadiusHover = cmenuCBorderRadiusHover;
+	}
+	public double getBarOWidth() {
+		return barOWidth;
+	}
+	public void setBarOWidth(double barOWidth) {
+		this.barOWidth = barOWidth;
+	}
+	public double getBarOHeight() {
+		return barOHeight;
+	}
+	public void setBarOHeight(double barOHeight) {
+		this.barOHeight = barOHeight;
+	}
+	public double getBarOBorderWidth() {
+		return barOBorderWidth;
+	}
+	public void setBarOBorderWidth(double barOBorderWidth) {
+		this.barOBorderWidth = barOBorderWidth;
+	}
+	public double getTbarOBorderWidth() {
+		return tbarOBorderWidth;
+	}
+	public void setTbarOBorderWidth(double tbarOBorderWidth) {
+		this.tbarOBorderWidth = tbarOBorderWidth;
+	}
+	public void setCmenuCColorHover(String cmenuCColorHover) {
+		this.cmenuCColorHover = cmenuCColorHover;
+	}
+	public String getCmenuCColor() {
+		return cmenuCColor;
+	}
+	public void setCmenuCColor(String cmenuCColor) {
+		this.cmenuCColor = cmenuCColor;
+	}
+	public String getCmenuOBgColor() {
+		return cmenuOBgColor;
+	}
+	public void setCmenuOBgColor(String cmenuOBgColor) {
+		this.cmenuOBgColor = cmenuOBgColor;
+	}
 	public String toString() {
 		String tmpStr = "";
 		tmpStr += "GUI ID: " + this.id + System.lineSeparator();
@@ -199,9 +321,9 @@ public class GUISetting{
 		tmpStr += "Icon Table Top: " + this.iconTableTop + System.lineSeparator();
 		tmpStr += "Icon Table Left: " + this.iconTableLeft + System.lineSeparator();
 		tmpStr += "Win B Border Color: " + this.winBBorderColor + System.lineSeparator();
-		tmpStr += "Win B Background Color: " + this.winBBgColor + System.lineSeparator();
-		tmpStr += "Win O Background Color: " + this.winOBgColor + System.lineSeparator();
-		tmpStr += "Win H Background Color: " + this.winHBgColor + System.lineSeparator();
+		tmpStr += "Win B Bg Color: " + this.winBBgColor + System.lineSeparator();
+		tmpStr += "Win O Bg Color: " + this.winOBgColor + System.lineSeparator();
+		tmpStr += "Win H Bg Color: " + this.winHBgColor + System.lineSeparator();
 		tmpStr += "Win O Default Left: " + this.winODefaultLeft + System.lineSeparator();
 		tmpStr += "Win O Default Top: " + this.winODefaultTop + System.lineSeparator();
 		tmpStr += "Win O Default Width: " + this.winODefaultWidth + System.lineSeparator();
@@ -213,6 +335,23 @@ public class GUISetting{
 		tmpStr += "Win B Top: " + this.winBTop + System.lineSeparator();
 		tmpStr += "Win minimum width: " + this.winMinWidth + System.lineSeparator();
 		tmpStr += "Win minimum Height: " + this.winMinHeight + System.lineSeparator();
+		tmpStr += "Win C Bg Color: " + this.winCBgColor + System.lineSeparator();
+		tmpStr += "Win M Font Family: " + this.winHFontFamily + System.lineSeparator();
+		tmpStr += "Bar O Bg Color: " + this.barOBgColor + System.lineSeparator();
+		tmpStr += "Bar O Width: " + this.barOWidth + System.lineSeparator();
+		tmpStr += "Bar O Height: " + this.barOHeight + System.lineSeparator();
+		tmpStr += "Bar O Border Width: " + this.barOBorderWidth + System.lineSeparator();
+		tmpStr += "Bar N Bg Color: " + this.barNBgColor + System.lineSeparator();
+		tmpStr += "TBar O Bg Color: " + this.tbarOBgColor + System.lineSeparator();
+		tmpStr += "TBar O Opacity: " + this.tbarOOpacity + System.lineSeparator();
+		tmpStr += "TBar O Border Width: " + this.tbarOBorderWidth + System.lineSeparator();
+		tmpStr += "CMenu C Bg Color Hover: " + this.cmenuCBgColorHover + System.lineSeparator();
+		tmpStr += "CMenu C Color: " + this.cmenuCColor + System.lineSeparator();
+		tmpStr += "CMenu C Color Hover: " + this.cmenuCColorHover + System.lineSeparator();
+		tmpStr += "CMenu O Font Family: " + this.cmenuOFontFamily + System.lineSeparator();
+		tmpStr += "CMenu O Border Radius: " + this.cmenuOBorderRadius + System.lineSeparator();
+		tmpStr += "CMenu O bg Color: " + this.cmenuOBgColor + System.lineSeparator();
+		tmpStr += "CMenu C Border Radius Hover: " + this.cmenuCBorderRadiusHover + System.lineSeparator();
 		return tmpStr;
 	}
 }

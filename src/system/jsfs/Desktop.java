@@ -63,7 +63,7 @@ public class Desktop extends SystemJSF {
 			IconsDAO iconDAO = new IconsDAOMySQL(iconsInOSDAO.getIconsInOSList());
 			iconDAO.load();
 			
-			if (null != bgPath.getBgPath()) {
+			if (null != bgPath.getBgPath() && !bgPath.getBgPath().equals("NULL")) {
 				this.bgImg = bgPath.getBgPath();
 				this.bgImg = ImgToBase64.getBase64(this.bgImg);
 			}

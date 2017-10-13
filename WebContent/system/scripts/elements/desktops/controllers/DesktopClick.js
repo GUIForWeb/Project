@@ -54,9 +54,9 @@ system.elements.desktops.controllers.DesktopClick = function() {
 			iconObj.name = "Icon Theme";
 			iconObj.contentURL = "/apps/themes/comps/views/iconTheme.jsf";
 
-		} else if (event.target.innerHTML == "Window") {
-			iconObj.name = "Window Theme";
-			iconObj.contentURL = "/apps/themes/comps/views/windowTheme.jsf";
+		} else if (event.target.innerHTML == "Interface") {
+			iconObj.name = "Interface Theme";
+			iconObj.contentURL = "/apps/themes/comps/views/interfaceTheme.jsf";
 		} else if (event.target.innerHTML == "Background") {
 			iconObj.name = "Background Theme";
 			iconObj.contentURL = "/apps/themes/comps/views/backgroundTheme.jsf";

@@ -93,6 +93,23 @@ public class GUISettingsDAOMySQL implements GUISettingsDAO{
 				this.guiSetting.setWinOBorderWidth(this.rset.getDouble("win_o_border_width"));
 				this.guiSetting.setWinMinWidth(this.rset.getDouble("win_min_width"));
 				this.guiSetting.setWinMinHeight(this.rset.getDouble("win_min_height"));
+				this.guiSetting.setWinCBgColor(this.rset.getString("win_c_bg_color"));
+				this.guiSetting.setWinHFontFamily(this.rset.getString("win_h_font_family"));
+				this.guiSetting.setBarOBgColor(this.rset.getString("bar_o_bg_color"));
+				this.guiSetting.setBarNBgColor(this.rset.getString("bar_n_bg_color"));
+				this.guiSetting.setBarOWidth(this.rset.getDouble("bar_o_width"));
+				this.guiSetting.setBarOHeight(this.rset.getDouble("bar_o_height"));
+				this.guiSetting.setBarOBorderWidth(this.rset.getDouble("bar_o_border_width"));
+				this.guiSetting.setTbarOBgColor(this.rset.getString("tbar_o_bg_color"));
+				this.guiSetting.setTbarOOpacity(this.rset.getDouble("tbar_o_bg_opacity"));
+				this.guiSetting.setTbarOBorderWidth(this.rset.getDouble("tbar_o_border_width"));
+				this.guiSetting.setCmenuOFontFamily(this.rset.getString("cmenu_o_font_family"));
+				this.guiSetting.setCmenuOBorderRadius(this.rset.getDouble("cmenu_o_border_radius"));
+				this.guiSetting.setCmenuOBgColor(this.rset.getString("cmenu_o_bg_color"));
+				this.guiSetting.setCmenuCBgColorHover(this.rset.getString("cmenu_c_bg_color_hover"));
+				this.guiSetting.setCmenuCColor(this.rset.getString("cmenu_c_color"));
+				this.guiSetting.setCmenuCColorHover(this.rset.getString("cmenu_c_color_hover"));
+				this.guiSetting.setCmenuCBorderRadiusHover(this.rset.getDouble("cmenu_c_border_radius_hover"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

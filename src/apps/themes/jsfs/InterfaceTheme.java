@@ -2,6 +2,8 @@ package apps.themes.jsfs;
 
 
 
+import java.io.IOException;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
@@ -18,28 +20,31 @@ import system.models.OS;
 
 @Named
 @RequestScoped
-public class WindowTheme extends ApplicationJSF{
+public class InterfaceTheme extends ApplicationJSF{
 	private GUISettingsDAO guiSettingDAO;
 	private GUISetting guiSetting;
-	public WindowTheme() {
+	public InterfaceTheme() {
 		super();
-		OSsDAO osSettingDAO = new OSsDAOMySQL(this.user);
-		osSettingDAO.load();
-		OS osSetting = osSettingDAO.getOS();
-		this.session.setAttribute("osSetting", osSetting);
-		GUISettingsInOSDAO guisInOSDAO = new  GUISettingsInOSDAOMySQL(osSetting);
+		OS os = (OS)this.session.getAttribute("os");
+		GUISettingsInOSDAO guisInOSDAO = new  GUISettingsInOSDAOMySQL(os);
 		guisInOSDAO.load();
 		GUIsInOS guisInOS = guisInOSDAO.getGUIsInOS();
 		this.guiSettingDAO = new GUISettingsDAOMySQL(guisInOS);
-		guiSettingDAO.load();
+		this.guiSettingDAO.load();
 		this.guiSetting = this.guiSettingDAO.getGUISetting();
 	}
 	public void start() {
 		this.redirect();
 	}
-	public String listen() {
+	public String submit() {
 		this.guiSettingDAO.setGUISetting(this.guiSetting);
 		this.guiSettingDAO.updateWindow();
+		try {
+			this.externalContext.redirect(this.contextPath+"/system/comps/views/desktop.jsf");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "";
 	}
 	public GUISetting getGuiSetting() {

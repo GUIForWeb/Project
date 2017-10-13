@@ -52,12 +52,13 @@ body *{
 }
 .windowHeadLayer{
 	background-color:#{guiSetting.winHBgColor};
+	font-family: #{guiSetting.winHFontFamily};
 }
 .windowContentLayer{
-	background-color:white; /*add to theme*/
+	background-color:#{guiSetting.winCBgColor}; 
 }
 .windowMovementHandleLayer{
-	font-family: Arial, Helvetica, sans-serif; /*add to theme*/
+	
 }
 .windowButtonLayer{
 	background-color:#{guiSetting.winBBgColor};
@@ -110,20 +111,20 @@ body *{
 		
 
 .barOuterLayer{
-	background-color:#d9d9d9;/*add to theme*/
+	background-color: #{guiSetting.barOBgColor};
 }
 .barNameLayer{
-	background-color:#cccccc;/*add to theme*/
+	background-color: #{guiSetting.barNBgColor};
 }
 .taskbarOuterLayer{
-	background-color:gray;/*add to theme*/
-	opacity: 0.8; /*add to theme*/
+	background-color: #{guiSetting.tbarOBgColor};
+	opacity: #{guiSetting.tbarOOpacity};
 }
 
 .contextMenuOuterLayer{
-	font-family: Arial, Helvetica, sans-serif; /*add to theme*/
-	border-radius: 5px; /*add to theme*/
-	background-color:gray;
+	font-family: #{guiSetting.cmenuOFontFamily};
+	border-radius: #{guiSetting.cmenuOBorderRadius}px;
+	background-color:#{guiSetting.cmenuOBgColor};
 	width:200px;
 	height:250px;
 	cursor:default;
@@ -136,7 +137,7 @@ body *{
 }
 .contextMenuContentLayer>ul li{
     display: block;
-    color:white; /*add to theme*/
+    color: #{guiSetting.cmenuCColor};
     text-decoration: none;
     height:30px;
     padding-left:10px;
@@ -151,9 +152,9 @@ body *{
     text-decoration: none;
 }
 .contextMenuContentLayer>ul li:hover {
-	background-color:black; /*add to theme*/
-    color: white; /*add to theme*/
-    border-radius: 5px; /*add to theme*/
+	background-color: #{guiSetting.cmenuCBgColorHover};
+    color: white; #{guiSetting.cmenuCColorHover};
+    border-radius: #{guiSetting.cmenuCBorderRadiusHover}px;
 }
 .contextMenuContentLayer>ul>li>ul{
 	margin:0;

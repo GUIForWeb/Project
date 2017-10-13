@@ -48,26 +48,11 @@ system.views.TaskbarView = function(BarModel) {
 		this.logoutouterSelector = tmpTag;
 	}
 	this.setTaskbarValues = function(taskbarValueArray) {
-		this.taskbarMode = taskbarValueArray["taskbarMode"];
-		this.taskbarWidth = taskbarValueArray["taskbarWidth"];
-		this.taskbarHeight = taskbarValueArray["taskbarHeight"];
-		if (this.taskbarWidth == -1)
-			this.oWidth = $(window).width();
-		else
-			this.oWidth = this.taskbarWidth;
-
-		if (this.taskbarHeight == -1)
-			this.oHeight = $(window).height();
-		else
-			this.oHeight = this.taskbarHeight;
-
-		if (this.taskbarMode == "horizontal") {
-			this.oLeft = 0;
-			this.oTop = $(window).height() - this.oHeight;
-		} else if (taskbarMode == "vertical") {
-			this.oLeft = $(window).width() - this.oWidth;
-			this.oTop = 0;
-		}
+		this.taskbarOHeight = taskbarValueArray["taskbarOHeight"];
+		this.oWidth = $(window).width();
+		this.oHeight = this.taskbarOHeight + this.oBorderWidth;
+		this.oLeft = 0;
+		this.oTop = $(window).height() - this.oHeight;
 	}
 	this.getView = function() {
 		this.logoutLayer();
