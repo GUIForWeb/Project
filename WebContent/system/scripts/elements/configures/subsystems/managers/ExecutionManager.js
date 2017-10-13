@@ -11,8 +11,14 @@ system.elements.configures.subsystems.managers.ExecutionManager = function() {
 		}
 	}
 	this.icon = function(){
-		var winAndBarNode = this.winAndBar.manager.newWinAndBar(this.iconObj);
-		this.winAndBar.repo.newWinAndBar(winAndBarNode);
+		var flag = false;
+		if(this.iconObj.isOnlyOne){
+			flag = this.winAndBar.manager.nm.hasName(this.iconObj.name);
+		}
+		if(!flag){
+			var winAndBarNode = this.winAndBar.manager.newWinAndBar(this.iconObj);
+			this.winAndBar.repo.newWinAndBar(winAndBarNode);
+		}
 	}
 	this.dataIcon = function(){
 		switch(this.iconObj.type) {

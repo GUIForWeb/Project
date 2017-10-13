@@ -7,6 +7,18 @@ system.elements.winAndBars.subsystems.managers.NodeManager = function() {
 		this.nodeArray["winAndBar"].lastWin.nextWin = null;
 		this.nodeArray["winAndBar"].lastBar.nextBar = null;
 	}
+	this.hasName = function(name) {
+		var flag = false;
+		var tmpNode = this.nodeArray["winAndBar"];
+		while (tmpNode.nextBar instanceof WinAndBarNode) {
+			tmpNode = tmpNode.nextBar;
+			if (tmpNode.win !== null && tmpNode.win.name == name) {
+				flag = true;
+				break;
+			}
+		}
+		return flag;
+	}
 	this.getNodeWithWinTagId = function(winTagId) {
 		var tmpNode = this.nodeArray["winAndBar"];
 		while (tmpNode.nextBar instanceof WinAndBarNode) {

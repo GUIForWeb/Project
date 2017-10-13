@@ -1,6 +1,7 @@
 if(apps === undefined)
 	var apps = {};
-apps.themes = {};
+if(apps.themes === undefined)
+	apps.themes = {};
 apps.themes.backgrounds = {};
 apps.themes.backgrounds.modules = {};
 apps.themes.backgrounds.subsystems = {};

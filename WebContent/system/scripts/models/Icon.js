@@ -1,6 +1,5 @@
 system.models.Icon = function(){
 	this.__proto__ = new Model;
-	this.guiName = "";
 	this.tagIdRule = "icon";
 	this.id = 0;
 	this.tagId = "";
@@ -9,6 +8,7 @@ system.models.Icon = function(){
 	this.name = "";
 	this.contentURL = "";
 	this.options = [];
+	this.isOnlyOne = false;
 	this.view = new IconView(this);
 	this.init = function(iconJSON){
 		this.id = iconJSON.id;

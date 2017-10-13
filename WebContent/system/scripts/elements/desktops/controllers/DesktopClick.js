@@ -52,13 +52,15 @@ system.elements.desktops.controllers.DesktopClick = function() {
 		var iconObj = new Icon();
 		if (event.target.innerHTML == "Icon") {
 			iconObj.name = "Icon Theme";
+			iconObj.isOnlyOne = true;
 			iconObj.contentURL = "/apps/themes/comps/views/iconTheme.jsf";
-
 		} else if (event.target.innerHTML == "Interface") {
 			iconObj.name = "Interface Theme";
+			iconObj.isOnlyOne = true;
 			iconObj.contentURL = "/apps/themes/comps/views/interfaceTheme.jsf";
 		} else if (event.target.innerHTML == "Background") {
 			iconObj.name = "Background Theme";
+			iconObj.isOnlyOne = true;
 			iconObj.contentURL = "/apps/themes/comps/views/backgroundTheme.jsf";
 		}
 		this.configure.manager.execute.app(iconObj);

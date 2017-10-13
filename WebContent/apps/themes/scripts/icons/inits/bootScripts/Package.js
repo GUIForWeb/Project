@@ -1,7 +1,7 @@
-if(apps === undefined) {
+if(apps === undefined)
 	var apps = {};
-}
-apps.themes = {};
+if(apps.themes === undefined)
+	apps.themes = {};
 apps.themes.icons = {};
 apps.themes.icons.modules = {};
 apps.themes.icons.subsystems = {};
