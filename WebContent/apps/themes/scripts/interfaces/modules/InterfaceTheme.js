@@ -1,6 +1,8 @@
 apps.themes.interfaces.modules.InterfaceTheme = function() {
-	this.inputs = $("#interfaceThemeForm").find("input[type=text]");
 	this.start = function() {
+		this.form = $("#interfaceThemeForm");
+		this.winTagId = $("#interfaceThemeForm").parent().parent().prop("id");
+		this.inputs = this.form.find("input[type=text]");
 		this.controller = new InterfaceThemeController();
 		this.controller.__proto__ = this;
 		this.focus = new InterfaceThemeFocus();
@@ -16,5 +18,9 @@ apps.themes.interfaces.modules.InterfaceTheme = function() {
 		this.inputs.focusout(function(event){
 			taskArray["interfaceTheme"].focus.out.input(event);
 		});
+		this.node = gui.winAndBar.manager.nm.getNodeWithWinTag(this.winTagId);
+		this.barTagId = this.node.bar.tagId;
+		this.winSelector = $("#"+this.winTagId);
+		this.barSelector = $("#"+this.barTagId);
 	}
 }

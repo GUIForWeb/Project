@@ -1,8 +1,8 @@
 apps.themes.interfaces.controllers.focuses.InterfaceThemeFocusout = function() {
 	this.input = function(event) {
-		var dir = $(event.target).attr("dir");
-		dir = dir.substring(0,1);
-		switch(dir){
+		var title = event.target.title
+		title = title.substring(0,1);
+		switch(title){
 			case "w":
 				taskArray.interfaceTheme.wTrial.switch(event);
 				break;

@@ -5,5 +5,6 @@ if(apps.themes === undefined)
 apps.themes.interfaces = {};
 apps.themes.interfaces.modules = {};
 apps.themes.interfaces.subsystems = {};
+apps.themes.interfaces.subsystems.trials = {};
 apps.themes.interfaces.controllers = {};
 apps.themes.interfaces.controllers.focuses = {};
