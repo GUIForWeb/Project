@@ -9,3 +9,4 @@ var BarThemeTrial = apps.themes.interfaces.subsystems.BarThemeTrial;
 
 var WindowThemeTrial = apps.themes.interfaces.subsystems.WindowThemeTrial;
 var WindowThemeButtonTrial = apps.themes.interfaces.subsystems.trials.WindowThemeButtonTrial;
+var WindowThemeOutlayerTrial = apps.themes.interfaces.subsystems.trials.WindowThemeOutlayerTrial;

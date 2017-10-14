@@ -82,12 +82,12 @@ system.elements.winAndBars.subsystems.engines.WindowSizingEngine = function() {
 		this.hHeight = this.win.view.hHeight;
 		this.hTop = this.win.view.hTop;
 		this.cLeft = this.win.view.cLeft;
-		this.hWidth = this.oWidth - this.oBorderWidth;
-		this.bSpace = (this.bBorderWidth * 2) + this.bWidth + this.bTop;
-		this.mWidth = this.hWidth - this.bSpace * 3 - this.oBorderWidth;
-		this.xBLeft = this.oWidth - this.bSpace - this.oBorderWidth;
-		this.fBLeft = this.oWidth - this.bSpace * 2 - this.oBorderWidth;
-		this.hBLeft = this.oWidth - this.bSpace * 3 - this.oBorderWidth;
+		this.hWidth = this.oWidth - (this.oBorderWidth*2);
+		this.bGap = (this.bBorderWidth * 2) + this.bWidth + this.bTop;
+		this.mWidth = this.hWidth - this.bGap * 3 - (this.oBorderWidth*2);
+		this.xBLeft = this.oWidth - this.bGap - (this.oBorderWidth*2);
+		this.fBLeft = this.oWidth - this.bGap * 2 - (this.oBorderWidth*2);
+		this.hBLeft = this.oWidth - this.bGap * 3 - (this.oBorderWidth*2);
 		$("#" + this.tagIds["o"]).css("left", this.oLeft).css("top", this.oTop);
 		$("#" + this.tagIds["o"]).css("width", this.oWidth);
 		$("#" + this.tagIds["o"]).css("height", this.oHeight);
@@ -95,9 +95,9 @@ system.elements.winAndBars.subsystems.engines.WindowSizingEngine = function() {
 		$("#" + this.tagIds["h"]).css("width", this.hWidth);
 		$("#" + this.tagIds["c"]).css("left", this.cLeft).css("top",
 				this.hHeight + this.hTop);
-		$("#" + this.tagIds["c"]).css("width", this.oWidth - this.oBorderWidth);
+		$("#" + this.tagIds["c"]).css("width", this.oWidth - (this.oBorderWidth*2));
 		$("#" + this.tagIds["c"]).css("height",
-				this.oHeight - this.oBorderWidth - this.hHeight);
+				this.oHeight - (this.oBorderWidth*2) - this.hHeight);
 		$("#" + this.tagIds["xB"]).css("left", this.xBLeft);
 		$("#" + this.tagIds["fB"]).css("left", this.fBLeft);
 		$("#" + this.tagIds["hB"]).css("left", this.hBLeft);

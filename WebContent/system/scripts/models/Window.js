@@ -11,6 +11,9 @@ system.models.Window = function() {
 		this.tag = this.view.windowSelector[0];
 		this.selector = this.view.windowSelector;
 	}
+	this.disappear = function(){
+		this.selector.remove();
+	}
 	this.init = function(numId){
 		this.numId = numId;
 		this.tagId = this.tagIdRule + numId;

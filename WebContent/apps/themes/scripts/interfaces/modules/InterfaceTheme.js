@@ -22,6 +22,7 @@ apps.themes.interfaces.modules.InterfaceTheme = function() {
 		});
 		this.winSelector = $("#"+this.winTagId);
 		this.barSelector = $("#"+this.barTagId);
+		//prevent init when reload
 		this.initValues();
 	}
 	this.initValues = function(){
@@ -35,5 +36,12 @@ apps.themes.interfaces.modules.InterfaceTheme = function() {
 		}
 		this.controller.va.iVal["winOBorderWidth"] = this.node.win.view.oBorderWidth;
 		this.controller.va.iVal["winOWidth"] = this.node.win.view.oWidth;
+	}
+	this.setChangedInputValues = function() {
+		var val = null;
+		for(ii=0; ii<this.inputs.length; ii++){
+			this.inputs[ii].value = this.controller.va.iVal[this.inputs[ii].title];
+			console.log(this.inputs[ii].value);
+		}
 	}
 }

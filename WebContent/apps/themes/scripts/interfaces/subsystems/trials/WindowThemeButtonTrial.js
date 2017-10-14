@@ -41,9 +41,9 @@ apps.themes.interfaces.subsystems.trials.WindowThemeButtonTrial = function(){
 		this.gap = (this.borderWidth * 2) + this.width + this.top;
 		var oBorderWidth = this.va.iVal.winOBorderWidth;
 		var oWidth = this.va.iVal.winOWidth;
-		this.xBLeft = oWidth - this.gap - oBorderWidth;
-		this.fBLeft = oWidth - (this.gap * 2) - oBorderWidth;
-		this.hBLeft = oWidth - (this.gap * 3) - oBorderWidth;
+		this.xBLeft = oWidth - this.gap - (oBorderWidth*2);
+		this.fBLeft = oWidth - (this.gap * 2) - (oBorderWidth*2);
+		this.hBLeft = oWidth - (this.gap * 3) - (oBorderWidth*2);
 		this.xBSelector.css("position","absolute").css("left",this.xBLeft).css("top",this.top);
 		this.fBSelector.css("position","absolute").css("left",this.fBLeft).css("top",this.top);
 		this.hBSelector.css("position","absolute").css("left",this.hBLeft).css("top",this.top);
@@ -58,6 +58,5 @@ apps.themes.interfaces.subsystems.trials.WindowThemeButtonTrial = function(){
 		view.bHeight = this.height;
 		view.bTop = this.top;
 		view.bBorderWidth = this.borderWidth;
-		console.log(view);
 	}
 }
