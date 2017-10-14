@@ -2,6 +2,8 @@ apps.themes.interfaces.modules.InterfaceTheme = function() {
 	this.start = function() {
 		this.form = $("#interfaceThemeForm");
 		this.winTagId = $("#interfaceThemeForm").parent().parent().prop("id");
+		this.node = gui.winAndBar.manager.nm.getNodeWithWinTag(this.winTagId);
+		this.barTagId = this.node.bar.tagId;
 		this.inputs = this.form.find("input[type=text]");
 		this.controller = new InterfaceThemeController();
 		this.controller.__proto__ = this;
@@ -18,9 +20,20 @@ apps.themes.interfaces.modules.InterfaceTheme = function() {
 		this.inputs.focusout(function(event){
 			taskArray["interfaceTheme"].focus.out.input(event);
 		});
-		this.node = gui.winAndBar.manager.nm.getNodeWithWinTag(this.winTagId);
-		this.barTagId = this.node.bar.tagId;
 		this.winSelector = $("#"+this.winTagId);
 		this.barSelector = $("#"+this.barTagId);
+		this.initValues();
+	}
+	this.initValues = function(){
+		var val = null;
+		for(ii=0; ii<this.inputs.length; ii++){
+			if(isNaN(this.inputs[ii].value))
+				val = this.inputs[ii].value;
+			else
+				val = parseFloat(this.inputs[ii].value);
+			this.controller.va.iVal[this.inputs[ii].title] = val;
+		}
+		this.controller.va.iVal["winOBorderWidth"] = this.node.win.view.oBorderWidth;
+		this.controller.va.iVal["winOWidth"] = this.node.win.view.oWidth;
 	}
 }

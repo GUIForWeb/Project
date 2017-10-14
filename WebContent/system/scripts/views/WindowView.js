@@ -46,7 +46,6 @@ system.views.WindowView = function(windowModel) {
 		this.headSelector.append(this.fButtonSelector);
 		this.headSelector.append(this.xButtonSelector);
 		this.headSelector.append(this.movementHandleSelector);
-		// this.outerSelector.append(this.movementHandleSelector);
 		this.outerSelector.append(this.contentSelector);
 		this.outerSelector.append(this.headSelector);
 		this.outerSelector.append(this.northSelector);
@@ -441,12 +440,12 @@ system.views.WindowView = function(windowModel) {
 	this.getView = function() {
 		this.hLeft = this.oBorderWidth / 2;
 		this.hTop = this.hLeft;
-		this.bSpace = (this.bBorderWidth * 2) + this.bWidth + this.bTop;
-		this.xBLeft = this.oWidth - this.bSpace - this.oBorderWidth;
-		this.fBLeft = this.oWidth - this.bSpace * 2 - this.oBorderWidth;
-		this.hBLeft = this.oWidth - this.bSpace * 3 - this.oBorderWidth;
+		this.bGap = (this.bBorderWidth * 2) + this.bWidth + this.bTop;
+		this.xBLeft = this.oWidth - this.bGap - this.oBorderWidth;
+		this.fBLeft = this.oWidth - this.bGap * 2 - this.oBorderWidth;
+		this.hBLeft = this.oWidth - this.bGap * 3 - this.oBorderWidth;
 		this.hWidth = this.oWidth - (this.oBorderWidth);
-		this.mWidth = this.hWidth - this.bSpace * 3 - this.oBorderWidth;
+		this.mWidth = this.hWidth - this.bGap * 3 - this.oBorderWidth;
 		this.cWidth = this.oWidth - (this.oBorderWidth);
 		this.cHeight = this.oHeight - this.oBorderWidth - this.hHeight;
 		this.cLeft = this.oBorderWidth / 2;
