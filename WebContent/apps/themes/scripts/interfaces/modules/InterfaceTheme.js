@@ -25,14 +25,14 @@ apps.themes.interfaces.modules.InterfaceTheme = function() {
 		this.appendFunctions();
 	}
 	this.appendFunctions = function(){
+		this.inputs.focusout(function(event){
+			taskArray["interfaceTheme"].focus.out.input(event);
+		});
 		this.inputs.mousedown(function(event){
 			taskArray["interfaceTheme"].mouse.down.input(event);
 		});
 		this.inputs.mouseup(function(event){
 			taskArray["interfaceTheme"].mouse.up.input(event);
-		});
-		this.inputs.focusout(function(event){
-			taskArray["interfaceTheme"].focus.out.input(event);
 		});
 	}
 	this.initValues = function(){

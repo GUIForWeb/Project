@@ -11,6 +11,7 @@ system.elements.winAndBars.subsystems.managers.BarManager = function() {
 		tmpNode.bar.name = iconObj.name;
 		tmpNode.bar.taskbarSelector = this.taskbarSelector;
 		tmpNode.bar.view.taskbarOHeight = this.taskbar.view.oHeight;
+		tmpNode.bar.view.setDefaultValues(barDefaultValueArray);
 		tmpNode.bar.init(this.valueArray["newId"], barCount);
 		tmpNode.bar.appear();
 		this.nodeArray["winAndBar"].barCount += 1;

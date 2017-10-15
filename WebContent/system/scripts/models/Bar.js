@@ -7,6 +7,9 @@ system.models.Bar = function(){
 	this.tagId = "";
 	this.winId = "";
 	this.view = new BarView(this);
+	this.disappear = function() {
+		this.selector.remove();
+	}
 	this.appear = function(){
 		var tagIdForAppend = "";
 		this.view.oLeft = (this.view.position)*this.view.oWidth;

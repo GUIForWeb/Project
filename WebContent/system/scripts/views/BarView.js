@@ -3,13 +3,15 @@ system.views.BarView = function(BarModel) {
 	this.position = 0;
 	this.outerLayerTagClass = "barOuterLayer";
 	this.nameLayerTagClass = "barNameLayer";
-	this.oWidth = 100;
-	this.oHeight = 30;
-	this.oBorderWidth = 5;
-	this.nLeft = this.oBorderWidth / 2;
-	this.nTop = this.oBorderWidth / 2;
-	this.nWidth = this.oWidth - this.oBorderWidth;
-	this.nHeight = this.oHeight - this.oBorderWidth;
+	this.setDefaultValues = function(defaultValueArray) {
+		this.oWidth = defaultValueArray.oWidth;
+		this.oHeight = defaultValueArray.oHeight;
+		this.oBorderWidth = defaultValueArray.oBorderWidth;
+		this.nLeft = this.oBorderWidth;
+		this.nTop = this.oBorderWidth;
+		this.nWidth = this.oWidth - this.oBorderWidth*2;
+		this.nHeight = this.oHeight - this.oBorderWidth*2;
+	}
 	this.setPosition = function(position) {
 		this.position = position;
 		this.setOLeft((this.position) * this.oWidth);

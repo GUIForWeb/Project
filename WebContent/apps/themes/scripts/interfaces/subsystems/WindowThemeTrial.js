@@ -5,6 +5,8 @@ apps.themes.interfaces.subsystems.WindowThemeTrial = function(){
 	this.outlayer.__proto__ = this;
 	this.headlayer = new WindowThemeHeadlayerTrial();
 	this.headlayer.__proto__ = this;
+	this.contentlayer = new WindowThemeContentlayerTrial();
+	this.contentlayer.__proto__ = this;
 	this.switch = function(event) {
 		var title = event.target.title;
 		var val = event.target.value;
@@ -57,6 +59,18 @@ apps.themes.interfaces.subsystems.WindowThemeTrial = function(){
 				case "winHHeight":
 					this.headlayer.changeHeight(event);
 					break;
+				case "winMinWidth":
+					this.outlayer.changeMinWidth(event);
+					break;
+				case "winMinHeight":
+					this.outlayer.changeMinHeight(event);
+					break;
+				case "winCBgColor":
+					this.contentlayer.changeBgColor(event);
+					break;
+				case "winHFontFamily":
+					this.headlayer.changeFontFamily(event);
+					break;	
 			}
 		}
 	}

@@ -30,7 +30,6 @@ system.views.TaskbarView = function(BarModel) {
 		this.logoutSelector = tmpTag;
 	}
 	this.logoutOuterLayer = function() {
-
 		var tmpTag = $("<div></div>");
 		tmpTag.css("position", "absolute");
 		tmpTag.css("background-color", "darkgray");

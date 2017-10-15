@@ -5,6 +5,5 @@ apps.themes.interfaces.controllers.mouses.InterfaceThemeMouseup = function() {
 				return this;
 		});
 		input.focus();
-		this.contentSelector.scrollTop(sessionStorage.iThemeScrollTop);
 	}
 }

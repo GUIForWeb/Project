@@ -8,6 +8,8 @@ apps.themes.interfaces.subsystems.trials.WindowThemeHeadlayerTrial = function(){
 		this.node.win.view.getView();
 		this.node.win.appear();
 		this.setChangedInputValues();
-		//$(event.target).focuse();
+	}
+	this.changeFontFamily = function(event) {
+		this.headSelector.css("font-family",this.va.iVal.winHFontFamily);
 	}
 }

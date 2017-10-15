@@ -7,7 +7,6 @@
 		iconTdValueArray["iconTdHeight"] = #{guiSetting.iconHeight};
 		iconTdValueArray["iconTdBorderWidth"] = #{guiSetting.iconBorderWidth};
 		iconTdValueArray["iconTdBorderHeight"] = #{guiSetting.iconBorderHeight};
-		iconTdValueArray["iconTdBorderColor"] = "#{guiSetting.iconBorderColor}";
 		
 		iconTableValueArray = [];
 		iconTableValueArray["iconTablePaddingLeft"] = #{guiSetting.iconTableLeft};
@@ -17,7 +16,7 @@
 		var contextPath = '#{contextPath}';
 		var iconJSONArray = #{iconJSONArray};
 		var taskbarValueArray = [];
-		taskbarValueArray["taskbarOHeight"] = 30;
+		taskbarValueArray["taskbarOHeight"] = #{guiSetting.barOHeight};
 		
 		var winDefaultValueArray = [];
 		winDefaultValueArray["bBorderWidth"] = #{guiSetting.winBBorderWidth};
@@ -32,6 +31,11 @@
 		winDefaultValueArray["bTop"] = #{guiSetting.winBTop};
 		winDefaultValueArray["minWidth"] = #{guiSetting.winMinWidth};
 		winDefaultValueArray["minHeight"] = #{guiSetting.winMinHeight};
+		
+		var barDefaultValueArray = [];
+		barDefaultValueArray["oWidth"] = #{guiSetting.barOWidth};
+		barDefaultValueArray["oHeight"] = #{guiSetting.barOHeight};
+		barDefaultValueArray["oBorderWidth"] = #{guiSetting.barOBorderWidth};
 		
 		var dataIconJSONArray = #{dataIconJSONArray};
 		var winAndBarJSONArray = #{sessionScope.winAndBarJSONArray};
