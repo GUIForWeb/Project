@@ -39,8 +39,8 @@ apps.themes.interfaces.subsystems.trials.WindowThemeButtonTrial = function(){
 	
 	this.trytheme = function() {
 		this.gap = (this.borderWidth * 2) + this.width + this.top;
-		var oBorderWidth = this.va.iVal.winOBorderWidth;
-		var oWidth = this.va.iVal.winOWidth;
+		var oBorderWidth = this.node.win.view.oBorderWidth;
+		var oWidth = this.node.win.view.oWidth;
 		this.xBLeft = oWidth - this.gap - (oBorderWidth*2);
 		this.fBLeft = oWidth - (this.gap * 2) - (oBorderWidth*2);
 		this.hBLeft = oWidth - (this.gap * 3) - (oBorderWidth*2);
