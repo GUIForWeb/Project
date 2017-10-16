@@ -153,66 +153,6 @@ function GUI(guiVariableName) {
 				this.valueArray["newId"] = 0;
 		}
 	}
-	/*
-	this.iconTheme = function(iconThemeVals) {
-		var view = this.background.view;
-		var cls = new Icon().tagClass
-		var imgCls = new Icon().imgClass
-		var tmpWidth = iconThemeVals["iconTdWidth"];
-		var tmpHeight = iconThemeVals["iconTdHeight"];
-		var tmpBWidth = iconThemeVals["iconTdBorderWidth"];
-		var tmpBHeight = iconThemeVals["iconTdBorderHeight"];
-		var tmpColor = iconThemeVals["iconTdBorderColor"];
-
-		view.tableSelector.css("width", $(window).width()
-				- view.iconTableLeftPadding);
-		view.tableSelector.css("height", (view.guiHeight - view.iconTableTopPadding)
-				+ "px");
-		view.iconTdWidth = parseInt(tmpWidth);
-		view.iconTdHeight = parseInt(tmpHeight);
-		view.iconTdBorderWidth = parseInt(tmpBWidth);
-		view.iconTdBorderHeight = parseInt(tmpBHeight);
-		gui.background.resizeIconTd();
-		//$(".iconTd").css("border-left", (tmpBWidth) + "px solid " + tmpColor);
-		//$(".iconTd").css("border-right", (tmpBWidth) + "px solid " + tmpColor);
-		//$(".iconTd").css("border-top", (tmpBHeight) + "px solid " + tmpColor);
-		//$(".iconTd")
-		//		.css("border-bottom", (tmpBHeight) + "px solid " + tmpColor);
-
-		for (ii = 0; ii < gui.iconIdArray.length; ii++) {
-			$("#" + gui.iconIdArray[ii]).remove();
-		}
-		gui.reinitIcon(tmpBWidth, tmpBHeight);
-		$("." + cls).css("width", tmpWidth);
-		$("." + cls).css("height", tmpHeight);
-		$("." + imgCls).css("width", tmpWidth);
-		$("." + imgCls).css("height", tmpHeight);
-	}
-	this.changeIconTheme = function(tag) {
-		if (event.keyCode == 13 || event.type == "blur") {
-			var iconThemeVals = [];
-			var input = $(tag).parent().find("input")
-			iconThemeVals["iconTdWidth"] = $(input[1]).val();
-			iconThemeVals["iconTdHeight"] = $(input[2]).val();
-			iconThemeVals["iconTdBorderWidth"] = $(input[3]).val();
-			iconThemeVals["iconTdBorderHeight"] = $(input[4]).val();
-			iconThemeVals["iconTdBorderColor"] = $(input[5]).val();
-			this.iconTheme(iconThemeVals);
-		}
-	}
-	this.restoreIconTheme = function() {
-		this.iconTheme(this.iconTdValueArray);
-	}
-	this.resetIconTheme = function() {
-		var input = $("#iconThemeForm0").parent().find("input");
-		this.iconTdValueArray["iconTdWidth"] = $(input[1]).val();
-		this.iconTdValueArray["iconTdHeight"] = $(input[2]).val();
-		this.iconTdValueArray["iconTdBorderWidth"] = $(input[3]).val();
-		this.iconTdValueArray["iconTdBorderHeight"] = $(input[4]).val();
-		this.iconTdValueArray["iconTdBorderColor"] = $(input[5]).val();
-	}
-	*/
-	
 	this.length = function(array) {
 		return array.filter(function(element) {
 			return element !== undefined;

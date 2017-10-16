@@ -38,7 +38,7 @@ public class GUISettingsDAOMySQL implements GUISettingsDAO{
 		this.db.update(query, info);
 		this.db.close();
 	}
-	public void updateWindow() {
+	public void updateInteface() {
 		String query = "UPDATE guisettings_t SET theme_name = ?, win_b_border_width = ?, win_b_border_color = ?, win_b_bg_color = ?, win_b_width = ?, win_b_height = ?, win_b_top = ?, win_o_bg_color = ?, win_o_border_width = ?, win_h_bg_color = ?, win_h_height = ?, win_min_width = ?, win_min_height = ? WHERE id = ?";
 		String[] info = new String[14];
 		info[0] = this.guiSetting.getThemeName();

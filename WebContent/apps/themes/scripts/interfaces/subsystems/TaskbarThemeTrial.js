@@ -6,18 +6,13 @@ apps.themes.interfaces.subsystems.TaskbarThemeTrial = function(){
 		var val = event.target.value;
 		var flag = false;
 		this.taskbarSelector = gui.taskbarSelector;
-		console.log(title)
+		this.lOuterSelector = this.taskbarSelector.find(".logoutOuterLayer");
 		if(this.va.iVal[title] != val) {
 			flag = true;
 			if(!isNaN(val))
 				val = parseFloat(val);
 			this.va.iVal[title] = val;
 		}
-		/*
-		if(title.includes("barN")){
-			this.nameSelector = this.barSelector.find(".barNameLayer");
-		}
-		*/
 		if(flag) {
 			switch(title){
 				case "tbarOBgColor":

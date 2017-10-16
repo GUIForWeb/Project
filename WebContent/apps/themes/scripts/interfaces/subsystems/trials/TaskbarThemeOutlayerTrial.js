@@ -9,7 +9,7 @@ apps.themes.interfaces.subsystems.trials.TaskbarThemeOutlayerTrial = function(){
 
 	this.changeBorderWidth = function(event) {
 		var oBorderWidth = this.va.iVal.tbarOBorderWidth;
-		var oHeight = this.node.bar.view.oHeight + oBorderWidth;
+		var oHeight = this.node.bar.view.oHeight + oBorderWidth*2;
 		var oTop = $(window).height() - oHeight;
 		this.taskbarSelector.height(oHeight);
 		this.taskbarSelector.css("position", "absolute");
@@ -17,6 +17,8 @@ apps.themes.interfaces.subsystems.trials.TaskbarThemeOutlayerTrial = function(){
 			left : 0,
 			top : oTop
 		});
+		this.taskbarSelector.find(".barOuterLayer").css("top",oBorderWidth);
+		this.lOuterSelector.height(oHeight);
 	}
 	/*
 	this.changeBgColor = function(event) {

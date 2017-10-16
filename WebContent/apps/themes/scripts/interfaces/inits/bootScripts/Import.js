@@ -6,11 +6,15 @@ var InterfaceThemeFocusin = apps.themes.interfaces.controllers.focuses.Interface
 var InterfaceThemeMouse = apps.themes.interfaces.controllers.InterfaceThemeMouse;
 var InterfaceThemeMouseup = apps.themes.interfaces.controllers.mouses.InterfaceThemeMouseup;
 var InterfaceThemeMousedown = apps.themes.interfaces.controllers.mouses.InterfaceThemeMousedown;
+var InterfaceThemeClick = apps.themes.interfaces.controllers.InterfaceThemeClick;
 
 var TaskbarThemeTrial = apps.themes.interfaces.subsystems.TaskbarThemeTrial;
 var TaskbarThemeOutlayerTrial = apps.themes.interfaces.subsystems.trials.TaskbarThemeOutlayerTrial;
 
 var ContextMenuThemeTrial = apps.themes.interfaces.subsystems.ContextMenuThemeTrial;
+var ContextMenuThemeOutlayerTrial = apps.themes.interfaces.subsystems.ContextMenuThemeOutlayerTrial;
+var ContextMenuThemeContentlayerTrial = apps.themes.interfaces.subsystems.trials.ContextMenuThemeContentlayerTrial;
+
 var BarThemeTrial = apps.themes.interfaces.subsystems.BarThemeTrial;
 var BarThemeOutlayerTrial = apps.themes.interfaces.subsystems.trials.BarThemeOutlayerTrial;
 var BarThemeNamelayerTrial = apps.themes.interfaces.subsystems.trials.BarThemeNamelayerTrial;

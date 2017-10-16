@@ -76,7 +76,7 @@
 		
 		<br/>
 		<h:commandButton action="#{interfaceTheme.submit()}" value="Submit">
-			<f:ajax execute="interfaceThemeForm" />
+			<f:ajax execute="interfaceThemeForm" onevent="taskArray.interfaceTheme.click.submit()"/>
 		</h:commandButton>
 	</h:form>
 </ui:composition>

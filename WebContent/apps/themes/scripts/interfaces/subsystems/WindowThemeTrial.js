@@ -11,7 +11,6 @@ apps.themes.interfaces.subsystems.WindowThemeTrial = function(){
 		var title = event.target.title;
 		var val = event.target.value;
 		var flag = false;
-		console.log(title);
 		if(this.va.iVal[title] != val) {
 			flag = true;
 			if(!isNaN(val))

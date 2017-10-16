@@ -1,7 +1,7 @@
 system.views.TaskbarView = function(BarModel) {
 	this.__proto__ = BarModel;
 	this.outerLayerTagClass = "taskbarOuterLayer";
-	this.logoutouterTagClass = "logoutOuterLayer";
+	this.logoutOuterTagClass = "logoutOuterLayer";
 	this.oBorderWidth = 5;
 	this.taskbarLayer = function() {
 		this.logoutouterSelector.append(this.logoutSelector);
@@ -31,13 +31,13 @@ system.views.TaskbarView = function(BarModel) {
 	}
 	this.logoutOuterLayer = function() {
 		var tmpTag = $("<div></div>");
+		tmpTag.addClass(this.logoutOuterTagClass);
 		tmpTag.css("position", "absolute");
 		tmpTag.css("background-color", "darkgray");
 		tmpTag.css("font-size", this.oHeight - 10);
 		tmpTag.css("text-align", "center");
 		tmpTag.css("display", "flex");
 		tmpTag.css("align-items", "center");
-		tmpTag.addClass(this.logoutTagClass);
 		tmpTag.width(this.oHeight - 2);
 		tmpTag.height(this.oHeight - 2);
 		tmpTag.offset({
@@ -49,7 +49,7 @@ system.views.TaskbarView = function(BarModel) {
 	this.setTaskbarValues = function(taskbarValueArray) {
 		this.taskbarOHeight = taskbarValueArray["taskbarOHeight"];
 		this.oWidth = $(window).width();
-		this.oHeight = this.taskbarOHeight + this.oBorderWidth;
+		this.oHeight = this.taskbarOHeight + this.oBorderWidth*2;
 		this.oLeft = 0;
 		this.oTop = $(window).height() - this.oHeight;
 	}

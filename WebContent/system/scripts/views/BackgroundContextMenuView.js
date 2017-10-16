@@ -4,7 +4,6 @@ system.views.BackgroundContextMenuView = function(backgroundContextMenuView) {
 	this.contentLayerTagClass = "contextMenuContentLayer";
 	this.contextMenuLayer = function() {
 		this.outerSelector.append(this.contentSelector);
-		this.contextMenuSelector = this.outerSelector;
 	}
 	this.outerLayer = function() {
 		var tmpTag = $("<div></div>");
@@ -12,8 +11,8 @@ system.views.BackgroundContextMenuView = function(backgroundContextMenuView) {
 		tmpTag.css("z-index", this.zIndex);
 		tmpTag.css("position", "absolute");
 		tmpTag.offset({
-			left : event.clientX,
-			top : event.clientY
+			left : this.oLeft,
+			top : this.oTop
 		});
 		tmpTag.addClass(this.outerLayerTagClass);
 		this.outerSelector = tmpTag;

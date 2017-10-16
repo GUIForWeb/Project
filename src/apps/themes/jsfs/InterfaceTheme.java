@@ -38,13 +38,7 @@ public class InterfaceTheme extends ApplicationJSF{
 	}
 	public String submit() {
 		this.guiSettingDAO.setGUISetting(this.guiSetting);
-		this.guiSettingDAO.updateWindow();
-		try {
-			this.externalContext.redirect(this.contextPath+"/system/comps/views/desktop.jsf");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.guiSettingDAO.updateInteface();
 		return "";
 	}
 	public GUISetting getGuiSetting() {
