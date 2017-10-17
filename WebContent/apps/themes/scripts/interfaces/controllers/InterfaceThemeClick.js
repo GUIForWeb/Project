@@ -6,7 +6,6 @@ apps.themes.interfaces.controllers.InterfaceThemeClick = function() {
 				this.va.iVal[title] = this.va.iVal[title].toFixed(1);
 			$(this.inputs[ii]).attr("value",this.va.iVal[title]);
 		}
-		this.node.win.content = this.node.win.tag.innerHTML
 		gui.winAndBar.repo.updateContent(this.node.win);
 	}
 }
