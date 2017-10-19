@@ -3,6 +3,10 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html" 
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core">
+	<f:metadata>
+		<f:viewAction
+			action="#{login.init}"/>
+	</f:metadata>
 	<ui:define name="css">
     	<ui:include src="/system/scripts/css/menu/menu.xhtml" />
     	<ui:include src="/system/scripts/css/forms/info.xhtml" />

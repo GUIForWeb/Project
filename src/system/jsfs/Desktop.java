@@ -79,7 +79,6 @@ public class Desktop extends SystemJSF {
 			this.externalContext.getApplicationMap().put("bgImg", this.bgImg);
 			this.externalContext.getApplicationMap().put("port", this.port);
 			this.externalContext.getApplicationMap().put("contextURL", this.contextURL);
-			this.externalContext.getApplicationMap().put("contextPath", this.contextPath);
 			this.externalContext.getApplicationMap().put("serverName", this.serverName);
 			this.externalContext.getApplicationMap().put("libs", this.essentialJSLib);
 		}

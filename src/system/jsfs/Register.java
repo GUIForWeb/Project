@@ -20,8 +20,10 @@ public class Register extends SystemJSF {
 		});
 		this.auth.getProcedureMap().put("UsersDAOMySQL", "register");
 	}
-	public String register(){
+	public void init(){
 		this.redirect(IN);
+	}
+	public String register(){
 		String str = "register";
 		this.auth.start();
 		if(this.auth.getAuthErrorList().size() == 0) {

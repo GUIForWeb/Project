@@ -41,8 +41,8 @@ public class SystemJSF {
 		this.serverName = this.externalContext.getRequestServerName();
 		this.port = this.externalContext.getRequestServerPort();
 		this.contextURL = scheme+"://"+this.serverName+":"+this.port+this.contextPath;
+		this.externalContext.getApplicationMap().put("contextPath", this.contextPath);
 	}
-	
 	public void redirect(int view){
 		try {
 			if(view == IN && null != this.user)

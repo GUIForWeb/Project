@@ -24,8 +24,10 @@ public class Login extends SystemJSF {
 			});
 		this.auth.getProcedureMap().put("UsersDAOMySQL", "login");
 	}
-	public String login(){
+	public void init() {
 		this.redirect(IN);
+	}
+	public String login(){
 		this.auth.start();
 		if(this.auth.getAuthErrorList().size() == 0) {
 			this.user = (User) this.session.getAttribute("User");
