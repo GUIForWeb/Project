@@ -18,7 +18,7 @@ public interface UsersDAO {
 	public DbAuth register();
 	public User[] selectAll();
 	public User selectUser(int id);
-	public void newUser(int id);
+	public void newUser(int id, long lastModified);
 	public void delete(int id);
 	public void activate(int id);
 	public void deactivate(int id);

@@ -44,7 +44,7 @@ public class IconTheme extends ApplicationJSF{
 		this.iconBorderColor = this.guiSetting.getIconBorderColor();
 	}
 	public String submit() {
-		this.guiSetting.setThemeName(this.themeName);
+		this.guiSetting.setThemeName(this.guiSetting.getThemeName());
 		this.guiSetting.setIconWidth(this.iconWidth);
 		this.guiSetting.setIconHeight(this.iconHeight);
 		this.guiSetting.setIconBorderWidth(this.iconBorderWidth);

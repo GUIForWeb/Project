@@ -50,7 +50,7 @@ public class UserManager extends ApplicationJSF{
 		File userPath = new File(userFolder);
 		if(!userPath.exists()) {
 			userPath.mkdirs();
-			this.userDao.newUser(this.id);
+			this.userDao.newUser(this.id,userPath.lastModified());
 		}
 		return null;
 	}

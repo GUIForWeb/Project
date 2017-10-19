@@ -32,13 +32,6 @@ public class SystemJSF {
 		this.viewArray = new String[2];
 		this.context = (ServletContext) externalContext.getContext();
 		this.contextPath = this.externalContext.getApplicationContextPath();
-		//for Test
-		this.user = new User();
-  		this.user.setId(1);
-  		this.user.setEmail("admin");
-  		this.user.setRole("admin");
-		this.session.setAttribute("User", this.user);
-		//for Test
 		if(null != this.session.getAttribute("User")) {
 			this.user = (User) this.session.getAttribute("User");
 			this.root = this.context.getRealPath(".").replace(this.contextPath.substring(1), "");

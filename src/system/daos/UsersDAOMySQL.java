@@ -136,11 +136,12 @@ public class UsersDAOMySQL implements UsersDAO{
 			this.session.setAttribute("User", this.user);
 		return dbAuth;
 	}
-	public void newUser(int id) {
-		String query = "call newUser(?)";
+	public void newUser(int id, long lastModified) {
+		String query = "call newUser(?,?)";
 		this.db.connect();
-		String info[] = new String[1];
+		String info[] = new String[2];
 		info[0] = String.valueOf(id);
+		info[1] = String.valueOf(lastModified);
 		this.rset = this.db.call(query,info);
 		this.db.close();
 	}
