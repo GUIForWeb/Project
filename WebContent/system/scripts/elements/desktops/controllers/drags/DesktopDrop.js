@@ -1,8 +1,11 @@
 system.elements.desktops.controllers.drags.DesktopDrop = function() {
 	this.icon = function(event) {
 		var tmpText = event.originalEvent.dataTransfer.getData("text");
+		var tmpFBId = event.originalEvent.dataTransfer.getData("dataItem");
 		tmpText = tmpText.substring(0,4);
-		if(tmpText == "icon" || tmpText == "data") {
+		if(!tmpFBId == "" && confirm("Paste it?")){
+			taskArray.fileBrowser[tmpFBId].fbws.send.pasteToDesktop();
+		}else if(tmpText == "icon" || tmpText == "data") {
 			var newTd = this.getIconTdXY(event.currentTarget);
 			var tagId = event.originalEvent.dataTransfer.getData("text")
 			var icon = this.iconArray[tagId];

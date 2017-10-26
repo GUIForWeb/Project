@@ -1,19 +1,13 @@
 package apps.themes.jsfs;
 
-
-
-import java.io.IOException;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import apps.jsfs.ApplicationJSF;
 import system.daoInterfaces.GUISettingsDAO;
 import system.daoInterfaces.GUISettingsInOSDAO;
-import system.daoInterfaces.OSsDAO;
-import system.daos.GUISettingsDAOMySQL;
-import system.daos.GUISettingsInOSDAOMySQL;
-import system.daos.OSsDAOMySQL;
+import system.daos.sqlites.GUISettingsDAOSQLite;
+import system.daos.sqlites.GUISettingsInOSDAOSQLite;
 import system.models.GUISetting;
 import system.models.GUIsInOS;
 import system.models.OS;
@@ -26,10 +20,10 @@ public class InterfaceTheme extends ApplicationJSF{
 	public InterfaceTheme() {
 		super();
 		OS os = (OS)this.session.getAttribute("os");
-		GUISettingsInOSDAO guisInOSDAO = new  GUISettingsInOSDAOMySQL(os);
+		GUISettingsInOSDAO guisInOSDAO = new  GUISettingsInOSDAOSQLite(os);
 		guisInOSDAO.load();
 		GUIsInOS guisInOS = guisInOSDAO.getGUIsInOS();
-		this.guiSettingDAO = new GUISettingsDAOMySQL(guisInOS);
+		this.guiSettingDAO = new GUISettingsDAOSQLite(guisInOS);
 		this.guiSettingDAO.load();
 		this.guiSetting = this.guiSettingDAO.getGUISetting();
 	}

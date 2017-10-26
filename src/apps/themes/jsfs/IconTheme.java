@@ -8,9 +8,9 @@ import apps.jsfs.ApplicationJSF;
 import system.daoInterfaces.GUISettingsDAO;
 import system.daoInterfaces.GUISettingsInOSDAO;
 import system.daoInterfaces.OSsDAO;
-import system.daos.GUISettingsDAOMySQL;
-import system.daos.GUISettingsInOSDAOMySQL;
-import system.daos.OSsDAOMySQL;
+import system.daos.sqlites.GUISettingsDAOSQLite;
+import system.daos.sqlites.GUISettingsInOSDAOSQLite;
+import system.daos.sqlites.OSsDAOSQLite;
 import system.models.GUISetting;
 
 @Named
@@ -26,11 +26,11 @@ public class IconTheme extends ApplicationJSF{
 	private GUISettingsDAO guiSettingDAO;
 	public IconTheme() {
 		super();
-		OSsDAO osSettingDAO = new OSsDAOMySQL(this.user);
+		OSsDAO osSettingDAO = new OSsDAOSQLite(this.user);
 		osSettingDAO.load();
-		GUISettingsInOSDAO guisInOSDAO = new  GUISettingsInOSDAOMySQL(osSettingDAO.getOS());
+		GUISettingsInOSDAO guisInOSDAO = new  GUISettingsInOSDAOSQLite(osSettingDAO.getOS());
 		guisInOSDAO.load();
-		this.guiSettingDAO = new GUISettingsDAOMySQL(guisInOSDAO.getGUIsInOS());
+		this.guiSettingDAO = new GUISettingsDAOSQLite(guisInOSDAO.getGUIsInOS());
 		this.guiSettingDAO.load();
 		this.guiSetting = guiSettingDAO.getGUISetting();
 	}

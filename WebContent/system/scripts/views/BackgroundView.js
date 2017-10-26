@@ -44,11 +44,11 @@ system.views.BackgroundView = function(background) {
 		var tmpTag = $("<td></td>");
 		tmpTag.attr("id", this.getIconTdTagId(x, y));
 		tmpTag.addClass(this.iconTdTagClass);
-		tmpTag.on("drop",function(event){
-			gui.desktop.drag.drop.icon(event);
-		});
 		tmpTag.on("dragover",function(event){
 			gui.desktop.drag.over.icon();
+		});
+		tmpTag.on("drop",function(event){
+			gui.desktop.drag.drop.icon(event);
 		});
 		return tmpTag;
 	}

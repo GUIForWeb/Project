@@ -18,36 +18,41 @@ system.views.BackgroundContextMenuView = function(backgroundContextMenuView) {
 		this.outerSelector = tmpTag;
 	}
 	this.contentLayer = function() {
-		var tmpTag = $("<div></div>");
-		var ulTag = $("<ul></ul>");
-		var theme = $("<li>Theme</li>");
-		var themeUlTag = $("<ul></ul>");
-		var window = $("<li>Interface</li>");
-		var background = $("<li>Background</li>");
-		var icon = $("<li>Icon</li>");
-		theme.mouseover(function(){
+		var tagSelector = $("<div></div>");
+		var ulTagSelector = $("<ul></ul>");
+		var themeSelector = $("<li>Theme</li>");
+		var pasteSelector = $("<li>Paste</li>");
+		var themeUlSelector = $("<ul></ul>");
+		var iSelector = $("<li>Interface</li>");
+		var bgSelector = $("<li>Background</li>");
+		var iconSelector = $("<li>Icon</li>");
+		themeSelector.mouseover(function(){
 			gui.desktop.mouse.over.li(this)
 		});
-		theme.mouseout(function(){
+		themeSelector.mouseout(function(){
 			gui.desktop.mouse.out.li(this)
 		});
-		window.click(function(){
+		iSelector.click(function(){
 			gui.desktop.click.theme(event)
 		});
-		background.click(function(){
+		bgSelector.click(function(){
 			gui.desktop.click.theme(event)
 		});
-		icon.click(function(){
+		pasteSelector.click(function(){
+			gui.desktop.click.paste(event);
+		});
+		iconSelector.click(function(){
 			gui.desktop.click.theme(event)
 		});
-		tmpTag.append(ulTag);
-		ulTag.append(theme);
-		theme.append(themeUlTag);
-		themeUlTag.append(window);
-		themeUlTag.append(background);
-		themeUlTag.append(icon);
-		tmpTag.addClass(this.contentLayerTagClass);
-		this.contentSelector = tmpTag;
+		tagSelector.append(ulTagSelector);
+		ulTagSelector.append(themeSelector);
+		ulTagSelector.append(pasteSelector);
+		themeSelector.append(themeUlSelector);
+		themeUlSelector.append(iSelector);
+		themeUlSelector.append(bgSelector);
+		themeUlSelector.append(iconSelector);
+		tagSelector.addClass(this.contentLayerTagClass);
+		this.contentSelector = tagSelector;
 	}
 	this.getView = function() {
 		this.contentLayer();

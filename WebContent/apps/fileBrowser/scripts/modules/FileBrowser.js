@@ -9,10 +9,6 @@ apps.fileBrowser.modules.FileBrowser = function(id){
 		this.api = new API();
 		this.winInfo = gui.getWinInfo(this.section)
 		this.cOfWindow = this.winInfo.content;
-		//this.window = winInfo.window;
-		//this.winId = winInfo.id;
-		//this.x = winInfo.x;
-		//this.m = winInfo.m;
 		var path = this.path;
 		this.winInfo.m.bind("dragstart",function(event){
 			var url = event.originalEvent.dataTransfer.getData("text/uri-list");
@@ -106,10 +102,10 @@ apps.fileBrowser.modules.FileBrowser = function(id){
 		var id = this.id;
 		var funcArray = this.funcArray;
 		this.fbTable.on("dragover",function(event){
-			taskArray['fileBrowser'][id].drag.over.dataItem(event);
+			taskArray.fileBrowser[id].drag.over.dataItem(event);
 		});
 		this.fbTable.on("drop",function(event){
-			taskArray['fileBrowser'][id].drag.drop.dataItem(event);
+			taskArray.fileBrowser[id].drag.drop.dataItem(event);
 		});
 		var trs = this.fbTable.find("tr");
 		trs = trs.slice(1,trs.length)

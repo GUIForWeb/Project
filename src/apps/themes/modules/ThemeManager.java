@@ -8,8 +8,8 @@ import org.json.JSONObject;
 
 import system.daoInterfaces.BgPathsDAO;
 import system.daoInterfaces.GUISettingsInOSDAO;
-import system.daos.BgPathsDAOMySQL;
-import system.daos.GUISettingsInOSDAOMySQL;
+import system.daos.sqlites.BgPathsDAOSQLite;
+import system.daos.sqlites.GUISettingsInOSDAOSQLite;
 import system.models.GUIsInOS;
 import system.models.OS;
 
@@ -21,11 +21,11 @@ public class ThemeManager {
 		
 	}
 	public void init(){
-		OS osSetting = (OS)this.session.getAttribute("os");
-		GUISettingsInOSDAO guisInOSDAO = new  GUISettingsInOSDAOMySQL(osSetting);
+		OS os = (OS)this.session.getAttribute("os");
+		GUISettingsInOSDAO guisInOSDAO = new  GUISettingsInOSDAOSQLite(os);
 		guisInOSDAO.load();
 		GUIsInOS guisInOS = guisInOSDAO.getGUIsInOS();
-		this.bgPathDAO = new BgPathsDAOMySQL();
+		this.bgPathDAO = new BgPathsDAOSQLite();
 		this.bgPathDAO.setGUIId(guisInOS.getGuiId());
 	}
 	public void empty(){

@@ -76,7 +76,7 @@ public class FBWebSocket implements WebSocketInterface{
 	}
 	private void dmSwitchCase(String status){
 		if((this.fbm.getRoot() + "/Desktop").equals(this.fbm.getPath())){
-			if(status.equals("newFolder") || status.equals("rename") || status.equals("del") ||	status.equals("paste") || status.equals("uploadStart")){
+			if(status.equals("newFolder") || status.equals("rename") || status.equals("del") ||	status.equals("paste") || status.equals("uploadStart") || status.equals("pasteToDesktop")){
 				this.dm = (DesktopManager) this.session.getAttribute("desktopManager");
 				this.dm.setJSONArray(this.fbm.getDesktopJSONArray());
 				this.dm.setJSON(this.fbm.getDesktopJSON());
@@ -86,6 +86,9 @@ public class FBWebSocket implements WebSocketInterface{
 					this.dm.delDataIcon();
 					break;
 				case "uploadStart":
+					this.dm.insertDataIcon();
+					break;
+				case "pasteToDesktop":
 					this.dm.insertDataIcon();
 					break;
 				case "paste":
@@ -145,6 +148,9 @@ public class FBWebSocket implements WebSocketInterface{
 				break;
 			case "paste":
 				this.fbm.paste();
+				break;
+			case "pasteToDesktop":
+				this.fbm.pasteToDesktop();
 				break;
 			case "x":
 				this.fbm.x();

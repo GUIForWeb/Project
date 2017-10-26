@@ -52,7 +52,6 @@ system.elements.desktops.subsystems.selects.DesktopShiftSelect = function() {
 			isSwiched = true;
 		}
 		for(ti = this.rIdx0; ti <= this.rIdx1; ti++){
-			console.log(ti);
 			tds = $(trs[ti]).find("td");
 			if(ti == this.rIdx0){
 				var td = null;

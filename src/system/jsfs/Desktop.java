@@ -11,12 +11,12 @@ import system.daoInterfaces.GUISettingsInOSDAO;
 import system.daoInterfaces.IconsDAO;
 import system.daoInterfaces.IconsInOSDAO;
 import system.daoInterfaces.OSsDAO;
-import system.daos.BgPathsDAOMySQL;
-import system.daos.GUISettingsDAOMySQL;
-import system.daos.GUISettingsInOSDAOMySQL;
-import system.daos.IconsDAOMySQL;
-import system.daos.IconsInOSDAOMySQL;
-import system.daos.OSsDAOMySQL;
+import system.daos.sqlites.BgPathsDAOSQLite;
+import system.daos.sqlites.GUISettingsDAOSQLite;
+import system.daos.sqlites.GUISettingsInOSDAOSQLite;
+import system.daos.sqlites.IconsDAOSQLite;
+import system.daos.sqlites.IconsInOSDAOSQLite;
+import system.daos.sqlites.OSsDAOSQLite;
 import system.helpers.ImgToBase64;
 import system.jsfs.SystemJSF;
 import system.models.BgPath;
@@ -42,25 +42,25 @@ public class Desktop extends SystemJSF {
 	public void init() {
 		this.redirect(OUT);
 		if (null != this.user) {
-			OSsDAO osDAO = new OSsDAOMySQL(this.user);
+			OSsDAO osDAO = new OSsDAOSQLite(this.user);
 			osDAO.load();
 			this.os = osDAO.getOS();
 			this.session.setAttribute("os", this.os);
-			GUISettingsInOSDAO guisInOSDAO = new GUISettingsInOSDAOMySQL(os);
+			GUISettingsInOSDAO guisInOSDAO = new GUISettingsInOSDAOSQLite(os);
 			guisInOSDAO.load();
 			GUIsInOS guisInOS = guisInOSDAO.getGUIsInOS();
 
-			GUISettingsDAO guiSettingDAO = new GUISettingsDAOMySQL(guisInOS);
+			GUISettingsDAO guiSettingDAO = new GUISettingsDAOSQLite(guisInOS);
 			guiSettingDAO.load();
 			GUISetting guiSetting = guiSettingDAO.getGUISetting();
 
-			BgPathsDAO bgPathDAO = new BgPathsDAOMySQL(guisInOS);
+			BgPathsDAO bgPathDAO = new BgPathsDAOSQLite(guisInOS);
 			bgPathDAO.load();
 			BgPath bgPath = bgPathDAO.getBgPath();
 
-			IconsInOSDAO iconsInOSDAO = new IconsInOSDAOMySQL(this.os);
+			IconsInOSDAO iconsInOSDAO = new IconsInOSDAOSQLite(this.os);
 			iconsInOSDAO.load();
-			IconsDAO iconDAO = new IconsDAOMySQL(iconsInOSDAO.getIconsInOSList());
+			IconsDAO iconDAO = new IconsDAOSQLite(iconsInOSDAO.getIconsInOSList());
 			iconDAO.load();
 			
 			if (null != bgPath.getBgPath() && !bgPath.getBgPath().equals("NULL")) {

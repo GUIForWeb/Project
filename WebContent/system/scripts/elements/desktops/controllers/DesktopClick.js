@@ -20,11 +20,13 @@ system.elements.desktops.controllers.DesktopClick = function() {
 		taskArray["contextMenu"].disappear();
 		taskArray["clipboard"] = true;
 		this.socket.sender.copy();
+		this.select.cancle.all();
 	}
 	this.cut = function(event) {
 		taskArray["contextMenu"].disappear();
 		taskArray["clipboard"] = true;
 		this.socket.sender.cut();
+		this.select.cancle.all();
 	}
 	this.paste = function(event) {
 		taskArray["contextMenu"].disappear();

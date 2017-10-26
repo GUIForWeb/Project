@@ -16,9 +16,9 @@ import org.json.JSONObject;
 
 import system.daoInterfaces.DataIconsDAO;
 import system.daoInterfaces.IconsInOSDAO;
-import system.daos.DataIconsDAOMySQL;
-import system.daos.DataItemsDAO;
-import system.daos.IconsInOSDAOMySQL;
+import system.daos.ios.DataItemsDAO;
+import system.daos.sqlites.DataIconsDAOSQLite;
+import system.daos.sqlites.IconsInOSDAOSQLite;
 import system.models.DataItem;
 import system.models.OS;
 import system.models.User;
@@ -46,8 +46,8 @@ public class DesktopManager {
 		File file = new File(this.desktopPath);
 		if (!file.exists())
 			file.mkdir();
-		this.iconsInOSDAO = new IconsInOSDAOMySQL(this.os);
-		this.dataIconsDAO = new DataIconsDAOMySQL(this.os);
+		this.iconsInOSDAO = new IconsInOSDAOSQLite(this.os);
+		this.dataIconsDAO = new DataIconsDAOSQLite(this.os);
 		this.dataIconsDAO.load();
 		this.dataItemsDAO = new DataItemsDAO(this.desktopPath);
 		this.dataItemsDAO.load();
@@ -97,9 +97,11 @@ public class DesktopManager {
 			path = this.desktopPath + "/" + tmpJSON.getString("name");
 			type = tmpJSON.getString("type");
 			dest = new File(path);
-			if(dest.exists())
-				this.makeDesktopArray(dest);
-			if (type.contains("directory")) {
+			if(dest.exists()) {
+				this.makeDesktopArray(dest, dest);
+			}
+			System.out.println(type);
+			if (type.contains("inode/directory")) {
 				try {
 					FileUtils.deleteDirectory(dest);
 					success = true;
@@ -126,20 +128,20 @@ public class DesktopManager {
 			String path = clipboard.getString("path");
 			JSONArray data = clipboard.getJSONArray("data");
 			if(!(path.equals(this.desktopPath) && status.equals("cut"))) {
-				this.checkExistence(status, data, path, this.desktopPath);
+				this.checkExistenceAndProcess(status, data, path, this.desktopPath);
 				this.insertDataIcon();
 			}
 			this.session.removeAttribute("clipboard");
 			this.isUpdated = true;
 		}
 	}
-	private void checkExistence(String status, JSONArray data, String srcPath, String destPath) {
+	private void checkExistenceAndProcess(String status, JSONArray data, String srcPath, String destPath) {
 		if (data.length() != 0) {
 			JSONObject tmpJSON = data.getJSONObject(0);
 			String name = tmpJSON.getString("name");
 			String type = tmpJSON.getString("type");
 			data.remove(0);
-			this.checkExistence(status, data, srcPath, destPath);
+			this.checkExistenceAndProcess(status, data, srcPath, destPath);
 			File src = new File(srcPath + "/" + name);
 			File dest = new File(destPath + "/" + name);
 			if (dest.exists()) {
@@ -149,7 +151,7 @@ public class DesktopManager {
 					this.dataItemsDAO.setFilePath(destPath);
 					this.dataItemsDAO.load();
 					JSONArray tmpData = this.dataItemsDAO.getJSONArray();
-					this.checkExistence(status, tmpData, srcPath, destPath);
+					this.checkExistenceAndProcess(status, tmpData, srcPath, destPath);
 				} else {
 					String ext = name.substring(name.lastIndexOf(".") + 1, name.length());
 					name = name.substring(0, name.lastIndexOf("."));
@@ -157,27 +159,26 @@ public class DesktopManager {
 					if (status.equals("copy")) {
 						try {
 							FileUtils.copyFile(src, dest);
-							
+							this.makeDesktopArray(src, dest);
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					} else if (status.equals("cut")) {
 						try {
 							FileUtils.moveFile(src, dest);
+							this.makeDesktopArray(src, dest);
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
-					this.makeDesktopArray(dest);
 				}
 			} else {
-				if (type.equals("directory")) {
+				if (type.equals("inode/directory")) {
 					dest = new File(destPath);
 					if (status.equals("copy")) {
 						try {
 							FileUtils.copyDirectoryToDirectory(src, dest);
+							this.makeDesktopArray(src, dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -185,6 +186,7 @@ public class DesktopManager {
 					} else if (status.equals("cut")) {
 						try {
 							FileUtils.moveDirectoryToDirectory(src, dest, true);
+							this.makeDesktopArray(src, dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -194,6 +196,7 @@ public class DesktopManager {
 					if (status.equals("copy")) {
 						try {
 							FileUtils.copyFile(src, dest);
+							this.makeDesktopArray(src, dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -201,34 +204,41 @@ public class DesktopManager {
 					} else if (status.equals("cut")) {
 						try {
 							FileUtils.moveFile(src, dest);
-							
+							this.makeDesktopArray(src, dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						this.makeDesktopArray(dest);
 					}
 				}
 			}
 		}
 	}
-	private void makeDesktopArray(File file){
-		String path = file.getPath();
-		int lIdx = path.lastIndexOf("/");
-		path = path.substring(0,lIdx);
+	private void makeDesktopArray(File src, File dest){
+		String path = "";
+		if(src.isDirectory() && dest.getPath().equals(this.desktopPath))
+			path = dest.getPath();
+		else {
+			path = dest.getPath();
+			int lIdx = path.lastIndexOf("/");
+			path = path.substring(0,lIdx);
+		}
 		if(path.equals(this.desktopPath)) {
 			DataItem tmpDI = new DataItem();
 			try {
-				tmpDI.setType(Files.probeContentType(file.toPath()));
+				tmpDI.setType(Files.probeContentType(dest.toPath()));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			tmpDI.setName(file.getName());
+			if(src.isFile())
+				tmpDI.setName(dest.getName());
+			else
+				tmpDI.setName(src.getName());
 			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-			tmpDI.setLastModified(file.lastModified());
-			tmpDI.setDateModified(sdf.format(file.lastModified()));
-			tmpDI.setSize(file.length());
+			tmpDI.setLastModified(dest.lastModified());
+			tmpDI.setDateModified(sdf.format(dest.lastModified()));
+			tmpDI.setSize(dest.length());
 			this.jsonArray.put(tmpDI.getJSON());
 		}
 	}

@@ -7,7 +7,7 @@ import javax.inject.Named;
 
 import apps.jsfs.ApplicationJSF;
 import system.daoInterfaces.UsersDAO;
-import system.daos.UsersDAOMySQL;
+import system.daos.sqlites.UsersDAOSQLite;
 import system.models.User;
 
 @Named
@@ -17,11 +17,11 @@ public class UserManager extends ApplicationJSF{
 	private UsersDAO userDao;
 	private User userArray[];
 	public UserManager() {
-		this.userDao = new UsersDAOMySQL();
+		this.userDao = new UsersDAOSQLite();
 		this.userArray = this.userDao.selectAll();
 	}
 	public User[] getUserArray() {
-		return userArray;
+		return userArray; 
 	}
 	public void start() {
 		this.redirect();

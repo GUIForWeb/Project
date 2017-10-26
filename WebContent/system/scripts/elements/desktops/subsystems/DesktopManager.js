@@ -20,7 +20,9 @@ system.elements.desktops.subsystems.DesktopManager = function() {
 			this.iconArray.push(this.iconJSONArray[ci]);
 		}
 	}
-	this.appendDataIcon = function(){
+	this.appendDataIcon = function(data){
+		if(data !== undefined) 
+			this.dataIconJSONArray = data;
 		this.rowNum = this.iconTable.children().length;
 		for(di=0; di < this.dataIconJSONArray.length; di++) {
 			var tmpIcon = new DataIcon();
@@ -42,7 +44,9 @@ system.elements.desktops.subsystems.DesktopManager = function() {
 		ids = ids.split(",");
 		for(ii=0; ii<ids.length; ii++){
 			$("#dataIcon"+ids[ii]).remove();
+			tmpIcon = this.iconArray["dataIcon"+ids[ii]];
 			delete this.iconArray["dataIcon"+ids[ii]];
+			delete this.iconCoordinate[tmpIcon.x + "," + tmpIcon.y];
 		}
 	}
 	this.filter = function(tmpIcon){

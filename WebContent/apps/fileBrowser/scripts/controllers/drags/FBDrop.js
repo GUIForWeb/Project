@@ -3,7 +3,6 @@ apps.fileBrowser.controllers.drags.FBDrop = function() {
 		if (this.va["dropable"]
 				&& event.originalEvent.dataTransfer.files.length != 0) {
 			event.preventDefault();
-			console.log("upload");
 			this.va["selectedData"] = event.originalEvent.dataTransfer.files;
 			this.va["dropable"] = false;
 			if(confirm("Upload it?"))

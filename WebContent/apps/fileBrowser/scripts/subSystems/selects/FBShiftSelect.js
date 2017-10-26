@@ -19,7 +19,6 @@ apps.fileBrowser.subsystems.selects.FBShiftSelect = function() {
 				this.init();
 			}
 			else if(this.rIdx0 != this.rIdx1){
-				console.log("Yo");
 				this.rIdx1 = rIdx;
 				this.widing();
 			}

@@ -1,0 +1,19 @@
+<ui:composition template="/system/comps/frames/frame.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://xmlns.jcp.org/jsf/html" 
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<f:metadata>
+		<f:viewAction action="#{test.init()}"/>
+	</f:metadata>
+	<ui:define name="css">
+    </ui:define>
+    <ui:define name="title">
+		Test
+    </ui:define>
+    <ui:define name="header">
+    </ui:define>
+	<ui:define name="section">
+        <ui:include src="/test/testForm.xhtml" />
+    </ui:define>
+</ui:composition>

@@ -7,7 +7,6 @@ system.elements.desktops.subsystems.selects.DesktopSelectEnd = function() {
 			this.iconArray[di].isChosen == false;
 			this.iconArray[di].isChangeable = true;
 		}
-		console.log(this.va["selectedData"]);
 	}
 	this.validation = function() {
 		if(this.va["selectedData"].length != 0){

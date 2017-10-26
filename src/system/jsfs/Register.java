@@ -18,7 +18,8 @@ public class Register extends SystemJSF {
     		Authentication.AUTHRULE,
     		Authentication.PROCEDURE	
 		});
-		this.auth.getProcedureMap().put("UsersDAOMySQL", "register");
+		this.auth.setDaos("system.daos.sqlites.");
+		this.auth.getProcedureMap().put("UsersDAOSQLite", "register");
 	}
 	public void init(){
 		this.redirect(IN);

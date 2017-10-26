@@ -23,7 +23,7 @@ import org.json.JSONObject;
 
 import apps.fileBrowser.libraries.FBFileOutputStream;
 import apps.fileBrowser.models.Browser;
-import system.daos.DataItemsDAO;
+import system.daos.ios.DataItemsDAO;
 import system.models.DataItem;
 
 public class FBManager {
@@ -212,7 +212,7 @@ public class FBManager {
 			String path = clipboard.getString("path");
 			JSONArray data = clipboard.getJSONArray("data");
 			if(!(path.equals(this.path) && status.equals("cut")))
-				this.checkExistence(status, data, path, this.path);
+				this.checkExistenceAndProcess(status, data, path, this.path);
 			if(clipboard.has("id")){
 				prevId = clipboard.getInt("id");
 				this.multiplexReload(prevId, path);
@@ -225,6 +225,20 @@ public class FBManager {
 			this.session.removeAttribute("clipboard");
 		}
 	}
+	
+	public void pasteToDesktop() {
+		JSONObject clipboard = (JSONObject) this.session.getAttribute("clipboard");
+		if (clipboard != null) {
+			this.desktopJSONArray = new JSONArray();
+			String status = clipboard.getString("status");
+			String path = clipboard.getString("path");
+			JSONArray data = clipboard.getJSONArray("data");
+			this.path = this.desktopPath;
+			this.checkExistenceAndProcess(status, data, path, this.desktopPath);
+			this.session.removeAttribute("clipboard");
+		}
+	}
+	
 	private void multiplexReload(int prevId, String path) {
 		if (this.browser.isWeb()) {
 			this.reload();
@@ -266,13 +280,13 @@ public class FBManager {
 			this.json.put("data", data);
 		}
 	}
-	private void checkExistence(String status, JSONArray data, String srcPath, String destPath) {
+	private void checkExistenceAndProcess(String status, JSONArray data, String srcPath, String destPath) {
 		if (data.length() != 0) {
 			JSONObject tmpJSON = data.getJSONObject(0);
 			String name = tmpJSON.getString("name");
 			String type = tmpJSON.getString("type");
 			data.remove(0);
-			this.checkExistence(status, data, srcPath, destPath);
+			this.checkExistenceAndProcess(status, data, srcPath, destPath);
 			File src = new File(srcPath + "/" + name);
 			File dest = new File(destPath + "/" + name);
 			if (dest.exists()) {
@@ -282,7 +296,7 @@ public class FBManager {
 					this.dataItemDAO.setFilePath(destPath);
 					this.dataItemDAO.load();
 					JSONArray tmpData = this.dataItemDAO.getJSONArray();
-					this.checkExistence(status, tmpData, srcPath, destPath);
+					this.checkExistenceAndProcess(status, tmpData, srcPath, destPath);
 				} else {
 					String ext = name.substring(name.lastIndexOf(".") + 1, name.length());
 					name = name.substring(0, name.lastIndexOf("."));
@@ -290,7 +304,7 @@ public class FBManager {
 					if (status.equals("copy")) {
 						try {
 							FileUtils.copyFile(src, dest);
-							this.makeDesktopArray(dest);
+							this.makeDesktopArray(src, dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -298,7 +312,7 @@ public class FBManager {
 					} else if (status.equals("cut")) {
 						try {
 							FileUtils.moveFile(src, dest);
-							this.makeDesktopArray(dest);
+							this.makeDesktopArray(src, dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -306,11 +320,12 @@ public class FBManager {
 					}
 				}
 			} else {
-				if (type.equals("directory")) {
+				if (type.equals("inode/directory")) {
 					dest = new File(destPath);
 					if (status.equals("copy")) {
 						try {
 							FileUtils.copyDirectoryToDirectory(src, dest);
+							this.makeDesktopArray(src, dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -318,6 +333,7 @@ public class FBManager {
 					} else if (status.equals("cut")) {
 						try {
 							FileUtils.moveDirectoryToDirectory(src, dest, true);
+							this.makeDesktopArray(src, dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -327,7 +343,7 @@ public class FBManager {
 					if (status.equals("copy")) {
 						try {
 							FileUtils.copyFile(src, dest);
-							this.makeDesktopArray(dest);
+							this.makeDesktopArray(src, dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -335,7 +351,7 @@ public class FBManager {
 					} else if (status.equals("cut")) {
 						try {
 							FileUtils.moveFile(src, dest);
-							this.makeDesktopArray(dest);
+							this.makeDesktopArray(src, dest);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -345,13 +361,24 @@ public class FBManager {
 			}
 		}
 	}
+	private void makeDesktopArray(File src, File dest){
+		if(src.isDirectory()) {
+			this.makeDesktopArray(src);
+		}
+		else {
+			String path = dest.getPath();
+			int lIdx = path.lastIndexOf("/");
+			path = path.substring(0,lIdx);
+			if(path.equals(this.desktopPath))
+				this.makeDesktopArray(dest);
+		}
+	}
 	private void makeDesktopArray(File file){
 		if(this.path.equals(this.desktopPath)){
 			DataItem tmpDI = new DataItem();
 			try {
 				tmpDI.setType(Files.probeContentType(file.toPath()));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			tmpDI.setName(file.getName());
@@ -442,14 +469,8 @@ public class FBManager {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			/*
-			this.desktopJSON.put("size", newFolder.length());
-			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-			this.desktopJSON.put("dateModified", sdf.format(newFolder.lastModified()));
-			*/
 		}
 	}
-
 	private File mkDir(Browser browser, String name, int num) {
 		File newFolder = new File(browser.getPath() + "/" + name + " " + num);
 		if (!newFolder.exists()) {

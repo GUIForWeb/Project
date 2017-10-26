@@ -131,4 +131,14 @@ apps.fileBrowser.communications.webSockets.FBSender = function() {
 		this.ws.send(this.json);
 		this.va["pasteFlag"] = false;
 	}
+	this.pasteToDesktop = function() {
+		console.log("Yo")
+		this.json.data = {
+			"status" : "pasteToDesktop",
+			"id" : this.id
+		}
+		this.ws.send(this.json);
+		this.va["pasteFlag"] = false;
+	}
+
 }

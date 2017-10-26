@@ -173,6 +173,7 @@ system.elements.winAndBars.subsystems.WinAndBarRepository = function() {
 		bar.bgSelector = this.bgSelector;
 		bar.taskbarSelector = this.taskbarSelector;
 		bar.view.taskbarOHeight = this.taskbar.view.oHeight;
+		bar.view.setDefaultValues(barDefaultValueArray);
 		bar.init(barMap["numId"], barMap["position"]);
 		bar.restoreModel(barMap);
 		bar.appear();

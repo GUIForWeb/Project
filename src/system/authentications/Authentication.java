@@ -23,7 +23,7 @@ public class Authentication {
 	public static Map<String,String> authStandardMap;
 	public static Map<String,List<String>> exceptionXMLMap;
 	public static Map<String,String> dbErrorCodeXMLMap;
-	final private String dao = "system.daos.";
+	private String daos = "system.daos.mysqls.";
 	final private String parameter = "system.authentications.parameters.";
 	private boolean authSuccess;
 	private boolean redayToAuth;
@@ -111,7 +111,7 @@ public class Authentication {
 			for(int mi=0; mi<daoList.size(); mi++) {
 				this.daoName = daoList.get(mi);
 				try {
-					tmpClass = Class.forName(this.dao+this.daoName);
+					tmpClass = Class.forName(this.daos+this.daoName);
 					tmpObj = tmpClass.getConstructor().newInstance();
 					tmpMethod = tmpClass.getMethod("setPMap", Parameter.class);
 					tmpMethod.invoke(tmpObj,this.pMap);
@@ -452,5 +452,10 @@ public class Authentication {
 		str += "P Map: " + this.pMap + System.getProperty("line.separator");
 		return str;
 	}
-	
+	public String getDaos() {
+		return daos;
+	}
+	public void setDaos(String daos) {
+		this.daos = daos;
+	}
 }

@@ -22,7 +22,8 @@ public class Login extends SystemJSF {
 	    		Authentication.AUTHRULE,
 	    		Authentication.PROCEDURE	
 			});
-		this.auth.getProcedureMap().put("UsersDAOMySQL", "login");
+		this.auth.setDaos("system.daos.sqlites.");
+		this.auth.getProcedureMap().put("UsersDAOSQLite", "login");
 	}
 	public void init() {
 		this.redirect(IN);
