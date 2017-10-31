@@ -28,7 +28,7 @@ import system.models.DataItem;
 
 public class FBManager {
 	private int id;
-	private String root;
+	private String userFolder;
 	private String path = "";
 	private String desktopPath = "";
 	private JSONObject json;
@@ -81,7 +81,7 @@ public class FBManager {
 		this.jsonArray = this.dataItemDAO.getJSONArray();
 		this.json = new JSONObject();
 		this.json.put("status", "reload");
-		String path = this.path.replace(this.root, "");
+		String path = this.path.replace(this.userFolder, "");
 		this.json.put("path", path);
 		this.json.put("data", this.jsonArray);
 	}
@@ -104,7 +104,7 @@ public class FBManager {
 			this.json.put("status", "multiReload");
 			data.put("id", ids);
 			data.put("data", this.jsonArray);
-			String path = this.path.replace(this.root, "");
+			String path = this.path.replace(this.userFolder, "");
 			this.json.put("path", path);
 			this.json.put("data", data);
 		}
@@ -274,7 +274,7 @@ public class FBManager {
 			json = new JSONObject();
 			json.put("id", id);
 			json.put("data", this.jsonArray);
-			path = this.path.replace(this.root, "");
+			path = this.path.replace(this.userFolder, "");
 			json.put("path", path);
 			data.put(json);
 			this.json.put("data", data);
@@ -482,8 +482,8 @@ public class FBManager {
 	}
 
 	public void loadRoot() {
-		this.root = (String) this.session.getAttribute("root");
-		this.desktopPath += this.root + "/Desktop";
+		this.userFolder = (String) this.session.getAttribute("userFolder");
+		this.desktopPath += this.userFolder + "/Desktop";
 	}
 
 	@SuppressWarnings("unchecked")
@@ -496,12 +496,12 @@ public class FBManager {
 			this.path = this.browser.getPath() + "/" + name;
 			File b = new File("", this.path);
 			try {
-				if (!b.getCanonicalPath().contains(this.root))
-					this.path = this.root;
+				if (!b.getCanonicalPath().contains(this.userFolder))
+					this.path = this.userFolder;
 				else
 					this.path = b.getCanonicalPath();
 			} catch (IOException e) {
-				this.path = this.root;
+				this.path = this.userFolder;
 				e.printStackTrace();
 			}
 			this.browser.setPath(this.path);
@@ -522,41 +522,41 @@ public class FBManager {
 		this.setNewId();
 		Browser tmpBrowser = new Browser();
 		tmpBrowser.setId(this.id);
-		tmpBrowser.setPath(this.root);
+		tmpBrowser.setPath(this.userFolder);
 		this.browserList.add(tmpBrowser);
-		this.path = this.root + path;
+		this.path = this.userFolder + path;
 		File b = new File("", this.path);
 		try {
-			if (!b.getCanonicalPath().contains(this.root))
-				this.path = this.root;
+			if (!b.getCanonicalPath().contains(this.userFolder))
+				this.path = this.userFolder;
 			else
 				this.path = b.getCanonicalPath();
 			b = new File("", this.path);
 		} catch (IOException e) {
-			this.path = this.root;
+			this.path = this.userFolder;
 			e.printStackTrace();
 		}
 		if (!b.exists())
-			this.path = this.root;
+			this.path = this.userFolder;
 		tmpBrowser.setPath(this.path);
 		this.dataItemDAO.setFilePath(this.path);
 		this.dataItemDAO.load();
 		this.jsonArray = this.dataItemDAO.getJSONArray();
 		this.setSession();
-		this.session.setAttribute("root", this.root);
+		this.session.setAttribute("root", this.userFolder);
 	}
 
 	public void newFB() {
 		this.setNewId();
 		Browser tmpBrowser = new Browser();
 		tmpBrowser.setId(this.id);
-		tmpBrowser.setPath(this.root);
+		tmpBrowser.setPath(this.userFolder);
 		this.browserList.add(tmpBrowser);
-		this.dataItemDAO.setFilePath(this.root);
+		this.dataItemDAO.setFilePath(this.userFolder);
 		this.dataItemDAO.load();
 		this.jsonArray = this.dataItemDAO.getJSONArray();
 		this.setSession();
-		this.session.setAttribute("root", this.root);
+		this.session.setAttribute("root", this.userFolder);
 	}
 
 	public JSONObject getJson() {
@@ -604,12 +604,12 @@ public class FBManager {
 		this.id = id;
 	}
 
-	public String getRoot() {
-		return root;
+	public String getUserFolder() {
+		return userFolder;
 	}
 
-	public void setRoot(String root) {
-		this.root = root;
+	public void setUserFolder(String userFolder) {
+		this.userFolder = userFolder;
 	}
 
 	public ServletContext getServletContext() {

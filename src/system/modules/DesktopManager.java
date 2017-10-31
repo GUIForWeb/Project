@@ -26,7 +26,7 @@ import system.models.User;
 public class DesktopManager {
 	private String desktopPath;
 	private User user;
-	private String root;
+	private String userFolder;
 	private DataIconsDAO dataIconsDAO;
 	private DataItemsDAO dataItemsDAO;
 	private OS os;
@@ -42,7 +42,7 @@ public class DesktopManager {
 	}
 	public void init() {
 		this.desktopPath = "";
-		this.desktopPath += this.root + "/Desktop";
+		this.desktopPath += this.userFolder + "/Desktop";
 		File file = new File(this.desktopPath);
 		if (!file.exists())
 			file.mkdir();
@@ -409,12 +409,12 @@ public class DesktopManager {
 		this.dataIconsDAO = dataIconsDAO;
 	}
 
-	public String getRoot() {
-		return root;
+	public String getUserFolder() {
+		return userFolder;
 	}
 
-	public void setRoot(String root) {
-		this.root = root;
+	public void setUserFolder(String userFolder) {
+		this.userFolder = userFolder;
 	}
 
 	public JSONObject getJSON() {

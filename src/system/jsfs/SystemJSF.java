@@ -22,7 +22,7 @@ public class SystemJSF {
 	protected String view;
 	protected ServletContext context;
 	protected String serverName;
-	protected String root;
+	protected String userFolder;
 	final protected int IN = 0;
 	final protected int OUT = 1;
 	public SystemJSF() {
@@ -34,8 +34,8 @@ public class SystemJSF {
 		this.contextPath = this.externalContext.getApplicationContextPath();
 		if(null != this.session.getAttribute("User")) {
 			this.user = (User) this.session.getAttribute("User");
-			this.root = this.context.getRealPath(".").replace(this.contextPath.substring(1), "");
-			this.root += "driver/home/" + this.user.getEmail();
+			this.userFolder = this.context.getRealPath(".").replace(this.contextPath.substring(1), "");
+			this.userFolder += "driver/home/" + this.user.getEmail();
 		}
 		String scheme = this.externalContext.getRequestScheme();
 		this.serverName = this.externalContext.getRequestServerName();
