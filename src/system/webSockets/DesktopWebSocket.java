@@ -1,6 +1,5 @@
 package system.webSockets;
 
-import java.io.IOException;
 import java.nio.ByteBuffer;
 
 import javax.servlet.ServletContext;

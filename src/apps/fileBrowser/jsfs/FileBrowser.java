@@ -17,7 +17,6 @@ public class FileBrowser extends ApplicationJSF{
 	public FileBrowser() {
 		this.fbm = new FBManager();
 	}
-	
 	public void init(){
 		this.redirect();
 		this.fbm.setSession(this.session);

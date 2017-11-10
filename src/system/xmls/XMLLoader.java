@@ -1,11 +1,3 @@
-/****************************************************************************************************
-* Project: comp3095assignment2
-* Assignment: Assignment 2 
-* Author(s): Gon Hu, Elis Shukullari, Leba Rubinoff
-* Student Number: 100936779, 100823478, 100831385 
-* Date: December 5, 2016
-* Description: XML files Loader
-****************************************************************************************************/
 package system.xmls;
 
 import java.io.File;

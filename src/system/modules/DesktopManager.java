@@ -100,7 +100,6 @@ public class DesktopManager {
 			if(dest.exists()) {
 				this.makeDesktopArray(dest, dest);
 			}
-			System.out.println(type);
 			if (type.contains("inode/directory")) {
 				try {
 					FileUtils.deleteDirectory(dest);
