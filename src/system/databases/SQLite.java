@@ -10,7 +10,7 @@ import java.sql.Statement;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
-import system.jsfs.SystemProp;
+import system.paths.Path;
  
 /**
  *
@@ -25,7 +25,7 @@ public class SQLite {
 	public SQLite() {
 		try {
 			DriverManager.registerDriver(new org.sqlite.JDBC());
-			this.url = "jdbc:sqlite:" + SystemProp.dirs.getString("sqlite");
+			this.url = "jdbc:sqlite:" + Path.sqliteFile;
         } catch (SQLException e) {
           	e.printStackTrace();
         }

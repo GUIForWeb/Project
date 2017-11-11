@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import system.authentications.Authentication;
 import system.models.User;
+import system.paths.Path;
 import system.xmls.XMLManager;
 
 public class SystemJSF {
@@ -35,7 +36,7 @@ public class SystemJSF {
 		this.viewArray = new String[2];
 		if(null != this.session.getAttribute("User")) {
 			this.user = (User) this.session.getAttribute("User");
-			this.userFolder =  SystemProp.dirs.getString("storage") + this.user.getEmail();;
+			this.userFolder =  Path.storageDir + this.user.getEmail();;
 		}
 		String scheme = this.externalContext.getRequestScheme();
 		this.serverName = this.externalContext.getRequestServerName();
