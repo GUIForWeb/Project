@@ -18,30 +18,24 @@ public class SystemJSF {
 	protected HttpSession session;
 	protected ExternalContext externalContext;
 	protected String contextPath;
+	protected ServletContext context;
 	protected String contextURL;
 	protected String[] viewArray;
 	protected String view;
-	protected ServletContext context;
 	protected String serverName;
 	protected String userFolder;
-	protected XMLManager xm;
 	final protected int IN = 0;
 	final protected int OUT = 1;
 	public SystemJSF() {
 		this.externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		this.context = (ServletContext) this.externalContext.getContext();
 		this.contextPath = this.externalContext.getApplicationContextPath();
-		this.xm = new XMLManager(this.context.getRealPath(".")+"/WEB-INF/settings.xml","directory");
-		this.xm.read();
-		System.out.println(this.xm.getJSON());
-		//set specific folders
 		this.auth = new Authentication();
 		this.session = (HttpSession) this.externalContext.getSession(true);
 		this.viewArray = new String[2];
 		if(null != this.session.getAttribute("User")) {
 			this.user = (User) this.session.getAttribute("User");
-			this.userFolder = this.context.getRealPath(".").replace(this.contextPath.substring(1), "");
-			this.userFolder += "driver/home/" + this.user.getEmail();
+			this.userFolder =  SystemProp.dirs.getString("storage") + this.user.getEmail();;
 		}
 		String scheme = this.externalContext.getRequestScheme();
 		this.serverName = this.externalContext.getRequestServerName();

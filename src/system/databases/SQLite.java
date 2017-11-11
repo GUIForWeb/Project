@@ -9,6 +9,8 @@ import java.sql.Statement;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+
+import system.jsfs.SystemProp;
  
 /**
  *
@@ -19,13 +21,11 @@ public class SQLite {
 	private Statement stmt;
 	private PreparedStatement pstmt;
 	private ResultSet rset;
-	private String path;
 	private String url;
 	public SQLite() {
 		try {
 			DriverManager.registerDriver(new org.sqlite.JDBC());
-			this.path = this.getClass().getClassLoader().getResource("").getPath() + "../../../../../sqlite/WebGUI.db";
-			this.url = "jdbc:sqlite:" + this.path;
+			this.url = "jdbc:sqlite:" + SystemProp.dirs.getString("sqlite");
         } catch (SQLException e) {
           	e.printStackTrace();
         }

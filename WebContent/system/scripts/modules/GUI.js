@@ -34,11 +34,12 @@ function GUI(guiVariableName) {
 	this.initIcon = function() {
 		this.desktop.manager.appendIcon();
 	}
+	this.setIPAddress = function(ipAddress) {
+		this.valueArray["ip"] = ipAddress;
+	}
 	this.start = function() {
 		sessionStorage.wMode = true;
-		this.valueArray["ip"] = "192.168.56.103";
 		this.ip = this.valueArray["ip"];
-		// this.valueArray["ip"] = "52.14.247.195:8080";
 		this.valueArray["newId"] = 0;
 		this.valueArray["onScrCount"] = 0;
 		this.nodeArray["winAndBar"] = new WinAndBarNode();

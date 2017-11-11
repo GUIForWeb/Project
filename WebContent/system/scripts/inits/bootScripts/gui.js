@@ -11,6 +11,7 @@ gui.setIconTdValues(iconTdValueArray);
 gui.setIconTableValues(iconTableValueArray);
 gui.setIconJSONArray(iconJSONArray);
 gui.setDataIconJSONArray(dataIconJSONArray);
+gui.setIPAddress(ipAddress);
 gui.winDefaultValueArray = winDefaultValueArray;
 gui.init();
 gui.start();
