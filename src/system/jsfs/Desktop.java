@@ -81,6 +81,7 @@ public class Desktop extends SystemJSF {
 			this.externalContext.getApplicationMap().put("contextURL", this.contextURL);
 			this.externalContext.getApplicationMap().put("serverName", this.serverName);
 			this.externalContext.getApplicationMap().put("libs", this.essentialJSLib);
+			this.externalContext.getApplicationMap().put("fileSeparator", System.getProperty("file.separator"));
 		}
 		if(null != this.os){
 			DesktopManager desktopManager = new DesktopManager();

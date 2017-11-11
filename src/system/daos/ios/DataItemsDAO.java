@@ -28,7 +28,7 @@ public class DataItemsDAO {
 		for (int fi=0; fi<fLen; fi++) {
 			tmpFile = fList[fi];
 			tmpDI = new DataItem();
-			tmpDI.setName(tmpFile.getName().replace(this.filePath + "/", ""));
+			tmpDI.setName(tmpFile.getName().replace(this.filePath + System.getProperty("file.separator"), ""));
 			try {
 	   			tmpDI.setType(Files.probeContentType(tmpFile.toPath()));
 			} catch (IOException e) {

@@ -1,5 +1,6 @@
 apps.fileBrowser.controllers.FBDblClick = function() {
 	this.row = function(event) {
+		console.log(gui.fileSeparator);
 		if (!this.select.mousemove.isWorking) {
 			var tr = event.currentTarget;
 			var td = $(tr).find("td");
@@ -13,13 +14,13 @@ apps.fileBrowser.controllers.FBDblClick = function() {
 				this.fbws.send.open();
 				if(type == "directory"){
 					if(this.path[0].value === undefined)
-						this.path[0].value = "/"+name;
+						this.path[0].value = gui.fileSeparator + name;
 					else
-						this.path[0].value += "/"+name;
+						this.path[0].value += gui.fileSeparator+name;
 				}
 				else if(type == ""){
 					var val = this.path[0].value
-					var idx = val.lastIndexOf("/");
+					var idx = val.lastIndexOf(gui.fileSeparator);
 					val = val.substring(0,idx);
 					this.path[0].value = val;
 				}

@@ -22,6 +22,9 @@ function GUI(guiVariableName) {
 	this.dynamicMode = false;
 	this.init = function() {
 	}
+	this.setFileSeparator = function(fileSeparator) {
+		this.fileSeparator = fileSeparator;
+	}
 	this.setDataIconJSONArray = function(dataIconJSONArray) {
 		this.dataIconJSONArray = dataIconJSONArray;
 	}

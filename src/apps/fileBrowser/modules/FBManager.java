@@ -44,9 +44,10 @@ public class FBManager {
 	private int per;
 	private JSONArray desktopJSONArray;
 	private JSONObject desktopJSON;
-
+	private String fileSeparator;
 	public FBManager() {
 		this.dataItemDAO = new DataItemsDAO();
+		this.fileSeparator = System.getProperty("file.separator");
 	}
 
 	private void setSession() {
@@ -117,7 +118,7 @@ public class FBManager {
 		String type;
 		name = data.getString("name");
 		type = data.getString("type");
-		tmpFile = new File(this.path + "/" + name);
+		tmpFile = new File(this.path + this.fileSeparator + name);
 		byte[] outputByte = new byte[4096];
 		this.response.setCharacterEncoding("ISO-8859-1");
 		this.response.setContentType(type);
@@ -170,7 +171,7 @@ public class FBManager {
 		this.per = ((this.per / 100000000) + 1) * 3;
 		this.per = size / this.per;
 		String name = this.json.getString("name");
-		File file = new File(this.path + "/" + name);
+		File file = new File(this.path + this.fileSeparator + name);
 		String ext = name.substring(name.lastIndexOf(".") + 1, name.length());
 		name = name.substring(0, name.lastIndexOf("."));
 		this.desktopJSONArray = new JSONArray();
@@ -196,7 +197,7 @@ public class FBManager {
 	}
 
 	private File checkDest(String destPath, String name, int num, String ext) {
-		File dest = new File(destPath + "/" + name + "_" + num + "." + ext);
+		File dest = new File(destPath + this.fileSeparator + name + "_" + num + "." + ext);
 		if (dest.exists()) {
 			dest = this.checkDest(destPath, name, num + 1, ext);
 		}
@@ -287,12 +288,12 @@ public class FBManager {
 			String type = tmpJSON.getString("type");
 			data.remove(0);
 			this.checkExistenceAndProcess(status, data, srcPath, destPath);
-			File src = new File(srcPath + "/" + name);
-			File dest = new File(destPath + "/" + name);
+			File src = new File(srcPath + this.fileSeparator + name);
+			File dest = new File(destPath + this.fileSeparator + name);
 			if (dest.exists()) {
 				if (type.equals("inode/directory")) {
-					destPath = destPath + "/" + name;
-					srcPath = srcPath + "/" + name;
+					destPath = destPath + this.fileSeparator + name;
+					srcPath = srcPath + this.fileSeparator + name;
 					this.dataItemDAO.setFilePath(destPath);
 					this.dataItemDAO.load();
 					JSONArray tmpData = this.dataItemDAO.getJSONArray();
@@ -367,7 +368,7 @@ public class FBManager {
 		}
 		else {
 			String path = dest.getPath();
-			int lIdx = path.lastIndexOf("/");
+			int lIdx = path.lastIndexOf(this.fileSeparator);
 			path = path.substring(0,lIdx);
 			if(path.equals(this.desktopPath))
 				this.makeDesktopArray(dest);
@@ -405,7 +406,7 @@ public class FBManager {
 		this.desktopJSONArray = new JSONArray();
 		for (int di = 0; di < data.length(); di++) {
 			tmpJSON = data.getJSONObject(di);
-			path = this.path + "/" + tmpJSON.getString("name");
+			path = this.path + this.fileSeparator + tmpJSON.getString("name");
 			type = tmpJSON.getString("type");
 			dest = new File(path);
 			if(dest.exists())
@@ -434,8 +435,8 @@ public class FBManager {
 	}
 
 	public void rename() {
-		String srcStr = this.browser.getPath() + "/" + this.json.getString("src");
-		String destStr = this.browser.getPath() + "/" + this.json.getString("dest");
+		String srcStr = this.browser.getPath() + this.fileSeparator + this.json.getString("src");
+		String destStr = this.browser.getPath() + this.fileSeparator + this.json.getString("dest");
 		File src = new File(srcStr);
 		File dest = new File(destStr);
 		if (!src.equals(dest) ) {
@@ -450,7 +451,7 @@ public class FBManager {
 	}
 	public void newFolder() {
 		String name = "New Folder";
-		File newFolder = new File(this.path + "/" + name);
+		File newFolder = new File(this.path + this.fileSeparator + name);
 		if (!newFolder.exists()) {
 			newFolder.mkdirs();
 		} else {
@@ -472,7 +473,7 @@ public class FBManager {
 		}
 	}
 	private File mkDir(Browser browser, String name, int num) {
-		File newFolder = new File(browser.getPath() + "/" + name + " " + num);
+		File newFolder = new File(browser.getPath() + this.fileSeparator + name + " " + num);
 		if (!newFolder.exists()) {
 			newFolder.mkdirs();
 		} else {
@@ -483,7 +484,7 @@ public class FBManager {
 
 	public void loadRoot() {
 		this.userFolder = (String) this.session.getAttribute("userFolder");
-		this.desktopPath += this.userFolder + "/Desktop";
+		this.desktopPath += this.userFolder + this.fileSeparator + "Desktop";
 	}
 
 	@SuppressWarnings("unchecked")
@@ -493,7 +494,7 @@ public class FBManager {
 		if (type.equals("inode/directory") || type.equals("")) {
 			this.browserList = (List<Browser>) this.session.getAttribute("browserList");
 			// Browser tmpBrowser = this.browser();
-			this.path = this.browser.getPath() + "/" + name;
+			this.path = this.browser.getPath() + this.fileSeparator + name;
 			File b = new File("", this.path);
 			try {
 				if (!b.getCanonicalPath().contains(this.userFolder))

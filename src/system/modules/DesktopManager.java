@@ -36,13 +36,14 @@ public class DesktopManager {
 	private IconsInOSDAO iconsInOSDAO;
 	private HttpSession session;
 	private HttpServletResponse response;
-	
+	private String fileSeparator;
 	public DesktopManager() {
 		this.isUpdated = false;
+		this.fileSeparator = System.getProperty("file.separator");
 	}
 	public void init() {
 		this.desktopPath = "";
-		this.desktopPath += this.userFolder + "/Desktop";
+		this.desktopPath += this.userFolder + this.fileSeparator +"Desktop";
 		File file = new File(this.desktopPath);
 		if (!file.exists())
 			file.mkdir();
@@ -62,7 +63,7 @@ public class DesktopManager {
 		String type;
 		name = data.getString("name");
 		type = data.getString("type");
-		tmpFile = new File(this.desktopPath + "/" + name);
+		tmpFile = new File(this.desktopPath + this.fileSeparator + name);
 		byte[] outputByte = new byte[4096];
 		this.response.setCharacterEncoding("ISO-8859-1");
 		this.response.setContentType(type);
@@ -94,7 +95,7 @@ public class DesktopManager {
 		this.jsonArray = new JSONArray();
 		for (int di = 0; di < data.length(); di++) {
 			tmpJSON = data.getJSONObject(di);
-			path = this.desktopPath + "/" + tmpJSON.getString("name");
+			path = this.desktopPath + this.fileSeparator + tmpJSON.getString("name");
 			type = tmpJSON.getString("type");
 			dest = new File(path);
 			if(dest.exists()) {
@@ -141,12 +142,12 @@ public class DesktopManager {
 			String type = tmpJSON.getString("type");
 			data.remove(0);
 			this.checkExistenceAndProcess(status, data, srcPath, destPath);
-			File src = new File(srcPath + "/" + name);
-			File dest = new File(destPath + "/" + name);
+			File src = new File(srcPath + this.fileSeparator + name);
+			File dest = new File(destPath + this.fileSeparator + name);
 			if (dest.exists()) {
 				if (type.equals("inode/directory")) {
-					destPath = destPath + "/" + name;
-					srcPath = srcPath + "/" + name;
+					destPath = destPath + this.fileSeparator + name;
+					srcPath = srcPath + this.fileSeparator + name;
 					this.dataItemsDAO.setFilePath(destPath);
 					this.dataItemsDAO.load();
 					JSONArray tmpData = this.dataItemsDAO.getJSONArray();
@@ -219,7 +220,7 @@ public class DesktopManager {
 			path = dest.getPath();
 		else {
 			path = dest.getPath();
-			int lIdx = path.lastIndexOf("/");
+			int lIdx = path.lastIndexOf(this.fileSeparator);
 			path = path.substring(0,lIdx);
 		}
 		if(path.equals(this.desktopPath)) {
@@ -242,7 +243,7 @@ public class DesktopManager {
 		}
 	}
 	private File checkDest(String destPath, String name, int num, String ext) {
-		File dest = new File(destPath + "/" + name + "_" + num + "." + ext);
+		File dest = new File(destPath + this.fileSeparator + name + "_" + num + "." + ext);
 		if (dest.exists()) {
 			dest = this.checkDest(destPath, name, num + 1, ext);
 		}
@@ -304,8 +305,8 @@ public class DesktopManager {
 		}
 	}
 	public void renameOnDesktop() {
-		String srcStr = this.desktopPath + "/" + this.json.getString("src");
-		String destStr = this.desktopPath + "/" + this.json.getString("dest");
+		String srcStr = this.desktopPath + this.fileSeparator + this.json.getString("src");
+		String destStr = this.desktopPath + this.fileSeparator + this.json.getString("dest");
 		File src = new File(srcStr);
 		File dest = new File(destStr);
 		if (!src.equals(dest) ) {

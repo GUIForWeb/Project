@@ -75,7 +75,7 @@ public class FBWebSocket implements WebSocketInterface{
 		return json;
 	}
 	private void dmSwitchCase(String status){
-		if((this.fbm.getUserFolder() + "/Desktop").equals(this.fbm.getPath())){
+		if((this.fbm.getUserFolder() + System.getProperty("file.separator") + "Desktop").equals(this.fbm.getPath())){
 			if(status.equals("newFolder") || status.equals("rename") || status.equals("del") ||	status.equals("paste") || status.equals("uploadStart") || status.equals("pasteToDesktop")){
 				this.dm = (DesktopManager) this.session.getAttribute("desktopManager");
 				this.dm.setJSONArray(this.fbm.getDesktopJSONArray());

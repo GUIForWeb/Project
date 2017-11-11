@@ -46,7 +46,7 @@ public class UserManager extends ApplicationJSF{
 		this.userArray = this.userDao.selectAll();
 		User tmpUser = this.userDao.selectUser(this.id);
 		String userFolder = this.context.getRealPath(".").replace(this.contextPath.substring(1), "");
-		userFolder += "driver/home/"+tmpUser.getEmail();
+		userFolder += "driver"+System.getProperty("file.separator")+"home"+System.getProperty("file.separator")+tmpUser.getEmail();
 		File userPath = new File(userFolder);
 		if(!userPath.exists()) {
 			userPath.mkdirs();
