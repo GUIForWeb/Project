@@ -1,18 +1,17 @@
 apps.fileBrowser.controllers.FBDblClick = function() {
 	this.row = function(event) {
-		console.log(gui.fileSeparator);
 		if (!this.select.mousemove.isWorking) {
 			var tr = event.currentTarget;
 			var td = $(tr).find("td");
 			if (td.length) {
-				var name = $(td[0]).html().trim();
-				var type = $(td[2]).html().trim();
+				var name = $(td[0]).children().html().trim();
+				var type = $(td[2]).children().html().trim();
 				this.va["selectedData"] = [ {
 					"name" : name,
 					"type" : type
 				} ];
 				this.fbws.send.open();
-				if(type == "directory"){
+				if(type == "inode/directory"){
 					if(this.path[0].value === undefined)
 						this.path[0].value = gui.fileSeparator + name;
 					else

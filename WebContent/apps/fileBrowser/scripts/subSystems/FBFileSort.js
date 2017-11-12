@@ -13,10 +13,10 @@ apps.fileBrowser.subsystems.FBFileSort = function() {
 			var tmpTr = $("<tr></tr>");
 			tmpTr.addClass("fb-table-row");
 			tmpTr.addClass("dataItem");
-			var tmpTd0 = $("<td>"+this.va["data"][i]["name"]+"</td>");
-			var tmpTd1 = $("<td>"+this.va["data"][i]["dateModified"]+"</td>");
-			var tmpTd2 = $("<td>"+this.va["data"][i]["type"]+"</td>");
-			var tmpTd3 = $("<td>"+this.va["data"][i]["size"]+"</td>");
+			var tmpTd0 = $("<td><div>"+this.va["data"][i]["name"]+"</div></td>");
+			var tmpTd1 = $("<td><div>"+this.va["data"][i]["dateModified"]+"</div></td>");
+			var tmpTd2 = $("<td><div>"+this.va["data"][i]["type"]+"</div></td>");
+			var tmpTd3 = $("<td><div>"+this.va["data"][i]["size"]+"</div></td>");
 			tmpTr.append(tmpTd0);
 			tmpTr.append(tmpTd1);
 			tmpTr.append(tmpTd2);
@@ -42,10 +42,10 @@ apps.fileBrowser.subsystems.FBFileSort = function() {
 		this.fbTable.html("");
 		var tmpTr = $("<tr></tr>");
 		tmpTr.addClass("fb-table-header");
-		var tmpTd0 = $("<th>Name</th>");
-		var tmpTd1 = $("<th>Date</th>");
-		var tmpTd2 = $("<th>Type</th>");
-		var tmpTd3 = $("<th>Size</th>");
+		var tmpTd0 = $("<th><div>Name</div></th>");
+		var tmpTd1 = $("<th><div>Date</div></th>");
+		var tmpTd2 = $("<th><div>Type</div></th>");
+		var tmpTd3 = $("<th><div>Size</div></th>");
 		tmpTr.append(tmpTd0);
 		tmpTr.append(tmpTd1);
 		tmpTr.append(tmpTd2);
@@ -54,14 +54,15 @@ apps.fileBrowser.subsystems.FBFileSort = function() {
 		tmpTr = $("<tr></tr>");
 		tmpTr.addClass("parent");
 		tmpTr.addClass("fb-table-row");
-		tmpTd0 = $("<td>..</td>");
-		tmpTd1 = $("<td></td>");
-		tmpTd2 = $("<td></td>");
-		tmpTd3 = $("<td></td>");
+		tmpTd0 = $("<td><div>..</div></td>");
+		tmpTd1 = $("<td><div></div></td>");
+		tmpTd2 = $("<td><div></div></td>");
+		tmpTd3 = $("<td><div></div></td>");
 		tmpTr.append(tmpTd0);
 		tmpTr.append(tmpTd1);
 		tmpTr.append(tmpTd2);
 		tmpTr.append(tmpTd3);
+		tmpTr.attr("data-goal","toParent");
 		this.fbTable.append(tmpTr);
 	}
 }

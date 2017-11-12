@@ -78,11 +78,10 @@ system.elements.desktops.communications.webSockets.DesktopSender = function() {
 		gui.ws.send(this.json);
 	}
 	this.dataIconXYs = function(jsonArray) {
-		this.json.data = Object.assign({}, {
+		this.json.data = {
 			"status" : "dataIconXYs"
-		}, {
-			"data" : jsonArray
-		});
+			,"data" : jsonArray
+		};
 		var json = this.json
 		if (jsonArray.length != 0)
 			gui.ws.onopen(function() {

@@ -1,11 +1,12 @@
 apps.fileBrowser.controllers.focuses.FBFocusout = function() {
 	this.rename = function(event) {
-		this.setScriptTag(event.target.parentNode);
+		this.setScriptTag(event.target);
 		this.va["selectedData"] = [ {
-			"name" : this.tag["t"].children[0].innerHTML,
-			"type" : this.tag["t"].children[2].innerHTML
+			"name" : this.tag["t"].innerHTML,
+			"type" : this.tag["t"].innerHTML
 		} ];
-		this.tag["s"].children().first().removeAttr("contenteditable");
+		this.tag["s"].removeAttr("contenteditable");
+		console.log(this.va["selectedData"]);
 		if (JSON.stringify(this.va["selectedData"][0]) != JSON
 				.stringify(this.va["prevData"][0])) {
 			for (di = 0; di < this.va["data"].length; di++) {

@@ -10,7 +10,7 @@ apps.fileBrowser.subsystems.selects.FBSelectCancle = function() {
 		this.initAllValues();
 	}
 	this.row = function(selector) {
-		if(selector.find("th").length == 0 && selector[0].children[0].innerHTML != ".."
+		if(selector.find("th").length == 0 && selector.attr("data-goal") != "toParent"
 			&& selector.prop("tagName") == "TR") {
 			var rIdx = selector[0].rowIndex;
 			var data = this.va["data"][rIdx-2];

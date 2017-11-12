@@ -1,5 +1,6 @@
 apps.fileBrowser.controllers.drags.FBDrop = function() {
 	this.dataItem = function(event) {
+		console.log(event);
 		if (this.va["dropable"]
 				&& event.originalEvent.dataTransfer.files.length != 0) {
 			event.preventDefault();
@@ -10,8 +11,9 @@ apps.fileBrowser.controllers.drags.FBDrop = function() {
 		}
 		else if (this.va["validation"] && this.va["dropable"]) {
 			this.va["dropable"] = false;
-			if(taskArray["clipboard"] && confirm("Paste it?"))
-			this.fbws.send.paste();
+			var tmpIcon = event.originalEvent.dataTransfer.getData("icon");
+			if((taskArray["clipboard"] || tmpIcon.includes("dataIcon"))&& confirm("Paste it?"))
+				this.fbws.send.paste();
 		} 
 	}
 }

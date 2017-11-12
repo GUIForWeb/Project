@@ -2,7 +2,7 @@ system.elements.desktops.subsystems.selects.DesktopClickSelect = function() {
 	this.icon = function(event){
 		this.setScriptTag(event.target.parentNode);
 		if (this.tag["s"].prop("class").includes("iconDiv")) {
-			var id = this.tag["s"].attr("id");
+			var id = this.tag["s"].prop("id");
 			this.isWorking = true;
 			var data = this.iconArray[id].json;
 			if(data.isChosen){

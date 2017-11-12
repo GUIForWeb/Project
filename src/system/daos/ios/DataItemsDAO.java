@@ -30,7 +30,10 @@ public class DataItemsDAO {
 			tmpDI = new DataItem();
 			tmpDI.setName(tmpFile.getName().replace(this.filePath + System.getProperty("file.separator"), ""));
 			try {
-	   			tmpDI.setType(Files.probeContentType(tmpFile.toPath()));
+				if(tmpFile.isFile())
+					tmpDI.setType(Files.probeContentType(tmpFile.toPath()));
+				else if(tmpFile.isDirectory())
+					tmpDI.setType("inode/directory");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

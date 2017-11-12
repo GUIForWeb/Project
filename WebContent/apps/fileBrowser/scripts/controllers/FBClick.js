@@ -15,17 +15,18 @@ apps.fileBrowser.controllers.FBClick = function() {
 	}
 	this.rename = function(event) {
 		if (this.va["validation"] && !this.select.mousemove.isWorking) {
-			var nameTd = this.tag["s"].children().first();
-			nameTd.attr("contenteditable", true);
+			var nameDiv = this.tag["s"].children().children().first();
+			console.log(nameDiv);
+			nameDiv.attr("contenteditable", true);
 			var id = this.id;
-			nameTd.focusout(function(event) {
+			nameDiv.focusout(function(event) {
 				taskArray["fileBrowser"][id].focus.out.rename(event);
 			});
-			nameTd.keydown(function(event) {
+			nameDiv.keydown(function(event) {
 				taskArray["fileBrowser"][id].key.down.rename(event);
 			});
 			this.va["prevData"] = this.va["selectedData"];
-			nameTd.focus();
+			nameDiv.focus();
 			this.contextMenu.disappear();
 		}
 	}

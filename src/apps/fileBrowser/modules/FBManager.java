@@ -493,7 +493,6 @@ public class FBManager {
 		String type = this.json.getString("type");
 		if (type.equals("inode/directory") || type.equals("")) {
 			this.browserList = (List<Browser>) this.session.getAttribute("browserList");
-			// Browser tmpBrowser = this.browser();
 			this.path = this.browser.getPath() + this.fileSeparator + name;
 			File b = new File("", this.path);
 			try {
@@ -513,12 +512,6 @@ public class FBManager {
 			// file process
 		}
 	}
-
-	/*
-	 * public void getJSONArray(){ this.dataItemDAO.setFilePath(this.path);
-	 * this.dataItemDAO.load(); this.jsonArray =
-	 * this.dataItemDAO.getJSONArray(); }
-	 */
 	public void newFBFrom(String path) {
 		this.setNewId();
 		Browser tmpBrowser = new Browser();
@@ -526,7 +519,7 @@ public class FBManager {
 		tmpBrowser.setPath(this.userFolder);
 		this.browserList.add(tmpBrowser);
 		this.path = this.userFolder + path;
-		File b = new File("", this.path);
+		File b = new File(this.path);
 		try {
 			if (!b.getCanonicalPath().contains(this.userFolder))
 				this.path = this.userFolder;
