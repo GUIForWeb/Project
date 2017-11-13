@@ -22,11 +22,11 @@ system.views.BackgroundView = function(background) {
 		tmpTag.mouseup(function() {
 			gui.desktop.mouse.up.background(event);
 		});
+		tmpTag.bind("mouseup",function() {
+			gui.desktop.mouse.up.selection(event);
+		});
 		tmpTag.mousemove(function() {
 			gui.desktop.mouse.move.selection(event);
-		});
-		tmpTag.mouseup(function() {
-			gui.desktop.mouse.up.selection(event);
 		});
 		this.backgroundSelector = tmpTag;
 	}

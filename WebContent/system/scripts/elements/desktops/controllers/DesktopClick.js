@@ -4,6 +4,7 @@ system.elements.desktops.controllers.DesktopClick = function() {
 		this.setScriptTag(event.target);
 		var icon = this.va["selectedIcon"];
 		if(icon.prop("class").includes("dataIcon")){
+			console.log(this.va["selectedData"]);
 			var nameP = icon.find("p");
 			nameP.attr("contenteditable", true);
 			nameP.focusout(function(event) {
@@ -19,6 +20,7 @@ system.elements.desktops.controllers.DesktopClick = function() {
 	this.copy = function(event) {
 		taskArray["contextMenu"].disappear();
 		taskArray["clipboard"] = true;
+		console.log(this.va["selectedData"]);
 		this.socket.sender.copy();
 		this.select.cancle.all();
 	}

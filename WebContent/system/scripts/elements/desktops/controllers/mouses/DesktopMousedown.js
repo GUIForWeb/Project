@@ -13,7 +13,9 @@ system.elements.desktops.controllers.mouses.DesktopMousedown = function() {
 	this.button = function(event) {
 		if(!this.select.mousemove.isOnGoing && event.button == 0) {
 			if($(event.target).prop("tagName") != "LI"){
-				if(event.ctrlKey){
+				if(this.select.mousemove.isWorking) {
+					this.select.end.data();
+				}else if(event.ctrlKey){
 					this.select.ctrl.icon(event);
 				}
 				else if(event.shiftKey){
