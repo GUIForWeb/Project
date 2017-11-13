@@ -32,6 +32,7 @@ public class Desktop extends SystemJSF {
 	private String bgImg;
 	private EssentialJSLib essentialJSLib;
 	private OS os;
+	private String fileSeparator;
 	public Desktop() {
 		this.viewArray[IN] = "background";
 		this.viewArray[OUT] = "login";
@@ -81,7 +82,11 @@ public class Desktop extends SystemJSF {
 			this.externalContext.getApplicationMap().put("contextURL", this.contextURL);
 			this.externalContext.getApplicationMap().put("serverName", this.serverName);
 			this.externalContext.getApplicationMap().put("libs", this.essentialJSLib);
-			this.externalContext.getApplicationMap().put("fileSeparator", System.getProperty("file.separator"));
+			if(System.getProperty("os.name").contains("Windows"))
+				this.fileSeparator = "\\\\";
+			else
+				this.fileSeparator = System.getProperty("file.separator");
+			this.externalContext.getApplicationMap().put("fileSeparator", this.fileSeparator);
 		}
 		if(null != this.os){
 			DesktopManager desktopManager = new DesktopManager();

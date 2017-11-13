@@ -128,7 +128,6 @@ apps.fileBrowser.communications.webSockets.FBSender = function() {
 			"status" : "paste",
 			"id" : this.id
 		}
-		console.log(this.json.data)
 		this.ws.send(this.json);
 		this.va["pasteFlag"] = false;
 	}

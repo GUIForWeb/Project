@@ -5,10 +5,13 @@ import java.io.IOException;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
+import org.apache.commons.io.FileUtils;
+
 import apps.jsfs.ApplicationJSF;
 import system.daoInterfaces.UsersDAO;
 import system.daos.sqlites.UsersDAOSQLite;
 import system.models.User;
+import system.paths.Path;
 
 @Named
 @RequestScoped
@@ -37,8 +40,15 @@ public class UserManager extends ApplicationJSF{
 		this.userArray = userArray;
 	}
 	public String delete() {
-		this.userDao.delete(this.id);
-		this.userArray = this.userDao.selectAll();
+		try {
+			User tmpUser = this.userDao.selectUser(this.id);
+			String userFolder = Path.storageDir + tmpUser.getEmail();
+			FileUtils.deleteDirectory(new File(userFolder));
+			this.userDao.delete(this.id);
+			this.userArray = this.userDao.selectAll();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	public String activate() {

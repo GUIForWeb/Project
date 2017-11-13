@@ -12,6 +12,7 @@
     	border-collapse: collapse;
 		table-layout:fixed;
 		font-family: Arial;
+		cursor:default;
     }
     .fb-table > tr > th{
 		cursor:pointer;

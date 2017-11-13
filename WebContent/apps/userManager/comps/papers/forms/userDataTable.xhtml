@@ -25,7 +25,7 @@
 				#{u.activation}
 			</h:column>
 			<h:column>
-				<h:commandButton action="#{userManager.delete}" value="Delete" >
+				<h:commandButton action="#{userManager.delete}" value="Delete" onclick="return confirm('Are you sure?')">
 					<f:setPropertyActionListener target="#{userManager.id}" value="#{u.id}" />
 					<f:ajax render="@form" update="@form"/>
 				</h:commandButton>

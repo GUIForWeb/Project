@@ -494,7 +494,7 @@ public class FBManager {
 		if (type.equals("inode/directory") || type.equals("")) {
 			this.browserList = (List<Browser>) this.session.getAttribute("browserList");
 			this.path = this.browser.getPath() + this.fileSeparator + name;
-			File b = new File("", this.path);
+			File b = new File(this.path);
 			try {
 				if (!b.getCanonicalPath().contains(this.userFolder))
 					this.path = this.userFolder;
