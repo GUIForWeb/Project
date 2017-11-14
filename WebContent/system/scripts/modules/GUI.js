@@ -124,6 +124,8 @@ function GUI(guiVariableName) {
 		this.taskbar.view.setTaskbarValues(this.taskbarValueArray);
 		this.taskbar.appendTaskbar();
 		this.taskbarSelector = this.taskbar.view.taskbarSelector;
+		this.taskmenu = new Taskmenu();
+		this.taskmenu.__proto__ = this;
 	}
 	this.setIconJSONArray = function(iconJSONArray) {
 		this.iconJSONArray = iconJSONArray;

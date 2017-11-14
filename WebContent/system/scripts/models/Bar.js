@@ -12,7 +12,7 @@ system.models.Bar = function(){
 	}
 	this.appear = function(){
 		var tagIdForAppend = "";
-		this.view.oLeft = (this.view.position)*this.view.oWidth;
+		this.view.oLeft = this.taskbarSelector.height()+(this.view.position)*this.view.oWidth;
 		this.view.oTop = (this.view.taskbarOHeight - this.view.oHeight)/2;
 		this.view.getView();
 		this.taskbarSelector.append(this.view.barSelector);

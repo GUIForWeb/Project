@@ -1,11 +1,14 @@
 system.views.TaskbarView = function(BarModel) {
 	this.__proto__ = BarModel;
 	this.outerLayerTagClass = "taskbarOuterLayer";
-	this.logoutOuterTagClass = "logoutOuterLayer";
+	this.menuBtOuterTagClass = "menuBtOuterLayer";
+	this.logoutBtOuterTagClass = "logoutBtOuterLayer";
 	this.oBorderWidth = 5;
 	this.taskbarLayer = function() {
-		this.logoutouterSelector.append(this.logoutSelector);
-		this.outerSelector.append(this.logoutouterSelector);
+		this.menuBtOuterSelector.append(this.menuBtSelector);
+		this.logoutBtOuterSelector.append(this.logoutSelector);
+		this.outerSelector.append(this.menuBtOuterSelector);
+		this.outerSelector.append(this.logoutBtOuterSelector);
 		this.taskbarSelector = this.outerSelector;
 	}
 	this.outerLayer = function() {
@@ -22,29 +25,46 @@ system.views.TaskbarView = function(BarModel) {
 		});
 		this.outerSelector = tmpTag;
 	}
+	this.menuBtLayer = function() {
+		var tmpTag = $("<div>&Assign;</div>");
+		tmpTag.css("flex", "1");
+		tmpTag.click(function(){
+			// connect controller
+		});
+			
+		
+		this.menuBtSelector = tmpTag;
+	}
+	this.menuBtOuterLayer = function() {
+		var tmpTag = $("<div></div>");
+		tmpTag.addClass(this.menuBtOuterTagClass);
+		tmpTag.css("font-size", this.oHeight - 10);
+		tmpTag.width(this.oHeight - 2);
+		tmpTag.height(this.oHeight - 2);
+		tmpTag.offset({
+			left : 0,
+			top : 2
+		});
+		this.menuBtOuterSelector = tmpTag;
+	}
 	this.logoutLayer = function() {
-		var tmpTag = $("<div>&odash;</div>");
+		var tmpTag = $("<div>&bigotimes;</div>");
 		tmpTag.css("flex", "1");
 		tmpTag.attr("onclick", "location.href='" + this.contextPath
 				+ "/system/comps/views/logout.jsf'");
 		this.logoutSelector = tmpTag;
 	}
-	this.logoutOuterLayer = function() {
+	this.logoutBtOuterLayer = function() {
 		var tmpTag = $("<div></div>");
-		tmpTag.addClass(this.logoutOuterTagClass);
-		tmpTag.css("position", "absolute");
-		tmpTag.css("background-color", "darkgray");
+		tmpTag.addClass(this.logoutBtOuterTagClass);
 		tmpTag.css("font-size", this.oHeight - 10);
-		tmpTag.css("text-align", "center");
-		tmpTag.css("display", "flex");
-		tmpTag.css("align-items", "center");
 		tmpTag.width(this.oHeight - 2);
 		tmpTag.height(this.oHeight - 2);
 		tmpTag.offset({
 			left : this.oWidth - (this.oHeight - 2),
 			top : 2
 		});
-		this.logoutouterSelector = tmpTag;
+		this.logoutBtOuterSelector = tmpTag;
 	}
 	this.setTaskbarValues = function(taskbarValueArray) {
 		this.taskbarOHeight = taskbarValueArray["taskbarOHeight"];
@@ -54,8 +74,10 @@ system.views.TaskbarView = function(BarModel) {
 		this.oTop = $(window).height() - this.oHeight;
 	}
 	this.getView = function() {
+		this.menuBtLayer();
+		this.menuBtOuterLayer();
 		this.logoutLayer();
-		this.logoutOuterLayer();
+		this.logoutBtOuterLayer();
 		this.outerLayer();
 		this.taskbarLayer();
 	}
