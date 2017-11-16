@@ -33,18 +33,12 @@ system.views.DirectionalPadView = function(mover) {
 		tmpTag.addClass(this.keyLayerTagClass);
 		tmpTag.attr("colspan", 2);
 		tmpTag.width(this.oWidth);
-		tmpTag.click(function(){
-			gui.taskbar.click.upKey();
-		})
 		this.upKeySelector = tmpTag;
 	}
 	this.rightKeyLayer = function(){
 		var tmpTag = $("<td>&#9655;</td>");
 		tmpTag.addClass(this.keyLayerTagClass);
 		tmpTag.width(this.oWidth/2);
-		tmpTag.click(function(){
-			gui.taskbar.click.rightKey();
-		})
 		this.rightKeySelector = tmpTag;
 	}
 	this.downKeyLayer = function(){
@@ -52,21 +46,14 @@ system.views.DirectionalPadView = function(mover) {
 		tmpTag.addClass(this.keyLayerTagClass);
 		tmpTag.attr("colspan", 2);
 		tmpTag.width(this.oWidth);
-		tmpTag.click(function(){
-			gui.taskbar.click.downKey();
-		})
 		this.downKeySelector = tmpTag;
 	}
 	this.leftKeyLayer = function(){
 		var tmpTag = $("<td>&#9665;</td>");
 		tmpTag.addClass(this.keyLayerTagClass);
 		tmpTag.width(this.oWidth/2);
-		tmpTag.click(function(){
-			gui.taskbar.click.leftKey();
-		})
 		this.leftKeySelector = tmpTag;
 	}
-	
 	this.tableLayer = function() {
 		var tmpTag = $("<table></table>");
 		tmpTag.addClass(this.outerLayerTagClass);
