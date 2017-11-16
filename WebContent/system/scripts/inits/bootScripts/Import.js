@@ -1,3 +1,4 @@
+var Direction = system.consts.Direction;
 var models = system.models
 var Background = system.models.Background;
 var Bar = system.models.Bar;
@@ -10,6 +11,7 @@ var Taskmenu = system.models.Taskmenu;
 var WinAndBarNode = system.models.WinAndBarNode;
 var Window = system.models.Window;
 var IconContextMenu = system.models.IconContextMenu;
+var DirectionalPad = system.models.DirectionalPad;
 
 var view = system.views;
 var BackgroundView = system.views.BackgroundView;
@@ -21,6 +23,12 @@ var TaskmenuView = system.views.TaskmenuView;
 var WindowView = system.views.WindowView;
 var IconContextMenuView = system.views.IconContextMenuView;
 var DataIconView = system.views.DataIconView;
+var DirectionalPadView = system.views.DirectionalPadView;
+
+var modules = system.modules;
+var TaskbarManager = system.elements.taskbars.subsystems.TaskbarManager;
+var TaskbarController = system.elements.taskbars.controllers.TaskbarController;
+var TaskbarClick = system.elements.taskbars.controllers.TaskbarClick;
 
 //Window
 var WinAndBar = system.modules.WinAndBar;

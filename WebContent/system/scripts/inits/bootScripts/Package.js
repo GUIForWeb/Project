@@ -1,4 +1,5 @@
 var system = {};
+system.consts = {};
 system.models = {};
 system.modules = {};
 system.elements = {};
@@ -19,6 +20,10 @@ system.elements.desktops.controllers.focuses = {};
 system.elements.desktops.controllers.keys = {};
 system.elements.desktops.communications = {};
 system.elements.desktops.communications.webSockets = {};
+
+system.elements.taskbars = {};
+system.elements.taskbars.subsystems = {};
+system.elements.taskbars.controllers = {};
 
 system.elements.winAndBars = {};
 system.elements.winAndBars.subsystems = {};

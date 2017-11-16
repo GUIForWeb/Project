@@ -2,7 +2,8 @@
 	xmlns="http://www.w3.org/1999/xhtml"  
 	xmlns:h="http://xmlns.jcp.org/jsf/html" 
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-	<script src="#{contextPath}/system/scripts/inits/bootScripts/Package.js" /> 
+	<script src="#{contextPath}/system/scripts/inits/bootScripts/Package.js" />
+	 <script src="#{contextPath}/system/scripts/consts/Direction.js" />
 	<script src="#{contextPath}/system/scripts/modules/GUI.js" />
 	<script src="#{contextPath}/system/scripts/models/Model.js" />
 	<script src="#{contextPath}/system/scripts/models/WinAndBarNode.js" />
@@ -12,6 +13,7 @@
 	<script src="#{contextPath}/system/scripts/models/Taskbar.js" />
 	<script src="#{contextPath}/system/scripts/models/Taskmenu.js" />
 	<script src="#{contextPath}/system/scripts/models/Icon.js" />
+	<script src="#{contextPath}/system/scripts/models/DirectionalPad.js" />
 	<script src="#{contextPath}/system/scripts/models/DataIcon.js" />
 	<script src="#{contextPath}/system/scripts/models/BackgroundContextMenu.js" />
 	<script src="#{contextPath}/system/scripts/models/IconContextMenu.js" />
@@ -21,9 +23,15 @@
 	<script src="#{contextPath}/system/scripts/views/BarView.js" />
 	<script src="#{contextPath}/system/scripts/views/TaskbarView.js" />
 	<script src="#{contextPath}/system/scripts/views/TaskmenuView.js" />
+	<script src="#{contextPath}/system/scripts/views/DirectionalPadView.js" />
 	<script src="#{contextPath}/system/scripts/views/BackgroundContextMenuView.js" />
 	<script src="#{contextPath}/system/scripts/views/IconContextMenuView.js" />
 	<script src="#{contextPath}/system/scripts/views/DataIconView.js" />
+	
+	<script src="#{contextPath}/system/scripts/modules/Taskbar.js" />
+	<script src="#{contextPath}/system/scripts/elements/taskbars/controllers/TaskbarController.js" />
+	<script src="#{contextPath}/system/scripts/elements/taskbars/subsystems/TaskbarManager.js" />
+	<script src="#{contextPath}/system/scripts/elements/taskbars/controllers/TaskbarClick.js" />
 	
 	<script src="#{contextPath}/system/scripts/modules/WinAndBar.js" />
 	<script src="#{contextPath}/system/scripts/elements/winAndBars/controllers/WinAndBarChange.js" />

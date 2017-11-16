@@ -12,10 +12,12 @@ system.models.Bar = function(){
 	}
 	this.appear = function(){
 		var tagIdForAppend = "";
-		this.view.oLeft = this.taskbarSelector.height()+(this.view.position)*this.view.oWidth;
+		this.view.oLeft = this.view.position*this.view.oWidth;
 		this.view.oTop = (this.view.taskbarOHeight - this.view.oHeight)/2;
 		this.view.getView();
-		this.taskbarSelector.append(this.view.barSelector);
+		this.barZoneSelector.append(this.view.barSelector);
+		var width = this.barZoneSelector.width();
+		this.barZoneSelector.width(width+this.view.oWidth);
 		this.tag = this.view.barSelector[0];
 		this.selector = this.view.barSelector;
 	}

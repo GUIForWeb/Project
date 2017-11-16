@@ -1,12 +1,15 @@
 system.views.TaskbarView = function(BarModel) {
 	this.__proto__ = BarModel;
 	this.outerLayerTagClass = "taskbarOuterLayer";
+	this.barZoneOuterTagClass = "barZoneOuterLayer";
 	this.menuBtOuterTagClass = "menuBtOuterLayer";
 	this.logoutBtOuterTagClass = "logoutBtOuterLayer";
 	this.oBorderWidth = 5;
 	this.taskbarLayer = function() {
 		this.menuBtOuterSelector.append(this.menuBtSelector);
 		this.logoutBtOuterSelector.append(this.logoutSelector);
+		this.barZoneOuterSelector.append(this.barZoneSelector);
+		this.outerSelector.append(this.barZoneOuterSelector);
 		this.outerSelector.append(this.menuBtOuterSelector);
 		this.outerSelector.append(this.logoutBtOuterSelector);
 		this.taskbarSelector = this.outerSelector;
@@ -25,14 +28,29 @@ system.views.TaskbarView = function(BarModel) {
 		});
 		this.outerSelector = tmpTag;
 	}
+	this.barZoneOuterLayer = function() {
+		var tmpTag = $("<div></div>");
+		tmpTag.addClass(this.barZoneOuterTagClass);
+		tmpTag.width(this.oWidth - (this.oHeight - 2)*2);
+		tmpTag.height(this.oHeight);
+		tmpTag.offset({
+			left : this.oHeight - 2,
+			top : 0
+		});
+		this.barZoneOuterSelector = tmpTag;
+	}
+	this.barZoneLayer = function() {
+		var tmpTag = $("<div></div>");
+		tmpTag.width(0);
+		tmpTag.height(this.oHeight);
+		this.barZoneSelector = tmpTag;
+	}
 	this.menuBtLayer = function() {
 		var tmpTag = $("<div>&Assign;</div>");
 		tmpTag.css("flex", "1");
 		tmpTag.click(function(){
 			// connect controller
 		});
-			
-		
 		this.menuBtSelector = tmpTag;
 	}
 	this.menuBtOuterLayer = function() {
@@ -74,6 +92,8 @@ system.views.TaskbarView = function(BarModel) {
 		this.oTop = $(window).height() - this.oHeight;
 	}
 	this.getView = function() {
+		this.barZoneOuterLayer();
+		this.barZoneLayer();
 		this.menuBtLayer();
 		this.menuBtOuterLayer();
 		this.logoutLayer();

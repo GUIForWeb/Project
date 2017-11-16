@@ -52,6 +52,8 @@ function GUI(guiVariableName) {
 		this.desktop.__proto__ = this;
 		this.winAndBar = new WinAndBar();
 		this.winAndBar.__proto__ = this;
+		this.taskbar = new modules.Taskbar();
+		this.taskbar.__proto__ = this;
 		this.configure = new Configure();
 		this.configure.__proto__ = this;
 		this.api = new API();
@@ -60,7 +62,7 @@ function GUI(guiVariableName) {
 		
 		this.model = new Model();
 		this.model.__proto__ = this;
-		
+		Direction.newInstance()
 		this.initBackground();
 		this.initBgContextMenu();
 		this.initIconContextMenu();
@@ -116,16 +118,7 @@ function GUI(guiVariableName) {
 		this.iconTdValueArray = iconTdValueArray;
 	}
 	this.initTaskbar = function() {
-		this.taskbar = new Taskbar();
-		this.taskbar.contextPath = this.contextPath;
-		this.taskbarTagId = "taskbar";
-		this.taskbar.tagId = this.taskbarTagId;
-		this.taskbar.sectionSelector = this.sectionSelector;
-		this.taskbar.view.setTaskbarValues(this.taskbarValueArray);
-		this.taskbar.appendTaskbar();
-		this.taskbarSelector = this.taskbar.view.taskbarSelector;
-		this.taskmenu = new Taskmenu();
-		this.taskmenu.__proto__ = this;
+		this.taskbar.manager.init();
 	}
 	this.setIconJSONArray = function(iconJSONArray) {
 		this.iconJSONArray = iconJSONArray;
