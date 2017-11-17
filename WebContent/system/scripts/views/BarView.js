@@ -54,7 +54,7 @@ system.views.BarView = function(BarModel) {
 		});
 		this.nameSelector = tmpS;
 	}
-	this.getView = function() {
+	this.init = function() {
 		this.nameLayer();
 		this.outerLayer();
 		this.barLayer();

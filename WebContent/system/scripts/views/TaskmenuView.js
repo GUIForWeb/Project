@@ -1,8 +1,8 @@
-system.views.TaskmenuView = function(taskMenuModel) {
-	this.__proto__ = taskMenuModel;
+system.views.TaskmenuView = function(taskmenuModel) {
+	this.__proto__ = taskmenuModel;
 	this.outerLayerTagClass = "taskMeuOuterLayer";
-	this.taskManuLayer = function() {
-		this.taskMenuSelector = this.outerSelector;
+	this.taskmenuLayer = function() {
+		this.taskmenuSelector = this.outerSelector;
 	}
 	this.outerLayer = function() {
 		var tmpTag = $("<div></div>");
@@ -12,8 +12,12 @@ system.views.TaskmenuView = function(taskMenuModel) {
 		tmpTag.height(100);
 		tmpTag.offset({
 			left : 0,
-			top : 0
+			top : -tmpTag.height()
 		});
 		this.outerSelector = tmpTag;
+	}
+	this.init = function() {
+		this.outerLayer();
+		this.taskmenuLayer();
 	}
 }

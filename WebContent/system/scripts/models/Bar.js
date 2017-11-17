@@ -14,7 +14,7 @@ system.models.Bar = function(){
 		var tagIdForAppend = "";
 		this.view.oLeft = this.view.position*this.view.oWidth;
 		this.view.oTop = (this.view.taskbarOHeight - this.view.oHeight)/2;
-		this.view.getView();
+		this.view.init();
 		this.barZoneSelector.append(this.view.barSelector);
 		var width = this.barZoneSelector.width();
 		this.barZoneSelector.width(width+this.view.oWidth);

@@ -49,7 +49,7 @@ system.views.TaskbarView = function(BarModel) {
 		var tmpTag = $("<div>&Assign;</div>");
 		tmpTag.css("flex", "1");
 		tmpTag.click(function(){
-			// connect controller
+			gui.taskbar.click.menuBt();
 		});
 		this.menuBtSelector = tmpTag;
 	}
@@ -91,7 +91,7 @@ system.views.TaskbarView = function(BarModel) {
 		this.oLeft = 0;
 		this.oTop = $(window).height() - this.oHeight;
 	}
-	this.getView = function() {
+	this.init = function() {
 		this.barZoneOuterLayer();
 		this.barZoneLayer();
 		this.menuBtLayer();

@@ -6,7 +6,7 @@ system.models.Background = function() {
 		this.view.iconTablePaddingTop = iconTableValueArray["iconTablePaddingTop"];
 	}
 	this.appear = function() {
-		this.view.getView();
+		this.view.init();
 		this.sectionSelector.prepend(this.view.backgroundSelector);
 		this.view.backgroundSelector.append(this.view.tableSelector);
 		this.view.backgroundSelector.css("height", (this.view.guiHeight - 40)

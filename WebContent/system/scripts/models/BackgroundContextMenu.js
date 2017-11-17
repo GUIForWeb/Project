@@ -18,7 +18,7 @@ system.models.BackgroundContextMenu = function(){
 			this.view.oLeft = x;
 			this.view.oTop = y;
 		}
-		this.view.getView();
+		this.view.init();
 		this.bgSelector.append(this.view.outerSelector);
 		this.selector = this.view.outerSelector;
 		event.preventDefault();

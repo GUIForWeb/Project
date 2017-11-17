@@ -9,7 +9,7 @@ system.models.IconContextMenu = function(){
 	
 	this.appear = function(){
 		this.setOnTheScreen(true);
-		this.view.getView();
+		this.view.init();
 		this.bgSelector.append(this.view.contextMenuSelector);
 		event.preventDefault();
 	}

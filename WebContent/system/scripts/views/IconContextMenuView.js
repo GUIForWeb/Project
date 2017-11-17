@@ -57,7 +57,7 @@ system.views.IconContextMenuView = function(iconContextMenuModel) {
 		tmpSelector.addClass(this.contentLayerTagClass);
 		this.menuSelector = tmpSelector;
 	}
-	this.getView = function() {
+	this.init = function() {
 		this.menuLayer();
 		this.outerLayer();
 		this.contextMenuLayer();

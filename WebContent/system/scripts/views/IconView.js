@@ -44,7 +44,7 @@ system.views.IconView = function(icon) {
 		
 		this.outerSelector = outerSelector;
 	}
-	this.getView = function() {
+	this.init = function() {
 		this.outerLayer();
 		this.iconLayer();
 	}

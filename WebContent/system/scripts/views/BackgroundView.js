@@ -52,7 +52,7 @@ system.views.BackgroundView = function(background) {
 		});
 		return tmpTag;
 	}
-	this.getView = function() {
+	this.init = function() {
 		this.background();
 		this.table();
 	}

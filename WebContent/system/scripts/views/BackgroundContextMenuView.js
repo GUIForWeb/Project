@@ -54,7 +54,7 @@ system.views.BackgroundContextMenuView = function(backgroundContextMenuView) {
 		tagSelector.addClass(this.contentLayerTagClass);
 		this.contentSelector = tagSelector;
 	}
-	this.getView = function() {
+	this.init = function() {
 		this.contentLayer();
 		this.outerLayer();
 		this.contextMenuLayer();

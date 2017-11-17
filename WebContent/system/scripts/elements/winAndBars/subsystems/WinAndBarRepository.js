@@ -171,8 +171,8 @@ system.elements.winAndBars.subsystems.WinAndBarRepository = function() {
 		var bar = new Bar();
 		bar.guiName = this.guiName;
 		bar.bgSelector = this.bgSelector;
-		bar.taskbarSelector = this.taskbarSelector;
-		bar.view.taskbarOHeight = this.taskbar.view.oHeight;
+		bar.barZoneSelector = this.taskbar.manager.view.barZoneSelector;
+		bar.view.taskbarOHeight = this.taskbar.manager.view.oHeight;
 		bar.view.setDefaultValues(barDefaultValueArray);
 		bar.init(barMap["numId"], barMap["position"]);
 		bar.restoreModel(barMap);

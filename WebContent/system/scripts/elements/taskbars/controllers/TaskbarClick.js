@@ -17,4 +17,10 @@ system.elements.taskbars.controllers.TaskbarClick = function() {
 			{left: bzLeft + barDefaultValueArray.oWidth}
 		);
 	}
+	this.menuBt = function(event) {
+		if(!this.manager.menu.isDisplayed)
+			this.manager.menu.appear();
+		else
+			this.manager.menu.disappear();
+	}
 }

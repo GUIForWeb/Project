@@ -47,7 +47,7 @@ system.views.DataIconView = function(icon) {
 		outerSelector.append(this.nameSelector);
 		this.outerSelector = outerSelector;
 	}
-	this.getView = function() {
+	this.init = function() {
 		this.outerLayer();
 		this.iconLayer();
 	}

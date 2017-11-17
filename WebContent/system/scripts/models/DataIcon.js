@@ -19,7 +19,7 @@ system.models.DataIcon = function(){
 		this.json = dataJSON;
 	}
 	this.appear = function(){
-		this.view.getView();
+		this.view.init();
 		this.selector = this.view.iconSelector;
 		this.tag = this.view.iconSelector[0];
 		this.getIconTdSelector(this.x,this.y).append(this.selector);

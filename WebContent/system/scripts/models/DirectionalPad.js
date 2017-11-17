@@ -36,4 +36,7 @@ system.models.DirectionalPad = function(){
 			eval(ctr);
 		});
 	}
+	this.setTaskbarSelector = function(taskbarSelector){
+		this.taskbarSelector = taskbarSelector;
+	}
 }

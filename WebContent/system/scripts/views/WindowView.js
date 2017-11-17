@@ -435,9 +435,9 @@ system.views.WindowView = function(windowModel) {
 		this.prevOWidth = windowMap["prevOWidth"];
 		this.prevOHeight = windowMap["prevOHeight"];
 		this.zIndex = windowMap["zIndex"];
-		this.getView();
+		this.init();
 	}
-	this.getView = function() {
+	this.init = function() {
 		this.hLeft = this.oBorderWidth;
 		this.hTop = this.hLeft;
 		this.bGap = (this.bBorderWidth * 2) + this.bWidth + this.bTop;

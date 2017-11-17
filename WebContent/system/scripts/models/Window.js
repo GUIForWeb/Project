@@ -17,7 +17,7 @@ system.models.Window = function() {
 	this.init = function(numId){
 		this.numId = numId;
 		this.tagId = this.tagIdRule + numId;
-		this.view.getView();
+		this.view.init();
 	}
 	this.restoreModel = function(winMap){
 		this.view.isFullScreen = (winMap["isFullScreen"] == true);

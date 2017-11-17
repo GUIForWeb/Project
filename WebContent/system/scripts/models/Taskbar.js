@@ -3,8 +3,8 @@ system.models.Taskbar = function(){
 	this.tagIdRule = "taskbar";
 	this.tagId = "taskbar";
 	this.view = new TaskbarView(this);
-	this.appendTaskbar = function(){
-		this.view.getView();
+	this.appear = function(){
+		this.view.init();
 		this.sectionSelector.append(this.view.taskbarSelector);
 		this.selector = this.view.taskbarSelector;
 	}
