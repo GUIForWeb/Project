@@ -1,0 +1,21 @@
+	<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:form id="umForm">
+		<h:panelGrid columns="2" class="infoForm">
+			<h:column>Change Password</h:column><h:column></h:column>
+			<h:column>Current Password</h:column><h:column><h:inputText value="#{p.currentPassword}" /></h:column>
+			<h:column></h:column><h:column><h:outputText class="errMsg" value="#{msg.currentPassword}"/></h:column>
+			<h:column>New Password</h:column><h:column><h:inputSecret value="#{p.password}" /></h:column>
+			<h:column></h:column><h:column><h:outputText class="errMsg" value="#{msg.password}"/></h:column>
+			<h:column>New Password Confirm</h:column><h:column><h:inputSecret value="#{p.confirm}" /></h:column>
+			<h:column></h:column><h:column><h:outputText class="errMsg" value="#{msg.confirm}"/></h:column>
+			<h:column><h:outputText class="errMsg" value="#{msg.etc}"/></h:column><h:column>
+				<h:commandButton action="#{passwordChange.run}" value="Change">
+					<f:ajax render="@form" update="@form"/>
+				</h:commandButton>
+			</h:column>
+		</h:panelGrid>
+	</h:form>
+</html>

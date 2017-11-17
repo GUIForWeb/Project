@@ -1,7 +1,7 @@
 system.views.BackgroundContextMenuView = function(backgroundContextMenuView) {
 	this.__proto__ = backgroundContextMenuView;
 	this.outerLayerTagClass = "contextMenuOuterLayer";
-	this.contentLayerTagClass = "contextMenuContentLayer";
+	this.menuLayerTagClass = "contextMenuLayer";
 	this.contextMenuLayer = function() {
 		this.outerSelector.append(this.contentSelector);
 	}
@@ -51,7 +51,7 @@ system.views.BackgroundContextMenuView = function(backgroundContextMenuView) {
 		themeUlSelector.append(iSelector);
 		themeUlSelector.append(bgSelector);
 		themeUlSelector.append(iconSelector);
-		tagSelector.addClass(this.contentLayerTagClass);
+		tagSelector.addClass(this.menuLayerTagClass);
 		this.contentSelector = tagSelector;
 	}
 	this.init = function() {

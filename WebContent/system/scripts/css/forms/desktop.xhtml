@@ -122,52 +122,98 @@ body *{
 	opacity: #{guiSetting.tbarOOpacity};
 }
 
+.taskmenuOuterLayer{
+	position: absolute;
+	font-family: #{guiSetting.cmenuOFontFamily};
+	background-color:LightSteelBlue;
+	cursor:default;
+}
+.taskmenuLayer>ul{
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.taskmenuLayer>ul li{
+    display: block;
+    color: black;
+    background-color:LightSteelBlue;
+    text-decoration: none;
+    height:30px;
+    padding-left:10px;
+    line-height: 30px;
+    width:200px;
+}
+.taskmenuLayer>ul>li>a{
+    line-height: 30px;
+    text-decoration: none;
+}
+.taskmenuLayer>ul>li>a:VISITED{
+	color: black;
+    text-decoration: none;
+}
+.taskmenuLayer>ul li:hover {
+	background-color: #{guiSetting.cmenuCBgColorHover};
+    color: #{guiSetting.cmenuCColorHover};
+    border-radius: #{guiSetting.cmenuCBorderRadiusHover}px;
+}
+.taskmenuLayer>ul>li>ul{
+	margin:0;
+	padding:0;
+	list-style-type: none;
+}
+.taskmenuLayer>ul>li>ul>li{
+	background-color:#{guiSetting.cmenuOBgColor};
+    visibility: hidden;
+}
+
+
+
 .contextMenuOuterLayer{
 	font-family: #{guiSetting.cmenuOFontFamily};
-	border-radius: #{guiSetting.cmenuOBorderRadius}px;
 	background-color:#{guiSetting.cmenuOBgColor};
 	width:200px;
 	height:250px;
 	cursor:default;
 }
-.contextMenuContentLayer>ul{
+.contextMenuLayer>ul{
 	list-style-type: none;
     margin: 0;
     padding: 0;
     width: 200px;
 }
-.contextMenuContentLayer>ul li{
+.contextMenuLayer>ul li{
     display: block;
     color: #{guiSetting.cmenuCColor};
+    background-color:#{guiSetting.cmenuOBgColor};
     text-decoration: none;
     height:30px;
     padding-left:10px;
     line-height: 30px;
 }
-.contextMenuContentLayer>ul>li>a{
+.contextMenuLayer>ul>li>a{
     line-height: 30px;
     text-decoration: none;
 }
-.contextMenuContentLayer>ul>li>a:VISITED{
+.contextMenuLayer>ul>li>a:VISITED{
 	color: black;
     text-decoration: none;
 }
-.contextMenuContentLayer>ul li:hover {
+.contextMenuLayer>ul li:hover {
 	background-color: #{guiSetting.cmenuCBgColorHover};
-    color: white; #{guiSetting.cmenuCColorHover};
+    color: #{guiSetting.cmenuCColorHover};
     border-radius: #{guiSetting.cmenuCBorderRadiusHover}px;
 }
-.contextMenuContentLayer>ul>li>ul{
+.contextMenuLayer>ul>li>ul{
 	margin:0;
 	padding:0;
 	list-style-type: none;
 }
-.contextMenuContentLayer>ul>li>ul>li{
-	height:0px;
+.contextMenuLayer>ul>li>ul>li{
+	background-color:#{guiSetting.cmenuOBgColor};
 	width: 200px;
     visibility: hidden;
-    background-color:gray;
 }
+
 .logoutBtOuterLayer {
 	position: absolute;
 	background-color: darkgray;
@@ -181,10 +227,6 @@ body *{
 	text-align: center;
 	display: flex;
 	align-items: center;
-}
-.taskMeuOuterLayer {
-	position: absolute;
-	background-color: red;
 }
 .barZoneOuterLayer {
 	position: absolute;

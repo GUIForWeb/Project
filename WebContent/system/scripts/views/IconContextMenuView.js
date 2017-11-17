@@ -1,7 +1,7 @@
 system.views.IconContextMenuView = function(iconContextMenuModel) {
 	this.__proto__ = iconContextMenuModel;
 	this.outerLayerTagClass = "contextMenuOuterLayer";
-	this.contentLayerTagClass = "contextMenuContentLayer";
+	this.menuLayerTagClass = "contextMenuLayer";
 	this.contentPath = "";
 	this.contextMenuLayer = function() {
 		this.outerSelector.append(this.menuSelector);
@@ -54,7 +54,7 @@ system.views.IconContextMenuView = function(iconContextMenuModel) {
 		ulSelector.append(pasteSelector);
 		ulSelector.append(deleteSelector);
 		ulSelector.append(downloadSelector);
-		tmpSelector.addClass(this.contentLayerTagClass);
+		tmpSelector.addClass(this.menuLayerTagClass);
 		this.menuSelector = tmpSelector;
 	}
 	this.init = function() {

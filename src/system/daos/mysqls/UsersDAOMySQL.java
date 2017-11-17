@@ -192,5 +192,10 @@ public class UsersDAOMySQL implements UsersDAO{
 	public void setAuthentication(Authentication authentication) {
 		this.authentication = authentication;
 	}
+	@Override
+	public DbAuth changePassword() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

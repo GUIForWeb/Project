@@ -9,6 +9,7 @@ system.models.Taskmenu = function(){
 	this.appear = function() {
 		this.taskbarSelector.append(this.selector);
 		this.isDisplayed = true;
+		this.view.initEvent();
 	}
 	this.disappear = function() {
 		if(this.isDisplayed) {

@@ -16,6 +16,7 @@ import system.models.User;
 public interface UsersDAO {
 	public DbAuth login(); 
 	public DbAuth register();
+	public DbAuth changePassword();
 	public User[] selectAll();
 	public User selectUser(int id);
 	public void newUser(int id, long lastModified);

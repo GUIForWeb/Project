@@ -62,7 +62,12 @@ public class UsersDAOSQLite  implements UsersDAO{
 			this.session.setAttribute("User", this.user);
 		return dbAuth;
 	}
-	
+	@Override
+	public DbAuth changePassword() {
+		DbAuth dbAuth = new DbAuth(this.authentication);
+		dbAuth.addErrorCode(Integer.valueOf(-3), true);
+		return dbAuth;
+	}
 	@Override
 	public DbAuth register() {
 		String tmpNName = "";

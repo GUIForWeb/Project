@@ -23,4 +23,13 @@ system.elements.taskbars.controllers.TaskbarClick = function() {
 		else
 			this.manager.menu.disappear();
 	}
+	this.personalInfoBt = function() {
+		console.log("pi")
+		var iconObj = new Icon();
+		iconObj.name = "Personal Info";
+		iconObj.isOnlyOne = true;
+		iconObj.contentURL = "/apps/personalInfo/comps/views/personalInfo.jsf";
+		this.configure.manager.execute.app(iconObj);
+		this.manager.menu.disappear();
+	}
 }

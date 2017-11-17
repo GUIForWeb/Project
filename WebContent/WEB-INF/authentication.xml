@@ -3,6 +3,7 @@
 <authentication>
 	<auth>
 		<category name="confirm">password</category>
+		<category name="currentPassword">password</category>
 	</auth>
 	<exception>
 		<excp name="email">admin</excp>
