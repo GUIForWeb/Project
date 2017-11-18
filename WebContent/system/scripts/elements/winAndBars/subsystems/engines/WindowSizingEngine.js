@@ -3,9 +3,11 @@ system.elements.winAndBars.subsystems.engines.WindowSizingEngine = function() {
 		this.tag = tag;
 		this.winTag = this.tag.parentNode;
 		this.initStandardValue();
-		this.initAdditionalValue();
-		this.calculate();
-		this.change();
+		if(this.win.isResizable) {
+			this.initAdditionalValue();
+			this.calculate();
+			this.change();
+		}
 	}
 	this.initStandardValue = function() {
 		this.winAndBarNode = this.nm.getNodeWithWinTag(this.winTag);
@@ -140,37 +142,39 @@ system.elements.winAndBars.subsystems.engines.WindowSizingEngine = function() {
 		this.tag = winAndBarNode.win.tag;
 		this.winTag = winAndBarNode.win.tag;
 		this.win = this.winAndBarNode.win;
-		this.oLeft = this.winTag.offsetLeft;
-		this.oTop = this.winTag.offsetTop;
-		this.oWidth = $(this.winTag).width();
-		this.oHeight = $(this.winTag).height();
-		this.oBWidth = parseInt($(this.tag).css("border-width"));
-		if (this.win.view.isFullScreen) {
-			this.oLeft = this.win.view.prevOLeft;
-			this.oTop = this.win.view.prevOTop;
-			this.oWidth = this.win.view.prevOWidth;
-			this.oHeight = this.win.view.prevOHeight;
-			this.win.view.isFullScreen = false;
-		} else {
-			this.win.view.prevOLeft = this.winTag.offsetLeft;
-			this.win.view.prevOTop = this.winTag.offsetTop;
-			this.win.view.prevOWidth = this.winTag.offsetWidth;
-			this.win.view.prevOHeight = this.winTag.offsetHeight;
-			this.oLeft = 0;
-			this.oTop = 0;
-			this.oWidth = $(window).width() - this.oBWidth * 2;
-			this.oHeight = $(window).height() - this.taskbar.view.oHeight;
-			this.win.view.isFullScreen = true;
+		if(this.win.isResizable) {
+			this.oLeft = this.winTag.offsetLeft;
+			this.oTop = this.winTag.offsetTop;
+			this.oWidth = $(this.winTag).width();
+			this.oHeight = $(this.winTag).height();
+			this.oBWidth = parseInt($(this.tag).css("border-width"));
+			if (this.win.view.isFullScreen) {
+				this.oLeft = this.win.view.prevOLeft;
+				this.oTop = this.win.view.prevOTop;
+				this.oWidth = this.win.view.prevOWidth;
+				this.oHeight = this.win.view.prevOHeight;
+				this.win.view.isFullScreen = false;
+			} else {
+				this.win.view.prevOLeft = this.winTag.offsetLeft;
+				this.win.view.prevOTop = this.winTag.offsetTop;
+				this.win.view.prevOWidth = this.winTag.offsetWidth;
+				this.win.view.prevOHeight = this.winTag.offsetHeight;
+				this.oLeft = 0;
+				this.oTop = 0;
+				this.oWidth = $(window).width() - this.oBWidth * 2;
+				this.oHeight = $(window).height() - this.taskbar.manager.view.oHeight;
+				this.win.view.isFullScreen = true;
+			}
+			this.win.view.oWidth = this.oWidth;
+			this.win.view.oHeight = this.oHeight;
+			this.initAdditionalValue();
+			this.calculate();
+			this.change();
+			this.win.view.oLeft = this.winTag.offsetLeft;
+			this.win.view.oTop = this.winTag.offsetTop;
+			this.win.view.oWidth = this.winTag.offsetWidth;
+			this.win.view.oHeight = this.winTag.offsetHeight;
 		}
-		this.win.view.oWidth = this.oWidth;
-		this.win.view.oHeight = this.oHeight;
-		this.initAdditionalValue();
-		this.calculate();
-		this.change();
-		this.win.view.oLeft = this.winTag.offsetLeft;
-		this.win.view.oTop = this.winTag.offsetTop;
-		this.win.view.oWidth = this.winTag.offsetWidth;
-		this.win.view.oHeight = this.winTag.offsetHeight;
 		return this.winAndBarNode;
 	}
 	/*

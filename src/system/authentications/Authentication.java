@@ -232,6 +232,7 @@ public class Authentication {
 				exception = false;
 				tmpName = this.formAuthList.get(li);
 				tmpAuthName = Authentication.authNameXMLMap.get(tmpName);
+				System.out.println(Authentication.exceptionXMLMap);
 				if(Authentication.exceptionXMLMap.containsKey(tmpAuthName)) {
 					tmpExceptionList = (ArrayList<String>) Authentication.exceptionXMLMap.get(tmpAuthName);
 					tmpVal = this.pMap.get(tmpName);

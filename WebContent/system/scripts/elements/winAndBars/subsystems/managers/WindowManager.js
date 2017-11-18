@@ -16,6 +16,11 @@ system.elements.winAndBars.subsystems.managers.WindowManager = function() {
 		this.winArray[zIndex] = tmpNode;
 		tmpNode.win = new Window();
 		tmpNode.win.name = iconObj.name;
+		if(!iconObj.isResizable) {
+		tmpNode.win.isResizable = iconObj.isResizable;
+			this.winDefaultValueArray.oDefaultWidth = iconObj.winInfo.oWidth;
+			this.winDefaultValueArray.oDefaultHeight = iconObj.winInfo.oHeight;
+		}
 		if(Object.keys(iconObj.options).length) {
 			tmpNode.win.options = [];
 			var keys = Object.keys(iconObj.options);
