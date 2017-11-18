@@ -1,11 +1,3 @@
-/****************************************************************************************************
-* Project: comp3095assignment2
-* Assignment: Assignment 2 
-* Author(s): Gon Hu, Elis Shukullari, Leba Rubinoff
-* Student Number: 100936779, 100823478, 100831385 
-* Date: December 5, 2016
-* Description: A authentication class to help database authentications
-****************************************************************************************************/
 package system.authentications;
 
 import java.util.HashMap;
@@ -14,19 +6,19 @@ import java.util.Map;
 import system.authentications.Authentication;
 
 public class DbAuth {
-	private Map<String,Boolean> errorMap;
+	private Map<String,String> errorMap;
 	public DbAuth(Authentication authentication){
-		this.errorMap = new HashMap<String,Boolean>();
+		this.errorMap = new HashMap<String,String>();
 	}
-	public void addErrorCode(int errorCode, boolean overlapCheck){
+	public void addErrorCode(int errorCode, String errorType){
 		if(errorCode<0)
-			this.errorMap.put(Authentication.dbErrorCodeXMLMap.get(String.valueOf(errorCode)),overlapCheck);
+			this.errorMap.put(Authentication.dbErrorCodeXMLMap.get(String.valueOf(errorCode)),errorType);
 		
 	}
-	public Map<String, Boolean> getErrorMap() {
+	public Map<String, String> getErrorMap() {
 		return errorMap;
 	}
-	public void setErrorMap(Map<String, Boolean> errorMap) {
+	public void setErrorMap(Map<String, String> errorMap) {
 		this.errorMap = errorMap;
 	}
 	public boolean isError(){

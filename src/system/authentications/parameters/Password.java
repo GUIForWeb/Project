@@ -12,10 +12,11 @@ public class Password extends AuthModel implements AuthModelInterface {
 		if(this.paramValue.length() < 4){
 			this.msg = this.className + " is too short!!!";
 		}
-		else if(this.pMap.containsKey("confirm") && !this.paramValue.equals(this.pMap.get("confirm")))
+		else if(this.pMap.containsKey("confirm") && !this.pMap.get("password").equals(this.pMap.get("confirm")))
 			this.msg = this.className + " is different!!!";
 	}
 	public void doDbAuth() {
-		this.msg = "Password is wrong";
+		if(this.errorType.equals("equal"))
+			this.msg = "Password is wrong";
 	}
 }

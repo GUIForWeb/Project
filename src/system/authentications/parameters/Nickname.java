@@ -14,9 +14,9 @@ public class Nickname extends AuthModel implements AuthModelInterface {
 		}
 	}
 	public void doDbAuth() {
-		if(overlap)
+		if(this.errorType.equals("overlap"))
 			this.msg = "You cannot use this nickname";
-		else
+		else if(this.errorType.equals("exist"))
 			this.msg = "Nickname is wrong";
 	}
 }

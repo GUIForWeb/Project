@@ -118,7 +118,7 @@ public class UsersDAOMySQL implements UsersDAO{
 		try {
 			while(this.rset.next()){
 				int id = this.rset.getInt(1);
-				dbAuth.addErrorCode(id, false);
+				dbAuth.addErrorCode(id, "exist");
 				if(id > 0) {
 					this.user.setId(id);
 					this.user.setEmail(this.rset.getString("email"));
@@ -165,7 +165,7 @@ public class UsersDAOMySQL implements UsersDAO{
 				String result = this.rset.getString(1);
 				String[] errorCode = result.split(",");
 				for(String error : errorCode)
-					dbAuth.addErrorCode(Integer.valueOf(error), true);
+					dbAuth.addErrorCode(Integer.valueOf(error), "overlap");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

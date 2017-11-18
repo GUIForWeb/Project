@@ -28,7 +28,7 @@ system.elements.taskbars.controllers.TaskbarClick = function() {
 		var iconObj = new Icon();
 		iconObj.name = "Personal Info";
 		iconObj.isOnlyOne = true;
-		iconObj.contentURL = "/apps/personalInfo/comps/views/personalInfo.jsf";
+		iconObj.contentURL = "/system/comps/views/passwordChange.jsf";
 		this.configure.manager.execute.app(iconObj);
 		this.manager.menu.disappear();
 	}

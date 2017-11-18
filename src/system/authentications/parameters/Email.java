@@ -18,9 +18,9 @@ public class Email extends AuthModel implements AuthModelInterface {
 		}
 	}
 	public void doDbAuth() {
-		if(this.overlap)
+		if(this.errorType.equals("overlap"))
 			this.msg = "E-mail already exists!!!";
-		else
+		else if(this.errorType.equals("exist"))
 			this.msg = this.className + " does not exist!!!";
 	}
 }

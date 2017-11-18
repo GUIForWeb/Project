@@ -28,7 +28,7 @@ public class Authentication {
 	private boolean authSuccess;
 	private boolean redayToAuth;
 	private boolean exceptionFilter;
-	private boolean overlapCheck;
+	private String errorType;
 	private String authPackage;
 	private String className;
 	private String daoName;
@@ -40,7 +40,7 @@ public class Authentication {
 	private List<String> authErrorList;
 	private List<String> emptyExceptionList;
 	private ExternalContext externalContext;
-	private Map<String,Boolean> dbAuthErrorMap;
+	private Map<String,String> dbAuthErrorMap;
 	private Map<String,String> msg;
 	private Map<String,String> exceptedMap;
 	private Map<String,String> procedureMap;
@@ -49,7 +49,7 @@ public class Authentication {
 	public static int EXCEPTION_TO_ACCEPT = 1;
 	public static int EXCEPTION_TO_DENY = 2;
 	public static int AUTHRULE = 3;
-	public static int PROCEDURE = 4;
+	public static int DB_AUTH = 4;
 
 	public Authentication() {
 		this.externalContext = FacesContext.getCurrentInstance().getExternalContext();
@@ -88,17 +88,17 @@ public class Authentication {
 		for(int ai=0; ai<this.authSeqArray.length; ai++) {
 			if(ai==0 && this.formAuthList.size() > 0)
 				this.authSuccess = true;
-			if(this.authSeqArray[ai] != Authentication.PROCEDURE) 
+			if(this.authSeqArray[ai] != Authentication.DB_AUTH) 
 				this.doAuth(this.authSeqArray[ai]);
 			else
-				this.callProcedure();
+				this.doDBAuth();
 			if(this.authSuccess == false) 
 				break;
 		}
 	}
-	private void callProcedure() {
+	private void doDBAuth() {
 		if(this.authCondition()) {
-			boolean procedureSuccess = false;
+			boolean dbAuthSuccess = false;
 			Class<?> tmpClass = null;
 			Object tmpObj;
 			Method tmpMethod = null;
@@ -128,22 +128,21 @@ public class Authentication {
 				}
 			}
 			if(this.authErrorList.size() == 0) {
-				procedureSuccess = true;
+				dbAuthSuccess = true;
 			}
 			else {
 				if(dbAuth.isError())
 					this.dbAuthErrorMap = dbAuth.getErrorMap();
 				for(int li=0; li<this.authErrorList.size(); li++) {
 					this.paramName = this.authErrorList.get(li);
-					String tmpAuthName = Authentication.authNameXMLMap.get(this.paramName);
 					this.className = Authentication.authStandardMap.get(this.paramName);
 					if(null != this.dbAuthErrorMap)
-						this.overlapCheck = this.dbAuthErrorMap.get(tmpAuthName);
+						this.errorType = this.dbAuthErrorMap.get(this.paramName);
 					ruleResultMap.add(this.doDbAuth());
 				}
 				this.msg = ruleResultMap;
 			}
-			this.authSuccess = procedureSuccess;
+			this.authSuccess = dbAuthSuccess;
 		}
 	}
 	
@@ -165,14 +164,14 @@ public class Authentication {
 	}
 	
 	private RuleResult doFormAuth() {
-		return this.getAuth("Form");
+		return this.getAuthResult("Form");
 	}
 	
 	private RuleResult doDbAuth() {
-		return this.getAuth("Db");
+		return this.getAuthResult("Db");
 	}
 	
-	private RuleResult getAuth(String authType) {
+	private RuleResult getAuthResult(String authType) {
 		Class<?> tmpClass;
 		Object tmpObj;
 		Method tmpMethod = null;
@@ -203,7 +202,7 @@ public class Authentication {
 			for(int li=0; li<this.formAuthList.size(); li++) {
 				this.paramName = this.formAuthList.get(li);
 				this.className = Authentication.authStandardMap.get(this.paramName);
-				if(!this.exceptedMap.containsKey(this.paramName)) {
+				if(this.exceptedMap != null && !this.exceptedMap.containsKey(this.paramName)) {
 					tmpRuleResult = this.doFormAuth();
 					if(tmpRuleResult.isError()){
 						this.authErrorList.add(this.paramName);
@@ -439,12 +438,12 @@ public class Authentication {
 		this.procedureMap = procedureMap;
 	}
 	
-	public boolean isOverlapCheck() {
-		return overlapCheck;
+	public String getErrorType() {
+		return errorType;
 	}
 
-	public void setOverlapCheck(boolean overlapCheck) {
-		this.overlapCheck = overlapCheck;
+	public void setErrorType(String errorType) {
+		this.errorType = errorType;
 	}
 	
 	public String toString(){

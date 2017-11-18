@@ -15,6 +15,7 @@
 		<error-code number="-1">nickname</error-code>
 		<error-code number="-2">email</error-code>
 		<error-code number="-3">password</error-code>
+		<error-code number="-4">currentPassword</error-code>
 	</database-error-code>
 </authentication>
 

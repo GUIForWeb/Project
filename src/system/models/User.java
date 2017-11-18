@@ -11,10 +11,6 @@ public class User {
 	private boolean activation;
 	
 	public User() {
-		this.nickname = "";
-		this.email = "";
-		this.password = "";
-		this.confirm = "";
 		this.activation = false;
 	}
 	

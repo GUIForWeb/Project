@@ -20,7 +20,7 @@ public class Login extends SystemJSF {
 				Authentication.EMPTY,
 	    		Authentication.EXCEPTION_TO_ACCEPT,
 	    		Authentication.AUTHRULE,
-	    		Authentication.PROCEDURE	
+	    		Authentication.DB_AUTH	
 			});
 		this.auth.setDaos("system.daos.sqlites.");
 		this.auth.getProcedureMap().put("UsersDAOSQLite", "login");

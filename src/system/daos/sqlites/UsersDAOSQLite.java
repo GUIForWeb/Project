@@ -24,7 +24,6 @@ public class UsersDAOSQLite  implements UsersDAO{
 	private Authentication authentication;
 	public UsersDAOSQLite(){
 		this.db = new SQLite();
-		this.user = new User();
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		this.session = (HttpSession) externalContext.getSession(false);
 	}
@@ -53,10 +52,10 @@ public class UsersDAOSQLite  implements UsersDAO{
 		}
 		String inputPw = Encryption.encrypt(inputUser.getPassword());
 		if(null == this.user.getEmail()) {
-			dbAuth.addErrorCode(-2, false);
+			dbAuth.addErrorCode(-2, "exist");
 		}
 		else if(!this.user.getPassword().equals(inputPw)){
-			dbAuth.addErrorCode(-3, false);
+			dbAuth.addErrorCode(-3, "equal");
 		}
 		if(!dbAuth.isError())
 			this.session.setAttribute("User", this.user);
@@ -65,7 +64,16 @@ public class UsersDAOSQLite  implements UsersDAO{
 	@Override
 	public DbAuth changePassword() {
 		DbAuth dbAuth = new DbAuth(this.authentication);
-		dbAuth.addErrorCode(Integer.valueOf(-3), true);
+		this.user = (User) this.session.getAttribute("User");
+		if(!Encryption.encrypt(this.pMap.get("currentPassword")).equals(this.user.getPassword()))
+			dbAuth.addErrorCode(-4, "equal");
+		if(!dbAuth.isError()) {
+			String query = "UPDATE users_t SET password = ? WHERE id = ?";
+			String[] info = new String[2];
+			info[0] = Encryption.encrypt(this.pMap.get("password"));
+			info[1] = String.valueOf(this.user.getId());
+			this.db.executeUpdate(query,info);
+		}
 		return dbAuth;
 	}
 	@Override
@@ -102,10 +110,10 @@ public class UsersDAOSQLite  implements UsersDAO{
 		}
 		else {
 			if(!tmpNName.equals("")) {
-				dbAuth.addErrorCode(Integer.valueOf(-1), true);
+				dbAuth.addErrorCode(-1, "overlap");
 			}
 			if(!tmpEmail.equals("")) {
-				dbAuth.addErrorCode(Integer.valueOf(-2), true);
+				dbAuth.addErrorCode(-2, "overlap");
 			}
 		}
 		return dbAuth;

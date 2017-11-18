@@ -9,7 +9,7 @@ import system.authentications.RuleResult;
 
 public class AuthModel{
 	final protected String lineSeparator = "%0D%0A";
-	protected boolean overlap;
+	protected String errorType;
 	protected int dbAuthNum;
 	protected String paramName;
 	protected String className;
@@ -30,7 +30,8 @@ public class AuthModel{
 		this.className = authentication.getClassName();
 		this.paramName = authentication.getParamName();
 		this.paramValue = this.pMap.get(this.paramName);
-		this.overlap = authentication.isOverlapCheck();
+		this.errorType = authentication.getErrorType();
+		if(this.errorType == null) this.errorType = "";
 		this.authErrorList = authentication.getAuthErrorList();
 		this.authStandardMap = Authentication.authStandardMap;
 		this.emptyExceptionList = authentication.getEmptyExceptionList();
