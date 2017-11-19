@@ -76,16 +76,16 @@ system.elements.winAndBars.subsystems.engines.PositioningEngine = function() {
 	this.append = function(winAndBarNode) {
 		this.left = winAndBarNode.win.view.oLeft;
 		this.top = winAndBarNode.win.view.oTop;
-		this.newWindowPositioning(winAndBarNode);
+		this.windowPositioning(winAndBarNode);
 		winAndBarNode.win.view.oLeft = this.left;
 		winAndBarNode.win.view.oTop = this.top;
 	}
-	this.newWindowPositioning = function(winAndBarNode) {
+	this.windowPositioning = function(winAndBarNode) {
 		var coordinate = this.left.toFixed(1) + "," + this.top.toFixed(1);
 		var tagId = winAndBarNode.win.tagId;
+		var subArray = [];
 		if (this.windowCoordinate[coordinate] === undefined
 				|| this.windowCoordinate[coordinate][0] === undefined) {
-			var subArray = [];
 			subArray[0] = tagId;
 			this.windowCoordinate[coordinate] = subArray;
 			this.windowCoordinate[tagId] = coordinate;
@@ -93,10 +93,14 @@ system.elements.winAndBars.subsystems.engines.PositioningEngine = function() {
 				left : this.left,
 				top : this.top
 			});
-		} else {
+		} else if(winAndBarNode.win.isFirst) {
 			this.left += 30;
 			this.top += 30;
-			this.newWindowPositioning(winAndBarNode);
+			this.windowPositioning(winAndBarNode);
+		} else {
+			subArray = this.windowCoordinate[coordinate];
+			subArray.push(tagId);
+			this.windowCoordinate[tagId] = coordinate;
 		}
 	}
 	this.changePosition = function(winAndBarNode) {

@@ -54,7 +54,8 @@ public class Desktop extends SystemJSF {
 			GUISettingsDAO guiSettingDAO = new GUISettingsDAOSQLite(guisInOS);
 			guiSettingDAO.load();
 			GUISetting guiSetting = guiSettingDAO.getGUISetting();
-
+			if(this.isMobile)
+				guiSetting.forMobileMode();
 			BgPathsDAO bgPathDAO = new BgPathsDAOSQLite(guisInOS);
 			bgPathDAO.load();
 			BgPath bgPath = bgPathDAO.getBgPath();

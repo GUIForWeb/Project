@@ -56,6 +56,7 @@ system.elements.winAndBars.subsystems.WinAndBarManager = function() {
 		this.wm.append(iconObj, winAndBarNode);
 		this.pe.append(winAndBarNode);
 		this.valueArray["newId"]++;
+		winAndBarNode.win.isFirst = false;
 		return winAndBarNode;
 	}
 }

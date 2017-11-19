@@ -14,16 +14,8 @@ gui.setDataIconJSONArray(dataIconJSONArray);
 gui.setIPAddress(ipAddress);
 gui.setFileSeparator(fileSeparator);
 gui.winDefaultValueArray = winDefaultValueArray;
+gui.setMobileMode(isMobile);
 gui.init();
 gui.start();
 gui.setWinCount(winCount);
 gui.restoreWinAndBar(winAndBarJSONArray);
-
-$(document).ready(function() {
-	$(window).keydown(function(event){
-		if(event.keyCode == 13) {
-			event.preventDefault();
-			return false;
-		}
-	});
-});

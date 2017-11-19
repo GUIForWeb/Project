@@ -5,6 +5,7 @@ system.models.Window = function() {
 	this.name = "";
 	this.options = [];
 	this.isResizable = true;
+	this.isFirst = true;
 	this.view = new WindowView(this);
 	this.appear = function(){
 		if(this.view.isOnScreen)

@@ -16,7 +16,7 @@ system.elements.winAndBars.subsystems.managers.WindowManager = function() {
 		this.winArray[zIndex] = tmpNode;
 		tmpNode.win = new Window();
 		tmpNode.win.name = iconObj.name;
-		if(!iconObj.isResizable) {
+		if(!iconObj.winInfo.isResizable) {
 		tmpNode.win.isResizable = iconObj.isResizable;
 			this.winDefaultValueArray.oDefaultWidth = iconObj.winInfo.oWidth;
 			this.winDefaultValueArray.oDefaultHeight = iconObj.winInfo.oHeight;

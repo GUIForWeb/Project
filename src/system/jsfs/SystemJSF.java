@@ -25,6 +25,7 @@ public class SystemJSF {
 	protected String view;
 	protected String serverName;
 	protected String userFolder;
+	protected boolean isMobile;
 	final protected int IN = 0;
 	final protected int OUT = 1;
 	public SystemJSF() {
@@ -43,6 +44,11 @@ public class SystemJSF {
 		this.port = this.externalContext.getRequestServerPort();
 		this.contextURL = scheme+"://"+this.serverName+":"+this.port+this.contextPath;
 		this.externalContext.getApplicationMap().put("contextPath", this.contextPath);
+		if(this.externalContext.getRequestHeaderMap().get("User-Agent").contains("Mobile"))
+			this.isMobile = true;
+		else
+			this.isMobile = false;
+		this.externalContext.getApplicationMap().put("isMobile", this.isMobile);
 	}
 	public void redirect(int view){
 		try {

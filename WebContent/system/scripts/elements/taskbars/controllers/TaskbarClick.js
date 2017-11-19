@@ -24,11 +24,10 @@ system.elements.taskbars.controllers.TaskbarClick = function() {
 			this.manager.menu.disappear();
 	}
 	this.personalInfoBt = function() {
-		console.log("pi")
 		var iconObj = new Icon();
 		iconObj.name = "Personal Info";
 		iconObj.isOnlyOne = true;
-		iconObj.isResizable = false;
+		iconObj.winInfo.isResizable = false;
 		iconObj.winInfo.oWidth = 400;
 		iconObj.winInfo.oHeight = 260;
 		iconObj.contentURL = "/system/comps/views/passwordChange.jsf";

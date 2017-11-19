@@ -2,20 +2,13 @@ package system.models;
 
 public class GUISetting{
 	private int id;
-	private String themeName;
 	private double iconWidth;
 	private double iconHeight;
 	private double iconBorderWidth;
 	private double iconBorderHeight;
-	private String iconBorderStyle;
-	private String iconBorderColor;
 	private double iconTableTop;
 	private double iconTableLeft;
 	private double winBBorderWidth;
-	private String winBBorderColor;
-	private String winBBgColor;
-	private String winOBgColor;
-	private String winHBgColor;
 	private double winODefaultLeft;
 	private double winODefaultTop;
 	private double winODefaultWidth;
@@ -27,25 +20,58 @@ public class GUISetting{
 	private double winBTop;
 	private double winMinWidth;
 	private double winMinHeight;
+	private double barOWidth;
+	private double barOHeight;
+	private double barOBorderWidth;
+	private double tbarOOpacity;
+	private double tbarOBorderWidth;
+	private double cmenuOBorderRadius;
+	private double cmenuCBorderRadiusHover;
+	private String winBBorderColor;
+	private String winBBgColor;
+	private String winOBgColor;
+	private String winHBgColor;
 	private String winCBgColor;
 	private String winHFontFamily;
 	private String barOBgColor;
 	private String barNBgColor;
-	private double barOWidth;
-	private double barOHeight;
-	private double barOBorderWidth;
 	private String tbarOBgColor;
-	private double tbarOOpacity;
-	private double tbarOBorderWidth;
 	private String cmenuOFontFamily;
-	private double cmenuOBorderRadius;
 	private String cmenuOBgColor;
 	private String cmenuCColor;
 	private String cmenuCBgColorHover;
 	private String cmenuCColorHover;
-	private double cmenuCBorderRadiusHover;
-	
+	private String themeName;
+	private String iconBorderStyle;
+	private String iconBorderColor;
 	public GUISetting(){
+	}
+	public void forMobileMode() {
+		this.iconWidth *= 2;
+		this.iconHeight *= 2;
+		this.iconBorderWidth *= 2;
+		this.iconBorderHeight *= 2;
+		this.iconTableTop *= 2;
+		this.iconTableLeft *= 2;
+		this.winBBorderWidth *= 2;
+		this.winODefaultLeft *= 2;
+		this.winODefaultTop *= 2;
+		this.winODefaultWidth *= 2;
+		this.winODefaultHeight *= 2;
+		this.winOBorderWidth *= 2;
+		this.winHHeight *= 2;
+		this.winBWidth *= 2;
+		this.winBHeight *= 2;
+		this.winBTop *= 2;
+		this.winMinWidth *= 2;
+		this.winMinHeight *= 2;
+		this.barOWidth *= 2;
+		this.barOHeight *= 2;
+		this.barOBorderWidth *= 2;
+		this.tbarOOpacity *= 2;
+		this.tbarOBorderWidth *= 2;
+		this.cmenuOBorderRadius *= 2;
+		this.cmenuCBorderRadiusHover *= 2;
 	}
 	public int getId() {
 		return id;

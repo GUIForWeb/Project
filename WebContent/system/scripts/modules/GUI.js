@@ -22,6 +22,9 @@ function GUI(guiVariableName) {
 	this.dynamicMode = false;
 	this.init = function() {
 	}
+	this.setMobileMode = function(isMobile) {
+		this.isMobile = isMobile;
+	}
 	this.setFileSeparator = function(fileSeparator) {
 		this.fileSeparator = fileSeparator;
 	}

@@ -12,7 +12,7 @@ system.elements.configures.subsystems.managers.ExecutionManager = function() {
 	}
 	this.icon = function(){
 		var flag = false;
-		if(this.iconObj.isOnlyOne){
+		if(this.iconObj.winInfo.isOnlyOne){
 			flag = this.winAndBar.manager.nm.hasName(this.iconObj.name);
 		}
 		if(!flag){

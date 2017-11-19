@@ -23,9 +23,16 @@ system.views.IconView = function(icon) {
 		outerSelector.on("dragstart", function(event) {
 			gui.desktop.drag.start.icon(event);
 		});
-		outerSelector.dblclick(function(event) {
-			gui.desktop.dblclick.icon(event);
-		});
+		if(gui.isMobile) {
+			outerSelector.click(function(event) {
+				gui.desktop.dblclick.icon(event);
+			});
+		}
+		else {
+			outerSelector.dblclick(function(event) {
+				gui.desktop.dblclick.icon(event);
+			});
+		}
 		outerSelector.contextmenu(function(event) {
 			gui.desktop.contextmenu.icon(event);
 		});
