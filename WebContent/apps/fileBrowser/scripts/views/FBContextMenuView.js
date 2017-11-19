@@ -34,40 +34,31 @@ apps.fileBrowser.views.FBContextMenuView = function() {
 		var pasteSelector = $("<li>Paste</li>");
 		var deleteSelector = $("<li>Delete</li>");
 		var downloadSelector = $("<li>Download</li>");
-		newFolderSelector.click({
-			"id" : this.id
-		}, function(event) {
-			taskArray["fileBrowser"][event.data.id].click.newFolder(event);
+		var shareSelector = $("<li>Share</li>");
+		var id = this.id;
+		newFolderSelector.click(function(event) {
+			taskArray["fileBrowser"][id].click.newFolder(event);
 		});
-		renameSelector.click({
-			"id" : this.id
-		}, function(event) {
-			taskArray["fileBrowser"][event.data.id].click.rename(event);
+		renameSelector.click(function(event) {
+			taskArray["fileBrowser"][id].click.rename(event);
 		});
-		deleteSelector.click({
-			"id" : this.id
-		}, function(event) {
-			taskArray["fileBrowser"][event.data.id].click.del(event);
+		deleteSelector.click(function(event) {
+			taskArray["fileBrowser"][id].click.del(event);
 		});
-		downloadSelector.click({
-			"id" : this.id
-		}, function(event) {
-			taskArray["fileBrowser"][event.data.id].click.downlaod(event);
+		downloadSelector.click(function(event) {
+			taskArray["fileBrowser"][id].click.downlaod(event);
 		});
-		copySelector.click({
-			"id" : this.id
-		}, function(event) {
-			taskArray["fileBrowser"][event.data.id].click.copy(event);
+		copySelector.click(function(event) {
+			taskArray["fileBrowser"][id].click.copy(event);
 		});
-		cutSelector.click({
-			"id" : this.id
-		}, function(event) {
-			taskArray["fileBrowser"][event.data.id].click.cut(event);
+		cutSelector.click(function(event) {
+			taskArray["fileBrowser"][id].click.cut(event);
 		});
-		pasteSelector.click({
-			"id" : this.id
-		}, function(event) {
-			taskArray["fileBrowser"][event.data.id].click.paste(event);
+		pasteSelector.click(function(event) {
+			taskArray["fileBrowser"][id].click.paste(event);
+		});
+		shareSelector.click(function(event) {
+			taskArray["fileBrowser"][id].click.share(event);
 		});
 		tmpSelector.append(ulSelector);
 		ulSelector.append(newFolderSelector);
@@ -77,6 +68,7 @@ apps.fileBrowser.views.FBContextMenuView = function() {
 		ulSelector.append(pasteSelector);
 		ulSelector.append(deleteSelector);
 		ulSelector.append(downloadSelector);
+		ulSelector.append(shareSelector);
 		tmpSelector.addClass(this.contentLayerSelectorClass);
 		this.contentSelector = tmpSelector;
 	}

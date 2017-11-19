@@ -10,7 +10,6 @@ system.elements.winAndBars.subsystems.engines.PositioningEngine = function() {
 	this.outerLayer = function(tag) {
 		var gapX;
 		var gapY;
-
 		oLeft = tag.offsetLeft;
 		oTop = tag.offsetTop;
 		if (this.forMovement.preX == "noValue") {

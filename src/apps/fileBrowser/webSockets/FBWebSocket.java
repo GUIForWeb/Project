@@ -24,8 +24,6 @@ public class FBWebSocket implements WebSocketInterface{
 	private FBManager fbm;
 	private DesktopManager dm;
 	private ServletContext servletContext;
-	
-
 	public FBWebSocket(){
 		this.fbm = new FBManager();
 		this.dm = new DesktopManager();
@@ -142,6 +140,7 @@ public class FBWebSocket implements WebSocketInterface{
 			case "del":
 				this.fbm.del();
 				break;
+			case "share":
 			case "copy":
 			case "cut":
 				this.fbm.setClipboard(status);

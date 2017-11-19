@@ -123,6 +123,15 @@ apps.fileBrowser.communications.webSockets.FBSender = function() {
 		this.ws.send(this.json);
 		this.va["selectedData"] = [];
 	}
+	this.share = function() {
+		this.json.data = {
+			"status" : "share",
+			"id" : this.id,
+			"data" : this.va["selectedData"]
+		}
+		this.ws.send(this.json);
+		this.va["selectedData"] = [];
+	}
 	this.paste = function() {
 		this.json.data = {
 			"status" : "paste",

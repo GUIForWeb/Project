@@ -11,7 +11,7 @@ apps.fileBrowser.controllers.FBClick = function() {
 	}
 	this.newFolder = function(event) {
 		this.fbws.send.newFolder();
-		this.contextMenu.disappear();
+		taskArray["contextMenu"].disappear();
 	}
 	this.rename = function(event) {
 		if (this.va["validation"] && !this.select.mousemove.isWorking) {
@@ -27,13 +27,13 @@ apps.fileBrowser.controllers.FBClick = function() {
 			});
 			this.va["prevData"] = this.va["selectedData"];
 			nameDiv.focus();
-			this.contextMenu.disappear();
+			taskArray["contextMenu"].disappear();
 		}
 	}
 	this.del = function() {
 		if (this.va["validation"] && confirm('Delete it?')) {
 			this.fbws.send.del();
-			this.contextMenu.disappear();
+			taskArray["contextMenu"].disappear();
 			this.va["selectedData"] = [];
 		}
 	}
@@ -41,20 +41,20 @@ apps.fileBrowser.controllers.FBClick = function() {
 		if (this.va["validation"] && this.va["selectedData"].length > 0
 				&& this.va["selectedData"][0].type != "directory") {
 			this.fbws.send.download();
-			this.contextMenu.disappear();
+			taskArray["contextMenu"].disappear();
 		}
 	}
 	this.copy = function() {
 		if (this.va["validation"]) {
 			this.fbws.send.copy();
-			this.contextMenu.disappear();
+			taskArray["contextMenu"].disappear();
 			taskArray["clipboard"] = true;
 		}
 	}
 	this.cut = function() {
 		if (this.va["validation"]) {
 			this.fbws.send.cut();
-			this.contextMenu.disappear();
+			taskArray["contextMenu"].disappear();
 			taskArray["clipboard"] = true;
 		}
 	}
@@ -80,5 +80,16 @@ apps.fileBrowser.controllers.FBClick = function() {
 	this.sizeHead = function() {
 		this.fs.int.sort("size");
 		this.appendFunctionForTable();
+	}
+	this.share = function() {
+		if(this.va["selectedData"].length == 1 && this.va["selectedData"][0].type=="inode/directory") {
+			this.fbws.send.share();
+			var iconObj = new Icon();
+			iconObj.name = "Share";
+			iconObj.winInfo.isOnlyOne = true;
+			iconObj.contentURL = "/apps/fileBrowser/comps/views/share.jsf";
+			gui.configure.manager.execute.app(iconObj);
+			taskArray["contextMenu"].disappear();
+		}
 	}
 }

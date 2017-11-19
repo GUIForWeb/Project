@@ -47,7 +47,7 @@ system.elements.desktops.controllers.DesktopClick = function() {
 		if (this.va["validation"] && this.va["selectedData"].length > 0
 				&& this.va["selectedData"][0].type != "directory") {
 			this.socket.sender.download();
-			this.contextMenu.disappear();
+			taskArray["contextMenu"].disappear();
 		}
 	}
 	

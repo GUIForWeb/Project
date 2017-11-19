@@ -395,7 +395,6 @@ public class FBManager {
 		this.json.put("status", status);
 		this.session.setAttribute("clipboard", this.json);
 	}
-
 	public void del() {
 		JSONObject tmpJSON;
 		JSONArray data = this.json.getJSONArray("data");

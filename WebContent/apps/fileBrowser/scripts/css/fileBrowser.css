@@ -13,6 +13,7 @@
 		table-layout:fixed;
 		font-family: Arial;
 		cursor:default;
+		width: 90%;
     }
     .fb-table > tr > th{
 		cursor:pointer;
