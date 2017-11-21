@@ -1,9 +1,6 @@
 package apps.fileBrowser.jsfs;
 
-import java.util.Map;
-
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import org.json.JSONObject;
@@ -15,10 +12,11 @@ import system.models.SharedUser;
 @ApplicationScoped
 public class Share extends ApplicationJSF {
 	private int toId;
+	private int suId;
 	private String[] permissions;
 	private String folder;
 	private ShareManager sm;
-	private Map<Integer, SharedUser> sharedUserMap;
+	private SharedUser[] sharedUsers;
 	public Share() {
 		this.sm = new ShareManager();
 	}
@@ -29,12 +27,20 @@ public class Share extends ApplicationJSF {
 		this.sm.setUser(this.user);
 		this.sm.setFolder(this.folder);
 		this.sm.loadSharedUsers();
+		this.sharedUsers = this.sm.getSharedUsers(); 
 	}
 	public void start() {
 		this.sm.setUser(this.user);
 		this.sm.setToId(this.toId);
 		this.sm.setPermissions(this.permissions);
 		this.sm.start();
+		this.sharedUsers = this.sm.getSharedUsers();
+		this.permissions = null;
+	}
+	public void stop() {
+		this.sm.setSuId(this.suId);
+		this.sm.stop();
+		this.sharedUsers = this.sm.getSharedUsers(); 
 	}
 	public String getFolder() {
 		return folder;
@@ -54,10 +60,16 @@ public class Share extends ApplicationJSF {
 	public void setPermissions(String[] permissions) {
 		this.permissions = permissions;
 	}
-	public Map<Integer, SharedUser> getSharedUserMap() {
-		return sharedUserMap;
+	public SharedUser[] getSharedUsers() {
+		return sharedUsers;
 	}
-	public void setSharedUserMap(Map<Integer, SharedUser> sharedUserMap) {
-		this.sharedUserMap = sharedUserMap;
+	public void setSharedUsers(SharedUser[] sharedUsers) {
+		this.sharedUsers = sharedUsers;
+	}
+	public int getSuId() {
+		return suId;
+	}
+	public void setSuId(int suId) {
+		this.suId = suId;
 	}
 }

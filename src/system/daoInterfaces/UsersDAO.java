@@ -19,6 +19,7 @@ public interface UsersDAO {
 	public DbAuth changePassword();
 	public User[] selectAll();
 	public User selectUser(int id);
+	public User[] selectUsers(String ids);
 	public void newUser(int id, long lastModified);
 	public void delete(int id);
 	public void activate(int id);

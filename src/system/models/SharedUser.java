@@ -5,6 +5,13 @@ public class SharedUser {
 	private int userId;
 	private int sharedFolderId;
 	private String permissions;
+	private User user;
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public int getId() {
 		return id;
 	}
@@ -33,6 +40,10 @@ public class SharedUser {
 		String tmpStr = "";
 		tmpStr += "ID                 : " + this.id + System.getProperty("line.separator");
 		tmpStr += "USER ID            : " + this.userId + System.getProperty("line.separator");
+		tmpStr += "Nick Name          : " + this.user.getNickname() + System.getProperty("line.separator");
+		tmpStr += "E-mail             : " + this.user.getEmail() + System.getProperty("line.separator");
+		tmpStr += "Role               : " + this.user.getRole() + System.getProperty("line.separator");
+		tmpStr += "Activation         : " + this.user.isActivation() + System.getProperty("line.separator");
 		tmpStr += "Shared FolderId ID : " + this.sharedFolderId + System.getProperty("line.separator");
 		tmpStr += "Permissions        : " + this.permissions;
 		return tmpStr;

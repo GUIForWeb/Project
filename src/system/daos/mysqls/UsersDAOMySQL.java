@@ -197,5 +197,10 @@ public class UsersDAOMySQL implements UsersDAO{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public User[] selectUsers(String ids) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

@@ -36,19 +36,29 @@
 		</h:dataTable>
 		<hr/>
 		<h:outputText value="Shared User List" />
-		<h:dataTable value="#{share.sharedUserMap.entrySet().toArray()}" var="entry">
+		<h:dataTable id="sharedUserList" value="#{share.sharedUsers}" var="su"
+					styleClass="user-table"
+		   			headerClass="user-table-header"
+	    			rowClasses="user-table-odd-row,user-table-even-row"
+	    			columnClasses="user-table-column0,user-table-column1,user-table-column2,user-table-column3,user-table-column4">
     		<h:column>
     			<f:facet name="header">Email</f:facet>
-    			
+    			#{su.user.email}
     		</h:column>
     		<h:column>
     			<f:facet name="header">Nickname</f:facet>
-    			
+    			#{su.user.nickname}
     		</h:column>
     		<h:column>
     			<f:facet name="header">Permissions</f:facet>
-    			
+    			#{su.permissions}
     		</h:column>
+    		<h:column>
+				<h:commandButton action="#{share.stop}" value="Stop" >
+					<f:setPropertyActionListener target="#{share.suId}" value="#{su.id}" />
+					<f:ajax render="@form" update="@form" execute="sharedUserList"/>
+				</h:commandButton>
+			</h:column>
 		</h:dataTable>
 	</h:form>
 </ui:composition>

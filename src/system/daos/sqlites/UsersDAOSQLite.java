@@ -208,7 +208,36 @@ public class UsersDAOSQLite  implements UsersDAO{
 		}
 		return tmpUser;
 	}
-	
+	@Override
+	public User[] selectUsers(String ids) {
+		String query = "SELECT COUNT(*) FROM users_v WHERE id IN ("+ids+")";
+		int cnt = 0;
+		try {
+			this.rset = this.db.executeQuery(query);
+			this.rset.next();
+			cnt = this.rset.getInt("COUNT(*)");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		query = "SELECT * FROM users_v WHERE id IN ("+ids+")";
+		User[] tmpUsers = new User[cnt];
+		cnt = 0;
+		try {
+			this.rset = this.db.executeQuery(query);
+			while(this.rset.next()) {
+				tmpUsers[cnt] = new User();
+				tmpUsers[cnt].setId(this.rset.getInt("id"));
+				tmpUsers[cnt].setEmail(this.rset.getString("email"));
+				tmpUsers[cnt].setNickname(this.rset.getString("nickname"));
+				tmpUsers[cnt].setRole(this.rset.getString("role"));
+				tmpUsers[cnt].setActivation(this.rset.getBoolean("activation"));
+				cnt++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tmpUsers;
+	}
 	@Override
 	public void delete(int id) {
 		String query = "DELETE FROM users_t WHERE id = ?;";
