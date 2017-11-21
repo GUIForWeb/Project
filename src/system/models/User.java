@@ -72,7 +72,8 @@ public class User {
 	
 	public String toString() {
 		String str = "";
-		str += "Nick Name: " + this.nickname + System.getProperty("line.separator");
+		str += "ID        : " + this.id + System.getProperty("line.separator");
+		str += "Nick Name : " + this.nickname + System.getProperty("line.separator");
 		str += "E-mail    : " + this.email + System.getProperty("line.separator");
 		str += "Role      : " + this.role + System.getProperty("line.separator");
 		str += "Password  : " + this.password + System.getProperty("line.separator");

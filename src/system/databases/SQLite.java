@@ -7,9 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
-
 import system.paths.Path;
  
 /**
@@ -17,7 +14,7 @@ import system.paths.Path;
  * @author sqlitetutorial.net
  */
 public class SQLite {
-	private Connection conn;
+	private static Connection conn;
 	private Statement stmt;
 	private PreparedStatement pstmt;
 	private ResultSet rset;
@@ -30,10 +27,11 @@ public class SQLite {
           	e.printStackTrace();
         }
 	}
-    private void connect() throws SQLException {
-    	if(null != this.conn && !this.conn.isClosed())
-    		this.conn.close();
-        this.conn = DriverManager.getConnection(this.url);
+    public void connect() throws SQLException {
+    	if(null != conn && !conn.isClosed()) {
+    		conn.close();
+    	}
+        conn = DriverManager.getConnection(this.url);
     }
     public ResultSet executeQuery(String query) throws SQLException {
 		this.connect();
@@ -43,7 +41,7 @@ public class SQLite {
     }
     public ResultSet executeQuery(String query, int[] info) throws SQLException {
 		this.connect();
-		this.pstmt = this.conn.prepareStatement(query);
+		this.pstmt = conn.prepareStatement(query);
 		for(int ii=0; ii<info.length; ii++)
 			this.pstmt.setInt(ii+1, info[ii]);
 		this.rset = this.pstmt.executeQuery();
@@ -51,7 +49,7 @@ public class SQLite {
     }
     public ResultSet executeQuery(String query, String[] info) throws SQLException {
 		this.connect();
-		this.pstmt = this.conn.prepareStatement(query);
+		this.pstmt = conn.prepareStatement(query);
 		for(int ii=0; ii<info.length; ii++)
 			this.pstmt.setString(ii+1, info[ii]);
 		this.rset = this.pstmt.executeQuery();
@@ -61,7 +59,7 @@ public class SQLite {
 		int result = 0;
 		try {
 			this.connect();
-			this.pstmt = this.conn.prepareStatement(query);
+			this.pstmt = conn.prepareStatement(query);
 			this.pstmt.setInt(1, info);
 			result = this.pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -73,7 +71,7 @@ public class SQLite {
 		int result = 0;
 		try {
 			this.connect();
-			this.pstmt = this.conn.prepareStatement(query);
+			this.pstmt = conn.prepareStatement(query);
 			for(int ii=0; ii<info.length; ii++)
 				this.pstmt.setLong(ii+1, info[ii]);
 			result = this.pstmt.executeUpdate();
@@ -86,7 +84,7 @@ public class SQLite {
 		int result = 0;
 		try {
 			this.connect();
-			this.pstmt = this.conn.prepareStatement(query);
+			this.pstmt = conn.prepareStatement(query);
 			for(int ii=0; ii<info.length; ii++)
 				this.pstmt.setInt(ii+1, info[ii]);
 			result = this.pstmt.executeUpdate();
@@ -99,7 +97,7 @@ public class SQLite {
 		int result = 0;
 		try {
 			this.connect();
-			this.pstmt = this.conn.prepareStatement(query);
+			this.pstmt = conn.prepareStatement(query);
 			for(int ii=0; ii<info.length; ii++)
 				this.pstmt.setString(ii+1, info[ii]);
 			result = this.pstmt.executeUpdate();
@@ -112,7 +110,7 @@ public class SQLite {
 		int result = 0;
 		try {
 			this.connect();
-			this.pstmt = this.conn.prepareStatement(query);
+			this.pstmt = conn.prepareStatement(query);
 			result = this.pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -121,8 +119,5 @@ public class SQLite {
 	}
     public Connection getConn() {
 		return conn;
-	}
-	public void setConn(Connection conn) {
-		this.conn = conn;
 	}
 }

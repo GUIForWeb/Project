@@ -2,8 +2,55 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core">
-	<h:outputText value="Shared Folder" /><br/>
-	<p><h:outputText value="#{share.folder}" /></p><br/>
+	<h:outputText value="Shared Folder : #{share.folder}" />
+	<hr/>
+	<h:form id="sfForm">
+		<h:outputText value="User List" />
+		<h:dataTable value="#{userManager.userArray}" var="u"
+					styleClass="user-table"
+	    			headerClass="user-table-header"
+	    			rowClasses="user-table-odd-row,user-table-even-row"
+	    			columnClasses="user-table-column0,user-table-column1,user-table-column2,user-table-column3,user-table-column4">
+			<h:column>
+				<f:facet name="header">Email</f:facet>
+				#{u.email}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Nickname</f:facet>
+				#{u.nickname}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Permissions</f:facet>
+				<h:selectManyCheckbox id="permissions" value="#{share.permissions}">
+				   	<f:selectItem itemValue="r" itemLabel="Read" />
+				   	<f:selectItem itemValue="w" itemLabel="Write" />
+				   	<f:selectItem itemValue="x" itemLabel="Delete" />
+				</h:selectManyCheckbox>
+			</h:column>
+			<h:column>
+				<h:commandButton action="#{share.start}" value="Share" >
+					<f:setPropertyActionListener target="#{share.toId}" value="#{u.id}" />
+					<f:ajax render="@form" update="@form" execute="permissions"/>
+				</h:commandButton>
+			</h:column>
+		</h:dataTable>
+		<hr/>
+		<h:outputText value="Shared User List" />
+		<h:dataTable value="#{share.sharedUserMap.entrySet().toArray()}" var="entry">
+    		<h:column>
+    			<f:facet name="header">Email</f:facet>
+    			
+    		</h:column>
+    		<h:column>
+    			<f:facet name="header">Nickname</f:facet>
+    			
+    		</h:column>
+    		<h:column>
+    			<f:facet name="header">Permissions</f:facet>
+    			
+    		</h:column>
+		</h:dataTable>
+	</h:form>
 </ui:composition>
 
 
