@@ -1,5 +1,7 @@
 package apps.fileBrowser.modules;
 
+import java.util.Map;
+
 import system.daoInterfaces.SharedFoldersDAO;
 import system.daoInterfaces.SharedUsersDAO;
 import system.daoInterfaces.UsersDAO;
@@ -17,6 +19,7 @@ public class ShareManager {
 	private SharedUsersDAO suDAO;
 	private String[] permissions;
 	private String folder;
+	private Map<Integer,SharedUser> sharedUserMap;
 	private SharedUser[] sharedUsers;
 	public ShareManager() {
 		this.sfDAO = new SharedFoldersDAOSQLite();
@@ -74,14 +77,15 @@ public class ShareManager {
 		}
 	}
 	private void makeSharedUsers(){
-		String ids = this.suDAO.getSharedUserMap().keySet().toString();
+		this.sharedUserMap = this.suDAO.getSharedUserMap(); 
+		String ids = this.sharedUserMap.keySet().toString();
 		ids = ids.substring(0, ids.length()-1);
 		ids = ids.substring(1, ids.length());
 		UsersDAO usersDAO = new UsersDAOSQLite();
 		User[] users = usersDAO.selectUsers(ids);
-		this.sharedUsers = new SharedUser[this.suDAO.getSharedUserMap().size()];
+		this.sharedUsers = new SharedUser[this.sharedUserMap.size()];
 		for(int ui=0; ui<users.length; ui++) {
-			this.sharedUsers[ui] = this.suDAO.getSharedUserMap().get(users[ui].getId());
+			this.sharedUsers[ui] = this.sharedUserMap.get(users[ui].getId());
 			this.sharedUsers[ui].setUser(users[ui]);
 		}
 	}
@@ -120,5 +124,11 @@ public class ShareManager {
 	}
 	public void setSuId(int suId) {
 		this.suId = suId;
+	}
+	public Map<Integer, SharedUser> getSharedUserMap() {
+		return sharedUserMap;
+	}
+	public void setSharedUserMap(Map<Integer, SharedUser> sharedUserMap) {
+		this.sharedUserMap = sharedUserMap;
 	}
 }

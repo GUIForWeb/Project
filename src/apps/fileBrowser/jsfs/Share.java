@@ -1,5 +1,8 @@
 package apps.fileBrowser.jsfs;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
@@ -8,6 +11,7 @@ import org.json.JSONObject;
 import apps.fileBrowser.modules.ShareManager;
 import apps.jsfs.ApplicationJSF;
 import system.models.SharedUser;
+
 @Named
 @ApplicationScoped
 public class Share extends ApplicationJSF {
@@ -54,12 +58,6 @@ public class Share extends ApplicationJSF {
 	public void setToId(int toId) {
 		this.toId = toId;
 	}
-	public String[] getPermissions() {
-		return permissions;
-	}
-	public void setPermissions(String[] permissions) {
-		this.permissions = permissions;
-	}
 	public SharedUser[] getSharedUsers() {
 		return sharedUsers;
 	}
@@ -71,5 +69,11 @@ public class Share extends ApplicationJSF {
 	}
 	public void setSuId(int suId) {
 		this.suId = suId;
+	}
+	public String[] getPermissions() {
+		return permissions;
+	}
+	public void setPermissions(String[] permissions) {
+		this.permissions = permissions;
 	}
 }
