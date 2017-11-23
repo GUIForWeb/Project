@@ -3,7 +3,7 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 	<f:metadata>
 		<f:viewAction
-			action="#{fileBrowser.init()}"/>
+			action="#{sharedFileBrowser.init()}"/>
 	</f:metadata>
 	<ui:define name="css">
     </ui:define>
@@ -13,7 +13,7 @@
     <ui:define name="header">
     </ui:define>
 	<ui:define name="section">
-        <ui:include src="/apps/sharedFileBrowser/comps/body/section/docs/fbTable.xhtml" />
+        <ui:include src="/apps/sharedFileBrowser/comps/body/section/docs/sharedFbTable.xhtml" />
     </ui:define>
     <ui:define name="footer">
     	<ui:include src="/apps/sharedFileBrowser/comps/body/footer/status.xhtml" />

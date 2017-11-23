@@ -17,4 +17,5 @@ public interface SharedUsersDAO {
 	public void delete(int sharedFolderId);
 	public Map<Integer, SharedUser> getSharedUserMap();
 	public void deleteAll(int userId);
+	public void loadFoldersForUser();
 }

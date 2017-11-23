@@ -28,6 +28,26 @@ public class SharedUsersDAOSQLite  implements SharedUsersDAO{
 		this.db = new SQLite();
 	}
 	@Override
+	public void loadFoldersForUser() {
+		
+		String query = "SELECT * FROM "+this.table0+" WHERE "+this.expr1+" = ?";
+		this.sharedUserMap = new HashMap<Integer,SharedUser>();
+		try {
+			this.rset = this.db.executeQuery(query, new int[]{this.user.getId()});
+			SharedUser tmpSharedUser;
+			while(this.rset.next()){
+				tmpSharedUser = new SharedUser();
+				tmpSharedUser.setId(this.rset.getInt(this.expr0));
+				tmpSharedUser.setUserId(this.rset.getInt(this.expr1));
+				tmpSharedUser.setSharedFolderId(this.rset.getInt(this.expr3));
+				tmpSharedUser.setPermissions(this.rset.getString(this.expr2));
+				this.sharedUserMap.put(tmpSharedUser.getSharedFolderId(), tmpSharedUser);
+		 	}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	@Override
 	public void update(int userId) {
 		SharedUser sharedUser = this.sharedUserMap.get(userId);
 		String query = "UPDATE "+this.table0+" SET "+this.expr2+" = ? WHERE "+this.expr0+" = ?";
@@ -68,7 +88,6 @@ public class SharedUsersDAOSQLite  implements SharedUsersDAO{
 				this.sharedUserMap.put(tmpSharedUser.getUserId(), tmpSharedUser);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

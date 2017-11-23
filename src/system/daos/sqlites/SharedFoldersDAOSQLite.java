@@ -41,7 +41,7 @@ public class SharedFoldersDAOSQLite  implements SharedFoldersDAO{
 		this.db.executeUpdate(query,info);
 	}
 	@Override
-	public void load() {
+	public void loadUsersForFolder() {
 		String query = "SELECT * FROM "+this.table0+" WHERE "+this.expr1+" = ? AND "+this.expr2+" = ?";
 		String[] info = new String[2];
 		info[0] = String.valueOf(this.user.getId());
@@ -56,10 +56,8 @@ public class SharedFoldersDAOSQLite  implements SharedFoldersDAO{
 				this.sharedFolder.setFolder(this.rset.getString(this.expr2));
 		 	}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	@Override
 	public void setUser(User user) {

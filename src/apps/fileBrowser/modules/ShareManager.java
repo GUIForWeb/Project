@@ -1,5 +1,6 @@
 package apps.fileBrowser.modules;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import system.daoInterfaces.SharedFoldersDAO;
@@ -34,7 +35,7 @@ public class ShareManager {
 			this.sfDAO.setUser(this.user);
 			this.sfDAO.setFolder(this.folder);
 			this.sfDAO.newSharedFolder();
-			this.sfDAO.load();
+			this.sfDAO.loadUsersForFolder();
 			this.suDAO.setShareFolder(this.sfDAO.getShareFolder());
 		}
 		if(this.suDAO.getSharedUserMap().get(this.toId) == null) {
@@ -68,13 +69,15 @@ public class ShareManager {
 	public void loadSharedUsers(){
 		this.sfDAO.setUser(this.user);
 		this.sfDAO.setFolder(this.folder);
-		this.sfDAO.load();
+		this.sfDAO.loadUsersForFolder();
 		if(this.sfDAO.getShareFolder() != null) {
 			this.suDAO.setShareFolder(this.sfDAO.getShareFolder());
 			this.suDAO.setUser(this.user);
 			this.suDAO.load();
 			this.makeSharedUsers();
 		}
+		else
+			this.sharedUserMap = new HashMap<Integer,SharedUser>();
 	}
 	private void makeSharedUsers(){
 		this.sharedUserMap = this.suDAO.getSharedUserMap(); 

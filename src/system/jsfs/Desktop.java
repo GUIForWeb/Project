@@ -51,7 +51,6 @@ public class Desktop extends SystemJSF {
 			GUISettingsInOSDAO gioDAO = new GUISettingsInOSDAOSQLite(this.os);
 			gioDAO.load();
 			GUISettingsInOS gio = gioDAO.getGUISettingsInOS();
-			System.out.println(gio);
 			GUISettingsDAO guiSettingDAO = new GUISettingsDAOSQLite(gio);
 			guiSettingDAO.load();
 			GUISetting guiSetting = guiSettingDAO.getGUISetting();
