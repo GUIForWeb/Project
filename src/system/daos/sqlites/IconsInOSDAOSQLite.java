@@ -21,6 +21,12 @@ import system.models.IconInOS;
 import system.models.OS;
 
 public class IconsInOSDAOSQLite implements IconsInOSDAO{
+	final private String table0 = "icons_in_os_t";
+	final private String expr0 = "os_id";
+	final private String expr1 = "icon_id";
+	final private String expr2 = "x";
+	final private String expr3 = "y";
+	final private String expr4 = "id";
 	private SQLite db;
 	private OS os;
 	private ResultSet rset;
@@ -37,29 +43,29 @@ public class IconsInOSDAOSQLite implements IconsInOSDAO{
 	}
 	@Override
 	public void updateXY(JSONObject json){
-		String query = "UPDATE icons_in_os_t SET x=?, y=? WHERE os_id = ? AND icon_id = ?";
+		String query = "UPDATE "+this.table0+" SET "+this.expr2+"=?, "+this.expr3+"=? WHERE "+this.expr0+" = ? AND "+this.expr1+" = ?";
 		int[] info = new int[4];
-		info[0] = json.getInt("x");
-		info[1] = json.getInt("y");
+		info[0] = json.getInt(this.expr2);
+		info[1] = json.getInt(this.expr3);
 		info[2] = this.os.getId();
-		info[3] = json.getInt("id");
+		info[3] = json.getInt(this.expr4);
 		this.db.executeUpdate(query,info);
 	}
 	@Override
 	public void load(){
 		this.iconsInOSList = new ArrayList<IconInOS>();
 		IconInOS tmpUserIcon;
-		String query = "SELECT * FROM icons_in_os_t WHERE os_id = ?";
+		String query = "SELECT * FROM "+this.table0+" WHERE "+this.expr0+" = ?";
 		String[] info = new String[1];
 		info[0] = String.valueOf(this.os.getId());
 		try {
 			this.rset = this.db.executeQuery(query, info);
 			while(this.rset.next()){
 				tmpUserIcon = new IconInOS();
-				tmpUserIcon.setOSId(this.rset.getInt("os_id"));
-				tmpUserIcon.setId(this.rset.getInt("icon_id"));
-				tmpUserIcon.setX(this.rset.getInt("x"));
-				tmpUserIcon.setY(this.rset.getInt("y"));
+				tmpUserIcon.setOSId(this.rset.getInt(this.expr0));
+				tmpUserIcon.setId(this.rset.getInt(this.expr1));
+				tmpUserIcon.setX(this.rset.getInt(this.expr2));
+				tmpUserIcon.setY(this.rset.getInt(this.expr3));
 				this.iconsInOSList.add(tmpUserIcon);
 			}
 		} catch (SQLException e) {
@@ -77,5 +83,10 @@ public class IconsInOSDAOSQLite implements IconsInOSDAO{
 	}
 	public void setIconsInOSList(List<IconInOS> iconsInOSList) {
 		this.iconsInOSList = iconsInOSList;
+	}
+	@Override
+	public void deleteAll(int osId) {
+		String query = "DELETE FROM "+this.table0+" WHERE "+this.expr0+" = ?";
+		this.db.executeUpdate(query,osId);
 	}
 }

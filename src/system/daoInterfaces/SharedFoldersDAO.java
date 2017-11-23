@@ -9,4 +9,5 @@ public interface SharedFoldersDAO {
 	public void setFolder(String folder);
 	public SharedFolder getShareFolder();
 	public void newSharedFolder();
+	public void deleteAll(int userId);
 }

@@ -2,7 +2,7 @@ package system.models;
 
 public class BgPath {
 	private int id;
-	private int guiId;
+	private int guiSettingId;
 	private String bgPath;
 	
 	public BgPath(){
@@ -16,12 +16,12 @@ public class BgPath {
 		this.id = id;
 	}
 
-	public int getGuiId() {
-		return guiId;
+	public int getGUISettingId() {
+		return guiSettingId;
 	}
 
-	public void setGuiId(int guiId) {
-		this.guiId = guiId;
+	public void setGUISettingId(int guiSettingId) {
+		this.guiSettingId = guiSettingId;
 	}
 
 	public String getBgPath() {
@@ -34,9 +34,9 @@ public class BgPath {
 
 	public String toString(){
 		String str = "";
-		str += "ID      : " + this.id + System.getProperty("line.separator");
-		str += "GUI  ID : " + this.guiId + System.getProperty("line.separator");
-		str += "Bg Path : " + this.bgPath + System.getProperty("line.separator");
+		str += "ID             : " + this.id + System.getProperty("line.separator");
+		str += "GUISetting  ID : " + this.guiSettingId + System.getProperty("line.separator");
+		str += "Bg Path        : " + this.bgPath + System.getProperty("line.separator");
 		return str;
 	}
 }

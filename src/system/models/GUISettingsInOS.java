@@ -1,11 +1,11 @@
 package system.models;
 
-public class GUIsInOS {
+public class GUISettingsInOS {
 	private int id;
 	private int osId;
-	private int guiId;
+	private int guisettingId;
 	private boolean selected;
-	public GUIsInOS(){
+	public GUISettingsInOS(){
 	}
 	public boolean isSelected() {
 		return selected;
@@ -25,17 +25,17 @@ public class GUIsInOS {
 	public void setOSId(int osId) {
 		this.osId = osId;
 	}
-	public int getGuiId() {
-		return guiId;
+	public int getGUISettingId() {
+		return guisettingId;
 	}
-	public void setGuiId(int guiId) {
-		this.guiId = guiId;
+	public void setGUISettingId(int guisettingId) {
+		this.guisettingId = guisettingId;
 	}
 	public String toString(){
 		String str = "";
 		str += "ID       : " + this.id + System.getProperty("line.separator");
 		str += "OS    ID : " + this.osId + System.getProperty("line.separator");
-		str += "GUI   ID : " + this.guiId + System.getProperty("line.separator");
+		str += "GUI   ID : " + this.guisettingId + System.getProperty("line.separator");
 		str += "SELECTED : " + this.selected + System.getProperty("line.separator");
 		return str;
 	}

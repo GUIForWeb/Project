@@ -16,6 +16,8 @@ import system.helpers.Encryption;
 import system.models.User;
 
 public class UsersDAOSQLite  implements UsersDAO{
+	final private String table0 = "shared_users_t";
+	final private String expr0 = "id";
 	private SQLite db;
 	private User user;
 	private ResultSet rset;

@@ -17,6 +17,11 @@ import system.models.OS;
 import system.models.User;
 
 public class OSsDAOSQLite implements OSsDAO {
+	final private String table0 = "oss_t";
+	final private String expr0 = "id";
+	final private String expr1 = "user_id";
+	final private String expr2 = "last_modified_desktop";
+	final private String expr3 = "selected";
 	private SQLite db;
 	private User user;
 	private ResultSet rset;
@@ -36,7 +41,7 @@ public class OSsDAOSQLite implements OSsDAO {
 
 	@Override
 	public void updateLastModified(long lastModified) {
-		String query = "UPDATE oss_t SET last_modified_desktop=? WHERE id = ? AND user_id = ?";
+		String query = "UPDATE "+this.table0+" SET "+this.expr2+"=? WHERE "+this.expr0+" = ? AND "+this.expr1+" = ?";
 		long[] info = new long[3];
 		info[0] = lastModified;
 		info[1] = this.os.getId();
@@ -46,16 +51,16 @@ public class OSsDAOSQLite implements OSsDAO {
 
 	@Override
 	public void load() {
-		String query = "SELECT * FROM oss_t WHERE selected = 1 AND user_id = ?";
+		String query = "SELECT * FROM "+this.table0+" WHERE "+this.expr3+" = 1 AND "+this.expr1+" = ?";
 		String[] info = new String[1];
 		info[0] = String.valueOf(this.user.getId());
 		try {
 			this.rset = this.db.executeQuery(query, info);
 			while (this.rset.next()) {
-				this.os.setId(this.rset.getInt("id"));
-				this.os.setUserId(this.rset.getInt("user_id"));
-				this.os.setSelected(this.rset.getBoolean("selected"));
-				this.os.setLastModifiedDesktop(this.rset.getBigDecimal("last_modified_desktop").longValue());
+				this.os.setId(this.rset.getInt(this.expr0));
+				this.os.setUserId(this.rset.getInt(this.expr1));
+				this.os.setSelected(this.rset.getBoolean(this.expr3));
+				this.os.setLastModifiedDesktop(this.rset.getBigDecimal(this.expr2).longValue());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -84,5 +89,11 @@ public class OSsDAOSQLite implements OSsDAO {
 
 	public void setRset(ResultSet rset) {
 		this.rset = rset;
+	}
+
+	@Override
+	public void deleteAll(int userId) {
+		String query = "DELETE FROM "+this.table0+" WHERE "+this.expr1+" = ?";
+		this.db.executeUpdate(query,userId);
 	}
 }

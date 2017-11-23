@@ -215,4 +215,10 @@ public class DataIconsDAOMySQL implements DataIconsDAO {
 		// TODO Auto-generated method stub
 		return this.jsonArray;
 	}
+
+	@Override
+	public void deleteAll(int osId) {
+		// TODO Auto-generated method stub
+		
+	}
 }

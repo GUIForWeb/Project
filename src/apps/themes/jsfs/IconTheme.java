@@ -28,9 +28,9 @@ public class IconTheme extends ApplicationJSF{
 		super();
 		OSsDAO osSettingDAO = new OSsDAOSQLite(this.user);
 		osSettingDAO.load();
-		GUISettingsInOSDAO guisInOSDAO = new  GUISettingsInOSDAOSQLite(osSettingDAO.getOS());
-		guisInOSDAO.load();
-		this.guiSettingDAO = new GUISettingsDAOSQLite(guisInOSDAO.getGUIsInOS());
+		GUISettingsInOSDAO gioDAO = new  GUISettingsInOSDAOSQLite(osSettingDAO.getOS());
+		gioDAO.load();
+		this.guiSettingDAO = new GUISettingsDAOSQLite(gioDAO.getGUISettingsInOS());
 		this.guiSettingDAO.load();
 		this.guiSetting = guiSettingDAO.getGUISetting();
 	}

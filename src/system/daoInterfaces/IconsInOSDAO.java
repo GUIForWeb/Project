@@ -18,4 +18,5 @@ public interface IconsInOSDAO {
 	public void load(); 
 	public List<IconInOS> getIconsInOSList();
 	public void updateXY(JSONObject json);
+	public void deleteAll(int osId);
 }

@@ -6,20 +6,20 @@ import java.sql.SQLException;
 import system.daoInterfaces.GUISettingsDAO;
 import system.databases.MySQL;
 import system.models.GUISetting;
-import system.models.GUIsInOS;
+import system.models.GUISettingsInOS;
 
 public class GUISettingsDAOMySQL implements GUISettingsDAO{
 	private MySQL db;
-	private GUIsInOS guisInOS;
+	private GUISettingsInOS guisInOS;
 	private ResultSet rset;
 	private GUISetting guiSetting;
 	
 	public GUISettingsDAOMySQL(){
 		this.db = new MySQL();
-		this.guisInOS = new GUIsInOS();
+		this.guisInOS = new GUISettingsInOS();
 		this.guiSetting = new GUISetting();
 	}
-	public GUISettingsDAOMySQL(GUIsInOS guisInOS){
+	public GUISettingsDAOMySQL(GUISettingsInOS guisInOS){
 		this.db = new MySQL();
 		this.guisInOS = guisInOS;
 		this.guiSetting = new GUISetting();
@@ -62,7 +62,7 @@ public class GUISettingsDAOMySQL implements GUISettingsDAO{
 	public void load(){
 		String query = "SELECT * FROM guisettings_t WHERE id = ?";
 		String[] info = new String[1];
-		info[0] = String.valueOf(this.guisInOS.getGuiId());
+		info[0] = String.valueOf(this.guisInOS.getGUISettingId());
 		this.db.connect();
 		this.rset = this.db.select(query, info);
 		try {
@@ -135,5 +135,12 @@ public class GUISettingsDAOMySQL implements GUISettingsDAO{
 	}
 	public void setGUISetting(GUISetting guiSetting) {
 		this.guiSetting = guiSetting;
+	}
+	@Override
+	public void deleteAll(int id) {
+		String query = "DELETE FROM guisettings_t WHERE id = ?";
+		this.db.connect();
+		this.db.executeUpdate(query,id);
+		this.db.close();
 	}
 }

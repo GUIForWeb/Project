@@ -21,7 +21,7 @@ import system.helpers.ImgToBase64;
 import system.jsfs.SystemJSF;
 import system.models.BgPath;
 import system.models.GUISetting;
-import system.models.GUIsInOS;
+import system.models.GUISettingsInOS;
 import system.models.OS;
 import system.modules.DesktopManager;
 import system.modules.EssentialJSLib;
@@ -47,16 +47,17 @@ public class Desktop extends SystemJSF {
 			osDAO.load();
 			this.os = osDAO.getOS();
 			this.session.setAttribute("os", this.os);
-			GUISettingsInOSDAO guisInOSDAO = new GUISettingsInOSDAOSQLite(os);
-			guisInOSDAO.load();
-			GUIsInOS guisInOS = guisInOSDAO.getGUIsInOS();
-
-			GUISettingsDAO guiSettingDAO = new GUISettingsDAOSQLite(guisInOS);
+			
+			GUISettingsInOSDAO gioDAO = new GUISettingsInOSDAOSQLite(this.os);
+			gioDAO.load();
+			GUISettingsInOS gio = gioDAO.getGUISettingsInOS();
+			System.out.println(gio);
+			GUISettingsDAO guiSettingDAO = new GUISettingsDAOSQLite(gio);
 			guiSettingDAO.load();
 			GUISetting guiSetting = guiSettingDAO.getGUISetting();
 			if(this.isMobile)
 				guiSetting.forMobileMode();
-			BgPathsDAO bgPathDAO = new BgPathsDAOSQLite(guisInOS);
+			BgPathsDAO bgPathDAO = new BgPathsDAOSQLite(gio);
 			bgPathDAO.load();
 			BgPath bgPath = bgPathDAO.getBgPath();
 

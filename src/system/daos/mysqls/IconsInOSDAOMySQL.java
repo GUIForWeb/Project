@@ -88,4 +88,9 @@ public class IconsInOSDAOMySQL implements IconsInOSDAO{
 	public void setIconsInOSList(List<IconInOS> iconsInOSList) {
 		this.iconsInOSList = iconsInOSList;
 	}
+	@Override
+	public void deleteAll(int osId) {
+		// TODO Auto-generated method stub
+		
+	}
 }

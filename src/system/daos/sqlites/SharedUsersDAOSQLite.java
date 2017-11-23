@@ -12,6 +12,12 @@ import system.models.SharedUser;
 import system.models.User;
 
 public class SharedUsersDAOSQLite  implements SharedUsersDAO{
+	final private String table0 = "shared_users_t";
+	final private String expr0 = "id";
+	final private String expr1 = "user_id";
+	final private String expr2 = "permissions";
+	final private String expr3 = "shared_folder_id";
+	
 	private SQLite db;
 	private User user;
 	private ResultSet rset;
@@ -24,7 +30,7 @@ public class SharedUsersDAOSQLite  implements SharedUsersDAO{
 	@Override
 	public void update(int userId) {
 		SharedUser sharedUser = this.sharedUserMap.get(userId);
-		String query = "UPDATE shared_users_t SET permissions = ? WHERE id = ?";
+		String query = "UPDATE "+this.table0+" SET "+this.expr2+" = ? WHERE "+this.expr0+" = ?";
 		String[] info = new String[2];
 		info[0] = this.permissions;
 		info[1] = String.valueOf(sharedUser.getId());
@@ -32,12 +38,12 @@ public class SharedUsersDAOSQLite  implements SharedUsersDAO{
 	}
 	@Override
 	public void delete(int sharedFolderId) {
-		String query = "DELETE FROM shared_users_t WHERE id = ?;";
+		String query = "DELETE FROM "+this.table0+" WHERE "+this.expr0+" = ?;";
 		this.db.executeUpdate(query,sharedFolderId);
 	}
 	@Override
 	public void insert(){
-		String query = "INSERT INTO shared_users_t (user_id, shared_folder_id, permissions) VALUES (?,?,?)";
+		String query = "INSERT INTO "+this.table0+" ("+this.expr1+", "+this.expr3+", "+this.expr2+") VALUES (?,?,?)";
 		String[] info = new String[3];
 		info[0] = String.valueOf(this.user.getId());
 		info[1] = String.valueOf(this.sharedFolder.getId());
@@ -48,17 +54,17 @@ public class SharedUsersDAOSQLite  implements SharedUsersDAO{
 	public void load() {
 		SharedUser tmpSharedUser;
 		this.sharedUserMap = new HashMap<Integer,SharedUser>();
-		String query = "SELECT * FROM shared_users_t WHERE shared_folder_id = ?";
+		String query = "SELECT * FROM "+this.table0+" WHERE "+this.expr3+" = ?";
 		int[] info = new int[1];
 		info[0] = this.sharedFolder.getId();
 		try {
 			this.rset = this.db.executeQuery(query,info);
 			while(this.rset.next()) {
 				tmpSharedUser = new SharedUser();
-				tmpSharedUser.setId(this.rset.getInt("id"));
-				tmpSharedUser.setUserId(this.rset.getInt("user_id"));
-				tmpSharedUser.setSharedFolderId(this.rset.getInt("shared_folder_id"));
-				tmpSharedUser.setPermissions(this.rset.getString("permissions"));
+				tmpSharedUser.setId(this.rset.getInt(this.expr0));
+				tmpSharedUser.setUserId(this.rset.getInt(this.expr1));
+				tmpSharedUser.setSharedFolderId(this.rset.getInt(this.expr3));
+				tmpSharedUser.setPermissions(this.rset.getString(this.expr2));
 				this.sharedUserMap.put(tmpSharedUser.getUserId(), tmpSharedUser);
 			}
 		} catch (SQLException e) {
@@ -87,4 +93,10 @@ public class SharedUsersDAOSQLite  implements SharedUsersDAO{
 	public Map<Integer, SharedUser> getSharedUserMap() {
 		return sharedUserMap;
 	}
+	@Override
+	public void deleteAll(int userId) {
+		String query = "DELETE FROM "+this.table0+" WHERE "+this.expr1+" = ?";
+		this.db.executeUpdate(query,userId);
+	}
 }
+

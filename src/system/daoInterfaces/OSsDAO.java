@@ -9,4 +9,5 @@ public interface OSsDAO {
 	public void updateLastModified(long lastModified);
 	public void setOS(OS os);
 	public void setUser(User user);
+	public void deleteAll(int userId);
 }

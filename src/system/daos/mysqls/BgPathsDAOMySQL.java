@@ -14,25 +14,25 @@ import java.sql.SQLException;
 import system.daoInterfaces.BgPathsDAO;
 import system.databases.MySQL;
 import system.models.BgPath;
-import system.models.GUIsInOS;
+import system.models.GUISettingsInOS;
 
 public class BgPathsDAOMySQL implements BgPathsDAO{
 	private MySQL db;
-	private GUIsInOS guisInOS;
+	private GUISettingsInOS guisInOS;
 	private ResultSet rset;
 	private BgPath bgPath;
 	public BgPathsDAOMySQL(){
 		this.db = new MySQL();
-		this.guisInOS = new GUIsInOS();
+		this.guisInOS = new GUISettingsInOS();
 		this.bgPath = new BgPath();
 	}
-	public BgPathsDAOMySQL(GUIsInOS guisInOS){
+	public BgPathsDAOMySQL(GUISettingsInOS guisInOS){
 		this.db = new MySQL();
 		this.guisInOS = guisInOS;
 		this.bgPath = new BgPath();
 	}
 	public void setGUIId(int guiId) {
-		this.guisInOS.setGuiId(guiId);
+		this.guisInOS.setGUISettingId(guiId);
 	}
 	public void setBgPath(String bgPath) {
 		this.bgPath.setBgPath(bgPath);
@@ -41,7 +41,7 @@ public class BgPathsDAOMySQL implements BgPathsDAO{
 	public void update() {
 		String query = "call WebGUI.bg_path_p(?,?)";
 		String[] info = new String[2];
-		info[0] = String.valueOf(this.guisInOS.getGuiId());
+		info[0] = String.valueOf(this.guisInOS.getGUISettingId());
 		info[1] = this.bgPath.getBgPath();
 		this.db.connect();
 		this.db.call(query, info);
@@ -51,14 +51,14 @@ public class BgPathsDAOMySQL implements BgPathsDAO{
 	public void load(){
 		String query = "SELECT * from bg_paths_t WHERE gui_id = ?";
 		String[] info = new String[1];
-		info[0] = String.valueOf(this.guisInOS.getGuiId());
+		info[0] = String.valueOf(this.guisInOS.getGUISettingId());
 		this.bgPath = new BgPath();
 		this.db.connect();
 		this.rset = this.db.select(query, info);
 		try {
 			while(this.rset.next()){
 				this.bgPath.setId(this.rset.getInt("id"));
-				this.bgPath.setGuiId(this.rset.getInt("gui_id"));
+				this.bgPath.setGUISettingId(this.rset.getInt("guisetting_id"));
 				this.bgPath.setBgPath(this.rset.getString("bg_path"));
 			}
 		} catch (SQLException e) {
@@ -72,5 +72,14 @@ public class BgPathsDAOMySQL implements BgPathsDAO{
 	}
 	public void setBgPath(BgPath bgPath) {
 		this.bgPath = bgPath;
+	}
+	@Override
+	public void deleteAll(int guisettingId) {
+		
+	}
+	@Override
+	public void setGUISettingId(int guiId) {
+		// TODO Auto-generated method stub
+		
 	}
 }

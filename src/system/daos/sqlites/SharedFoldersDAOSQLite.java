@@ -19,20 +19,22 @@ import system.models.SharedFolder;
 import system.models.User;
 
 public class SharedFoldersDAOSQLite  implements SharedFoldersDAO{
+	final private String table0 = "shared_folders_t";
+	final private String expr0 = "id";
+	final private String expr1 = "user_id";
+	final private String expr2 = "folder";
+	
 	private SQLite db;
 	private User user;
 	private String folder;
-	private String permissions;
 	private ResultSet rset;
-	private HttpSession session;
 	private SharedFolder sharedFolder;
 	public SharedFoldersDAOSQLite(){
 		this.db = new SQLite();
-		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 	}
 	@Override
 	public void newSharedFolder() {
-		String query = "INSERT INTO shared_folders_t (user_id, folder) VALUES (?,?)";
+		String query = "INSERT INTO "+this.table0+" ("+this.expr1+", "+this.expr2+") VALUES (?,?)";
 		String[] info = new String[2];
 		info[0] = String.valueOf(this.user.getId());
 		info[1] = this.folder;
@@ -40,7 +42,7 @@ public class SharedFoldersDAOSQLite  implements SharedFoldersDAO{
 	}
 	@Override
 	public void load() {
-		String query = "SELECT * FROM shared_folders_t WHERE user_id = ? AND folder = ?";
+		String query = "SELECT * FROM "+this.table0+" WHERE "+this.expr1+" = ? AND "+this.expr2+" = ?";
 		String[] info = new String[2];
 		info[0] = String.valueOf(this.user.getId());
 		info[1] = this.folder;
@@ -49,9 +51,9 @@ public class SharedFoldersDAOSQLite  implements SharedFoldersDAO{
 			this.rset = this.db.executeQuery(query, info);
 			while(this.rset.next()){
 				this.sharedFolder = new SharedFolder();
-				this.sharedFolder.setId(this.rset.getInt("id"));
-				this.sharedFolder.setUserId(this.rset.getInt("user_id"));
-				this.sharedFolder.setFolder(this.rset.getString("folder"));
+				this.sharedFolder.setId(this.rset.getInt(this.expr0));
+				this.sharedFolder.setUserId(this.rset.getInt(this.expr1));
+				this.sharedFolder.setFolder(this.rset.getString(this.expr2));
 		 	}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -70,5 +72,10 @@ public class SharedFoldersDAOSQLite  implements SharedFoldersDAO{
 	@Override
 	public SharedFolder getShareFolder() {
 		return sharedFolder;
+	}
+	@Override
+	public void deleteAll(int userId) {
+		String query = "DELETE FROM "+this.table0+" WHERE "+this.expr1+" = ?";
+		this.db.executeUpdate(query,userId);
 	}
 }

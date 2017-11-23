@@ -8,4 +8,5 @@ public interface GUISettingsDAO {
 	public void load(); 
 	public GUISetting getGUISetting();
 	public void setGUISetting(GUISetting guiSetting);
+	public void deleteAll(int id);
 }

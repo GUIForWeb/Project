@@ -9,7 +9,7 @@ import system.daoInterfaces.GUISettingsInOSDAO;
 import system.daos.sqlites.GUISettingsDAOSQLite;
 import system.daos.sqlites.GUISettingsInOSDAOSQLite;
 import system.models.GUISetting;
-import system.models.GUIsInOS;
+import system.models.GUISettingsInOS;
 import system.models.OS;
 
 @Named
@@ -20,10 +20,10 @@ public class InterfaceTheme extends ApplicationJSF{
 	public InterfaceTheme() {
 		super();
 		OS os = (OS)this.session.getAttribute("os");
-		GUISettingsInOSDAO guisInOSDAO = new  GUISettingsInOSDAOSQLite(os);
-		guisInOSDAO.load();
-		GUIsInOS guisInOS = guisInOSDAO.getGUIsInOS();
-		this.guiSettingDAO = new GUISettingsDAOSQLite(guisInOS);
+		GUISettingsInOSDAO gioDAO = new  GUISettingsInOSDAOSQLite(os);
+		gioDAO.load();
+		GUISettingsInOS gio = gioDAO.getGUISettingsInOS();
+		this.guiSettingDAO = new GUISettingsDAOSQLite(gio);
 		this.guiSettingDAO.load();
 		this.guiSetting = this.guiSettingDAO.getGUISetting();
 	}

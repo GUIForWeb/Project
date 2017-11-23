@@ -1,0 +1,24 @@
+<ui:composition template="/apps/fileBrowser/comps/frames/frame.xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<f:metadata>
+		<f:viewAction
+			action="#{fileBrowser.init()}"/>
+	</f:metadata>
+	<ui:define name="css">
+    </ui:define>
+    <ui:define name="title">
+        File Browser
+    </ui:define>
+    <ui:define name="header">
+    </ui:define>
+	<ui:define name="section">
+        <ui:include src="/apps/sharedFileBrowser/comps/body/section/docs/fbTable.xhtml" />
+    </ui:define>
+    <ui:define name="footer">
+    	<ui:include src="/apps/sharedFileBrowser/comps/body/footer/status.xhtml" />
+    </ui:define>
+    <ui:define name="script">
+		
+	</ui:define>
+</ui:composition>

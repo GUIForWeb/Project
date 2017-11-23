@@ -10,7 +10,7 @@ import system.daoInterfaces.BgPathsDAO;
 import system.daoInterfaces.GUISettingsInOSDAO;
 import system.daos.sqlites.BgPathsDAOSQLite;
 import system.daos.sqlites.GUISettingsInOSDAOSQLite;
-import system.models.GUIsInOS;
+import system.models.GUISettingsInOS;
 import system.models.OS;
 
 public class ThemeManager {
@@ -22,11 +22,11 @@ public class ThemeManager {
 	}
 	public void init(){
 		OS os = (OS)this.session.getAttribute("os");
-		GUISettingsInOSDAO guisInOSDAO = new  GUISettingsInOSDAOSQLite(os);
-		guisInOSDAO.load();
-		GUIsInOS guisInOS = guisInOSDAO.getGUIsInOS();
+		GUISettingsInOSDAO gioDAO = new  GUISettingsInOSDAOSQLite(os);
+		gioDAO.load();
+		GUISettingsInOS gio = gioDAO.getGUISettingsInOS();
 		this.bgPathDAO = new BgPathsDAOSQLite();
-		this.bgPathDAO.setGUIId(guisInOS.getGuiId());
+		this.bgPathDAO.setGUISettingId(gio.getGUISettingId());
 	}
 	public void empty(){
 		bgPathDAO.setBgPath("NULL");

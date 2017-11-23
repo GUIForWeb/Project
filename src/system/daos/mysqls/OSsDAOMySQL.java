@@ -85,7 +85,7 @@ public class OSsDAOMySQL implements OSsDAO {
 	public User getUser() {
 		return user;
 	}
-
+	@Override
 	public void setUser(User user) {
 		this.user = user;
 	}
@@ -96,5 +96,13 @@ public class OSsDAOMySQL implements OSsDAO {
 
 	public void setRset(ResultSet rset) {
 		this.rset = rset;
+	}
+
+	@Override
+	public void deleteAll(int userId) {
+		String query = "DELETE FROM oss_t WHERE user_id = ?";
+		this.db.connect();
+		this.db.executeUpdate(query,userId);
+		this.db.close();
 	}
 }
