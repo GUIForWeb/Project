@@ -271,7 +271,7 @@ public class FBManager {
 			this.dataItemDAO.load();
 			this.jsonArray = this.dataItemDAO.getJSONArray();
 			for (Browser b : this.browserList) {
-				if (b.getRoute().equals(this.route.getPath()) && !b.isWeb()) {
+				if (b.getRoute().getPath().equals(this.route.getPath()) && !b.isWeb()) {
 					ids.put(b.getId());
 				}
 			}
@@ -296,6 +296,7 @@ public class FBManager {
 			json.put("path", path);
 			data.put(json);
 			this.json.put("data", data);
+			System.out.println(this.json);
 		}
 	}
 	private void checkExistenceAndProcess(String status, JSONArray data, String srcPath, String destPath) {

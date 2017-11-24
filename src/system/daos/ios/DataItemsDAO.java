@@ -14,10 +14,8 @@ public class DataItemsDAO {
 	private Route dirPath;
 	private Route[] dirPaths;
 	public DataItemsDAO(){
-		this.jsonArray = new JSONArray();
 	}
 	public DataItemsDAO(String filePath){
-		this.jsonArray = new JSONArray();
 		this.dirPath = new Route();
 		this.dirPath.setPath(filePath);
 		this.dirPath.setPermissions("rwx");
@@ -25,6 +23,7 @@ public class DataItemsDAO {
 	}
 	
 	public void load() {
+		this.jsonArray = new JSONArray();
 		File directory = new File(this.dirPath.getPath());
 		File[] fList = directory.listFiles();
 		File tmpFile;
@@ -50,6 +49,7 @@ public class DataItemsDAO {
 		}
 	}
 	public void loadData() {
+		this.jsonArray = new JSONArray();
 		for(int pi=0; pi<this.dirPaths.length; pi++) {
 			File tmpFile = new File(this.dirPaths[pi].getPath());
 			DataItem tmpDI;
