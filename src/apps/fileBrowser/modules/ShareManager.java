@@ -24,7 +24,8 @@ public class ShareManager {
 	private SharedUser[] sharedUsers;
 	public ShareManager() {
 		this.sfDAO = new SharedFoldersDAOSQLite();
-		this.suDAO = new SharedUsersDAOSQLite(); 
+		this.suDAO = new SharedUsersDAOSQLite();
+		this.sharedUserMap = new HashMap<Integer, SharedUser>();
 	}
 	public void start() {
 		String[] tmpPermissions = {"-","-","-"};
@@ -38,7 +39,9 @@ public class ShareManager {
 			this.sfDAO.loadUsersForFolder();
 			this.suDAO.setShareFolder(this.sfDAO.getShareFolder());
 		}
-		if(this.suDAO.getSharedUserMap().get(this.toId) == null) {
+		if(this.suDAO.getSharedUserMap() != null)
+			this.sharedUserMap = this.suDAO.getSharedUserMap();
+		if(this.sharedUserMap.get(this.toId) == null) {
 			UsersDAO usersDAO = new UsersDAOSQLite();
 			User user = usersDAO.selectUser(this.toId);
 			this.suDAO.setUser(user);
@@ -76,11 +79,9 @@ public class ShareManager {
 			this.suDAO.load();
 			this.makeSharedUsers();
 		}
-		else
-			this.sharedUserMap = new HashMap<Integer,SharedUser>();
 	}
 	private void makeSharedUsers(){
-		this.sharedUserMap = this.suDAO.getSharedUserMap(); 
+		this.sharedUserMap = this.suDAO.getSharedUserMap();
 		String ids = this.sharedUserMap.keySet().toString();
 		ids = ids.substring(0, ids.length()-1);
 		ids = ids.substring(1, ids.length());

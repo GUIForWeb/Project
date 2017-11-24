@@ -59,7 +59,7 @@ public class ThemeWebSocket implements WebSocketInterface{
 				this.fbm.setJSON(this.data);
 				this.fbm.loadRoot();
 				this.fbm.findBrowser();
-				String srcPath = this.fbm.getPath()+System.getProperty("file.separator")+this.data.getString("name");
+				String srcPath = this.fbm.getRoute().getPath()+System.getProperty("file.separator")+this.data.getString("name");
 				this.tm.setBgImg(srcPath);
 				break;
 			case "empty":

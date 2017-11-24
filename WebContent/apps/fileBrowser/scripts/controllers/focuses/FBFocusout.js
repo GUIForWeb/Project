@@ -6,7 +6,6 @@ apps.fileBrowser.controllers.focuses.FBFocusout = function() {
 			"type" : this.tag["t"].innerHTML
 		} ];
 		this.tag["s"].removeAttr("contenteditable");
-		console.log(this.va["selectedData"]);
 		if (JSON.stringify(this.va["selectedData"][0]) != JSON
 				.stringify(this.va["prevData"][0])) {
 			for (di = 0; di < this.va["data"].length; di++) {

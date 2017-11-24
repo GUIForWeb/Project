@@ -1,10 +1,5 @@
 package system.paths;
 
-import javax.faces.context.ExternalContext;
-import javax.servlet.ServletContext;
-
-import org.json.JSONObject;
-
 public class Path {
 	//public static String ;
 	public static String appDir;

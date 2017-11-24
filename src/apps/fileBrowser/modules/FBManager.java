@@ -8,7 +8,10 @@ import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
@@ -23,13 +26,22 @@ import org.json.JSONObject;
 
 import apps.fileBrowser.libraries.FBFileOutputStream;
 import apps.fileBrowser.models.Browser;
+import system.daoInterfaces.SharedFoldersDAO;
+import system.daoInterfaces.SharedUsersDAO;
 import system.daos.ios.DataItemsDAO;
+import system.daos.sqlites.SharedFoldersDAOSQLite;
+import system.daos.sqlites.SharedUsersDAOSQLite;
 import system.models.DataItem;
+import system.models.Route;
+import system.models.SharedFolder;
+import system.models.SharedUser;
+import system.models.User;
 
 public class FBManager {
 	private int id;
-	private String userFolder;
-	private String path = "";
+	private User user;
+	private String userDir;
+	private Route route;
 	private String desktopPath = "";
 	private JSONObject json;
 	private List<Browser> browserList;
@@ -45,6 +57,11 @@ public class FBManager {
 	private JSONArray desktopJSONArray;
 	private JSONObject desktopJSON;
 	private String fileSeparator;
+	private SharedFoldersDAO sfDAO;
+	private SharedUsersDAO suDAO;
+	private Map<Integer,SharedFolder> sfMap;
+	private Map<Integer,SharedUser> suMap;
+	private Route[] sharedRoutes;
 	public FBManager() {
 		this.dataItemDAO = new DataItemsDAO();
 		this.fileSeparator = System.getProperty("file.separator");
@@ -64,7 +81,7 @@ public class FBManager {
 				break;
 			}
 		}
-		this.path = this.browser.getPath();
+		this.route = this.browser.getRoute();
 	}
 
 	public void isNotInWindow() {
@@ -77,12 +94,12 @@ public class FBManager {
 	}
 
 	private void reload() {
-		this.dataItemDAO.setFilePath(this.path);
+		this.dataItemDAO.setDirPath(this.route);
 		this.dataItemDAO.load();
 		this.jsonArray = this.dataItemDAO.getJSONArray();
 		this.json = new JSONObject();
 		this.json.put("status", "reload");
-		String path = this.path.replace(this.userFolder, "");
+		String path = this.route.getPath().replace(this.userDir, "");
 		this.json.put("path", path);
 		this.json.put("data", this.jsonArray);
 	}
@@ -93,11 +110,11 @@ public class FBManager {
 		} else {
 			JSONArray ids = new JSONArray();
 			JSONObject data = new JSONObject();
-			this.dataItemDAO.setFilePath(this.path);
+			this.dataItemDAO.setDirPath(this.route);
 			this.dataItemDAO.load();
 			this.jsonArray = this.dataItemDAO.getJSONArray();
 			for (Browser b : this.browserList) {
-				if (b.getPath().equals(this.path) && !b.isWeb()) {
+				if (b.getRoute().getPath().equals(this.route.getPath()) && !b.isWeb()) {
 					ids.put(b.getId());
 				}
 			}
@@ -105,7 +122,7 @@ public class FBManager {
 			this.json.put("status", "multiReload");
 			data.put("id", ids);
 			data.put("data", this.jsonArray);
-			String path = this.path.replace(this.userFolder, "");
+			String path = this.route.getPath().replace(this.userDir, "");
 			this.json.put("path", path);
 			this.json.put("data", data);
 		}
@@ -118,7 +135,7 @@ public class FBManager {
 		String type;
 		name = data.getString("name");
 		type = data.getString("type");
-		tmpFile = new File(this.path + this.fileSeparator + name);
+		tmpFile = new File(this.route.getPath() + this.fileSeparator + name);
 		byte[] outputByte = new byte[4096];
 		this.response.setCharacterEncoding("ISO-8859-1");
 		this.response.setContentType(type);
@@ -171,12 +188,12 @@ public class FBManager {
 		this.per = ((this.per / 100000000) + 1) * 3;
 		this.per = size / this.per;
 		String name = this.json.getString("name");
-		File file = new File(this.path + this.fileSeparator + name);
+		File file = new File(this.route.getPath() + this.fileSeparator + name);
 		String ext = name.substring(name.lastIndexOf(".") + 1, name.length());
 		name = name.substring(0, name.lastIndexOf("."));
 		this.desktopJSONArray = new JSONArray();
 		if (file.exists())
-			file = this.checkDest(this.path, name, 0, ext);
+			file = this.checkDest(this.route.getPath(), name, 0, ext);
 			this.makeDesktopArray(file);
 		try {
 			this.fileOutputStream = new FBFileOutputStream(file);
@@ -212,16 +229,16 @@ public class FBManager {
 			String status = clipboard.getString("status");
 			String path = clipboard.getString("path");
 			JSONArray data = clipboard.getJSONArray("data");
-			if(!(path.equals(this.path) && status.equals("cut")))
-				this.checkExistenceAndProcess(status, data, path, this.path);
+			if(!(path.equals(this.route.getPath()) && status.equals("cut")))
+				this.checkExistenceAndProcess(status, data, path, this.route.getPath());
 			if(clipboard.has("id")){
 				prevId = clipboard.getInt("id");
 				this.multiplexReload(prevId, path);
 			}
 			else
 				this.multiReload();
-			if(status.equals("cut") && path.equals(this.desktopPath) && this.path.equals(this.desktopPath)) {
-				this.path = "";
+			if(status.equals("cut") && path.equals(this.desktopPath) && this.route.getPath().equals(this.desktopPath)) {
+				this.route.setPath("");
 			}
 			this.session.removeAttribute("clipboard");
 		}
@@ -234,7 +251,7 @@ public class FBManager {
 			String status = clipboard.getString("status");
 			String path = clipboard.getString("path");
 			JSONArray data = clipboard.getJSONArray("data");
-			this.path = this.desktopPath;
+			this.route.setPath(this.desktopPath);
 			this.checkExistenceAndProcess(status, data, path, this.desktopPath);
 			this.session.removeAttribute("clipboard");
 		}
@@ -250,11 +267,11 @@ public class FBManager {
 			this.json = new JSONObject();
 			this.json.put("status", "multiplexReload");
 
-			this.dataItemDAO.setFilePath(this.path);
+			this.dataItemDAO.setDirPath(this.route);
 			this.dataItemDAO.load();
 			this.jsonArray = this.dataItemDAO.getJSONArray();
 			for (Browser b : this.browserList) {
-				if (b.getPath().equals(this.path) && !b.isWeb()) {
+				if (b.getRoute().equals(this.route.getPath()) && !b.isWeb()) {
 					ids.put(b.getId());
 				}
 			}
@@ -264,18 +281,18 @@ public class FBManager {
 			data.put(json);
 
 			ids = new JSONArray();
-			this.dataItemDAO.setFilePath(path);
+			this.dataItemDAO.setDirPath(this.strToPath(path));
 			this.dataItemDAO.load();
 			this.jsonArray = this.dataItemDAO.getJSONArray();
 			for (Browser b : this.browserList) {
-				if (b.getPath().equals(path)) {
+				if (b.getRoute().getPath().equals(path)) {
 					ids.put(b.getId());
 				}
 			}
 			json = new JSONObject();
 			json.put("id", id);
 			json.put("data", this.jsonArray);
-			path = this.path.replace(this.userFolder, "");
+			path = this.route.getPath().replace(this.userDir, "");
 			json.put("path", path);
 			data.put(json);
 			this.json.put("data", data);
@@ -294,7 +311,7 @@ public class FBManager {
 				if (type.equals("inode/directory")) {
 					destPath = destPath + this.fileSeparator + name;
 					srcPath = srcPath + this.fileSeparator + name;
-					this.dataItemDAO.setFilePath(destPath);
+					this.dataItemDAO.setDirPath(this.strToPath(destPath));
 					this.dataItemDAO.load();
 					JSONArray tmpData = this.dataItemDAO.getJSONArray();
 					this.checkExistenceAndProcess(status, tmpData, srcPath, destPath);
@@ -375,7 +392,7 @@ public class FBManager {
 		}
 	}
 	private void makeDesktopArray(File file){
-		if(this.path.equals(this.desktopPath)){
+		if(this.route.getPath().equals(this.desktopPath)){
 			DataItem tmpDI = new DataItem();
 			try {
 				tmpDI.setType(Files.probeContentType(file.toPath()));
@@ -391,7 +408,7 @@ public class FBManager {
 		}
 	}
 	public void setClipboard(String status) {
-		this.json.put("path", this.path);
+		this.json.put("path", this.route.getPath());
 		this.json.put("status", status);
 		this.session.setAttribute("clipboard", this.json);
 	}
@@ -405,7 +422,7 @@ public class FBManager {
 		this.desktopJSONArray = new JSONArray();
 		for (int di = 0; di < data.length(); di++) {
 			tmpJSON = data.getJSONObject(di);
-			path = this.path + this.fileSeparator + tmpJSON.getString("name");
+			path = this.route.getPath() + this.fileSeparator + tmpJSON.getString("name");
 			type = tmpJSON.getString("type");
 			dest = new File(path);
 			if(dest.exists())
@@ -428,21 +445,21 @@ public class FBManager {
 		}
 		if (success){
 			this.multiReload();
-		}else if(this.path.equals(this.desktopPath)){
+		}else if(this.route.getPath().equals(this.desktopPath)){
 			this.multiReload();
 		}
 	}
 
 	public void rename() {
-		String srcStr = this.browser.getPath() + this.fileSeparator + this.json.getString("src");
-		String destStr = this.browser.getPath() + this.fileSeparator + this.json.getString("dest");
+		String srcStr = this.browser.getRoute().getPath() + this.fileSeparator + this.json.getString("src");
+		String destStr = this.browser.getRoute().getPath() + this.fileSeparator + this.json.getString("dest");
 		File src = new File(srcStr);
 		File dest = new File(destStr);
 		if (!src.equals(dest) ) {
 			src.renameTo(dest);
 		}
 		this.multiReload();
-		if(this.path.equals(this.desktopPath)){
+		if(this.route.getPath().equals(this.desktopPath)){
 			this.desktopJSON = new JSONObject();
 			this.desktopJSON.put("src",src.getName());
 			this.desktopJSON.put("dest",dest.getName());
@@ -450,17 +467,17 @@ public class FBManager {
 	}
 	public void newFolder() {
 		String name = "New Folder";
-		File newFolder = new File(this.path + this.fileSeparator + name);
+		File newFolder = new File(this.route.getPath() + this.fileSeparator + name);
 		if (!newFolder.exists()) {
 			newFolder.mkdirs();
 		} else {
 			newFolder = this.mkDir(this.browser, name, 0);
 		}
-		this.dataItemDAO.setFilePath(this.path);
+		this.dataItemDAO.setDirPath(this.route);
 		this.dataItemDAO.load();
 		this.jsonArray = this.dataItemDAO.getJSONArray();
 		this.multiReload();
-		if(this.path.equals(this.desktopPath)){
+		if(this.route.getPath().equals(this.desktopPath)){
 			this.desktopJSON = new JSONObject();
 			this.desktopJSON.put("name", newFolder.getName());
 			try {
@@ -472,7 +489,7 @@ public class FBManager {
 		}
 	}
 	private File mkDir(Browser browser, String name, int num) {
-		File newFolder = new File(browser.getPath() + this.fileSeparator + name + " " + num);
+		File newFolder = new File(browser.getRoute() + this.fileSeparator + name + " " + num);
 		if (!newFolder.exists()) {
 			newFolder.mkdirs();
 		} else {
@@ -482,28 +499,26 @@ public class FBManager {
 	}
 
 	public void loadRoot() {
-		this.userFolder = (String) this.session.getAttribute("userFolder");
-		this.desktopPath += this.userFolder + this.fileSeparator + "Desktop";
+		this.userDir = (String) this.session.getAttribute("userFolder");
+		this.desktopPath += this.userDir + this.fileSeparator + "Desktop";
 	}
-
-	@SuppressWarnings("unchecked")
-	public void open() {
+	private void openPath() {
 		String name = this.json.getString("name");
 		String type = this.json.getString("type");
 		if (type.equals("inode/directory") || type.equals("")) {
 			this.browserList = (List<Browser>) this.session.getAttribute("browserList");
-			this.path = this.browser.getPath() + this.fileSeparator + name;
-			File b = new File(this.path);
+			this.route.setPath(this.browser.getRoute().getPath() + this.fileSeparator + name);
+			File b = new File(this.route.getPath());
 			try {
-				if (!b.getCanonicalPath().contains(this.userFolder))
-					this.path = this.userFolder;
+				if (!b.getCanonicalPath().contains(this.userDir))
+					this.route.setPath(this.userDir);
 				else
-					this.path = b.getCanonicalPath();
+					this.route.setPath(b.getCanonicalPath());
 			} catch (IOException e) {
-				this.path = this.userFolder;
+				this.route.setPath(this.userDir);
 				e.printStackTrace();
 			}
-			this.browser.setPath(this.path);
+			this.browser.setRoute(this.route);
 			this.reload();
 			this.setSession();
 
@@ -511,47 +526,105 @@ public class FBManager {
 			// file process
 		}
 	}
+	private void openSharedPath() {
+		String name = this.json.getString("name");
+		String type = this.json.getString("type");
+		System.out.println(name);
+		System.out.println(type);
+		System.out.println(this.browser.getRoutes());
+	}
+	@SuppressWarnings("unchecked")
+	public void open() {
+		if(!this.browser.isLocal())
+			this.openSharedPath();
+		else
+			this.openPath();
+	}
 	public void newFBFrom(String path) {
 		this.setNewId();
 		Browser tmpBrowser = new Browser();
 		tmpBrowser.setId(this.id);
-		tmpBrowser.setPath(this.userFolder);
+		tmpBrowser.setRoute(this.strToPath(this.userDir));
 		this.browserList.add(tmpBrowser);
-		this.path = this.userFolder + path;
-		File b = new File(this.path);
+		this.route = new Route();
+		this.route.setPath(this.userDir + path);
+		File b = new File(this.route.getPath());
 		try {
-			if (!b.getCanonicalPath().contains(this.userFolder))
-				this.path = this.userFolder;
+			if (!b.getCanonicalPath().contains(this.userDir))
+				this.route.setPath(this.userDir);
 			else
-				this.path = b.getCanonicalPath();
-			b = new File("", this.path);
+				this.route.setPath(b.getCanonicalPath());
+			b = new File(this.route.getPath());
 		} catch (IOException e) {
-			this.path = this.userFolder;
+			this.route.setPath(this.userDir);
 			e.printStackTrace();
 		}
 		if (!b.exists())
-			this.path = this.userFolder;
-		tmpBrowser.setPath(this.path);
-		this.dataItemDAO.setFilePath(this.path);
+			this.route.setPath(this.userDir);
+		tmpBrowser.setRoute(this.route);
+		this.dataItemDAO.setDirPath(this.route);
 		this.dataItemDAO.load();
 		this.jsonArray = this.dataItemDAO.getJSONArray();
 		this.setSession();
-		this.session.setAttribute("root", this.userFolder);
+		this.session.setAttribute("root", this.userDir);
 	}
 
 	public void newFB() {
 		this.setNewId();
 		Browser tmpBrowser = new Browser();
 		tmpBrowser.setId(this.id);
-		tmpBrowser.setPath(this.userFolder);
+		tmpBrowser.setRoute(this.strToPath(this.userDir));
 		this.browserList.add(tmpBrowser);
-		this.dataItemDAO.setFilePath(this.userFolder);
+		this.dataItemDAO.setDirPath(this.strToPath(this.userDir));
 		this.dataItemDAO.load();
 		this.jsonArray = this.dataItemDAO.getJSONArray();
 		this.setSession();
-		this.session.setAttribute("root", this.userFolder);
+		this.session.setAttribute("root", this.userDir);
+	}
+	private Route strToPath(String path){
+		Route tmpPath = new Route();
+		tmpPath.setPath(path);
+		tmpPath.setPermissions("rwx");
+		return tmpPath;
+	}
+	public void newSFB() {
+		this.setNewId();
+		Browser tmpBrowser = new Browser();
+		tmpBrowser.setId(this.id);
+		tmpBrowser.setRoutes(this.sharedRoutes);
+		tmpBrowser.setLocal(false);
+		this.browserList.add(tmpBrowser);
+		this.dataItemDAO.setDirPaths(this.sharedRoutes);
+		this.dataItemDAO.loadData();
+		this.jsonArray = this.dataItemDAO.getJSONArray();
+		this.setSession();
 	}
 
+	public void loadSharedFolders() {
+		this.sfDAO = new SharedFoldersDAOSQLite();
+		this.suDAO = new SharedUsersDAOSQLite();
+		this.suDAO.setUser(this.user);
+		this.suDAO.loadFoldersForUser();
+		String ids = this.suDAO.getSharedUserMap().keySet().toString();
+		ids = ids.substring(0, ids.length()-1);
+		ids = ids.substring(1, ids.length());
+		this.sfDAO.selectFolders(ids);
+		this.suMap = this.suDAO.getSharedUserMap();
+		this.sfMap = this.sfDAO.getSharedFolderMap();
+		Set<Integer> keySet = this.suMap.keySet();
+		Iterator<Integer> keys = keySet.iterator();
+		int key;
+		this.sharedRoutes = new Route[this.suMap.size()];
+		int cnt = 0;
+		while(keys.hasNext()) {
+			key = (int) keys.next();
+			this.sharedRoutes[cnt] = new Route();
+			this.sharedRoutes[cnt].setPath(this.sfMap.get(key).getFolder());
+			this.sharedRoutes[cnt].setPermissions(this.suMap.get(key).getPermissions());
+			cnt++;
+		}
+	}
+	
 	public JSONObject getJson() {
 		return json;
 	}
@@ -598,11 +671,11 @@ public class FBManager {
 	}
 
 	public String getUserFolder() {
-		return userFolder;
+		return userDir;
 	}
 
 	public void setUserFolder(String userFolder) {
-		this.userFolder = userFolder;
+		this.userDir = userFolder;
 	}
 
 	public ServletContext getServletContext() {
@@ -636,12 +709,12 @@ public class FBManager {
 	public void setResponse(HttpServletResponse response) {
 		this.response = response;
 	}
-	public String getPath() {
-		return path;
+	public Route getRoute() {
+		return route;
 	}
 
-	public void setPath(String path) {
-		this.path = path;
+	public void setRoute(Route path) {
+		this.route = path;
 	}
 	
 	public JSONArray getDesktopJSONArray() {
@@ -666,5 +739,13 @@ public class FBManager {
 
 	public void setDesktopJSON(JSONObject desktopJSON) {
 		this.desktopJSON = desktopJSON;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

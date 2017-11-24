@@ -85,13 +85,12 @@ apps.fileBrowser.modules.FileBrowser = function(id){
 		});
 	}
 	this.appendFunctionForTable = function(){
-		var winInfo = this.winInfo;
 		
 		if(sessionStorage.fileBrowser === undefined)
 			sessionStorage.fileBrowser = "[]";
 		this.funcArray = JSON.parse(sessionStorage.fileBrowser);
-		if(winInfo.options["dblclick"] !== undefined) {
-			var json = {"dblclick":winInfo.options["dblclick"]};
+		if(this.winInfo !== undefined && this.winInfo.options["dblclick"] !== undefined) {
+			var json = {"dblclick":this.winInfo.options["dblclick"]};
 			this.funcArray[this.id] = json;
 		}
 		sessionStorage.fileBrowser = JSON.stringify(this.funcArray);

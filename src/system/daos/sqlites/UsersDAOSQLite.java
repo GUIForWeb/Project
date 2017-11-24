@@ -65,8 +65,9 @@ public class UsersDAOSQLite  implements UsersDAO{
 		else if(!this.user.getPassword().equals(inputPw)){
 			dbAuth.addErrorCode(-3, "equal");
 		}
-		if(!dbAuth.isError())
+		if(!dbAuth.isError()) {
 			this.session.setAttribute("User", this.user);
+		}
 		return dbAuth;
 	}
 	@Override
@@ -137,7 +138,7 @@ public class UsersDAOSQLite  implements UsersDAO{
 		String query3 = "SELECT MAX(id) FROM oss_t";
 		String query4 = "INSERT INTO guisettings_in_os_t (os_id, guisetting_id, selected) VALUES (?, ?, 1)";
 		String query5 = "INSERT INTO icons_in_os_t (os_id,icon_id, x, y) VALUES (?, 1, 0, 0)";
-		String query6 = "INSERT INTO icons_in_os_t (os_id,icon_id, x, y) VALUES (?, 2, 0, 0)";
+		String query6 = "INSERT INTO icons_in_os_t (os_id,icon_id, x, y) VALUES (?, 2, 0, 1)";
 		String query7 = "INSERT INTO icons_in_os_t (os_id,icon_id, x, y) VALUES (?, 4, 0, 2);";
 		try {
 			ResultSet rset0 = this.db.executeQuery(query0);

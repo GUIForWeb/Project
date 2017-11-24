@@ -16,7 +16,6 @@ apps.fileBrowser.controllers.FBClick = function() {
 	this.rename = function(event) {
 		if (this.va["validation"] && !this.select.mousemove.isWorking) {
 			var nameDiv = this.tag["s"].children().children().first();
-			console.log(nameDiv);
 			nameDiv.attr("contenteditable", true);
 			var id = this.id;
 			nameDiv.focusout(function(event) {

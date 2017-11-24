@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import system.authentications.Authentication;
 import system.models.User;
 import system.paths.Path;
-import system.xmls.XMLManager;
 
 public class SystemJSF {
 	protected int port;
@@ -33,11 +32,11 @@ public class SystemJSF {
 		this.context = (ServletContext) this.externalContext.getContext();
 		this.contextPath = this.externalContext.getApplicationContextPath();
 		this.auth = new Authentication();
-		session = (HttpSession) this.externalContext.getSession(true);
+		this.session = (HttpSession) this.externalContext.getSession(true);
 		this.viewArray = new String[2];
-		if(null != session.getAttribute("User")) {
-			this.user = (User) session.getAttribute("User");
-			this.userFolder =  Path.storageDir + this.user.getEmail();;
+		if(null != this.session.getAttribute("User")) {
+			this.user = (User) this.session.getAttribute("User");
+			this.userFolder =  Path.storageDir + this.user.getEmail();
 		}
 		String scheme = this.externalContext.getRequestScheme();
 		this.serverName = this.externalContext.getRequestServerName();

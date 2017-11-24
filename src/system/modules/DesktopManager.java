@@ -21,6 +21,7 @@ import system.daos.sqlites.DataIconsDAOSQLite;
 import system.daos.sqlites.IconsInOSDAOSQLite;
 import system.models.DataItem;
 import system.models.OS;
+import system.models.Route;
 import system.models.User;
 
 public class DesktopManager {
@@ -135,6 +136,12 @@ public class DesktopManager {
 			this.isUpdated = true;
 		}
 	}
+	private Route[] strToPaths(String path){
+		Route[] paths = new Route[1];
+		paths[0].setPath(path);
+		paths[0].setPermissions("rwx");
+		return paths;
+	}
 	private void checkExistenceAndProcess(String status, JSONArray data, String srcPath, String destPath) {
 		if (data.length() != 0) {
 			JSONObject tmpJSON = data.getJSONObject(0);
@@ -148,7 +155,7 @@ public class DesktopManager {
 				if (type.equals("inode/directory")) {
 					destPath = destPath + this.fileSeparator + name;
 					srcPath = srcPath + this.fileSeparator + name;
-					this.dataItemsDAO.setFilePath(destPath);
+					this.dataItemsDAO.setDirPaths(this.strToPaths(destPath));
 					this.dataItemsDAO.load();
 					JSONArray tmpData = this.dataItemsDAO.getJSONArray();
 					this.checkExistenceAndProcess(status, tmpData, srcPath, destPath);

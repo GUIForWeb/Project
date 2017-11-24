@@ -13,7 +13,6 @@ import apps.jsfs.ApplicationJSF;
 @RequestScoped
 public class FileBrowser extends ApplicationJSF{
 	private FBManager fbm;
-	private Part file;
 	public FileBrowser() {
 		this.fbm = new FBManager();
 	}
@@ -27,6 +26,14 @@ public class FileBrowser extends ApplicationJSF{
 		else
 			this.fbm.newFBFrom(path);
 	}
+	public void initShare() {
+		this.redirect();
+		this.fbm.setSession(this.session);
+		this.fbm.setUser(this.user);
+		this.fbm.loadRoot();
+		this.fbm.loadSharedFolders();
+		this.fbm.newSFB();
+	}
 	public JSONArray getDataItemArray() {
 		return this.fbm.getJSONArray();
 	}
@@ -38,12 +45,6 @@ public class FileBrowser extends ApplicationJSF{
 	}
 	public void setId(int id) {
 		this.fbm.setId(id);
-	}
-	public Part getFile() {
-		return file;
-	}
-	public void setFile(Part file) {
-		this.file = file;
 	}
 	public String getServerName() {
 		return this.serverName;

@@ -1,5 +1,7 @@
 package system.jsfs;
 
+import java.util.Enumeration;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
@@ -13,6 +15,11 @@ public class Logout extends SystemJSF {
 	public String logout(){
 		String str = "login";
 		this.session.invalidate();
+		/*
+		Enumeration<String> names = this.session.getAttributeNames();
+		while(names.hasMoreElements())
+			this.session.removeAttribute(names.nextElement());
+		*/
 		return str;
 	}
 }

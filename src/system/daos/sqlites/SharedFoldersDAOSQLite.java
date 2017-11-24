@@ -2,19 +2,11 @@ package system.daos.sqlites;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
-
-import system.authentications.Authentication;
-import system.authentications.DbAuth;
-import system.authentications.Parameter;
 import system.daoInterfaces.SharedFoldersDAO;
-import system.daoInterfaces.SharedUsersDAO;
-import system.daoInterfaces.UsersDAO;
 import system.databases.SQLite;
-import system.helpers.Encryption;
 import system.models.SharedFolder;
 import system.models.User;
 
@@ -29,8 +21,27 @@ public class SharedFoldersDAOSQLite  implements SharedFoldersDAO{
 	private String folder;
 	private ResultSet rset;
 	private SharedFolder sharedFolder;
+	private Map<Integer,SharedFolder> sharedFolderMap;
 	public SharedFoldersDAOSQLite(){
 		this.db = new SQLite();
+	}
+	@Override
+	public void selectFolders(String ids){
+		this.sharedFolderMap = new HashMap<Integer,SharedFolder>();
+		String query = "SELECT * FROM "+this.table0+" WHERE id IN ("+ids+")";
+		this.sharedFolder = null;
+		try {
+			this.rset = this.db.executeQuery(query);
+			while(this.rset.next()){
+				this.sharedFolder = new SharedFolder();
+				this.sharedFolder.setId(this.rset.getInt(this.expr0));
+				this.sharedFolder.setUserId(this.rset.getInt(this.expr1));
+				this.sharedFolder.setFolder(this.rset.getString(this.expr2));
+				this.sharedFolderMap.put(this.sharedFolder.getId(), this.sharedFolder);
+		 	}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	@Override
 	public void newSharedFolder() {
@@ -75,5 +86,9 @@ public class SharedFoldersDAOSQLite  implements SharedFoldersDAO{
 	public void deleteAll(int userId) {
 		String query = "DELETE FROM "+this.table0+" WHERE "+this.expr1+" = ?";
 		this.db.executeUpdate(query,userId);
+	}
+	@Override
+	public Map<Integer, SharedFolder> getSharedFolderMap() {
+		return sharedFolderMap;
 	}
 }

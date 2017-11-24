@@ -1,9 +1,8 @@
 package apps.fileBrowser.jsfs;
 
 import java.util.HashMap;
-import java.util.Map;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import org.json.JSONObject;
@@ -13,7 +12,7 @@ import apps.jsfs.ApplicationJSF;
 import system.models.SharedUser;
 
 @Named
-@ApplicationScoped
+@RequestScoped
 public class Share extends ApplicationJSF {
 	private int toId;
 	private int suId;
@@ -22,16 +21,17 @@ public class Share extends ApplicationJSF {
 	private ShareManager sm;
 	private SharedUser[] sharedUsers;
 	public Share() {
+		super();
 		this.sm = new ShareManager();
-	}
-	public void init() {
-		this.redirect();
 		JSONObject json = (JSONObject) this.session.getAttribute("clipboard");
 		this.folder = json.getString("path") + System.getProperty("file.separator") + json.getJSONArray("data").getJSONObject(0).getString("name");
 		this.sm.setUser(this.user);
 		this.sm.setFolder(this.folder);
 		this.sm.loadSharedUsers();
-		this.sharedUsers = this.sm.getSharedUsers(); 
+		this.sharedUsers = this.sm.getSharedUsers();
+	}
+	public void init() {
+		this.redirect();
 	}
 	public void start() {
 		this.sm.setUser(this.user);
