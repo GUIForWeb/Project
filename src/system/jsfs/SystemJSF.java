@@ -23,7 +23,7 @@ public class SystemJSF {
 	protected String[] viewArray;
 	protected String view;
 	protected String serverName;
-	protected String userFolder;
+	protected String userDir;
 	protected boolean isMobile;
 	final protected int IN = 0;
 	final protected int OUT = 1;
@@ -36,7 +36,7 @@ public class SystemJSF {
 		this.viewArray = new String[2];
 		if(null != this.session.getAttribute("User")) {
 			this.user = (User) this.session.getAttribute("User");
-			this.userFolder =  Path.storageDir + this.user.getEmail();
+			this.userDir =  Path.storageDir + this.user.getEmail();
 		}
 		String scheme = this.externalContext.getRequestScheme();
 		this.serverName = this.externalContext.getRequestServerName();

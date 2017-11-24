@@ -38,9 +38,10 @@ import system.models.SharedUser;
 import system.models.User;
 
 public class FBManager {
+	private boolean isPrivate;
 	private int id;
 	private User user;
-	private String userDir;
+	private String topDir;
 	private Route route;
 	private String desktopPath = "";
 	private JSONObject json;
@@ -63,14 +64,13 @@ public class FBManager {
 	private Map<Integer,SharedUser> suMap;
 	private Route[] sharedRoutes;
 	public FBManager() {
+		this.isPrivate = true;
 		this.dataItemDAO = new DataItemsDAO();
 		this.fileSeparator = System.getProperty("file.separator");
 	}
-
 	private void setSession() {
 		this.session.setAttribute("browserList", this.browserList);
 	}
-
 	public void findBrowser() {
 		this.getSession();
 		this.id = this.json.getInt("id");
@@ -82,6 +82,7 @@ public class FBManager {
 			}
 		}
 		this.route = this.browser.getRoute();
+		this.isPrivate = this.browser.isPrivate();
 	}
 
 	public void isNotInWindow() {
@@ -99,7 +100,7 @@ public class FBManager {
 		this.jsonArray = this.dataItemDAO.getJSONArray();
 		this.json = new JSONObject();
 		this.json.put("status", "reload");
-		String path = this.route.getPath().replace(this.userDir, "");
+		String path = this.route.getPath().replace(this.topDir, "");
 		this.json.put("path", path);
 		this.json.put("data", this.jsonArray);
 	}
@@ -122,7 +123,7 @@ public class FBManager {
 			this.json.put("status", "multiReload");
 			data.put("id", ids);
 			data.put("data", this.jsonArray);
-			String path = this.route.getPath().replace(this.userDir, "");
+			String path = this.route.getPath().replace(this.topDir, "");
 			this.json.put("path", path);
 			this.json.put("data", data);
 		}
@@ -292,7 +293,7 @@ public class FBManager {
 			json = new JSONObject();
 			json.put("id", id);
 			json.put("data", this.jsonArray);
-			path = this.route.getPath().replace(this.userDir, "");
+			path = this.route.getPath().replace(this.topDir, "");
 			json.put("path", path);
 			data.put(json);
 			this.json.put("data", data);
@@ -499,10 +500,6 @@ public class FBManager {
 		return newFolder;
 	}
 
-	public void loadRoot() {
-		this.userDir = (String) this.session.getAttribute("userFolder");
-		this.desktopPath += this.userDir + this.fileSeparator + "Desktop";
-	}
 	private void openPath() {
 		String name = this.json.getString("name");
 		String type = this.json.getString("type");
@@ -511,12 +508,12 @@ public class FBManager {
 			this.route.setPath(this.browser.getRoute().getPath() + this.fileSeparator + name);
 			File b = new File(this.route.getPath());
 			try {
-				if (!b.getCanonicalPath().contains(this.userDir))
-					this.route.setPath(this.userDir);
+				if (!b.getCanonicalPath().contains(this.topDir))
+					this.route.setPath(this.topDir);
 				else
 					this.route.setPath(b.getCanonicalPath());
 			} catch (IOException e) {
-				this.route.setPath(this.userDir);
+				this.route.setPath(this.topDir);
 				e.printStackTrace();
 			}
 			this.browser.setRoute(this.route);
@@ -527,60 +524,112 @@ public class FBManager {
 			// file process
 		}
 	}
-	private void openSharedPath() {
-		String name = this.json.getString("name");
-		String type = this.json.getString("type");
-		System.out.println(name);
-		System.out.println(type);
-		System.out.println(this.browser.getRoutes());
+	private void initPrivate() {
+		this.topDir = (String) this.session.getAttribute("userDir");
+		this.desktopPath = this.topDir + this.fileSeparator + "Desktop";
 	}
-	@SuppressWarnings("unchecked")
-	public void open() {
-		if(!this.browser.isLocal())
-			this.openSharedPath();
+	public void init() {
+		if(this.isPrivate)
+			this.initPrivate();
 		else
-			this.openPath();
+			this.initShared();
 	}
-	public void newFBFrom(String path) {
-		this.setNewId();
-		Browser tmpBrowser = new Browser();
-		tmpBrowser.setId(this.id);
-		tmpBrowser.setRoute(this.strToPath(this.userDir));
-		this.browserList.add(tmpBrowser);
-		this.route = new Route();
-		this.route.setPath(this.userDir + path);
+	private void initShared() {
+		this.topDir = (String) this.session.getAttribute("sharedDir");
+		this.desktopPath = (String) this.session.getAttribute("userDir") + this.fileSeparator + "Desktop";
+	}
+	private void openSharedPath() {
+		if(this.browser.getRoute() == null) {
+			String name = this.json.getString("name");
+			String type = this.json.getString("type");
+			Route[] routes = this.browser.getSharedRoutes();
+			for(int ri=0; ri<routes.length; ri++)
+				if(routes[ri].getLastPath().equals(name)) {
+					this.session.setAttribute("sharedDir",routes[ri].getPath());
+					this.browser.setRoute(routes[ri]);
+					this.route = new Route();
+				}
+			this.initShared();
+			this.route.setPath(this.browser.getRoute().getPath());
+			File b = new File(this.route.getPath());
+			try {
+				if (!b.getCanonicalPath().contains(this.topDir))
+					this.route.setPath(this.topDir);
+				else
+					this.route.setPath(b.getCanonicalPath());
+			} catch (IOException e) {
+				this.route.setPath(this.topDir);
+				e.printStackTrace();
+			}
+			this.browser.setRoute(this.route);
+			this.reload();
+			this.setSession();
+		}
+		else {
+			this.openPath();
+		}
+		/*
+		this.route.setPath(this.browser.getRoute().getPath() + this.fileSeparator + name);
 		File b = new File(this.route.getPath());
 		try {
 			if (!b.getCanonicalPath().contains(this.userDir))
 				this.route.setPath(this.userDir);
 			else
 				this.route.setPath(b.getCanonicalPath());
-			b = new File(this.route.getPath());
 		} catch (IOException e) {
 			this.route.setPath(this.userDir);
 			e.printStackTrace();
 		}
+		this.browser.setRoute(this.route);
+		this.reload();
+		this.setSession();
+		*/
+	}
+	@SuppressWarnings("unchecked")
+	public void open() {
+		if(this.browser.isPrivate())
+			this.openPath();
+		else
+			this.openSharedPath();
+	}
+	public void newFBFrom(String path) {
+		this.setNewId();
+		Browser tmpBrowser = new Browser();
+		tmpBrowser.setId(this.id);
+		tmpBrowser.setRoute(this.strToPath(this.topDir));
+		this.browserList.add(tmpBrowser);
+		this.route = new Route();
+		this.route.setPath(this.topDir + path);
+		File b = new File(this.route.getPath());
+		try {
+			if (!b.getCanonicalPath().contains(this.topDir))
+				this.route.setPath(this.topDir);
+			else
+				this.route.setPath(b.getCanonicalPath());
+			b = new File(this.route.getPath());
+		} catch (IOException e) {
+			this.route.setPath(this.topDir);
+			e.printStackTrace();
+		}
 		if (!b.exists())
-			this.route.setPath(this.userDir);
+			this.route.setPath(this.topDir);
 		tmpBrowser.setRoute(this.route);
 		this.dataItemDAO.setDirPath(this.route);
 		this.dataItemDAO.load();
 		this.jsonArray = this.dataItemDAO.getJSONArray();
 		this.setSession();
-		this.session.setAttribute("root", this.userDir);
 	}
 
 	public void newFB() {
 		this.setNewId();
 		Browser tmpBrowser = new Browser();
 		tmpBrowser.setId(this.id);
-		tmpBrowser.setRoute(this.strToPath(this.userDir));
+		tmpBrowser.setRoute(this.strToPath(this.topDir));
 		this.browserList.add(tmpBrowser);
-		this.dataItemDAO.setDirPath(this.strToPath(this.userDir));
+		this.dataItemDAO.setDirPath(this.strToPath(this.topDir));
 		this.dataItemDAO.load();
 		this.jsonArray = this.dataItemDAO.getJSONArray();
 		this.setSession();
-		this.session.setAttribute("root", this.userDir);
 	}
 	private Route strToPath(String path){
 		Route tmpPath = new Route();
@@ -592,8 +641,8 @@ public class FBManager {
 		this.setNewId();
 		Browser tmpBrowser = new Browser();
 		tmpBrowser.setId(this.id);
-		tmpBrowser.setRoutes(this.sharedRoutes);
-		tmpBrowser.setLocal(false);
+		tmpBrowser.setSharedRoutes(this.sharedRoutes);
+		tmpBrowser.setPrivate(false);
 		this.browserList.add(tmpBrowser);
 		this.dataItemDAO.setDirPaths(this.sharedRoutes);
 		this.dataItemDAO.loadData();
@@ -622,6 +671,7 @@ public class FBManager {
 			this.sharedRoutes[cnt] = new Route();
 			this.sharedRoutes[cnt].setPath(this.sfMap.get(key).getFolder());
 			this.sharedRoutes[cnt].setPermissions(this.suMap.get(key).getPermissions());
+			this.sharedRoutes[cnt].setLastPath(this.sfMap.get(key).getFolder().substring(this.sfMap.get(key).getFolder().lastIndexOf(this.fileSeparator)+1));
 			cnt++;
 		}
 	}
@@ -672,11 +722,11 @@ public class FBManager {
 	}
 
 	public String getUserFolder() {
-		return userDir;
+		return topDir;
 	}
 
 	public void setUserFolder(String userFolder) {
-		this.userDir = userFolder;
+		this.topDir = userFolder;
 	}
 
 	public ServletContext getServletContext() {
@@ -748,5 +798,11 @@ public class FBManager {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public boolean isPrivate() {
+		return isPrivate;
+	}
+	public void setPrivate(boolean isPrivate) {
+		this.isPrivate = isPrivate;
 	}
 }

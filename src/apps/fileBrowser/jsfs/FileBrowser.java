@@ -19,18 +19,19 @@ public class FileBrowser extends ApplicationJSF{
 	public void init(){
 		this.redirect();
 		this.fbm.setSession(this.session);
-		this.fbm.loadRoot();
+		this.fbm.init();
 		String path = this.externalContext.getRequestParameterMap().get("path");
 		if(null == path)
 			this.fbm.newFB();
 		else
 			this.fbm.newFBFrom(path);
+		
 	}
 	public void initShare() {
 		this.redirect();
+		this.fbm.setPrivate(false);
 		this.fbm.setSession(this.session);
 		this.fbm.setUser(this.user);
-		this.fbm.loadRoot();
 		this.fbm.loadSharedFolders();
 		this.fbm.newSFB();
 	}

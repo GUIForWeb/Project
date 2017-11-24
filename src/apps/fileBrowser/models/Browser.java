@@ -6,12 +6,12 @@ public class Browser {
 	private int id;
 	private boolean isWeb;
 	private Route route;
-	private Route[] routes;
-	private boolean isLocal;
+	private Route[] SharedRoutes;
+	private boolean isPrivate;
 	public Browser(){
 		this.id = 0;
 		this.isWeb = false;
-		this.isLocal = true;
+		this.isPrivate = true;
 	}
 	public Route getRoute() {
 		return route;
@@ -31,24 +31,26 @@ public class Browser {
 	public void setWeb(boolean isWeb) {
 		this.isWeb = isWeb;
 	}
-	public Route[] getRoutes() {
-		return routes;
+	public Route[] getSharedRoutes() {
+		return SharedRoutes;
 	}
-	public void setRoutes(Route[] routes) {
-		this.routes = routes;
+	public void setSharedRoutes(Route[] SharedRoutes) {
+		this.SharedRoutes = SharedRoutes;
 	}
-	public boolean isLocal() {
-		return isLocal;
+	public boolean isPrivate() {
+		return isPrivate;
 	}
-	public void setLocal(boolean isLocal) {
-		this.isLocal = isLocal;
+	public void setPrivate(boolean isPrivate) {
+		this.isPrivate = isPrivate;
 	}
 	public String toString(){
 		String str = "";
 		str += "ID         :"+this.id + System.getProperty("line.separator");
-		if(this.routes != null && this.routes.length != 0) 
-			for(int pi=0; pi<this.routes.length; pi++)
-				str += this.routes[pi] + System.getProperty("line.separator");
+		str += this.route + System.getProperty("line.separator");
+		str += "=========Shared Routes========" + System.getProperty("line.separator");
+		if(this.SharedRoutes != null && this.SharedRoutes.length != 0) 
+			for(int pi=0; pi<this.SharedRoutes.length; pi++)
+				str += this.SharedRoutes[pi] + System.getProperty("line.separator");
 		str += "Is Web     :"+this.isWeb;
 		return str;
 	}

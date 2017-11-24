@@ -60,8 +60,8 @@ public class FBWebSocket implements WebSocketInterface{
 		String status = json.getString("status");
 		json.remove("status");
 		this.fbm.setJSON(json);
-		this.fbm.loadRoot();
 		this.fbm.findBrowser();
+		this.fbm.init();
 		this.fbmSwitchCase(status);
 		this.dmSwitchCase(status);
 		int id = this.fbm.getId();

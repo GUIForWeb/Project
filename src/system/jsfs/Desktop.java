@@ -74,7 +74,7 @@ public class Desktop extends SystemJSF {
 				this.session.setAttribute("winAndBarJSONArray", new JSONArray());
 			}
 			if (null == this.session.getAttribute("webapps")) {
-				this.session.setAttribute("userFolder", this.userFolder);
+				this.session.setAttribute("userDir", this.userDir);
 			}
 			this.externalContext.getApplicationMap().put("guiSetting", guiSetting);
 			this.externalContext.getApplicationMap().put("iconJSONArray", iconDAO.getIconJSONArray());
@@ -92,7 +92,7 @@ public class Desktop extends SystemJSF {
 		if(null != this.os){
 			DesktopManager desktopManager = new DesktopManager();
 			desktopManager.setUser(this.user);
-			desktopManager.setUserFolder(this.userFolder);
+			desktopManager.setUserDir(this.userDir);
 			desktopManager.setOS(this.os);
 			desktopManager.init();
 			this.session.setAttribute("desktopManager", desktopManager);
