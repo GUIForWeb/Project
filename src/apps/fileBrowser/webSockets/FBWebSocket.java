@@ -73,12 +73,14 @@ public class FBWebSocket implements WebSocketInterface{
 		return json;
 	}
 	private void dmSwitchCase(String status){
-		if(this.fbm.getRoute() != null && (this.fbm.getUserFolder() + System.getProperty("file.separator") + "Desktop").equals(this.fbm.getRoute().getPath())){
+		System.out.println(this.fbm.isDesktopWork());
+		if(this.fbm.isDesktopWork()){
 			if(status.equals("newFolder") || status.equals("rename") || status.equals("del") ||	status.equals("paste") || status.equals("uploadStart") || status.equals("pasteToDesktop")){
 				this.dm = (DesktopManager) this.session.getAttribute("desktopManager");
 				this.dm.setJSONArray(this.fbm.getDesktopJSONArray());
 				this.dm.setJSON(this.fbm.getDesktopJSON());
 			}
+			System.out.println(status);
 			switch (status) {
 				case "del":
 					this.dm.delDataIcon();

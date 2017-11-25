@@ -128,6 +128,8 @@ public class DesktopManager {
 			String status = clipboard.getString("status");
 			String path = clipboard.getString("path");
 			JSONArray data = clipboard.getJSONArray("data");
+			System.out.println(path);
+			System.out.println("=========");
 			if(!(path.equals(this.desktopPath) && status.equals("cut"))) {
 				this.checkExistenceAndProcess(status, data, path, this.desktopPath);
 				this.insertDataIcon();
@@ -297,6 +299,7 @@ public class DesktopManager {
 		this.insertDataIcon();
 	}
 	public void insertDataIcon() {
+		System.out.println(this.jsonArray);
 		if(this.jsonArray.length() != 0) {
 			this.dataIconsDAO.insert(this.jsonArray);
 			this.dataIconsDAO.load();

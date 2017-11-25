@@ -63,8 +63,10 @@ public class FBManager {
 	private Map<Integer,SharedFolder> sfMap;
 	private Map<Integer,SharedUser> suMap;
 	private Route[] sharedRoutes;
+	private boolean isDesktopWork;
 	public FBManager() {
 		this.isPrivate = true;
+		this.isDesktopWork = false;
 		this.dataItemDAO = new DataItemsDAO();
 		this.fileSeparator = System.getProperty("file.separator");
 	}
@@ -297,7 +299,6 @@ public class FBManager {
 			json.put("path", path);
 			data.put(json);
 			this.json.put("data", data);
-			System.out.println(this.json);
 		}
 	}
 	private void checkExistenceAndProcess(String status, JSONArray data, String srcPath, String destPath) {
@@ -326,7 +327,6 @@ public class FBManager {
 							FileUtils.copyFile(src, dest);
 							this.makeDesktopArray(src, dest);
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					} else if (status.equals("cut")) {
@@ -334,7 +334,6 @@ public class FBManager {
 							FileUtils.moveFile(src, dest);
 							this.makeDesktopArray(src, dest);
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
@@ -347,7 +346,6 @@ public class FBManager {
 							FileUtils.copyDirectoryToDirectory(src, dest);
 							this.makeDesktopArray(src, dest);
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					} else if (status.equals("cut")) {
@@ -355,7 +353,6 @@ public class FBManager {
 							FileUtils.moveDirectoryToDirectory(src, dest, true);
 							this.makeDesktopArray(src, dest);
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
@@ -365,7 +362,6 @@ public class FBManager {
 							FileUtils.copyFile(src, dest);
 							this.makeDesktopArray(src, dest);
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					} else if (status.equals("cut")) {
@@ -373,7 +369,6 @@ public class FBManager {
 							FileUtils.moveFile(src, dest);
 							this.makeDesktopArray(src, dest);
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
@@ -407,6 +402,7 @@ public class FBManager {
 			tmpDI.setDateModified(sdf.format(file.lastModified()));
 			tmpDI.setSize(file.length());
 			this.desktopJSONArray.put(tmpDI.getJSON());
+			this.isDesktopWork = true;
 		}
 	}
 	public void setClipboard(String status) {
@@ -462,6 +458,7 @@ public class FBManager {
 		}
 		this.multiReload();
 		if(this.route.getPath().equals(this.desktopPath)){
+			this.isDesktopWork = true;
 			this.desktopJSON = new JSONObject();
 			this.desktopJSON.put("src",src.getName());
 			this.desktopJSON.put("dest",dest.getName());
@@ -480,6 +477,7 @@ public class FBManager {
 		this.jsonArray = this.dataItemDAO.getJSONArray();
 		this.multiReload();
 		if(this.route.getPath().equals(this.desktopPath)){
+			this.isDesktopWork = true;
 			this.desktopJSON = new JSONObject();
 			this.desktopJSON.put("name", newFolder.getName());
 			try {
@@ -795,5 +793,11 @@ public class FBManager {
 	}
 	public void setPrivate(boolean isPrivate) {
 		this.isPrivate = isPrivate;
+	}
+	public boolean isDesktopWork() {
+		return isDesktopWork;
+	}
+	public void setDesktopWork(boolean isDesktopWork) {
+		this.isDesktopWork = isDesktopWork;
 	}
 }
