@@ -17,7 +17,7 @@ system.views.TaskbarView = function(BarModel) {
 	this.outerLayer = function() {
 		var tmpTag = $("<div></div>");
 		tmpTag.attr("id", this.tagId);
-		tmpTag.css("z-index", 0);
+		tmpTag.css("z-index", 100);
 		tmpTag.css("position", "absolute");
 		tmpTag.addClass(this.outerLayerTagClass);
 		tmpTag.width(this.oWidth);

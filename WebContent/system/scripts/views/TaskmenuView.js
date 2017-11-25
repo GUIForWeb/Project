@@ -6,7 +6,9 @@ system.views.TaskmenuView = function(taskmenuModel) {
 	this.taskmenuLayer = function() {
 		this.taskmenuSelector = this.outerSelector;
 	}
-	
+	this.setZIndex = function(zIndex) {
+		this.outerSelector.css("zIndex",zIndex);
+	}
 	this.outerLayer = function() {
 		var outerTag = $("<div></div>");
 		var menuTag = $("<div></div>");
