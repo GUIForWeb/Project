@@ -37,6 +37,7 @@ system.views.WindowView = function(windowModel) {
 	this.swLeft = 0;
 	this.nTop = 0;
 	this.wLeft = 0;
+	this.isFirst = false;
 	this.setZIndex = function(zIndex) {
 		this.outerSelector[0].style.zIndex = zIndex;
 		this.zIndex = zIndex;

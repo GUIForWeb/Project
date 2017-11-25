@@ -3,6 +3,13 @@ system.elements.winAndBars.subsystems.WinAndBarRepository = function() {
 		"app" : "system.webSockets.WinAndBarWebSocket",
 		"data" : {}
 	}
+	this.moveWinToTop = function(zIndex) {
+		this.json.data = {
+				"status" : "moveWinToTop",
+				"zIndex" : zIndex
+		}
+		this.ws.send(this.json);
+	}
 	this.updateContent = function(win) {
 		var numId = win.numId;
 		var content = win.view.contentSelector.html();

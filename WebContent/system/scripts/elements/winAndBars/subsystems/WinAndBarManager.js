@@ -42,7 +42,6 @@ system.elements.winAndBars.subsystems.WinAndBarManager = function() {
 		return this.ee.moveWinToTop(winTag);
 	}
 	this.disappearAll = function() {
-		console.log(gui.winAndBar.manager.isAllDisappeared);
 		this.isAllDisappeared = true;
 		this.ee.disappearAll();
 		this.pe.removeAll();
@@ -65,7 +64,7 @@ system.elements.winAndBars.subsystems.WinAndBarManager = function() {
 		this.wm.append(iconObj, winAndBarNode);
 		this.pe.append(winAndBarNode);
 		this.valueArray["newId"]++;
-		winAndBarNode.win.isFirst = false;
+		winAndBarNode.win.view.isFirst = false;
 		return winAndBarNode;
 	}
 }

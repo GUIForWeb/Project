@@ -72,11 +72,9 @@ system.elements.winAndBars.subsystems.engines.PositioningEngine = function() {
 		var tagId = winAndBarNode.win.tagId;
 		var coordinate = this.windowCoordinate[tagId];
 		var cLen = this.windowCoordinate[coordinate].length;
-		for (ci = 0; ci < cLen; ci++) {
-			if (this.windowCoordinate[coordinate][ci] == tagId) {
+		for (ci = 0; ci < cLen; ci++)
+			if (this.windowCoordinate[coordinate][ci] == tagId)
 				delete this.windowCoordinate[coordinate][ci];
-			}
-		}
 		delete this.windowCoordinate[tagId];
 		this.windowCoordinate[coordinate] = this.windowCoordinate[coordinate].filter(function(elm){return elm != undefined});
 		if(this.windowCoordinate[coordinate].length == 0)
@@ -102,7 +100,7 @@ system.elements.winAndBars.subsystems.engines.PositioningEngine = function() {
 				left : this.left,
 				top : this.top
 			});
-		} else if(winAndBarNode.win.isFirst) {
+		} else if(winAndBarNode.win.view.isFirst) {
 			this.left += 30;
 			this.top += 30;
 			this.windowPositioning(winAndBarNode);

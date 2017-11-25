@@ -42,6 +42,7 @@ system.elements.winAndBars.subsystems.managers.WindowManager = function() {
 		tmpNode.win.windowZoneSelector = this.windowZoneSelector;
 		tmpNode.win.view.setDefaultValues(this.winDefaultValueArray);
 		tmpNode.win.view.zIndex = zIndex;
+		tmpNode.win.view.isFirst = true;
 		tmpNode.win.content = this.request.getData(this.contextPath
 				+ iconObj.contentURL);
 		tmpNode.win.contentURL = iconObj.contentURL;

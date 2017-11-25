@@ -21,9 +21,16 @@ system.elements.winAndBars.controllers.WinAndBarClick = function() {
 		var winTagId = this.winTagIdRule + this.getBarNumId(barTag);
 		var winTag = $("#" + winTagId)[0];
 		if (winTag) {
+			var winCount = gui.nodeArray["winAndBar"].winCount;
 			var zIndex = winTag.style.zIndex;
-			this.manager.disappear(winTag);
-			this.repo.disappear(zIndex);
+			if(zIndex == winCount-1){
+				this.manager.disappear(winTag);
+				this.repo.disappear(zIndex);
+			}
+			else {
+				var winAndBarNode = this.manager.moveWinToTop(winTag);
+				this.repo.moveWinToTop(zIndex);
+			}
 		} else {
 			this.manager.appear(barTag);
 			this.repo.appear(this.getBarNumId(barTag));
