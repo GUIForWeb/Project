@@ -29,7 +29,6 @@ public class SharedUsersDAOSQLite  implements SharedUsersDAO{
 	}
 	@Override
 	public void loadFoldersForUser() {
-		
 		String query = "SELECT * FROM "+this.table0+" WHERE "+this.expr1+" = ?";
 		this.sharedUserMap = new HashMap<Integer,SharedUser>();
 		try {

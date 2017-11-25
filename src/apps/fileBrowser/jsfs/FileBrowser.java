@@ -31,7 +31,6 @@ public class FileBrowser extends ApplicationJSF{
 		this.redirect();
 		this.fbm.setPrivate(false);
 		this.fbm.setSession(this.session);
-		this.fbm.setUser(this.user);
 		this.fbm.loadSharedFolders();
 		this.fbm.newSFB();
 	}

@@ -500,30 +500,6 @@ public class FBManager {
 		return newFolder;
 	}
 
-	private void openPath() {
-		String name = this.json.getString("name");
-		String type = this.json.getString("type");
-		if (type.equals("inode/directory") || type.equals("")) {
-			this.browserList = (List<Browser>) this.session.getAttribute("browserList");
-			this.route.setPath(this.browser.getRoute().getPath() + this.fileSeparator + name);
-			File b = new File(this.route.getPath());
-			try {
-				if (!b.getCanonicalPath().contains(this.topDir))
-					this.route.setPath(this.topDir);
-				else
-					this.route.setPath(b.getCanonicalPath());
-			} catch (IOException e) {
-				this.route.setPath(this.topDir);
-				e.printStackTrace();
-			}
-			this.browser.setRoute(this.route);
-			this.reload();
-			this.setSession();
-
-		} else {
-			// file process
-		}
-	}
 	private void initPrivate() {
 		this.topDir = (String) this.session.getAttribute("userDir");
 		this.desktopPath = this.topDir + this.fileSeparator + "Desktop";
@@ -538,59 +514,73 @@ public class FBManager {
 		this.topDir = (String) this.session.getAttribute("sharedDir");
 		this.desktopPath = (String) this.session.getAttribute("userDir") + this.fileSeparator + "Desktop";
 	}
-	private void openSharedPath() {
+	private void openSharedPath(String name, String type) {
 		if(this.browser.getRoute() == null) {
-			String name = this.json.getString("name");
-			String type = this.json.getString("type");
 			Route[] routes = this.browser.getSharedRoutes();
-			for(int ri=0; ri<routes.length; ri++)
-				if(routes[ri].getLastPath().equals(name)) {
-					this.session.setAttribute("sharedDir",routes[ri].getPath());
-					this.browser.setRoute(routes[ri]);
-					this.route = new Route();
-				}
-			this.initShared();
-			this.route.setPath(this.browser.getRoute().getPath());
-			File b = new File(this.route.getPath());
-			try {
-				if (!b.getCanonicalPath().contains(this.topDir))
-					this.route.setPath(this.topDir);
-				else
-					this.route.setPath(b.getCanonicalPath());
-			} catch (IOException e) {
-				this.route.setPath(this.topDir);
-				e.printStackTrace();
+			if(!name.equals("..")) {
+				for(int ri=0; ri<routes.length; ri++)
+					if(routes[ri].getLastPath().equals(name)) {
+						this.session.setAttribute("sharedDir",routes[ri].getPath());
+						this.browser.setRoute(routes[ri]);
+						this.route = new Route();
+					}
+				this.initShared();
+				this.route.setPath(this.browser.getRoute().getPath());
+				this.openPath();
 			}
-			this.browser.setRoute(this.route);
-			this.reload();
-			this.setSession();
+			else
+				this.goToSharedTopDir();
 		}
 		else {
-			this.openPath();
+			String newRoute = this.browser.getRoute().getPath() + this.fileSeparator + name;
+			if(!newRoute.equals(this.topDir + this.fileSeparator + "..")) {
+				this.route.setPath(newRoute);
+				this.openPath();
+			}
+			else 
+				this.goToSharedTopDir();
 		}
-		/*
-		this.route.setPath(this.browser.getRoute().getPath() + this.fileSeparator + name);
+	}
+	private void goToSharedTopDir() {
+		this.browser.setRoute(null);
+		this.loadSharedFolders();
+		this.dataItemDAO.setDirPaths(this.sharedRoutes);
+		this.dataItemDAO.loadData();
+		this.jsonArray = this.dataItemDAO.getJSONArray();
+		this.json = new JSONObject();
+		this.json.put("status", "reload");
+		//String path = this.route.getPath().replace(this.topDir, "");
+		//this.json.put("path", path);
+		this.json.put("data", this.jsonArray);
+		this.setSession();
+	}
+	private void openPath() {
 		File b = new File(this.route.getPath());
 		try {
-			if (!b.getCanonicalPath().contains(this.userDir))
-				this.route.setPath(this.userDir);
+			if (!b.getCanonicalPath().contains(this.topDir))
+				this.route.setPath(this.topDir);
 			else
 				this.route.setPath(b.getCanonicalPath());
 		} catch (IOException e) {
-			this.route.setPath(this.userDir);
+			this.route.setPath(this.topDir);
 			e.printStackTrace();
 		}
 		this.browser.setRoute(this.route);
 		this.reload();
 		this.setSession();
-		*/
 	}
-	@SuppressWarnings("unchecked")
 	public void open() {
-		if(this.browser.isPrivate())
-			this.openPath();
-		else
-			this.openSharedPath();
+		String name = this.json.getString("name");
+		String type = this.json.getString("type");
+		if (type.equals("inode/directory") || type.equals("")) {
+			if(this.browser.isPrivate()) {
+				this.route.setPath(this.browser.getRoute().getPath() + this.fileSeparator + name);
+				this.openPath();
+			} else
+				this.openSharedPath(name,type);
+		} else {
+			// file process
+		}
 	}
 	public void newFBFrom(String path) {
 		this.setNewId();
@@ -651,6 +641,7 @@ public class FBManager {
 	}
 
 	public void loadSharedFolders() {
+		this.user = (User) this.session.getAttribute("User");
 		this.sfDAO = new SharedFoldersDAOSQLite();
 		this.suDAO = new SharedUsersDAOSQLite();
 		this.suDAO.setUser(this.user);
