@@ -11,7 +11,7 @@ system.elements.winAndBars.subsystems.WinAndBarManager = function() {
 	this.pe.__proto__ = this;
 	this.nm = new NodeManager();
 	this.nm.__proto__ = this;
-	
+	this.isAllDisappeared = false;
 	this.resizeend = function(tag) {
 		this.wse.setSize(tag);
 	}
@@ -41,17 +41,26 @@ system.elements.winAndBars.subsystems.WinAndBarManager = function() {
 	this.moveWinToTop = function(winTag) {
 		return this.ee.moveWinToTop(winTag);
 	}
+	this.disappearAll = function() {
+		console.log(gui.winAndBar.manager.isAllDisappeared);
+		this.isAllDisappeared = true;
+		this.ee.disappearAll();
+		this.pe.removeAll();
+		this.wm.disappearAll();
+	}
 	this.disappear = function(winTag) {
 		var winAndBarNode = this.ee.disappear(winTag);
 		this.wm.disappear(winAndBarNode);
 		this.pe.remove(winAndBarNode);
 	}
 	this.appear = function(barTag) {
-		var winAndBarNode = this.ee.recover(barTag);
+		this.isAllDisappeared = false;
+		var winAndBarNode = this.ee.appear(barTag);
 		this.wm.appear(winAndBarNode);
 		this.pe.append(winAndBarNode);
 	}
 	this.newWinAndBar = function(iconObj) {
+		this.isAllDisappeared = false;
 		var winAndBarNode = this.bm.append(iconObj);
 		this.wm.append(iconObj, winAndBarNode);
 		this.pe.append(winAndBarNode);

@@ -2,6 +2,17 @@ system.elements.winAndBars.subsystems.managers.WindowManager = function() {
 	this.remove = function(winAndBarNode) {
 		winAndBarNode.win.tag.remove();
 	}
+	this.disappearAll = function() {
+		var tmpNode = this.nodeArray["winAndBar"];
+		while(tmpNode.nextBar != null) {
+			tmpNode.nextWin = null;
+			tmpNode = tmpNode.nextBar;
+			if(tmpNode.win.view.isOnScreen) {
+				tmpNode.win.view.isOnScreen = false;
+				tmpNode.win.tag.remove();
+			}
+		}
+	}
 	this.disappear = function(winAndBarNode) {
 		winAndBarNode.win.view.isOnScreen = false;
 		winAndBarNode.win.tag.remove();

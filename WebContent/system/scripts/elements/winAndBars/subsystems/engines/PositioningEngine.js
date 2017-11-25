@@ -60,10 +60,17 @@ system.elements.winAndBars.subsystems.engines.PositioningEngine = function() {
 			return 0;
 		}
 	}
+	this.removeAll = function() {
+		var tmpNode = this.nodeArray["winAndBar"];
+		while(tmpNode.nextBar != null) {
+			tmpNode = tmpNode.nextBar;
+			if(tmpNode.win.view.isOnScreen)
+				this.remove(tmpNode);
+		}
+	}
 	this.remove = function(winAndBarNode) {
 		var tagId = winAndBarNode.win.tagId;
 		var coordinate = this.windowCoordinate[tagId];
-
 		var cLen = this.windowCoordinate[coordinate].length;
 		for (ci = 0; ci < cLen; ci++) {
 			if (this.windowCoordinate[coordinate][ci] == tagId) {
@@ -71,6 +78,9 @@ system.elements.winAndBars.subsystems.engines.PositioningEngine = function() {
 			}
 		}
 		delete this.windowCoordinate[tagId];
+		this.windowCoordinate[coordinate] = this.windowCoordinate[coordinate].filter(function(elm){return elm != undefined});
+		if(this.windowCoordinate[coordinate].length == 0)
+			delete this.windowCoordinate[coordinate];
 	}
 	this.append = function(winAndBarNode) {
 		this.left = winAndBarNode.win.view.oLeft;

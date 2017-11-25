@@ -68,8 +68,9 @@ system.views.TaskbarView = function(BarModel) {
 	this.logoutLayer = function() {
 		var tmpTag = $("<div>&bigotimes;</div>");
 		tmpTag.css("flex", "1");
-		tmpTag.attr("onclick", "location.href='" + this.contextPath
-				+ "/system/comps/views/logout.jsf'");
+		tmpTag.click(function(){
+			gui.taskbar.click.hideBt();
+		});
 		this.logoutSelector = tmpTag;
 	}
 	this.logoutBtOuterLayer = function() {

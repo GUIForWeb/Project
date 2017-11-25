@@ -67,7 +67,7 @@ system.elements.winAndBars.subsystems.engines.EnumEngine = function() {
 		tmpNode.lastWin = winAndBarNode;
 		return tmpNode.lastWin;
 	}
-	this.recover = function(barTag) {
+	this.appear = function(barTag) {
 		var winAndBarNode = this.nm.getNodeWithBarTag(barTag);
 		winAndBarNode.win.view.setZIndex(this.nodeArray["winAndBar"].winCount);
 		var lastNode = this.nodeArray["winAndBar"].lastWin;
@@ -76,6 +76,9 @@ system.elements.winAndBars.subsystems.engines.EnumEngine = function() {
 		this.nodeArray["winAndBar"].lastWin = winAndBarNode;
 		this.nodeArray["winAndBar"].winCount++;
 		return winAndBarNode;
+	}
+	this.disappearAll = function() {
+		this.nodeArray["winAndBar"].winCount = 0;
 	}
 	this.disappear = function(winTag) {
 		var winCount = --this.nodeArray["winAndBar"].winCount;

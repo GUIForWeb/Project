@@ -12,12 +12,14 @@ system.views.TaskmenuView = function(taskmenuModel) {
 		var menuTag = $("<div></div>");
 		var ulTag = $("<ul></ul>");
 		this.piTag = $("<li>Personal Info</li>");
+		this.logoutTag = $("<li>Logout</li>");
 		menuTag.addClass(this.menuLayerTagClass);
 		outerTag.addClass(this.outerLayerTagClass);
 		ulTag.append(this.piTag);
+		ulTag.append(this.logoutTag);
 		menuTag.append(ulTag)
 		outerTag.append(menuTag);
-		outerTag.height(this.liHeight)
+		outerTag.height(this.liHeight * outerTag.find("li").length);
 		outerTag.offset({
 			left : 0,
 			top : -outerTag.height()
@@ -28,6 +30,9 @@ system.views.TaskmenuView = function(taskmenuModel) {
 	this.initEvent = function() {
 		this.piTag.click(function(){
 			gui.taskbar.click.personalInfoBt();
+		});
+		this.logoutTag.click(function(){
+			gui.taskbar.click.logout();
 		});
 	}
 	this.init = function() {

@@ -34,4 +34,11 @@ system.elements.taskbars.controllers.TaskbarClick = function() {
 		this.configure.manager.execute.app(iconObj);
 		this.manager.menu.disappear();
 	}
+	this.logout = function() {
+		location.href= this.contextPath + "/system/comps/views/logout.jsf";
+	}
+	this.hideBt = function() {
+		if(!gui.winAndBar.manager.isAllDisappeared)
+			gui.winAndBar.manager.disappearAll();
+	} 
 }
