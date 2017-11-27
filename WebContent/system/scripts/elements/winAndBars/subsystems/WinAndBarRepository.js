@@ -127,7 +127,9 @@ system.elements.winAndBars.subsystems.WinAndBarRepository = function() {
 			"prevOLeft" : parseInt(win.view.prevOLeft),
 			"prevOTop" : parseInt(win.view.prevOTop),
 			"zIndex" : win.view.zIndex,
-			"contentURL" : win.view.contentURL
+			"contentURL" : win.view.contentURL,
+			"isResizable" : win.view.isResizable
+			
 		};
 	}
 

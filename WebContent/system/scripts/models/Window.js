@@ -4,7 +4,6 @@ system.models.Window = function() {
 	this.tagId = "";
 	this.name = "";
 	this.options = [];
-	this.isResizable = true;
 	this.view = new WindowView(this);
 	this.appear = function(){
 		if(this.view.isOnScreen)
@@ -23,6 +22,7 @@ system.models.Window = function() {
 	this.restoreModel = function(winMap){
 		this.view.isFullScreen = (winMap["isFullScreen"] == true);
 		this.view.isOnScreen = (winMap["isOnScreen"] == true);
+		this.view.isResizable = (winMap["isResizable"] == true);
 		this.name = winMap["name"];
 		this.view.content = decodeURIComponent(winMap["content"]);
 		this.contentURL = winMap["contentURL"]; 

@@ -85,7 +85,6 @@ apps.fileBrowser.modules.FileBrowser = function(id){
 		});
 	}
 	this.appendFunctionForTable = function(){
-		
 		if(sessionStorage.fileBrowser === undefined)
 			sessionStorage.fileBrowser = "[]";
 		this.funcArray = JSON.parse(sessionStorage.fileBrowser);
@@ -113,10 +112,19 @@ apps.fileBrowser.modules.FileBrowser = function(id){
 			event.stopPropagation();
 			taskArray['fileBrowser'][id].click.row(event);
 		});
-		trs.dblclick(function(event){
-			event.stopPropagation();
-			taskArray['fileBrowser'][id].dblclick.row(event);
-		});
+		if(!gui.isMobile) {
+			trs.dblclick(function(event){
+				event.stopPropagation();
+				taskArray['fileBrowser'][id].dblclick.row(event);
+			});
+		}
+		else {
+			trs.click(function(event){
+				event.stopPropagation();
+				taskArray['fileBrowser'][id].dblclick.row(event);
+			});
+		}
+		
 		if(funcArray[id] !== undefined && funcArray[id].dblclick !== undefined)
 			trs.bind("dblclick",function(event){
 				eval(funcArray[id].dblclick);

@@ -3,7 +3,7 @@ system.elements.winAndBars.subsystems.engines.WindowSizingEngine = function() {
 		this.tag = tag;
 		this.winTag = this.tag.parentNode;
 		this.initStandardValue();
-		if(this.win.isResizable) {
+		if(this.win.view.isResizable) {
 			this.initAdditionalValue();
 			this.calculate();
 			this.change();
@@ -142,7 +142,7 @@ system.elements.winAndBars.subsystems.engines.WindowSizingEngine = function() {
 		this.tag = winAndBarNode.win.tag;
 		this.winTag = winAndBarNode.win.tag;
 		this.win = this.winAndBarNode.win;
-		if(this.win.isResizable) {
+		if(this.win.view.isResizable) {
 			this.oLeft = this.winTag.offsetLeft;
 			this.oTop = this.winTag.offsetTop;
 			this.oWidth = $(this.winTag).width();

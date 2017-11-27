@@ -27,8 +27,8 @@ system.elements.winAndBars.subsystems.managers.WindowManager = function() {
 		this.winArray[zIndex] = tmpNode;
 		tmpNode.win = new Window();
 		tmpNode.win.name = iconObj.name;
-		if(!iconObj.winInfo.isResizable) {
-		tmpNode.win.isResizable = iconObj.isResizable;
+		if(!gui.isMobile && !iconObj.winInfo.isResizable) {
+			tmpNode.win.view.isResizable = iconObj.isResizable;
 			this.winDefaultValueArray.oDefaultWidth = iconObj.winInfo.oWidth;
 			this.winDefaultValueArray.oDefaultHeight = iconObj.winInfo.oHeight;
 		}
@@ -48,7 +48,10 @@ system.elements.winAndBars.subsystems.managers.WindowManager = function() {
 		tmpNode.win.contentURL = iconObj.contentURL;
 		tmpNode.win.init(this.valueArray["newId"]);
 		tmpNode.win.appear();
-
+		if(gui.isMobile) {
+			this.wse.fullScreen(tmpNode);
+			tmpNode.win.view.isFirst = false;
+		}
 		this.nodeArray["winAndBar"].lastWin = tmpNode;
 		if ($("<div>" + tmpNode.win.content + "</div>").find(".xWin").length > 0) {
 			var content = $("<div>" + tmpNode.win.content + "</div>");

@@ -66,7 +66,7 @@ system.views.TaskbarView = function(BarModel) {
 		this.menuBtOuterSelector = tmpTag;
 	}
 	this.logoutLayer = function() {
-		var tmpTag = $("<div>&bigotimes;</div>");
+		var tmpTag = $("<div>&#9601;</div>");
 		tmpTag.css("flex", "1");
 		tmpTag.click(function(){
 			gui.taskbar.click.hideBt();

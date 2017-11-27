@@ -13,7 +13,7 @@ system.views.TaskmenuView = function(taskmenuModel) {
 		var outerTag = $("<div></div>");
 		var menuTag = $("<div></div>");
 		var ulTag = $("<ul></ul>");
-		this.piTag = $("<li>Personal Info</li>");
+		this.piTag = $("<li>Password</li>");
 		this.logoutTag = $("<li>Logout</li>");
 		menuTag.addClass(this.menuLayerTagClass);
 		outerTag.addClass(this.outerLayerTagClass);
