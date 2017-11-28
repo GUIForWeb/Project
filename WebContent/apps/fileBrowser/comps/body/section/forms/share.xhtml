@@ -7,10 +7,10 @@
 	<h:form id="sfForm">
 		<h:outputText value="User List" />
 		<h:dataTable value="#{userManager.userArray}" var="u"
-					styleClass="user-table"
-	    			headerClass="user-table-header"
-	    			rowClasses="user-table-odd-row,user-table-even-row"
-	    			columnClasses="user-table-column0,user-table-column1,user-table-column2,user-table-column3,user-table-column4">
+					styleClass="table"
+	    			headerClass="table-header"
+	    			rowClasses="table-odd-row,table-even-row"
+	    			columnClasses="table-column0,table-column1,table-column2,table-column3,table-column4">
 			<h:column>
 				<f:facet name="header">Email</f:facet>
 				#{u.email}
@@ -37,10 +37,10 @@
 		<hr/>
 		<h:outputText value="Shared User List" />
 		<h:dataTable id="sharedUserList" value="#{share.sharedUsers}" var="su"
-					styleClass="user-table"
-		   			headerClass="user-table-header"
-	    			rowClasses="user-table-odd-row,user-table-even-row"
-	    			columnClasses="user-table-column0,user-table-column1,user-table-column2,user-table-column3,user-table-column4">
+					styleClass="table"
+		   			headerClass="table-header"
+	    			rowClasses="table-odd-row,table-even-row"
+	    			columnClasses="table-column0,table-column1,table-column2,table-column3,table-column4">
     		<h:column>
     			<f:facet name="header">Email</f:facet>
     			#{su.user.email}

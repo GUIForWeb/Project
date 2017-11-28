@@ -87,7 +87,6 @@ apps.fileBrowser.modules.FileBrowser = function(id){
 		if(sessionStorage.fileBrowser === undefined)
 			sessionStorage.fileBrowser = "[]";
 		this.funcArray = JSON.parse(sessionStorage.fileBrowser);
-		console.log(this.winInfo)
 		if(this.winInfo !== undefined) {
 			var json = {};
 			if(this.winInfo.options["dblclick"] !== undefined) 
@@ -99,10 +98,8 @@ apps.fileBrowser.modules.FileBrowser = function(id){
 			this.funcArray[this.id] = json;
 		}
 		sessionStorage.fileBrowser = JSON.stringify(this.funcArray);
-		
 		if(this.controller.va["data"].length == 0)
 			this.tm.getData();
-		
 		var id = this.id;
 		var funcArray = this.funcArray;
 		this.fbTable.on("dragover",function(event){
@@ -130,7 +127,6 @@ apps.fileBrowser.modules.FileBrowser = function(id){
 				taskArray['fileBrowser'][id].dblclick.row(event);
 			});
 		}
-		
 		if(funcArray[id] !== undefined) {
 			if(funcArray[id].dblclick !== undefined)
 				trs.bind("dblclick",function(event){
@@ -141,11 +137,9 @@ apps.fileBrowser.modules.FileBrowser = function(id){
 					eval(funcArray[id].click);
 				});
 		}
-		
 		trs.contextmenu(function(event){
 			taskArray['fileBrowser'][id].contextmenu.button(event);
 		});
-		
 		trs.mouseover(function(event){
 			event.stopPropagation();
 			taskArray['fileBrowser'][id].mouse.over.row(event);
@@ -160,9 +154,7 @@ apps.fileBrowser.modules.FileBrowser = function(id){
 		trs.on("dragleave",function(event){
 			taskArray['fileBrowser'][id].drag.leave.dataItem(event);
 		});
-		
 		$(this.fbTable.find("tr")[0]).dblclick(null);
-		
 		var trS = this.fbTable.find("tr");
 		var thS = $(trS[0]).find("th");
 		var nameHead = $(thS[0]);

@@ -1,6 +1,7 @@
 system.views.TaskmenuView = function(taskmenuModel) {
 	this.__proto__ = taskmenuModel;
 	this.liHeight = 30;
+	this.fontSize = "100%";
 	this.outerLayerTagClass = "taskmenuOuterLayer";
 	this.menuLayerTagClass = "taskmenuLayer";
 	this.taskmenuLayer = function() {
@@ -10,6 +11,8 @@ system.views.TaskmenuView = function(taskmenuModel) {
 		this.outerSelector.css("zIndex",zIndex);
 	}
 	this.outerLayer = function() {
+		if(gui.isMobile)
+			this.liHeight *= 3;
 		var outerTag = $("<div></div>");
 		var menuTag = $("<div></div>");
 		var ulTag = $("<ul></ul>");

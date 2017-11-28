@@ -53,9 +53,9 @@ public class GUISettingsDAOSQLite implements GUISettingsDAO{
 	final private String expr40 = "cmenu_c_color_hover";
 	final private String expr41 = "cmenu_c_border_radius_hover";
 	final private String expr42 = "id";
-	
-	
-	
+	final private String expr43 = "cmenu_o_width";
+	final private String expr44 = "cmenu_o_height";
+	final private String expr45 = "cmenu_l_height";
 	private SQLite db;
 	private GUISettingsInOS guiSettingsInOS;
 	private ResultSet rset;
@@ -84,6 +84,7 @@ public class GUISettingsDAOSQLite implements GUISettingsDAO{
 		this.db.executeUpdate(query, info);
 	}
 	public void updateInteface() {
+		//change all
 		String query = "UPDATE "+this.table0+" SET "+this.expr0+" = ?, "+this.expr9+" = ?, "+this.expr10+" = ?, "+this.expr11+" = ?, "+this.expr12+" = ?, "+this.expr13+" = ?, "+this.expr14+" = ?, "+this.expr15+" = ?, "+this.expr16+" = ?, "+this.expr17+" = ?, "+this.expr18+" = ?, "+this.expr19+" = ?, "+this.expr20+" = ? WHERE "+this.expr42+" = ?";
 		String[] info = new String[14];
 		info[0] = this.guiSetting.getThemeName();
@@ -152,6 +153,9 @@ public class GUISettingsDAOSQLite implements GUISettingsDAO{
 				this.guiSetting.setCmenuCColor(this.rset.getString(this.expr39));
 				this.guiSetting.setCmenuCColorHover(this.rset.getString(this.expr40));
 				this.guiSetting.setCmenuCBorderRadiusHover(this.rset.getDouble(this.expr41));
+				this.guiSetting.setCmenuOWidth(this.rset.getDouble(this.expr43));
+				this.guiSetting.setCmenuOHeight(this.rset.getDouble(this.expr44));
+				this.guiSetting.setCmenuLHeight(this.rset.getDouble(this.expr45));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

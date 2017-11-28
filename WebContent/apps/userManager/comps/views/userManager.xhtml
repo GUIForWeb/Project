@@ -8,8 +8,12 @@
 			action="#{userManager.start()}"/>
 	</f:metadata>
 	<ui:define name="css">
-		<ui:include src="/apps/userManager/scripts/css/userDataTable.xhtml" rendered="#{isMobile == false}"/>
-		<ui:include src="/apps/userManager/scripts/css/userDataTable_m.xhtml" rendered="#{isMobile == true}"/>
+		<h:panelGroup rendered="#{isMobile == false}">
+			<ui:include src="/apps/userManager/scripts/css/userDataTable.xhtml"/>
+		</h:panelGroup>	
+		<h:panelGroup rendered="#{isMobile == true}">
+			<ui:include src="/apps/userManager/scripts/css/userDataTable_m.xhtml" rendered="#{isMobile eq true}"/>
+		</h:panelGroup>
     </ui:define>
     <ui:define name="title">
         User Manager

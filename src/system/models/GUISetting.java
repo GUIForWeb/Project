@@ -41,6 +41,9 @@ public class GUISetting{
 	private String cmenuCColor;
 	private String cmenuCBgColorHover;
 	private String cmenuCColorHover;
+	private double cmenuOWidth;
+	private double cmenuOHeight;
+	private double cmenuLHeight;
 	private String themeName;
 	private String iconBorderStyle;
 	private String iconBorderColor;
@@ -72,6 +75,9 @@ public class GUISetting{
 		this.tbarOBorderWidth *= 2;
 		this.cmenuOBorderRadius *= 2;
 		this.cmenuCBorderRadiusHover *= 2;
+		this.cmenuOWidth *= 2;
+		this.cmenuOHeight *= 2;
+		this.cmenuLHeight *= 2;
 	}
 	public int getId() {
 		return id;
@@ -334,6 +340,24 @@ public class GUISetting{
 	public void setCmenuOBgColor(String cmenuOBgColor) {
 		this.cmenuOBgColor = cmenuOBgColor;
 	}
+	public double getCmenuOWidth() {
+		return cmenuOWidth;
+	}
+	public void setCmenuOWidth(double cmenuOWidth) {
+		this.cmenuOWidth = cmenuOWidth;
+	}
+	public double getCmenuOHeight() {
+		return cmenuOHeight;
+	}
+	public void setCmenuOHeight(double cmenuOHeight) {
+		this.cmenuOHeight = cmenuOHeight;
+	}
+	public double getCmenuLHeight() {
+		return cmenuLHeight;
+	}
+	public void setCmenuLHeight(double cmenuLHeight) {
+		this.cmenuLHeight = cmenuLHeight;
+	}
 	public String toString() {
 		String tmpStr = "";
 		tmpStr += "GUI ID: " + this.id + System.lineSeparator();
@@ -378,6 +402,9 @@ public class GUISetting{
 		tmpStr += "CMenu O Border Radius: " + this.cmenuOBorderRadius + System.lineSeparator();
 		tmpStr += "CMenu O bg Color: " + this.cmenuOBgColor + System.lineSeparator();
 		tmpStr += "CMenu C Border Radius Hover: " + this.cmenuCBorderRadiusHover + System.lineSeparator();
+		tmpStr += "CMenu O Width: " + this.cmenuOWidth + System.lineSeparator();
+		tmpStr += "CMenu O Height: " + this.cmenuOHeight + System.lineSeparator();
+		tmpStr += "CMenu L Height: " + this.cmenuLHeight + System.lineSeparator();
 		return tmpStr;
 	}
 }

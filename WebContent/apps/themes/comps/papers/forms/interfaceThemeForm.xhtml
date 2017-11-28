@@ -73,7 +73,12 @@
 		<h:inputText value="#{interfaceTheme.guiSetting.cmenuCBgColorHover}" title="cmenuCBgColorHover"/><br/>
 		<h:outputLabel class="interfaceTheme" value="Context Menu Contentlayer Border Radius Hover" />
 		<h:inputText value="#{interfaceTheme.guiSetting.cmenuCBorderRadiusHover}" title="cmenuCBorderRadiusHover"/><br/>
-		
+		<h:outputLabel class="interfaceTheme" value="Context Menu Outerlayer Width" />
+		<h:inputText value="#{interfaceTheme.guiSetting.cmenuOWidth}" title="cmenuOWidth"/><br/>
+		<h:outputLabel class="interfaceTheme" value="Context Menu Outerlayer Height" />
+		<h:inputText value="#{interfaceTheme.guiSetting.cmenuOHeight}" title="cmenuOHeight"/><br/>
+		<h:outputLabel class="interfaceTheme" value="Context Menu Line Height" />
+		<h:inputText value="#{interfaceTheme.guiSetting.cmenuLHeight}" title="menuLHeight"/><br/>
 		<br/>
 		<h:commandButton action="#{interfaceTheme.submit()}" value="Submit">
 			<f:ajax execute="interfaceThemeForm" onevent="taskArray.interfaceTheme.click.submit()"/>

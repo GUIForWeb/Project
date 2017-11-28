@@ -1,11 +1,15 @@
 <ui:composition template="/apps/fileBrowser/comps/frames/frame.xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" 
 	xmlns:f="http://java.sun.com/jsf/core">
 	<f:metadata>
 		<f:viewAction
 			action="#{share.init()}"/>
 	</f:metadata>
 	<ui:define name="css">
+		<h:panelGroup rendered="#{isMobile == true}">
+			<ui:include src="/apps/fileBrowser/scripts/css/share_m.xhtml" rendered="#{isMobile == true}"/>
+		</h:panelGroup>
     </ui:define>
     <ui:define name="title">
         File Browser
