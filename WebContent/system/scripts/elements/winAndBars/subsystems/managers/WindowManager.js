@@ -33,7 +33,7 @@ system.elements.winAndBars.subsystems.managers.WindowManager = function() {
 			this.winDefaultValueArray.oDefaultHeight = iconObj.winInfo.oHeight;
 		}
 		if(Object.keys(iconObj.options).length) {
-			tmpNode.win.options = [];
+			tmpNode.win.options = {};
 			var keys = Object.keys(iconObj.options);
 			for(ki=0; ki<keys.length; ki++){
 				tmpNode.win.options[keys[ki]] = this.request.getData(this.contextPath + iconObj.options[keys[ki]]);
@@ -42,16 +42,18 @@ system.elements.winAndBars.subsystems.managers.WindowManager = function() {
 		tmpNode.win.windowZoneSelector = this.windowZoneSelector;
 		tmpNode.win.view.setDefaultValues(this.winDefaultValueArray);
 		tmpNode.win.view.zIndex = zIndex;
-		tmpNode.win.view.isFirst = true;
+		if(!gui.isMobile) {
+			tmpNode.win.view.isFirst = true;
+		}
+		else {
+			this.wse.fullScreenBeforAppearing(tmpNode);
+			tmpNode.win.view.isFirst = false;
+		}
 		tmpNode.win.content = this.request.getData(this.contextPath
 				+ iconObj.contentURL);
 		tmpNode.win.contentURL = iconObj.contentURL;
 		tmpNode.win.init(this.valueArray["newId"]);
 		tmpNode.win.appear();
-		if(gui.isMobile) {
-			this.wse.fullScreen(tmpNode);
-			tmpNode.win.view.isFirst = false;
-		}
 		this.nodeArray["winAndBar"].lastWin = tmpNode;
 		if ($("<div>" + tmpNode.win.content + "</div>").find(".xWin").length > 0) {
 			var content = $("<div>" + tmpNode.win.content + "</div>");

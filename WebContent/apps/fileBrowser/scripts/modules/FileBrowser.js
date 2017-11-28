@@ -1,13 +1,13 @@
 apps.fileBrowser.modules.FileBrowser = function(id){
 	this.ws = function(){}
 	this.id = id;
-	this.funcArray = [];
+	this.funcArray = {};
 	this.setJSONArray = function(data) {
 		this.controller.va["data"] = data;
 	}
 	this.initForWMode = function() {
 		this.api = new API();
-		this.winInfo = gui.getWinInfo(this.section)
+		this.winInfo = gui.getWinInfo(this.section);
 		this.cOfWindow = this.winInfo.content;
 		var path = this.path;
 		this.winInfo.m.bind("dragstart",function(event){
@@ -62,7 +62,6 @@ apps.fileBrowser.modules.FileBrowser = function(id){
 		this.fs.string.arrayPrototype();
 		this.tm = new FBTableManager();
 		this.tm.__proto__ = this.controller;
-		
 		if(sessionStorage.wMode !== undefined)
 			this.initForWMode();
 	}
@@ -88,8 +87,15 @@ apps.fileBrowser.modules.FileBrowser = function(id){
 		if(sessionStorage.fileBrowser === undefined)
 			sessionStorage.fileBrowser = "[]";
 		this.funcArray = JSON.parse(sessionStorage.fileBrowser);
-		if(this.winInfo !== undefined && this.winInfo.options["dblclick"] !== undefined) {
-			var json = {"dblclick":this.winInfo.options["dblclick"]};
+		console.log(this.winInfo)
+		if(this.winInfo !== undefined) {
+			var json = {};
+			if(this.winInfo.options["dblclick"] !== undefined) 
+				json.dblclick = this.winInfo.options["dblclick"];
+			
+			if(this.winInfo.options["click"] !== undefined) 
+				json.click = this.winInfo.options["click"];
+			
 			this.funcArray[this.id] = json;
 		}
 		sessionStorage.fileBrowser = JSON.stringify(this.funcArray);
@@ -125,10 +131,16 @@ apps.fileBrowser.modules.FileBrowser = function(id){
 			});
 		}
 		
-		if(funcArray[id] !== undefined && funcArray[id].dblclick !== undefined)
-			trs.bind("dblclick",function(event){
-				eval(funcArray[id].dblclick);
-			});
+		if(funcArray[id] !== undefined) {
+			if(funcArray[id].dblclick !== undefined)
+				trs.bind("dblclick",function(event){
+					eval(funcArray[id].dblclick);
+				});
+			if(funcArray[id].click !== undefined)
+				trs.bind("click",function(event){
+					eval(funcArray[id].click);
+				});
+		}
 		
 		trs.contextmenu(function(event){
 			taskArray['fileBrowser'][id].contextmenu.button(event);
@@ -189,7 +201,10 @@ apps.fileBrowser.modules.FileBrowser = function(id){
 			link.attr("id","fbCSS");
 			link.attr("type","text/css");
 			link.attr("rel","stylesheet");
-			link.attr("href",this.contextURL+"/apps/fileBrowser/scripts/css/fileBrowser.css");
+			if(!gui.isMobile) 
+				link.attr("href",this.contextURL+"/apps/fileBrowser/scripts/css/fileBrowser.css");
+			else 
+				link.attr("href",this.contextURL+"/apps/fileBrowser/scripts/css/fileBrowser_m.css");
 			$(document.head).append(link);
 		}
 		$("body").offset({

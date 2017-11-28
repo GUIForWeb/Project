@@ -29,10 +29,14 @@
 					<f:setPropertyActionListener target="#{userManager.id}" value="#{u.id}" />
 					<f:ajax render="@form" update="@form"/>
 				</h:commandButton>
+			</h:column>
+			<h:column>
 				<h:commandButton action="#{userManager.activate}" value="Activate" >
 					<f:setPropertyActionListener target="#{userManager.id}" value="#{u.id}" />
 					<f:ajax render="@form" update="@form"/>
 				</h:commandButton>
+			</h:column>
+			<h:column>
 				<h:commandButton action="#{userManager.deactivate}" value="Deactivate" >
 					<f:setPropertyActionListener target="#{userManager.id}" value="#{u.id}" />
 					<f:ajax render="@form" update="@form"/>

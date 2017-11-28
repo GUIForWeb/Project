@@ -121,7 +121,6 @@ system.elements.winAndBars.subsystems.engines.WindowSizingEngine = function() {
 		$("#" + this.tagIds["w"]).css("height",
 				this.oHeight - this.resizeHeight * 2);
 	}
-
 	this.setSize = function(tag) {
 		this.tag = tag;
 		this.winTag = tag.parentNode;
@@ -136,7 +135,17 @@ system.elements.winAndBars.subsystems.engines.WindowSizingEngine = function() {
 		this.win.view.oTop = this.oTop;
 		return this.winAndBarNode;
 	}
-
+	this.fullScreenBeforAppearing = function(winAndBarNode) {
+		this.winAndBarNode = winAndBarNode;
+		this.win = this.winAndBarNode.win;
+		this.oBorderWidth = this.win.view.oBorderWidth;
+		this.win.view.isFullScreen = true;
+		this.win.view.oWidth = $(window).width() - this.oBorderWidth * 2;
+		this.win.view.oHeight = $(window).height() - this.taskbar.manager.view.oHeight;
+		this.win.view.oLeft = 0;
+		this.win.view.oTop = 0;
+		return this.winAndBarNode;
+	}
 	this.fullScreen = function(winAndBarNode) {
 		this.winAndBarNode = winAndBarNode;
 		this.tag = winAndBarNode.win.tag;
@@ -147,7 +156,7 @@ system.elements.winAndBars.subsystems.engines.WindowSizingEngine = function() {
 			this.oTop = this.winTag.offsetTop;
 			this.oWidth = $(this.winTag).width();
 			this.oHeight = $(this.winTag).height();
-			this.oBWidth = parseInt($(this.tag).css("border-width"));
+			this.oBorderWidth = parseInt($(this.tag).css("border-width"));
 			if (this.win.view.isFullScreen) {
 				this.oLeft = this.win.view.prevOLeft;
 				this.oTop = this.win.view.prevOTop;
@@ -161,7 +170,7 @@ system.elements.winAndBars.subsystems.engines.WindowSizingEngine = function() {
 				this.win.view.prevOHeight = this.winTag.offsetHeight;
 				this.oLeft = 0;
 				this.oTop = 0;
-				this.oWidth = $(window).width() - this.oBWidth * 2;
+				this.oWidth = $(window).width() - this.oBorderWidth * 2;
 				this.oHeight = $(window).height() - this.taskbar.manager.view.oHeight;
 				this.win.view.isFullScreen = true;
 			}
@@ -177,20 +186,4 @@ system.elements.winAndBars.subsystems.engines.WindowSizingEngine = function() {
 		}
 		return this.winAndBarNode;
 	}
-	/*
-	 * this.fullScreen = function(winTag){ this.tag = winTag; this.winTag =
-	 * winTag; this.initStandardValue(); this.oBWidth =
-	 * parseInt($(this.tag).css("border-width")); if(this.win.fullScreen){
-	 * this.oLeft = this.win.view.preOLeft; this.oTop = this.win.view.preOTop;
-	 * this.oWidth = this.win.view.preOWidth; this.oHeight =
-	 * this.win.view.preOHeight; this.win.fullScreen = false; } else{
-	 * this.win.view.preOLeft = this.winTag.offsetLeft; this.win.view.preOTop =
-	 * this.winTag.offsetTop; this.win.view.preOWidth = this.winTag.offsetWidth;
-	 * this.win.view.preOHeight = this.winTag.offsetHeight; this.oLeft = 0;
-	 * this.oTop = 0; this.oWidth = $(window).width() - this.oBWidth*2;
-	 * this.oHeight = $(window).height() - this.taskbar.view.oHeight;
-	 * this.win.fullScreen = true; } this.win.view.oWidth = this.oWidth;
-	 * this.win.view.oHeight = this.oHeight; this.initAdditionalValue();
-	 * this.calculate(); this.change(); return this.winAndBarNode; }
-	 */
 }

@@ -3,7 +3,7 @@ system.models.Window = function() {
 	this.numId = 0;
 	this.tagId = "";
 	this.name = "";
-	this.options = [];
+	this.options = {};
 	this.view = new WindowView(this);
 	this.appear = function(){
 		if(this.view.isOnScreen)
@@ -25,7 +25,8 @@ system.models.Window = function() {
 		this.view.isResizable = (winMap["isResizable"] == true);
 		this.name = winMap["name"];
 		this.view.content = decodeURIComponent(winMap["content"]);
-		this.contentURL = winMap["contentURL"]; 
+		this.contentURL = winMap["contentURL"];
+		this.options = JSON.parse(decodeURIComponent(winMap["options"]));
 	}
 	this.addEvent = function(status,data){
 		func = data.func

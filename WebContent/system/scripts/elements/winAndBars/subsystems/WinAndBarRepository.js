@@ -128,8 +128,8 @@ system.elements.winAndBars.subsystems.WinAndBarRepository = function() {
 			"prevOTop" : parseInt(win.view.prevOTop),
 			"zIndex" : win.view.zIndex,
 			"contentURL" : win.view.contentURL,
-			"isResizable" : win.view.isResizable
-			
+			"isResizable" : win.view.isResizable,
+			"options" : encodeURIComponent(JSON.stringify(win.options))
 		};
 	}
 
