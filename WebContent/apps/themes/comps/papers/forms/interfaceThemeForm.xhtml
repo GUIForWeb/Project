@@ -78,7 +78,19 @@
 		<h:outputLabel class="interfaceTheme" value="Context Menu Outerlayer Height" />
 		<h:inputText value="#{interfaceTheme.guiSetting.cmenuOHeight}" title="cmenuOHeight"/><br/>
 		<h:outputLabel class="interfaceTheme" value="Context Menu Line Height" />
-		<h:inputText value="#{interfaceTheme.guiSetting.cmenuLHeight}" title="menuLHeight"/><br/>
+		<h:inputText value="#{interfaceTheme.guiSetting.cmenuLHeight}" title="cmenuLHeight"/><br/>
+		<h:outputLabel class="interfaceTheme" value="Context Menu Font Size" />
+		<h:inputText value="#{interfaceTheme.guiSetting.cmenuOFontSize}" title="cmenuOFontSize"/>%<br/>
+		<br/>
+		<h:outputLabel class="interfaceTheme" value="Taskbar Menu Theme" style="color:blue;"/>
+		<h:outputLabel class="interfaceTheme" value="Taskbar Menu Outerlayer Width" />
+		<h:inputText value="#{interfaceTheme.guiSetting.tmenuOWidth}" title="tmenuOWidth"/><br/>
+		<h:outputLabel class="interfaceTheme" value="Taskbar Menu Line Height" />
+		<h:inputText value="#{interfaceTheme.guiSetting.tmenuLHeight}" title="tmenuLHeight"/><br/>
+		<h:outputLabel class="interfaceTheme" value="Taskbar Menu Font Size" />
+		<h:inputText value="#{interfaceTheme.guiSetting.tmenuOFontSize}" title="tmenuOFontSize"/>%<br/>
+		<h:outputLabel class="interfaceTheme" value="Taskbar Menu Outerlayer Background Color" />
+		<h:inputText value="#{interfaceTheme.guiSetting.tmenuOBgColor}" title="tmenuOBgColor"/><br/>
 		<br/>
 		<h:commandButton action="#{interfaceTheme.submit()}" value="Submit">
 			<f:ajax execute="interfaceThemeForm" onevent="taskArray.interfaceTheme.click.submit()"/>

@@ -4,6 +4,7 @@ apps.themes.interfaces.subsystems.ContextMenuThemeTrial = function(){
 	this.contextlayer = new ContextMenuThemeContentlayerTrial();
 	this.contextlayer.__proto__ = this;
 	this.switch = function(event) {
+		console.log(this);
 		var title = event.target.title;
 		var val = event.target.value;
 		var flag = false;
@@ -24,6 +25,12 @@ apps.themes.interfaces.subsystems.ContextMenuThemeTrial = function(){
 				case "cmenuOBorderRadius":
 					this.outlayer.changeBorderRadius(event);
 					break;
+				case "cmenuOHeight":
+					this.outlayer.changeHeight(event);
+					break;
+				case "cmenuOWidth":
+					this.outlayer.changeWidth(event);
+					break;
 				case "cmenuCColor":
 					this.contextlayer.changeColor(event);
 					break;
@@ -36,6 +43,9 @@ apps.themes.interfaces.subsystems.ContextMenuThemeTrial = function(){
 				case "cmenuCBorderRadiusHover":
 					this.contextlayer.changeBorderRadiusHover(event);
 					break;
+				case "cmenuLHeight":
+					this.contextlayer.changeHeight(event);
+					break;	
 			}
 		}
 	}

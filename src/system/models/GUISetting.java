@@ -2,51 +2,61 @@ package system.models;
 
 public class GUISetting{
 	private int id;
+	private String themeName;
 	private double iconWidth;
 	private double iconHeight;
 	private double iconBorderWidth;
 	private double iconBorderHeight;
-	private double iconTableTop;
 	private double iconTableLeft;
-	private double winBBorderWidth;
+	private double iconTableTop;
+	private String iconBorderColor;
+	private String iconBorderStyle;
+	private double winMinWidth;
+	private double winMinHeight;
 	private double winODefaultLeft;
 	private double winODefaultTop;
 	private double winODefaultWidth;
 	private double winODefaultHeight;
 	private double winOBorderWidth;
+	private String winOBgColor;
 	private double winHHeight;
+	private String winHBgColor;
+	private String winHFontFamily;
+	private String winCBgColor;
 	private double winBWidth;
 	private double winBHeight;
 	private double winBTop;
-	private double winMinWidth;
-	private double winMinHeight;
+	private double winBBorderWidth;
+	private String winBBorderColor;
+	private String winBBgColor;
 	private double barOWidth;
 	private double barOHeight;
 	private double barOBorderWidth;
-	private double tbarOOpacity;
-	private double tbarOBorderWidth;
-	private double cmenuOBorderRadius;
-	private double cmenuCBorderRadiusHover;
-	private String winBBorderColor;
-	private String winBBgColor;
-	private String winOBgColor;
-	private String winHBgColor;
-	private String winCBgColor;
-	private String winHFontFamily;
 	private String barOBgColor;
 	private String barNBgColor;
+	private double tbarOBorderWidth;
+	private double tbarOOpacity;
 	private String tbarOBgColor;
-	private String cmenuOFontFamily;
-	private String cmenuOBgColor;
-	private String cmenuCColor;
-	private String cmenuCBgColorHover;
-	private String cmenuCColorHover;
 	private double cmenuOWidth;
 	private double cmenuOHeight;
+	private double cmenuOFontSize;
+	private double cmenuOBorderRadius;
+	private String cmenuOBgColor;
+	private String cmenuOFontFamily;
 	private double cmenuLHeight;
-	private String themeName;
-	private String iconBorderStyle;
-	private String iconBorderColor;
+	private double cmenuLBorderRadiusHover;
+	private String cmenuLColor;
+	private String cmenuLBgColorHover;
+	private String cmenuLColorHover;
+	private double tmenuOWidth;
+	private double tmenuOFontSize;
+	private String tmenuOBgColor;
+	private String tmenuOFontFamily;
+	private double tmenuLHeight;
+	private String tmenuLColor;
+	private double tmenuLBorderRadiusHover;
+	private String tmenuLColorHover;
+	private String tmenuLBgColorHover;
 	public GUISetting(){
 	}
 	public void forMobileMode() {
@@ -74,10 +84,12 @@ public class GUISetting{
 		this.tbarOOpacity *= 2;
 		this.tbarOBorderWidth *= 2;
 		this.cmenuOBorderRadius *= 2;
-		this.cmenuCBorderRadiusHover *= 2;
+		this.cmenuLBorderRadiusHover *= 2;
 		this.cmenuOWidth *= 2;
 		this.cmenuOHeight *= 2;
 		this.cmenuLHeight *= 2;
+		this.cmenuOFontSize *= 2;
+		this.tmenuLBorderRadiusHover *= 2;
 	}
 	public int getId() {
 		return id;
@@ -277,17 +289,17 @@ public class GUISetting{
 	public void setCmenuOFontFamily(String cmenuOFontFamily) {
 		this.cmenuOFontFamily = cmenuOFontFamily;
 	}
-	public String getCmenuCBgColorHover() {
-		return cmenuCBgColorHover;
+	public String getCmenuLBgColorHover() {
+		return cmenuLBgColorHover;
 	}
-	public void setCmenuCBgColorHover(String cmenuCBgColorHover) {
-		this.cmenuCBgColorHover = cmenuCBgColorHover;
+	public void setCmenuLBgColorHover(String cmenuLBgColorHover) {
+		this.cmenuLBgColorHover = cmenuLBgColorHover;
 	}
-	public String getCmenuCColorHover() {
-		return cmenuCColorHover;
+	public String getCmenuLColorHover() {
+		return cmenuLColorHover;
 	}
-	public void setCmenuOColorHover(String cmenuCColorHover) {
-		this.cmenuCColorHover = cmenuCColorHover;
+	public void setCmenuOColorHover(String cmenuLColorHover) {
+		this.cmenuLColorHover = cmenuLColorHover;
 	}
 	public double getCmenuOBorderRadius() {
 		return cmenuOBorderRadius;
@@ -295,11 +307,11 @@ public class GUISetting{
 	public void setCmenuOBorderRadius(double cmenuOBorderRadius) {
 		this.cmenuOBorderRadius = cmenuOBorderRadius;
 	}
-	public double getCmenuCBorderRadiusHover() {
-		return cmenuCBorderRadiusHover;
+	public double getCmenuLBorderRadiusHover() {
+		return cmenuLBorderRadiusHover;
 	}
-	public void setCmenuCBorderRadiusHover(double cmenuCBorderRadiusHover) {
-		this.cmenuCBorderRadiusHover = cmenuCBorderRadiusHover;
+	public void setCmenuLBorderRadiusHover(double cmenuLBorderRadiusHover) {
+		this.cmenuLBorderRadiusHover = cmenuLBorderRadiusHover;
 	}
 	public double getBarOWidth() {
 		return barOWidth;
@@ -325,14 +337,14 @@ public class GUISetting{
 	public void setTbarOBorderWidth(double tbarOBorderWidth) {
 		this.tbarOBorderWidth = tbarOBorderWidth;
 	}
-	public void setCmenuCColorHover(String cmenuCColorHover) {
-		this.cmenuCColorHover = cmenuCColorHover;
+	public void setCmenuLColorHover(String cmenuLColorHover) {
+		this.cmenuLColorHover = cmenuLColorHover;
 	}
-	public String getCmenuCColor() {
-		return cmenuCColor;
+	public String getCmenuLColor() {
+		return cmenuLColor;
 	}
-	public void setCmenuCColor(String cmenuCColor) {
-		this.cmenuCColor = cmenuCColor;
+	public void setCmenuLColor(String cmenuLColor) {
+		this.cmenuLColor = cmenuLColor;
 	}
 	public String getCmenuOBgColor() {
 		return cmenuOBgColor;
@@ -357,6 +369,66 @@ public class GUISetting{
 	}
 	public void setCmenuLHeight(double cmenuLHeight) {
 		this.cmenuLHeight = cmenuLHeight;
+	}
+	public double getCmenuOFontSize() {
+		return cmenuOFontSize;
+	}
+	public void setCmenuOFontSize(double cmenuOFontSize) {
+		this.cmenuOFontSize = cmenuOFontSize;
+	}
+	public double getTmenuOWidth() {
+		return tmenuOWidth;
+	}
+	public void setTmenuOWidth(double tmenuOWidth) {
+		this.tmenuOWidth = tmenuOWidth;
+	}
+	public double getTmenuLHeight() {
+		return tmenuLHeight;
+	}
+	public void setTmenuLHeight(double tmenuLHeight) {
+		this.tmenuLHeight = tmenuLHeight;
+	}
+	public double getTmenuOFontSize() {
+		return tmenuOFontSize;
+	}
+	public void setTmenuOFontSize(double tmenuOFontSize) {
+		this.tmenuOFontSize = tmenuOFontSize;
+	}
+	public String getTmenuOBgColor() {
+		return tmenuOBgColor;
+	}
+	public void setTmenuOBgColor(String tmenuOBgColor) {
+		this.tmenuOBgColor = tmenuOBgColor;
+	}
+	public String getTmenuLColor() {
+		return tmenuLColor;
+	}
+	public void setTmenuLColor(String tmenuLColor) {
+		this.tmenuLColor = tmenuLColor;
+	}
+	public String getTmenuLBgColorHover() {
+		return tmenuLBgColorHover;
+	}
+	public void setTmenuLBgColorHover(String tmenuLBgColorHover) {
+		this.tmenuLBgColorHover = tmenuLBgColorHover;
+	}
+	public String getTmenuLColorHover() {
+		return tmenuLColorHover;
+	}
+	public void setTmenuLColorHover(String tmenuLColorHover) {
+		this.tmenuLColorHover = tmenuLColorHover;
+	}
+	public double getTmenuLBorderRadiusHover() {
+		return tmenuLBorderRadiusHover;
+	}
+	public void setTmenuLBorderRadiusHover(double tmenuLBorderRadiusHover) {
+		this.tmenuLBorderRadiusHover = tmenuLBorderRadiusHover;
+	}
+	public String getTmenuOFontFamily() {
+		return tmenuOFontFamily;
+	}
+	public void setTmenuOFontFamily(String tmenuOFontFamily) {
+		this.tmenuOFontFamily = tmenuOFontFamily;
 	}
 	public String toString() {
 		String tmpStr = "";
@@ -395,16 +467,26 @@ public class GUISetting{
 		tmpStr += "TBar O Bg Color: " + this.tbarOBgColor + System.lineSeparator();
 		tmpStr += "TBar O Opacity: " + this.tbarOOpacity + System.lineSeparator();
 		tmpStr += "TBar O Border Width: " + this.tbarOBorderWidth + System.lineSeparator();
-		tmpStr += "CMenu C Bg Color Hover: " + this.cmenuCBgColorHover + System.lineSeparator();
-		tmpStr += "CMenu C Color: " + this.cmenuCColor + System.lineSeparator();
-		tmpStr += "CMenu C Color Hover: " + this.cmenuCColorHover + System.lineSeparator();
+		tmpStr += "CMenu C Bg Color Hover: " + this.cmenuLBgColorHover + System.lineSeparator();
+		tmpStr += "CMenu C Color: " + this.cmenuLColor + System.lineSeparator();
+		tmpStr += "CMenu C Color Hover: " + this.cmenuLColorHover + System.lineSeparator();
 		tmpStr += "CMenu O Font Family: " + this.cmenuOFontFamily + System.lineSeparator();
 		tmpStr += "CMenu O Border Radius: " + this.cmenuOBorderRadius + System.lineSeparator();
 		tmpStr += "CMenu O bg Color: " + this.cmenuOBgColor + System.lineSeparator();
-		tmpStr += "CMenu C Border Radius Hover: " + this.cmenuCBorderRadiusHover + System.lineSeparator();
+		tmpStr += "CMenu C Border Radius Hover: " + this.cmenuLBorderRadiusHover + System.lineSeparator();
 		tmpStr += "CMenu O Width: " + this.cmenuOWidth + System.lineSeparator();
 		tmpStr += "CMenu O Height: " + this.cmenuOHeight + System.lineSeparator();
 		tmpStr += "CMenu L Height: " + this.cmenuLHeight + System.lineSeparator();
+		tmpStr += "CMenu Font Size: " + this.cmenuOFontSize +"%"+ System.lineSeparator();
+		tmpStr += "TMenu O Width: " + this.tmenuOWidth + System.lineSeparator();
+		tmpStr += "TMenu L Height: " + this.tmenuLHeight + System.lineSeparator();
+		tmpStr += "TMenu Font Size: " + this.tmenuOFontSize +"%"+System.lineSeparator();
+		tmpStr += "TMenu O Bg Color: " + this.tmenuOBgColor +System.lineSeparator();
+		tmpStr += "TMenu O Font Family: " + this.tmenuOFontFamily +System.lineSeparator();
+		tmpStr += "TMenu L Color: " + this.tmenuLColor +"%"+System.lineSeparator();
+		tmpStr += "TMenu L Bg Color Hover: " + this.tmenuLBgColorHover + System.lineSeparator();
+		tmpStr += "TMenu L Color Hover: " + this.tmenuLColorHover + System.lineSeparator();
+		tmpStr += "TMenu L Border Radius Hover: " + this.tmenuLBorderRadiusHover + System.lineSeparator();
 		return tmpStr;
 	}
 }

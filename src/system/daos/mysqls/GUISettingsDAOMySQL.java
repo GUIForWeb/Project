@@ -106,10 +106,10 @@ public class GUISettingsDAOMySQL implements GUISettingsDAO{
 				this.guiSetting.setCmenuOFontFamily(this.rset.getString("cmenu_o_font_family"));
 				this.guiSetting.setCmenuOBorderRadius(this.rset.getDouble("cmenu_o_border_radius"));
 				this.guiSetting.setCmenuOBgColor(this.rset.getString("cmenu_o_bg_color"));
-				this.guiSetting.setCmenuCBgColorHover(this.rset.getString("cmenu_c_bg_color_hover"));
-				this.guiSetting.setCmenuCColor(this.rset.getString("cmenu_c_color"));
-				this.guiSetting.setCmenuCColorHover(this.rset.getString("cmenu_c_color_hover"));
-				this.guiSetting.setCmenuCBorderRadiusHover(this.rset.getDouble("cmenu_c_border_radius_hover"));
+				//this.guiSetting.setCmenuCBgColorHover(this.rset.getString("cmenu_c_bg_color_hover"));
+				//this.guiSetting.setCmenuCColor(this.rset.getString("cmenu_c_color"));
+				//this.guiSetting.setCmenuCColorHover(this.rset.getString("cmenu_c_color_hover"));
+				//this.guiSetting.setCmenuCBorderRadiusHover(this.rset.getDouble("cmenu_c_border_radius_hover"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

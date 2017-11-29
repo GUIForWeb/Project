@@ -8,4 +8,11 @@ apps.themes.interfaces.subsystems.ContextMenuThemeOutlayerTrial = function(){
 	this.changeBorderRadius = function(event) {
 		this.outerSelector.css("border-radius",event.target.value+"px");
 	}
+	this.changeHeight = function(evnet) {
+		this.outerSelector.height(event.target.value);
+	}
+	this.changeWidth = function(evnet) {
+		this.outerSelector.width(event.target.value);
+		this.outerSelector.find("ul").width(event.target.value);
+	}
 }

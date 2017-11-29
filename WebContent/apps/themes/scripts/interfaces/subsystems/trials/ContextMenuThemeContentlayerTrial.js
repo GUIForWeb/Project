@@ -14,6 +14,8 @@ apps.themes.interfaces.subsystems.trials.ContextMenuThemeContentlayerTrial = fun
 				lis.css("border-radius",iVal.cmenuOBorderRadius+"px");
 			}
 		);
+		lis.height(iVal.cmenuLHeight);
+		lis.css("line-height",iVal.cmenuLHeight+"px");
 	}
 	this.changeColor = function(event) {
 		this.changeLis();
@@ -25,6 +27,9 @@ apps.themes.interfaces.subsystems.trials.ContextMenuThemeContentlayerTrial = fun
 		this.changeLis();
 	}
 	this.changeBorderRadiusHover = function(event) {
+		this.changeLis();
+	}
+	this.changeHeight = function(event) {
 		this.changeLis();
 	}
 }

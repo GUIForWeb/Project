@@ -7,7 +7,7 @@ apps.themes.interfaces.controllers.mouses.InterfaceThemeMousedown = function() {
 				gui.bgContextMenu.view.zIndex = gui.nodeArray["winAndBar"].winCount;
 				gui.bgContextMenu.appear(10,10);
 				this.cTrial.outerSelector = gui.bgContextMenu.selector;
-				this.cTrial.contentSelector = this.cTrial.outerSelector.find(".contextMenuContentLayer");
+				this.cTrial.contentSelector = this.cTrial.outerSelector.find(".contextMenuLayer");
 			}
 		}else {
 			if (taskArray["contextMenu"].isOnTheScreen) {
