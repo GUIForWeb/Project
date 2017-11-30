@@ -1,7 +1,7 @@
 system.views.IconContextMenuView = function(iconContextMenuModel) {
 	this.__proto__ = iconContextMenuModel;
 	this.outerLayerTagClass = "contextMenuOuterLayer";
-	this.menuLayerTagClass = "contextMenuLayer";
+	this.menuLayerTagClass = "contextMenuListLayer";
 	this.contentPath = "";
 	this.contextMenuLayer = function() {
 		this.outerSelector.append(this.menuSelector);
