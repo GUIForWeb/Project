@@ -11,6 +11,7 @@ system.elements.taskbars.subsystems.TaskbarManager = function() {
 		this.view = taskbar.view;
 		this.menu = new Taskmenu();
 		this.menu.setTaskbarSelector(taskbar.selector);
+		this.menu.setDefaultValueArray(taskmenuValueArray);
 		this.menu.init();
 		this.dPad = new DirectionalPad();
 		this.dPad.subjectName = "bar";

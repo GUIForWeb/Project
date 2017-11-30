@@ -64,9 +64,10 @@ public class GUISetting{
 		this.iconHeight *= 2;
 		this.iconBorderWidth *= 2;
 		this.iconBorderHeight *= 2;
-		this.iconTableTop *= 2;
 		this.iconTableLeft *= 2;
-		this.winBBorderWidth *= 2;
+		this.iconTableTop *= 2;
+		this.winMinWidth *= 2;
+		this.winMinHeight *= 2;
 		this.winODefaultLeft *= 2;
 		this.winODefaultTop *= 2;
 		this.winODefaultWidth *= 2;
@@ -76,19 +77,21 @@ public class GUISetting{
 		this.winBWidth *= 2;
 		this.winBHeight *= 2;
 		this.winBTop *= 2;
-		this.winMinWidth *= 2;
-		this.winMinHeight *= 2;
+		this.winBBorderWidth *= 2;
 		this.barOWidth *= 2;
 		this.barOHeight *= 2;
 		this.barOBorderWidth *= 2;
-		this.tbarOOpacity *= 2;
 		this.tbarOBorderWidth *= 2;
-		this.cmenuOBorderRadius *= 2;
-		this.cmenuLBorderRadiusHover *= 2;
+		this.tbarOOpacity *= 2;
 		this.cmenuOWidth *= 2;
 		this.cmenuOHeight *= 2;
-		this.cmenuLHeight *= 2;
 		this.cmenuOFontSize *= 2;
+		this.cmenuOBorderRadius *= 2;
+		this.cmenuLHeight *= 2;
+		this.cmenuLBorderRadiusHover *= 2;
+		this.tmenuOWidth *= 2;
+		this.tmenuOFontSize *= 2;
+		this.tmenuLHeight *= 2;
 		this.tmenuLBorderRadiusHover *= 2;
 	}
 	public int getId() {

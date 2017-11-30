@@ -1,6 +1,6 @@
 system.views.TaskmenuView = function(taskmenuModel) {
 	this.__proto__ = taskmenuModel;
-	this.liHeight = 30;
+	this.lHeight = 30;
 	this.fontSize = "100%";
 	this.outerLayerTagClass = "taskmenuOuterLayer";
 	this.menuLayerTagClass = "taskmenuListLayer";
@@ -11,8 +11,6 @@ system.views.TaskmenuView = function(taskmenuModel) {
 		this.outerSelector.css("zIndex",zIndex);
 	}
 	this.outerLayer = function() {
-		if(gui.isMobile)
-			this.liHeight *= 3;
 		var outerTag = $("<div></div>");
 		var menuTag = $("<div></div>");
 		var ulTag = $("<ul></ul>");
@@ -24,7 +22,7 @@ system.views.TaskmenuView = function(taskmenuModel) {
 		ulTag.append(this.logoutTag);
 		menuTag.append(ulTag)
 		outerTag.append(menuTag);
-		outerTag.height(this.liHeight * outerTag.find("li").length);
+		outerTag.height(this.lHeight * outerTag.find("li").length);
 		outerTag.offset({
 			left : 0,
 			top : -outerTag.height()

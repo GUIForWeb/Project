@@ -13,6 +13,7 @@ gui.setIconJSONArray(iconJSONArray);
 gui.setDataIconJSONArray(dataIconJSONArray);
 gui.setIPAddress(ipAddress);
 gui.setFileSeparator(fileSeparator);
+gui.setTaskmenuValueArray(taskmenuValueArray);
 gui.winDefaultValueArray = winDefaultValueArray;
 gui.setMobileMode(isMobile);
 gui.init();

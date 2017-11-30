@@ -22,6 +22,9 @@ function GUI(guiVariableName) {
 	this.dynamicMode = false;
 	this.init = function() {
 	}
+	this.setTaskmenuValueArray = function(taskmenuValueArray) {
+		this.taskmenuValueArray = taskmenuValueArray;
+	}
 	this.setMobileMode = function(isMobile) {
 		this.isMobile = isMobile;
 	}

@@ -128,7 +128,6 @@ body *{
 	font-family: #{guiSetting.tmenuOFontFamily};
 	cursor:default;
 	width:#{guiSetting.tmenuOWidth}px; 
-	font-size: #{guiSetting.tmenuOFontSize}%;
 }
 .taskmenuListLayer>ul{
 	list-style-type: none;
@@ -142,6 +141,7 @@ body *{
     text-decoration: none;
     padding-left:10px;
    	line-height: #{guiSetting.tmenuLHeight}px;
+   	font-size: #{guiSetting.tmenuOFontSize}%;
 }
 .taskmenuListLayer>ul li:hover {
 	background-color: #{guiSetting.tmenuLBgColorHover}; /*theme*/
@@ -159,7 +159,7 @@ body *{
 }
 
 .contextMenuOuterLayer{
-	font-size: #{guiSetting.cmenuOFontSize};
+	font-size: #{guiSetting.cmenuOFontSize}%;
 	font-family: #{guiSetting.cmenuOFontFamily};
 	background-color:#{guiSetting.cmenuOBgColor};
 	width:#{guiSetting.cmenuOWidth}px;
