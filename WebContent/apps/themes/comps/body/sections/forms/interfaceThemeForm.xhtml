@@ -65,14 +65,14 @@
 		<h:inputText value="#{interfaceTheme.guiSetting.cmenuOFontFamily}" title="cmenuOFontFamily"/><br/>
 		<h:outputLabel class="interfaceTheme" value="Context Menu Outlayer Border Radius" />
 		<h:inputText value="#{interfaceTheme.guiSetting.cmenuOBorderRadius}" title="cmenuOBorderRadius"/><br/>
-		<h:outputLabel class="interfaceTheme" value="Context Menu Contentlayer Color" />
-		<h:inputText value="#{interfaceTheme.guiSetting.cmenuCColor}" title="cmenuCColor"/><br/>
-		<h:outputLabel class="interfaceTheme" value="Context Menu Contentlayer Color Hover" />
-		<h:inputText value="#{interfaceTheme.guiSetting.cmenuCColorHover}" title="cmenuCColorHover"/><br/>
-		<h:outputLabel class="interfaceTheme" value="Context Menu Contentlayer Background Color Hover" />
-		<h:inputText value="#{interfaceTheme.guiSetting.cmenuCBgColorHover}" title="cmenuCBgColorHover"/><br/>
-		<h:outputLabel class="interfaceTheme" value="Context Menu Contentlayer Border Radius Hover" />
-		<h:inputText value="#{interfaceTheme.guiSetting.cmenuCBorderRadiusHover}" title="cmenuCBorderRadiusHover"/><br/>
+		<h:outputLabel class="interfaceTheme" value="Context Menu Line Color" />
+		<h:inputText value="#{interfaceTheme.guiSetting.cmenuLColor}" title="cmenuCColor"/><br/>
+		<h:outputLabel class="interfaceTheme" value="Context Menu Line Color Hover" />
+		<h:inputText value="#{interfaceTheme.guiSetting.cmenuLColorHover}" title="cmenuCColorHover"/><br/>
+		<h:outputLabel class="interfaceTheme" value="Context Menu Line Background Color Hover" />
+		<h:inputText value="#{interfaceTheme.guiSetting.cmenuLBgColorHover}" title="cmenuCBgColorHover"/><br/>
+		<h:outputLabel class="interfaceTheme" value="Context Menu Line Border Radius Hover" />
+		<h:inputText value="#{interfaceTheme.guiSetting.cmenuLBorderRadiusHover}" title="cmenuCBorderRadiusHover"/><br/>
 		<h:outputLabel class="interfaceTheme" value="Context Menu Outerlayer Width" />
 		<h:inputText value="#{interfaceTheme.guiSetting.cmenuOWidth}" title="cmenuOWidth"/><br/>
 		<h:outputLabel class="interfaceTheme" value="Context Menu Outerlayer Height" />
@@ -89,8 +89,18 @@
 		<h:inputText value="#{interfaceTheme.guiSetting.tmenuLHeight}" title="tmenuLHeight"/><br/>
 		<h:outputLabel class="interfaceTheme" value="Taskbar Menu Font Size" />
 		<h:inputText value="#{interfaceTheme.guiSetting.tmenuOFontSize}" title="tmenuOFontSize"/>%<br/>
+		<h:outputLabel class="interfaceTheme" value="Taskbar Menu Line Color" />
+		<h:inputText value="#{interfaceTheme.guiSetting.tmenuLColor}" title="tmenuLColor"/><br/>
+		<h:outputLabel class="interfaceTheme" value="Taskbar Menu Font Family" />
+		<h:inputText value="#{interfaceTheme.guiSetting.tmenuOFontFamily}" title="tmenuOFontFamily"/><br/>
 		<h:outputLabel class="interfaceTheme" value="Taskbar Menu Outerlayer Background Color" />
 		<h:inputText value="#{interfaceTheme.guiSetting.tmenuOBgColor}" title="tmenuOBgColor"/><br/>
+		<h:outputLabel class="interfaceTheme" value="Taskbar Menu Line Background Color Hover" />
+		<h:inputText value="#{interfaceTheme.guiSetting.tmenuLBgColorHover}" title="tmenuLBgColorHover"/><br/>
+		<h:outputLabel class="interfaceTheme" value="Taskbar Menu Line Color Hover" />
+		<h:inputText value="#{interfaceTheme.guiSetting.tmenuLColorHover}" title="tmenuLColorHover"/><br/>
+		<h:outputLabel class="interfaceTheme" value="Taskbar Menu Line Border Radius Hover" />
+		<h:inputText value="#{interfaceTheme.guiSetting.tmenuLBorderRadiusHover}" title="tmenuLBorderRadiusHover"/><br/>
 		<br/>
 		<h:commandButton action="#{interfaceTheme.submit()}" value="Submit">
 			<f:ajax execute="interfaceThemeForm" onevent="taskArray.interfaceTheme.click.submit()"/>

@@ -1,10 +1,9 @@
 apps.themes.interfaces.subsystems.ContextMenuThemeTrial = function(){
-	this.outlayer = new ContextMenuThemeOutlayerTrial();
-	this.outlayer.__proto__ = this;
-	this.contextlayer = new ContextMenuThemeContentlayerTrial();
-	this.contextlayer.__proto__ = this;
+	this.outerLayer = new ContextMenuThemeOuterLayerTrial();
+	this.outerLayer.__proto__ = this;
+	this.listLayer = new ContextMenuThemeListLayerTrial();
+	this.listLayer.__proto__ = this;
 	this.switch = function(event) {
-		console.log(this);
 		var title = event.target.title;
 		var val = event.target.value;
 		var flag = false;
@@ -17,34 +16,37 @@ apps.themes.interfaces.subsystems.ContextMenuThemeTrial = function(){
 		if(flag) {
 			switch(title){
 				case "cmenuOBgColor":
-					this.outlayer.changeBgColor(event);
+					this.outerLayer.changeBgColor(event);
 					break;
 				case "cmenuOFontFamily":
-					this.outlayer.changeFontFamily(event);
+					this.outerLayer.changeFontFamily(event);
 					break;
+				case "cmenuOFontSize":
+					this.outerLayer.changeFontSize(event);
+					break;	
 				case "cmenuOBorderRadius":
-					this.outlayer.changeBorderRadius(event);
+					this.outerLayer.changeBorderRadius(event);
 					break;
 				case "cmenuOHeight":
-					this.outlayer.changeHeight(event);
+					this.outerLayer.changeHeight(event);
 					break;
 				case "cmenuOWidth":
-					this.outlayer.changeWidth(event);
+					this.outerLayer.changeWidth(event);
 					break;
-				case "cmenuCColor":
-					this.contextlayer.changeColor(event);
+				case "cmenuLColor":
+					this.listLayer.changeColor(event);
 					break;
-				case "cmenuCColorHover":
-					this.contextlayer.changeColorHover(event);
+				case "cmenuLColorHover":
+					this.listLayer.changeColorHover(event);
 					break;
-				case "cmenuCBgColorHover":
-					this.contextlayer.changeBgColorHover(event);
+				case "cmenuLBgColorHover":
+					this.listLayer.changeBgColorHover(event);
 					break;
-				case "cmenuCBorderRadiusHover":
-					this.contextlayer.changeBorderRadiusHover(event);
+				case "cmenuLBorderRadiusHover":
+					this.listLayer.changeBorderRadiusHover(event);
 					break;
 				case "cmenuLHeight":
-					this.contextlayer.changeHeight(event);
+					this.listLayer.changeHeight(event);
 					break;	
 			}
 		}

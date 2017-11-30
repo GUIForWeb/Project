@@ -1,4 +1,4 @@
-apps.themes.interfaces.subsystems.trials.ContextMenuThemeContentlayerTrial = function(){
+apps.themes.interfaces.subsystems.trials.ContextMenuThemeListLayerTrial = function(){
 	this.changeLis = function() {
 		var lis = this.contentSelector.find("li");
 		var iVal = this.va.iVal;

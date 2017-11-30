@@ -1,12 +1,12 @@
 apps.themes.interfaces.subsystems.WindowThemeTrial = function(){
 	this.button = new WindowThemeButtonTrial();
 	this.button.__proto__ = this;
-	this.outlayer = new WindowThemeOutlayerTrial();
-	this.outlayer.__proto__ = this;
-	this.headlayer = new WindowThemeHeadlayerTrial();
-	this.headlayer.__proto__ = this;
-	this.contentlayer = new WindowThemeContentlayerTrial();
-	this.contentlayer.__proto__ = this;
+	this.outerLayer = new WindowThemeOuterLayerTrial();
+	this.outerLayer.__proto__ = this;
+	this.headLayer = new WindowThemeHeadLayerTrial();
+	this.headLayer.__proto__ = this;
+	this.contentLayer = new WindowThemeContentLayerTrial();
+	this.contentLayer.__proto__ = this;
 	this.switch = function(event) {
 		var title = event.target.title;
 		var val = event.target.value;
@@ -47,16 +47,16 @@ apps.themes.interfaces.subsystems.WindowThemeTrial = function(){
 					this.button.changeTop(event);
 					break;
 				case "winOBorderWidth":
-					this.outlayer.changeBorderWidth(event);
+					this.outerLayer.changeBorderWidth(event);
 					break;
 				case "winOBgColor":
-					this.outlayer.changeBgColor(event);
+					this.outerLayer.changeBgColor(event);
 					break;
 				case "winHBgColor":
-					this.headlayer.changeBgColor(event);
+					this.headLayer.changeBgColor(event);
 					break;	
 				case "winHHeight":
-					this.headlayer.changeHeight(event);
+					this.headLayer.changeHeight(event);
 					break;
 				case "winMinWidth":
 					this.outlayer.changeMinWidth(event);
@@ -65,10 +65,10 @@ apps.themes.interfaces.subsystems.WindowThemeTrial = function(){
 					this.outlayer.changeMinHeight(event);
 					break;
 				case "winCBgColor":
-					this.contentlayer.changeBgColor(event);
+					this.contentLayer.changeBgColor(event);
 					break;
 				case "winHFontFamily":
-					this.headlayer.changeFontFamily(event);
+					this.headLayer.changeFontFamily(event);
 					break;	
 			}
 		}

@@ -1,4 +1,4 @@
-apps.themes.interfaces.subsystems.trials.WindowThemeHeadlayerTrial = function(){
+apps.themes.interfaces.subsystems.trials.WindowThemeHeadLayerTrial = function(){
 	this.changeBgColor = function(event) {
 		this.headSelector.css("background-color",this.va.iVal.winHBgColor);
 	}

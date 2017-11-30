@@ -18,7 +18,7 @@ system.elements.taskbars.controllers.TaskbarClick = function() {
 		);
 	}
 	this.menuBt = function(event) {
-		if(!this.manager.menu.isDisplayed)
+		if(!this.manager.menu.isOnTheScreen)
 			this.manager.menu.appear();
 		else
 			this.manager.menu.disappear();

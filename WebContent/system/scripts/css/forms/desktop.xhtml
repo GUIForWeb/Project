@@ -130,12 +130,12 @@ body *{
 	width:#{guiSetting.tmenuOWidth}px; 
 	font-size: #{guiSetting.tmenuOFontSize}%;
 }
-.taskmenuLayer>ul{
+.taskmenuListLayer>ul{
 	list-style-type: none;
     margin: 0;
     padding: 0;
 }
-.taskmenuLayer>ul li{
+.taskmenuListLayer>ul li{
     display: block;
     color: #{guiSetting.tmenuLColor};
     background-color:#{guiSetting.tmenuOBgColor};
@@ -143,17 +143,17 @@ body *{
     padding-left:10px;
    	line-height: #{guiSetting.tmenuLHeight}px;
 }
-.taskmenuLayer>ul li:hover {
+.taskmenuListLayer>ul li:hover {
 	background-color: #{guiSetting.tmenuLBgColorHover}; /*theme*/
     color: #{guiSetting.tmenuLColorHover}; /*theme*/
     border-radius: #{guiSetting.tmenuLBorderRadiusHover}px; /*theme*/
 }
-.taskmenuLayer>ul>li>ul{
+.taskmenuListLayer>ul>li>ul{
 	margin:0;
 	padding:0;
 	list-style-type: none;
 }
-.taskmenuLayer>ul>li>ul>li{
+.taskmenuListLayer>ul>li>ul>li{
 	background-color:#{guiSetting.tmenuOBgColor};
     visibility: hidden;
 }
@@ -166,13 +166,13 @@ body *{
 	height:#{guiSetting.cmenuOHeight}px;
 	cursor:default;
 }
-.contextMenuLayer>ul{
+.contextMenuListLayer>ul{
 	list-style-type: none;
     margin: 0;
     padding: 0;
     width: #{guiSetting.cmenuOWidth}px;
 }
-.contextMenuLayer>ul li{
+.contextMenuListLayer>ul li{
     display: block;
     color: #{guiSetting.cmenuLColor};
     background-color:#{guiSetting.cmenuOBgColor};
@@ -181,23 +181,23 @@ body *{
     height:#{guiSetting.cmenuLHeight}px;
     line-height: #{guiSetting.cmenuLHeight}px;
 }
-.contextMenuLayer>ul li:hover {
+.contextMenuListLayer>ul li:hover {
 	background-color: #{guiSetting.cmenuLBgColorHover};
     color: #{guiSetting.cmenuLColorHover};
     border-radius: #{guiSetting.cmenuLBorderRadiusHover}px;
 }
-.contextMenuLayer>ul>li>ul{
+.contextMenuListLayer>ul>li>ul{
 	margin:0;
 	padding:0;
 	width: #{guiSetting.cmenuOWidth}px;
 	list-style-type: none;
 }
-.contextMenuLayer>ul>li>ul>li{
+.contextMenuListLayer>ul>li>ul>li{
 	background-color:#{guiSetting.cmenuOBgColor};
     visibility: hidden;
 }
 
-.logoutBtOuterLayer {
+.hideBtOuterLayer {
 	position: absolute;
 	background-color: darkgray;
 	text-align: center;

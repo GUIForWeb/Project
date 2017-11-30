@@ -27,11 +27,6 @@ system.elements.winAndBars.subsystems.managers.WindowManager = function() {
 		this.winArray[zIndex] = tmpNode;
 		tmpNode.win = new Window();
 		tmpNode.win.name = iconObj.name;
-		if(!gui.isMobile && !iconObj.winInfo.isResizable) {
-			tmpNode.win.view.isResizable = iconObj.isResizable;
-			this.winDefaultValueArray.oDefaultWidth = iconObj.winInfo.oWidth;
-			this.winDefaultValueArray.oDefaultHeight = iconObj.winInfo.oHeight;
-		}
 		if(Object.keys(iconObj.options).length) {
 			tmpNode.win.options = {};
 			var keys = Object.keys(iconObj.options);
@@ -41,10 +36,14 @@ system.elements.winAndBars.subsystems.managers.WindowManager = function() {
 		}
 		tmpNode.win.windowZoneSelector = this.windowZoneSelector;
 		tmpNode.win.view.setDefaultValues(this.winDefaultValueArray);
-		tmpNode.win.view.zIndex = zIndex;
-		if(!gui.isMobile) {
-			tmpNode.win.view.isFirst = true;
+		if(!gui.isMobile && !iconObj.winInfo.isResizable) {
+			tmpNode.win.view.isResizable = iconObj.isResizable;
+			tmpNode.win.view.oWidth = iconObj.winInfo.oWidth;
+			tmpNode.win.view.oHeight = iconObj.winInfo.oHeight;
 		}
+		tmpNode.win.view.zIndex = zIndex;
+		if(!gui.isMobile) 
+			tmpNode.win.view.isFirst = true;
 		else {
 			this.wse.fullScreenBeforAppearing(tmpNode);
 			tmpNode.win.view.isFirst = false;

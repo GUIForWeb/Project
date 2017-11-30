@@ -1,8 +1,8 @@
 apps.themes.interfaces.subsystems.BarThemeTrial = function(){
-	this.outlayer = new BarThemeOutlayerTrial();
-	this.outlayer.__proto__ = this;
-	this.namelayer = new BarThemeNamelayerTrial();
-	this.namelayer.__proto__ = this;
+	this.outerLayer = new BarThemeOuterLayerTrial();
+	this.outerLayer.__proto__ = this;
+	this.nameLayer = new BarThemeNameLayerTrial();
+	this.nameLayer.__proto__ = this;
 	this.switch = function(event) {
 		var title = event.target.title;
 		var val = event.target.value;
@@ -19,19 +19,19 @@ apps.themes.interfaces.subsystems.BarThemeTrial = function(){
 		if(flag) {
 			switch(title){
 				case "barOBgColor":
-					this.outlayer.changeBgColor(event);
+					this.outerLayer.changeBgColor(event);
 					break;
 				case "barOBorderWidth":
-					this.outlayer.changeBorderWidth(event);
+					this.outerLayer.changeBorderWidth(event);
 					break;
 				case "barOWidth":
-					this.outlayer.changeWidth(event);
+					this.outerLayer.changeWidth(event);
 					break;
 				case "barOHeight":
-					this.outlayer.changeHeight(event);
+					this.outerLayer.changeHeight(event);
 					break;
 				case "barNBgColor":
-					this.namelayer.changeBgColor(event);
+					this.nameLayer.changeBgColor(event);
 					break;
 			}
 		}

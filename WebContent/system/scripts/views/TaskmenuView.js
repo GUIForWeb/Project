@@ -3,7 +3,7 @@ system.views.TaskmenuView = function(taskmenuModel) {
 	this.liHeight = 30;
 	this.fontSize = "100%";
 	this.outerLayerTagClass = "taskmenuOuterLayer";
-	this.menuLayerTagClass = "taskmenuLayer";
+	this.menuLayerTagClass = "taskmenuListLayer";
 	this.taskmenuLayer = function() {
 		this.taskmenuSelector = this.outerSelector;
 	}
@@ -29,7 +29,6 @@ system.views.TaskmenuView = function(taskmenuModel) {
 			left : 0,
 			top : -outerTag.height()
 		});
-		
 		this.outerSelector = outerTag;
 	}
 	this.initEvent = function() {

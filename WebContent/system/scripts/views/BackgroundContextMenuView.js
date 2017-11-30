@@ -1,7 +1,7 @@
 system.views.BackgroundContextMenuView = function(backgroundContextMenuView) {
 	this.__proto__ = backgroundContextMenuView;
 	this.outerLayerTagClass = "contextMenuOuterLayer";
-	this.menuLayerTagClass = "contextMenuLayer";
+	this.menuLayerTagClass = "contextMenuListLayer";
 	this.contextMenuLayer = function() {
 		this.outerSelector.append(this.contentSelector);
 	}

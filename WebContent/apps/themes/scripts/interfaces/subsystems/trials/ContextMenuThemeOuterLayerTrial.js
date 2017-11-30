@@ -1,9 +1,12 @@
-apps.themes.interfaces.subsystems.ContextMenuThemeOutlayerTrial = function(){
+apps.themes.interfaces.subsystems.ContextMenuThemeOuterLayerTrial = function(){
 	this.changeBgColor = function(event) {
 		this.outerSelector.css("background-color",event.target.value);
 	}
 	this.changeFontFamily = function(event) {
 		this.outerSelector.css("font-family",event.target.value);
+	}
+	this.changeFontSize= function(event) {
+		this.outerSelector.css("font-size",event.target.value+"%");
 	}
 	this.changeBorderRadius = function(event) {
 		this.outerSelector.css("border-radius",event.target.value+"px");

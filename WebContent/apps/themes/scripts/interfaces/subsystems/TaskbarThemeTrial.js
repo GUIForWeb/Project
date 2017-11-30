@@ -1,12 +1,12 @@
 apps.themes.interfaces.subsystems.TaskbarThemeTrial = function(){
-	this.outlayer = new TaskbarThemeOutlayerTrial();
-	this.outlayer.__proto__ = this;
+	this.outerLayer = new TaskbarThemeOuterLayerTrial();
+	this.outerLayer.__proto__ = this;
 	this.switch = function(event) {
 		var title = event.target.title;
 		var val = event.target.value;
 		var flag = false;
-		this.taskbarSelector = gui.taskbarSelector;
-		this.lOuterSelector = this.taskbarSelector.find(".logoutOuterLayer");
+		this.taskbarSelector = gui.taskbar.manager.selector;
+		this.hOuterSelector = this.taskbarSelector.find(".hideBtOuterLayer");
 		if(this.va.iVal[title] != val) {
 			flag = true;
 			if(!isNaN(val))
@@ -16,13 +16,13 @@ apps.themes.interfaces.subsystems.TaskbarThemeTrial = function(){
 		if(flag) {
 			switch(title){
 				case "tbarOBgColor":
-					this.outlayer.changeBgColor(event);
+					this.outerLayer.changeBgColor(event);
 					break;
 				case "tbarOOpacity":
-					this.outlayer.changeOpacity(event);
+					this.outerLayer.changeOpacity(event);
 					break;
 				case "tbarOBorderWidth":
-					this.outlayer.changeBorderWidth(event);
+					this.outerLayer.changeBorderWidth(event);
 					break;
 			}
 		}

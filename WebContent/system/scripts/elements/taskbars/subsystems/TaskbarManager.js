@@ -7,6 +7,7 @@ system.elements.taskbars.subsystems.TaskbarManager = function() {
 		taskbar.sectionSelector = this.sectionSelector;
 		taskbar.view.setTaskbarValues(this.taskbarValueArray);
 		taskbar.appear();
+		this.selector = taskbar.selector;
 		this.view = taskbar.view;
 		this.menu = new Taskmenu();
 		this.menu.setTaskbarSelector(taskbar.selector);

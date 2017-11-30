@@ -1,20 +1,23 @@
 apps.themes.interfaces.controllers.focuses.InterfaceThemeFocusout = function() {
 	this.input = function(event) {
 		var title = event.target.title
-		title = title.substring(0,1);
+		title = title.substring(0,2);
 		sessionStorage.iThemeScrollTop = this.contentSelector.scrollTop();
 		switch(title){
-			case "w":
+			case "wi":
 				taskArray.interfaceTheme.wTrial.switch(event);
 				break;
-			case "b":
+			case "ba":
 				taskArray.interfaceTheme.bTrial.switch(event);
 				break;
-			case "t":
+			case "tb":
 				taskArray.interfaceTheme.tTrial.switch(event);
 				break;
-			case "c":
-				taskArray.interfaceTheme.cTrial.switch(event);
+			case "cm":
+				taskArray.interfaceTheme.cmTrial.switch(event);
+				break;
+			case "tm":
+				taskArray.interfaceTheme.tmTrial.switch(event);
 				break;
 		}
 		this.contentSelector.scrollTop(sessionStorage.iThemeScrollTop);

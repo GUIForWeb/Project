@@ -3,7 +3,7 @@ system.views.TaskbarView = function(BarModel) {
 	this.outerLayerTagClass = "taskbarOuterLayer";
 	this.barZoneOuterTagClass = "barZoneOuterLayer";
 	this.menuBtOuterTagClass = "menuBtOuterLayer";
-	this.logoutBtOuterTagClass = "logoutBtOuterLayer";
+	this.logoutBtOuterTagClass = "hideBtOuterLayer";
 	this.oBorderWidth = 5;
 	this.taskbarLayer = function() {
 		this.menuBtOuterSelector.append(this.menuBtSelector);

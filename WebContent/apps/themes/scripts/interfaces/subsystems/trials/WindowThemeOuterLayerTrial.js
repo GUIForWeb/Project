@@ -1,8 +1,4 @@
-apps.themes.interfaces.subsystems.trials.BarThemeNamelayerTrial = function(){
-	this.changeBgColor = function(event) {
-		this.nameSelector.css("background-color",event.target.value);
-	}
-	/*
+apps.themes.interfaces.subsystems.trials.WindowThemeOuterLayerTrial = function(){
 	this.changeBorderWidth = function(event){
 		this.node.win.disappear();
 		this.node.win.view.oBorderWidth = this.va.iVal.winOBorderWidth;
@@ -19,5 +15,4 @@ apps.themes.interfaces.subsystems.trials.BarThemeNamelayerTrial = function(){
 	this.changeMinHeight = function(event) {
 		this.node.win.view.minHeight = this.va.iVal.winMinHeight;
 	}
-	*/
 }
